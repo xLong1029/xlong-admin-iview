@@ -3,6 +3,7 @@ import 'babel-polyfill'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 import iView from 'iview'
 // 定制iView主题样式
 // 这里有个坑，会出现各种css-loader,style-loader和less-loader的报错
