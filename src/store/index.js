@@ -16,8 +16,8 @@ Vue.use(Vuex);
 
 // 状态存储仓库
 const store = new Vuex.Store({
+	// state分模块
 	modules: {
-		// state分模块
 		user,
 		common,
 	},
