@@ -13,7 +13,7 @@
                 <span v-show="sidebarSpan === 3" class="sidebar-title-text">XLONG家里蹲管理系统</span>
             </router-link>
         </Menu-item>
-        <Submenu v-for="(submenu, index) in Submenu" :key="index" :name="submenu.name">
+        <Submenu v-for="(submenu, index) in Submenu" :key="index" :name="submenu.name" class="submenu-item">
             <template slot="title">
                 <Icon :type="submenu.icon" :size="iconSize"></Icon>                
                 <span class="sidebar-text">{{ submenu.text }}</span>
@@ -139,8 +139,10 @@
                 padding: 14px 0 14px 45px;
             }
         }
-        .ivu-menu-submenu-title{
-            padding: 14px 24px;
+        .submenu-item{
+            .ivu-menu-submenu-title{
+                padding: 14px 24px;
+            }
         }
     }
 
@@ -151,8 +153,10 @@
                 font-size: 12px;
             }
         }
-        .ivu-menu-submenu-title{
-            padding: 14px 24px 30px 24px;
+        .submenu-item{
+            .ivu-menu-submenu-title{
+                padding: 14px 24px 30px 24px;
+            }
         }
     }
 </style>
