@@ -3,7 +3,7 @@
         <!-- 可输入下拉框组件 -->
         <h2 class="m-title">可输入下拉框</h2>
         <div class="m-content">
-            <InputAndSelect direction="top"></InputAndSelect>
+            <InputAndSelect direction="down"></InputAndSelect>
             <div class="m-desc">
                 <p>组件包含属性：direction</p>
                 <p>可选值为 "top" 表示向上显示列表，"down" 表示向下显示列表</p>
