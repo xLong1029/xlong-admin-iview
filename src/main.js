@@ -10,16 +10,19 @@ import iView from 'iview'
 // 这里有个坑，会出现各种css-loader,style-loader和less-loader的报错
 // 解决方法是安装最新的vue-cli和loader以来，webpack就不需要配置了，因为vue-cli会帮你配置安装的loader
 import './theme/index.less'
-// Bmob后端云
-import Bmob from './common/common.js'
 // 通用JS方法
 import Common from './common/common.js'
+// Bmob初始化方法
+// import { BmobInit } from './bmob/init.js'
 
 Vue.use(iView)
 Vue.config.productionTip = false
 
+// 初始化BmobSDK
+// BmobInit()
+
 // 不重定向白名单
-const whiteList = [ '404', 'Login'];
+const whiteList = [ '404', 'Login']
 
 router.beforeEach((to, from, next) => {
 	// 获取存储token
@@ -40,7 +43,7 @@ router.beforeEach((to, from, next) => {
 		if(whiteList.indexOf(to.name) !== -1) next();
 		else next({ name : 'Login'});
 	}
-});
+})
 
 new Vue({
 	el: '#app',

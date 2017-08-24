@@ -1261,7 +1261,7 @@
     try{
         Bmob.localStorage = require('localStorage');
 	}catch(error){
-		Bmob.localStorage = require('./localStorage.js').localStorage;
+		 Bmob.localStorage = require('./localStorage.js').localStorage;
 	}
     Bmob.XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
     exports.Bmob = Bmob;

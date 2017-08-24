@@ -35,7 +35,7 @@ module.exports = {
       'common': resolve('src/common'),
       'components': resolve('src/components'),
       'views': resolve('src/views'),
-      'jquery': 'jquery'
+      'jquery': 'jquery',
     }
   },
   plugins: [
@@ -44,7 +44,7 @@ module.exports = {
         $: "jquery",
         jQuery: "jquery",
         jquery: "jquery",
-        "window.jQuery": "jquery"
+        "window.jQuery": "jquery",
     })
   ],
   module: {

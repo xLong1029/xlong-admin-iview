@@ -99,8 +99,11 @@
     import Common from 'common/common.js'
     // Json数据
 	import JsonData from 'mock/data.json'
+	// 页码设置
+    import Page from 'mixins/page.js'
 
 	export default {
+		mixins: [ Page ],
 		data() {
 			return {
 				// 加载页面
@@ -115,21 +118,6 @@
 					userId: '',
 					// 用户名
 					userName: '',
-				},
-				// 分页设置
-				page: {
-					// 总记录数
-					dataCount: 100,
-					// 是否有下一页
-					hasNextPage: false,
-					// 是否有上一页
-					hasPreviousPage: false,
-					// 总页数
-					pageCount: 0,
-					// 当前页码
-					pageNo: 1,
-					// 每页显示记录数
-					pageSize: 20,
 				},
 				// 消息内容
 				msgContent: '',
@@ -188,8 +176,6 @@
 			this.consultList = JsonData.consultList;
 		},
 		methods: {
-			// 改变页码
-			changePage() {},
 			// 显示详情
 			showModal(index) {
 				// 更改为聊天状态
