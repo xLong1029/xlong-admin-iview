@@ -76,6 +76,10 @@
                                 name: 'AccountList',
                                 text: '账户列表'
                             },
+                            {
+                                name: 'MessageList',
+                                text: '消息列表'
+                            },
                         ]
                     },
                 ],
@@ -140,6 +144,7 @@
             }
         }
         .submenu-item{
+            // border-bottom: 1px solid #3a3d44;
             .ivu-menu-submenu-title{
                 padding: 14px 24px;
             }

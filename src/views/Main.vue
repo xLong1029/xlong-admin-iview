@@ -94,4 +94,9 @@
     .m-content{
         margin-top: 30px;
     }
+
+    .m-page {
+		float: right;
+		margin-top: 30px;
+	}
 </style>

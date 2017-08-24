@@ -10,7 +10,7 @@
             <Submenu name="1" style="z-index:10">
                 <template slot="title">
                     <img class="account-face" src="" @error="notFoundPic"/>
-                    <strong> 小朋友 </strong>
+                    <strong> xLong </strong>
                 </template>
                 <!-- <Menu-item name="personalProfile" class="dropdown-item"><router-link :to="{ name: 'PersonalProfile'}">个人资料</router-link></Menu-item>
                 <Menu-item name="changePassword" class="dropdown-item"><router-link :to="{ name: 'ChangePassword'}">修改密码</router-link></Menu-item> -->

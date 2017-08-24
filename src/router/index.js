@@ -16,6 +16,7 @@ import Input from '@/views/Components/Input'
 
 // 示例相关页面
 import AccountList from '@/views/Examples/AccountList'
+import MessageList from '@/views/Examples/MessageList'
 
 // 错误页面
 import Err404 from '@/views/Error/Err404'
@@ -33,12 +34,14 @@ const RouterMap = [
       children: [
             // 后台首页
             { path: '/Home', name: 'Home', component: Home },
-            // 后台首页
+            // 图片上传页面
             { path: '/Components/UploadImage', name: 'UploadImage', component: UploadImage },
-            // 后台首页
+            // Input输入框页面
             { path: '/Components/Input', name: 'Input', component: Input },
-            // 后台首页
+            // 账户列表页面
             { path: '/Examples/AccountList', name: 'AccountList', component: AccountList },
+            // 消息列表页面
+            { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },
             // 404
             { path: '/404', name: '404', component: Err404 },
         ]
