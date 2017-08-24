@@ -23,8 +23,8 @@
 
 <script>
     // 组件
-	import SingleImage from '@/components/UploadImage/SingleImage'
-  	import MultipleImage from '@/components/UploadImage/MultipleImage'
+	import SingleImage from 'components/UploadImage/SingleImage'
+  	import MultipleImage from 'components/UploadImage/MultipleImage'
 
     export default {
         components:{ SingleImage, MultipleImage },

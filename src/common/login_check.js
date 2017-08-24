@@ -1,6 +1,8 @@
 /*
     登录和TOken验证设置账户信息
 */
+import Common from '@/common/common.js'
+
 export default {
 	// 设置账户信息
 	setAccount: (_commit, info) => {
@@ -10,15 +12,11 @@ export default {
 		_commit('SET_USER_NICKNAME', info.nickname);
 		_commit('SET_USER_ID', info.userId);
 		_commit('SET_USER_TYPE', info.userType);
-		// 本地存储token值
-		localStorage.userType = info.userType;
 	},
 	// 清空账户信息
-	claerAccount: (_commit) => {
+	clearAccount: (_commit) => {
 		// 清除token
-		localStorage.removeItem('token');
-		// 清除userType
-		localStorage.removeItem('userType');
+		Common.DelCookie('token');
 		_commit('SET_USER_TOKEN', '');
 		_commit('SET_USER_ACCOUNT', '');
 		_commit('SET_USER_FACE', '');

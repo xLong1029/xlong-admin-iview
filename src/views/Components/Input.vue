@@ -19,8 +19,8 @@
 
 <script>
     // 组件
-	import InputAndSelect from '@/components/Input/InputAndSelect'
-    import FuzzyQuery from '@/components/Input/FuzzyQuery'
+	import InputAndSelect from 'components/Input/InputAndSelect'
+    import FuzzyQuery from 'components/Input/FuzzyQuery'
       
     export default {
         components:{ InputAndSelect, FuzzyQuery },

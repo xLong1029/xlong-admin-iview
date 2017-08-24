@@ -1,5 +1,5 @@
 // Json数据
-import JsonCity from '@/mock/city.json'
+import JsonCity from 'mock/city.json'
 
 export default {
 	data() {

@@ -21,9 +21,9 @@
 </template>
 <script>
 	// 组件
-	import MenuTop from '@/components/Common/MenuTop'
-  	import Sidebar from '@/components/Common/Sidebar'
-    import LocatePath from '@/components/Common/LocatePath'
+	import MenuTop from 'components/Common/MenuTop'
+  	import Sidebar from 'components/Common/Sidebar'
+    import LocatePath from 'components/Common/LocatePath'
     // Vuex
     import { mapGetters } from 'vuex'
 

@@ -38,7 +38,7 @@
 </template>
 <script>
     // 通用JS
-    import Common from '@/common/common.js'
+    import Common from 'common/common.js'
     // Vuex
     import { mapGetters } from 'vuex'
 

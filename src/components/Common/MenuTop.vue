@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import Common from '@/common/common.js'
+    import Common from 'common/common.js'
 	// Vuex
     import { mapGetters } from 'vuex'
 
@@ -41,8 +41,12 @@
             },
             // 登出
             logOut(){
-                // 跳转到登录页
-                this.$router.push({ name: 'Login' });
+                this.$store.dispatch('LogOut')
+                .then((res)=>{
+                    this.$Message.success('已退出!');
+                    this.$router.push({name: 'Login'});
+                })
+                .catch((err)=>{})
             },
             // 无法显示图片
             notFoundPic:(event) => {

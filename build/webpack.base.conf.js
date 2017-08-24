@@ -7,6 +7,9 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
+// 引入 webpack
+var webpack = require("webpack")
+
 module.exports = {
   entry: {
     // ie11打开vue2.0项目空白
@@ -22,10 +25,28 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
+      // 定义别名和插件位置
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src')
+      '@': resolve('src'),
+      'api': resolve('src/api'),      
+      'mock': resolve('src/mock'),
+      'mixins': resolve('src/mixins'),
+      'assets': resolve('src/assets'),
+      'common': resolve('src/common'),
+      'components': resolve('src/components'),
+      'views': resolve('src/views'),
+      'jquery': 'jquery'
     }
   },
+  plugins: [
+    // 配置全局使用 jquery
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        jquery: "jquery",
+        "window.jQuery": "jquery"
+    })
+  ],
   module: {
     rules: [
       { test: /iview.src.*?js$/, loader: 'babel-loader' },

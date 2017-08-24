@@ -27,14 +27,17 @@
 	</div>
 </template>
 
-<script>	
+<script>
+	// 通用JS
+	import Common from 'common/common.js'
+
 	export default {
 		data(){
 			return {
 				// 加载状态
 				loading: false,
 				// logo
-				logo: require('@/assets/images/logo-green.png'),
+				logo: require('assets/images/logo-green.png'),
 				// 表单信息
 				loginForm:{
 					// 用户名
@@ -58,6 +61,8 @@
 			submit (form){
                 this.$refs[form].validate((valid) => {
                     if (valid) {
+						// token存cookie
+						Common.SetCookie('token', 'debug');
                     	this.$Message.success('登录成功!');
 						// 跳转到后台主页
 						this.$router.push({ name: 'Main' });

@@ -63,11 +63,36 @@ export default {
     // type：1 显示默认头像，2 显示暂无图片
     SetDefaultPic: (event, type) => {
         switch(type){
-            case 1: event.currentTarget.src = require('@/assets/images/default-face.jpg'); break;
-            case 2: event.currentTarget.src = require('@/assets/images/no-found-pic.jpg'); break;
+            case 1: event.currentTarget.src = require('assets/images/default-face.jpg'); break;
+            case 2: event.currentTarget.src = require('assets/images/no-found-pic.jpg'); break;
             default: console.log('get pic error'); return false;
         }
         //控制不要一直跳动
         event.currentTarget.onerror = null;
     },
+    // 设置cookie
+    SetCookie: (cname,cvalue,exdays) => {
+        if(exdays){
+            let d = new Date();
+            d.setTime(d.getTime()+(exdays*24*60*60*1000));
+            let expires = "expires="+d.toGMTString();
+            document.cookie = cname + "=" + cvalue + "; " + expires;
+        }else{
+            document.cookie = cname + "=" + cvalue + "; ";
+        }
+    },
+    // 获取cookie
+    GetCookie: (cname) => {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i=0; i<ca.length; i++) {
+            let c = ca[i].trim();
+            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+        }
+        return "";
+    },
+    // 删除cookie
+    DelCookie: (cname) => {
+        document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+    }
 }

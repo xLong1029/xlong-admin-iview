@@ -1,3 +1,5 @@
+import Common from 'common/common.js'
+
 // 用户信息
 const user = {
 	// 负责存储整个应用的状态数据
@@ -9,11 +11,11 @@ const user = {
 	  	// 昵称
 	  	userNickname: '',
 	  	// 登录凭证
-	  	token: localStorage.token,
+	  	token: Common.GetCookie('token'),
 	  	// 用户ID
 	  	userId: '',
-	  	// 用户类型
-	  	userType: localStorage.userType
+	  	// 用户类型，1024：管理员，1：普通用户
+	  	userType: Common.GetCookie('userType')
 	},
 	// 用来处理数据的函数，只能同步操作
 	mutations: {

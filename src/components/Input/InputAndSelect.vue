@@ -27,7 +27,7 @@
     </div>
 </template>
 <script>
-    import JsonData from '@/mock/data.json'
+    import JsonData from 'mock/data.json'
     export default {
         name: 'inputAndSelect',
         // 获取父组件传值direction，top：向上显示列表，down：向下显示列表

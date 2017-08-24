@@ -26,7 +26,7 @@
 </template>
 <script>
     // Json数据
-    import JsonData from '@/mock/data.json'
+    import JsonData from 'mock/data.json'
     
     export default {
         name: 'fuzzyQuery',

@@ -39,7 +39,7 @@
         data() {
             return {
                 // LOGO
-                logo: require('@/assets/images/icon-logo.png'),
+                logo: require('assets/images/icon-logo.png'),
                 // 主题
                 theme: 'dark',
                 // 展开菜单名
@@ -85,7 +85,7 @@
                 ],
             }
         },
-        created(){
+        created() {
             // 固定展示侧边栏
             let stop = false;
             const submenu = this.Submenu;
@@ -110,6 +110,8 @@
                 }
                 else break;
             }
+        },
+        methods: {
         }
 	}
 </script>

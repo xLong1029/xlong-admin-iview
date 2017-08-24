@@ -96,9 +96,9 @@
 
 <script>
     // 通用JS
-    import Common from '@/common/common.js'
+    import Common from 'common/common.js'
     // Json数据
-	import JsonData from '@/mock/data.json'
+	import JsonData from 'mock/data.json'
 
 	export default {
 		data() {

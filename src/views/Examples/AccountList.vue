@@ -46,16 +46,17 @@
         </div>
         <!-- 操作按钮 -->
         <div class="m-operation">
-            <router-link :to="{ name: 'AddUserAcc' }" class="operation-btn ivu-btn ivu-btn-primary">新增</router-link>
-            <Button class="operation-btn" v-if="selectList.length > 0" type="error" @click="deleteAccount">删除</Button>
+            <!-- <router-link :to="{ name: 'AddUserAcc' }" class="operation-btn ivu-btn ivu-btn-primary">新增</router-link> -->
+            <!-- <Button class="operation-btn" v-if="selectList.length > 0" type="error" @click="deleteAccount">删除</Button>
             <Button class="operation-btn" v-else type="primary" disabled>删除</Button>
             <Button class="operation-btn" v-if="selectList.length > 0" type="primary" @click="enableOrdisable(1)">启用</Button>
             <Button class="operation-btn" v-else type="primary" disabled>启用</Button>
             <Button class="operation-btn" v-if="selectList.length > 0" type="error" @click="enableOrdisable(2)">禁用</Button>
-            <Button class="operation-btn" v-else type="primary" disabled>禁用</Button>
+            <Button class="operation-btn" v-else type="primary" disabled>禁用</Button> -->
         </div>
         <!-- 用户列表 -->
         <Table
+            class="m-table-list"
             border
             :columns="userList"
             :data="listData"
@@ -63,7 +64,7 @@
         ></Table>
         <!-- 分页 -->
         <Page
-            class-name="page"
+            class-name="m-page"
             show-elevator
             show-sizer
             show-total
@@ -80,28 +81,22 @@
 
 <script>
     // 通用JS
-    import Common from '@/common/common.js'
+    import Common from 'common/common.js'
     // Api方法
     //import Account from '@/api/account_manage.js'
     // Json数据
-    import JsonCity from '@/mock/city.json'
-    import JsonData from '@/mock/data.json'
-    // 表格查询与页码通用设置
-    import queryAndPage from '@/mixins/queryAndPage.js'
-    // 账户通用操作：删除、启用、禁用
-    import accountOperate from '@/mixins/accountOperate.js'
+    import JsonCity from 'mock/city.json'
+    import JsonData from 'mock/data.json'
+    // 表格查询
+    import TableQuery from 'mixins/table_query.js'
+    // 页码设置
+    import Page from 'mixins/page.js'
     // 表格通用设置：按钮、图片显示
-    import tableSetting from '@/common/table_setting.js'
-    // Vuex
-    import { mapGetters } from 'vuex'
+    import tableSetting from 'common/table_setting.js'
 
     export default {
-        mixins: [ queryAndPage, accountOperate ],
+        mixins: [ TableQuery, Page ],
         computed: {
-            ...mapGetters([
-                // 是否显示弹窗
-                'showModal',
-            ]),
             // 删除操作接口
             apiDelete(){
                 return () => Account.DeleteUser({ ids: this.selectList });
