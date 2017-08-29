@@ -15,8 +15,9 @@ import UploadImage from 'views/Components/UploadImage'
 import Input from 'views/Components/Input'
 
 // 示例相关页面
-import AccountList from 'views/Examples/AccountList'
-import MessageList from 'views/Examples/MessageList'
+import AccountList from 'views/Examples/AccountList/AccountList'
+import AddAccount from 'views/Examples/AccountList/AddAccount'
+import MessageList from 'views/Examples/MessageList/MessageList'
 
 // 错误页面
 import Err404 from 'views/Error/Err404'
@@ -40,6 +41,8 @@ const RouterMap = [
             { path: '/Components/Input', name: 'Input', component: Input },
             // 账户列表页面
             { path: '/Examples/AccountList', name: 'AccountList', component: AccountList },
+            // 账户列表-新增账户
+            { path: '/Examples/AddAccount', name: 'AddAccount', component: AddAccount },
             // 消息列表页面
             { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },
             // 404
