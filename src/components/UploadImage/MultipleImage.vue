@@ -20,7 +20,7 @@
             :on-format-error="imageFormatError"
             :on-exceeded-size="imagesMaxSize"
             :action="imageUploadUrl">
-            <Button type="ghost" icon="ios-cloud-upload-outline">上传图片</Button>
+            <Button type="ghost" :loading="loading" icon="ios-cloud-upload-outline">上传图片</Button>
         </Upload>
         <!-- 上传进度条  -->
         <template v-if="uploadStatus != 'finished'">
@@ -58,6 +58,8 @@
         },
         data () {
             return {
+                // 上传加载  
+                loading: false,
                 // 显示遮罩
                 showMask: false,
                 // 显示查看图片
@@ -115,9 +117,11 @@
             // 文件上传前
             beforeUpload(){
                 this.uploadStatus = '';
+                this.loading = true;
             },
             // 上传成功
             uploadSuccess(res, file) {
+                this.loading = false;
                 if (res.code == '200') {
                     // 延迟结束
                     setTimeout(() => {
@@ -140,6 +144,7 @@
             },
             // 上传失败
             uploadError(res, file) {
+                this.loading = false;
                 // 隐藏进度条
                 this.showProgress = false;                
                 this.$Notice.error({ title: '图片上传失败，请重试！' });
