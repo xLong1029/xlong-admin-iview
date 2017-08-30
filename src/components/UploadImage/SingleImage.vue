@@ -154,12 +154,7 @@
         border: 1px solid #e4e5e7;
         border-radius: 4px;
         overflow: hidden;
-
-        img{
-            border-radius: 4px;
-            max-width: 350px;
-        }
-
+        text-align: center;
         &:hover{
             .upload-mask{
                 display: block;
@@ -184,7 +179,8 @@
         }
     }
     .upload-image{
-        float: left;
         height: 100%;
+        border-radius: 4px;
+        max-width: 350px;
     }
 </style>
