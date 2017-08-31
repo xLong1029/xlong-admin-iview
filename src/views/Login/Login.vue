@@ -30,6 +30,8 @@
 <script>
 	// 通用JS
 	import Common from 'common/common.js'
+	// Bmob方法
+	import Api from 'api/api.js'
 
 	export default {
 		data(){
@@ -55,6 +57,11 @@
 			}
 		},
 		created() {
+			Api.Login('a2UrZZZ3')
+			.then(res => {
+				console.log(res);
+			})
+			.catch(err => console.log(err))
 		},
 		methods:{
 			// 提交表单

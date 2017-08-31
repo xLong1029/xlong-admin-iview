@@ -1,3 +1,9 @@
+/*
+ * 功能 : 封装与iView框架相关的验证方法
+ * 作者 : 罗永梅（381612175@qq.com）
+ * 日期 : 2017-8-31
+ * 版本 : version 1.0
+ */
 import Common from './common.js'
 
 export default {

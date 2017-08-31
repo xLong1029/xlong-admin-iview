@@ -1,4 +1,9 @@
-// 通用JS
+/*
+ * 模块 : 表格查询相关配置
+ * 作者 : 罗永梅（381612175@qq.com）
+ * 日期 : 2017-8-31
+ * 版本 : version 1.0
+ */
 import Common from 'common/common.js'
 
 export default {

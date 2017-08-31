@@ -93,8 +93,6 @@
     import TableOperate from 'mixins/table_operate.js'
     // 页码设置
     import Page from 'mixins/page.js'
-    // 表格通用设置：按钮、图片显示
-    import tableSetting from 'common/table_setting.js'
 
     export default {
         mixins: [ TableQuery, TableOperate, Page ],

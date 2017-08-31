@@ -1,3 +1,9 @@
+/*
+ * 模块 : 表格操作相关配置
+ * 作者 : 罗永梅（381612175@qq.com）
+ * 日期 : 2017-8-31
+ * 版本 : version 1.0
+ */
 export default {
 	data() {
 		return {

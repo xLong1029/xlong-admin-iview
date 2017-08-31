@@ -1,5 +1,13 @@
+/*
+ * 功能 : 封装通用常量与方法。
+ * 作者 : 罗永梅（381612175@qq.com）
+ * 日期 : 2017-8-31
+ * 版本 : version 1.0
+ */
 export default {
     /* 通用常量 */
+    APPLICATION_ID: '9306539a0700dfcd77698bef93b3cbae',
+    REST_API_KEY: 'fd00a278544be1e2bd7ca6deeccbdebd',
     // 邮政编码正则表达式
     regPostCode: '/^[1-9]\d{5}$/',
     // 邮箱正则表达式
@@ -14,26 +22,6 @@ export default {
     regPhone: /^(1[3,5,8,7]{1}[\d]{9})|(((400)-(\d{3})-(\d{4}))|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{3,7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/,
     
     /* 通用方法 */
-    // 下载文件
-    DownFile: (blob, fileName) => {
-        // 判断是否有msSaveOrOpenBlob，在客户端上以本地方式保存文件（任意大小），方法如同从 Internet 下载文件
-        if (window.navigator.msSaveOrOpenBlob) {
-            // msSaveBlob只能保存，不能在线打开
-            navigator.msSaveBlob(blob, fileName);
-        }
-        else {
-            // 创建a标签
-            let link = document.createElement('a');
-            // 创建URL
-            link.href = window.URL.createObjectURL(blob);
-            // 设置下载名称
-            link.download = fileName;
-            // 触发标签点击事件
-            link.click();
-            // 释放URL
-            window.URL.revokeObjectURL(link.href);
-        }
-    },
     // 比较日期大小
     CompareDate: (dateOne, dateTwo) => {
         return ((new Date(dateOne.replace(/-/g,"\/"))) <= (new Date(dateTwo.replace(/-/g,"\/"))));
@@ -59,6 +47,21 @@ export default {
             default: console.log('get pic error'); return false;
         }
     },
+    // 时间格式化
+    FormatDate: (date) => {
+        if(!date) return;
+        if(typeof date =='string' && date.indexOf('-') != -1) return date;
+        else{
+            let year = date.getFullYear(); 
+            let month = date.getMonth() + 1; 
+            let day = date.getDate(); 
+            let hour = date.getHours(); 
+            let minute = date.getMinutes(); 
+            let second = date.getSeconds(); 
+            return year + "-" + this.formatTen(month) + "-" + this.formatTen(day); 
+        }        
+    },
+
     // 设置默认图片
     // type：1 显示默认头像，2 显示暂无图片
     SetDefaultPic: (event, type) => {
@@ -70,6 +73,7 @@ export default {
         //控制不要一直跳动
         event.currentTarget.onerror = null;
     },
+    
     // 设置cookie
     SetCookie: (cname,cvalue,exdays) => {
         if(exdays){

@@ -1,4 +1,9 @@
-// Json数据
+/*
+ * 模块 : 城市联动选择相关配置
+ * 作者 : 罗永梅（381612175@qq.com）
+ * 日期 : 2017-8-31
+ * 版本 : version 1.0
+ */
 import JsonCity from 'mock/city.json'
 
 export default {

@@ -35,9 +35,7 @@ module.exports = {
       'common': resolve('src/common'),
       'components': resolve('src/components'),
       'views': resolve('src/views'),
-      'jquery': resolve( 'src/bmob/bmob-min.js'),
-      // 相对路径方式引入第三方JQ文件，resolve，对路径配置别名（简化代码），使用ProvidePlugin就不需要import该插件
-      'bmob': resolve( 'src/bmob/bmob-min.js')
+      'bmob': resolve( 'src/bmob')
     }
   },
   plugins: [
