@@ -15,6 +15,7 @@ import BmobServer from './bmob/bmob-server'
 // 获取cookie
 import { GetCookie } from './common/important'
 
+
 Vue.use(iView)
 Vue.config.productionTip = false
 
