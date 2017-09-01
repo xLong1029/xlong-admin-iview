@@ -4,7 +4,7 @@
  * 日期 : 2017-8-31
  * 版本 : version 1.0
  */
-import Common from '@/common/common.js'
+import { DelCookie } from '@/common/common.js'
 
 export default {
 	// 设置账户信息
@@ -19,7 +19,7 @@ export default {
 	// 清空账户信息
 	clearAccount: (_commit) => {
 		// 清除token
-		Common.DelCookie('token');
+		DelCookie('token');
 		_commit('SET_USER_TOKEN', '');
 		_commit('SET_USER_ACCOUNT', '');
 		_commit('SET_USER_FACE', '');

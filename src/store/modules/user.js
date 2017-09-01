@@ -1,4 +1,4 @@
-import Common from 'common/common.js'
+import { GetCookie } from 'common/common.js'
 
 // 用户信息
 const user = {
@@ -11,11 +11,9 @@ const user = {
 	  	// 昵称
 	  	userNickname: '',
 	  	// 登录凭证
-	  	token: Common.GetCookie('token'),
+	  	token: GetCookie('token'),
 	  	// 用户ID
 	  	userId: '',
-	  	// 用户类型，1024：管理员，1：普通用户
-	  	userType: Common.GetCookie('userType')
 	},
 	// 用来处理数据的函数，只能同步操作
 	mutations: {
@@ -33,9 +31,6 @@ const user = {
 	    },
 	    SET_USER_ID: (state, userId) => {
 	      state.userId = userId;
-	    },
-	    SET_USER_TYPE: (state, userType) => {
-	      state.userType = userType;
 	    },
 	},
 }

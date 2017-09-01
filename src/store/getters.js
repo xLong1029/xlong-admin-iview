@@ -10,8 +10,6 @@ const getters = {
     token: state => state.user.token,
     // 用户ID
     userId: state => state.user.userId,
-    // 用户类型
-    userType: state => state.user.userType,
     // 侧边栏span宽度
     sidebarSpan: state => state.common.sidebarSpan,
     // 面包屑路径

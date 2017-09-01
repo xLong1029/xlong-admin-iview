@@ -29,8 +29,8 @@
 
 <script>
 	// 通用JS
-	import Common from 'common/common.js'
-	// Bmob方法
+	import { SetCookie } from 'common/common.js'
+	// Api方法
 	import Api from 'api/api.js'
 
 	export default {
@@ -46,33 +46,36 @@
 					username: '',
 					// 密码
 					password: '',
-					// 记住密码
-					remeberPassword: false,
 				},
+				// 记住密码
+				remeberPassword: false,
 				// 验证规则
 				validate: {
                     username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
-                    password: [{ required: true, message: '登录密码不能为空', trigger: 'blur' },],
+                    password: [{ required: true, message: '登录密码不能为空', trigger: 'blur' }],
                 }
 			}
 		},
 		created() {
-			Api.Login('a2UrZZZ3')
-			.then(res => {
-				console.log(res);
-			})
-			.catch(err => console.log(err))
 		},
 		methods:{
 			// 提交表单
 			submit (form){
                 this.$refs[form].validate((valid) => {
                     if (valid) {
-						// token存cookie
-						Common.SetCookie('token', 'debug');
-                    	this.$Message.success('登录成功!');
-						// 跳转到后台主页
-						this.$router.push({ name: 'Main' });
+						
+						Api.Login(this.loginForm)
+						.then(res => {
+							// 查询到登录数据
+							if(res.length > 0){
+								this.$Message.success('登录成功!');
+								// token存cookie（随机token值，实际项目中token应由后端生成）
+								SetCookie('token', 'debug');
+								// 跳转到后台主页
+								this.$router.push({ name: 'Main' });
+							}
+						})
+						.catch(err => this.$Message.error('登录失败!'));
                     }
                     else this.$Message.error('登录失败!填写有误！');
                 })

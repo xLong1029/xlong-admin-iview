@@ -13,7 +13,7 @@ import './theme/index.less'
 // Bmob方法
 import BmobServer from './bmob/bmob-server'
 // 通用JS方法
-import Common from './common/common'
+import { GetCookie } from './common/common'
 
 Vue.use(iView)
 Vue.config.productionTip = false
@@ -26,7 +26,7 @@ const whiteList = [ '404', 'Login']
 
 router.beforeEach((to, from, next) => {
 	// 获取存储token
-	let isLogin = Boolean(Common.GetCookie('token'));
+	let isLogin = Boolean(GetCookie('token'));
 	// 判断是否已登录
 	if(isLogin){
 		// 如果路由地址为登录页，则重定向到管理后台主页
