@@ -5,6 +5,8 @@
  * 版本 : version 1.0
  */
 import BmobServer from 'bmob/bmob-server.js'
+import { GetParams } from 'common/important.js'
+
 export default {
     // 登录
     Login : (params) => {
@@ -13,22 +15,38 @@ export default {
         obj.equalTo('username', params.username);
         obj.equalTo('password', params.password);
         return new Promise((resolve, reject) => {
-			obj.find({ success: (result) => resolve(result), error: (error) => reject(error) });
+			obj.first({ success: (res) => resolve(res), err: (err) => reject(err) });
 		})
     },
     // 获取用户信息
     GetUserInfo: (params) => {
         let obj = BmobServer.Query('UserInfo');
-        // 两条查询语句一起写，就相当于AND查询
         obj.equalTo('token', params.token);
         return new Promise((resolve, reject) => {
-			obj.find({ success: (result) => resolve(result), error: (error) => reject(error) });
+			obj.first({ success: (res) => resolve(res), err: (err) => reject(err) });
 		})
+    },
+    // 修改个人资料
+    // params: 修改的参数对象, key：查询的唯一键
+    EditProfile: (params, key) => {
+        let query = BmobServer.Query('UserInfo');
+        // 获取键值对
+        let p = GetParams(key);
+        // 根据唯一键查询对象
+        query.equalTo(p.key[0], p.value[0]);
+        // 仅获取一行数据
+        return new Promise((resolve, reject) => { 
+            query.first({
+                success: (obj) => {
+                    // 设置数据
+                    obj.set('nickname', params.nickname);
+                    obj.set('realname', params.realname);
+                    obj.set('userface', params.userface);
+                    obj.set('gender', params.gender);
+                    obj.save(null, { success: (res) => resolve(res), err: (err) => reject(err) });                    
+                } ,
+                error: (err) => console.log('无法通过该键值对获取数据')
+            })
+        })
     }
-    // Login : (objectId) => {
-    //     return new Promise((resolve, reject) => {
-    //         // 查询单条数据，第一个参数是这条数据的objectId值
-	// 		BmobServer.Query('Login').get(objectId, { success: (object) => resolve(object), error: (error) => reject(error) })
-	// 	})
-    // },
 }
