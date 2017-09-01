@@ -12,8 +12,8 @@
                     <img class="account-face" :src="userFace" @error="notFoundPic"/>
                     <strong>{{ nickName }}</strong>
                 </template>
-                <Menu-item name="personalProfile" class="dropdown-item"><router-link :to="{ name: 'PersonalProfile'}">个人资料</router-link></Menu-item>
-                <Menu-item name="changePassword" class="dropdown-item"><router-link :to="{ name: 'ChangePassword'}">修改密码</router-link></Menu-item>
+                <Menu-item name="personalProfile" class="dropdown-item"><router-link :to="{ name: 'Profile'}">个人资料</router-link></Menu-item>
+                <Menu-item name="changePassword" class="dropdown-item"><router-link :to="{ name: 'ChangePwd'}">修改密码</router-link></Menu-item>
                 <Menu-item name="logOut" class="dropdown-item"><a @click="logOut">退出登录</a></Menu-item>
             </Submenu>
         </div>
