@@ -20,7 +20,8 @@
             :on-format-error="imageFormatError"
             :on-exceeded-size="imagesMaxSize"
             :action="imageUploadUrl">
-            <Button type="ghost" :loading="loading" icon="ios-cloud-upload-outline">上传图片</Button>
+            <Button type="ghost" :loading="loading" icon="ios-cloud-upload-outline" disabled>上传图片</Button>
+            (上传功能还在开发中，缺少接口)
         </Upload>
         <!-- 上传进度条  -->
         <template v-if="uploadStatus != 'finished'">
