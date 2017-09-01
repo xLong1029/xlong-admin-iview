@@ -35,7 +35,7 @@ module.exports = {
       'common': resolve('src/common'),
       'components': resolve('src/components'),
       'pages': resolve('src/pages'),
-      'bmob': resolve( 'src/bmob')
+      'bmob': resolve( 'src/bmob'),
     }
   },
   plugins: [
