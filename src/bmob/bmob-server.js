@@ -30,5 +30,5 @@ export default {
         // 创建查询对象，入口参数是对象类的实例
         let obj = new Bmob.Query(DataTable);
         return obj;
-    }
+    },
 }
