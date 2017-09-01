@@ -12,16 +12,13 @@ export default {
         // Bmob.initialize("Application ID", "REST API Key");
         Bmob.initialize(Common.APPLICATION_ID, Common.REST_API_KEY);
     },
-    // 添加一行数据
+    // 添加数据
     Add: (tableName) => {
-    },
-    // 删除一行数据
-    Del: () =>{
-
-    },
-    // 修改一行数据
-    Edit: () => {
-
+        // 创建Bmob.Object子类
+        let DataTable = Bmob.Object.extend(tableName);
+        // 创建类
+        let obj = new DataTable;
+        return obj;
     },
     // 查询数据
     Query: (tableName) => {
