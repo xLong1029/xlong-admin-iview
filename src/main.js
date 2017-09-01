@@ -12,8 +12,8 @@ import iView from 'iview'
 import './theme/index.less'
 // Bmob方法
 import BmobServer from './bmob/bmob-server'
-// 通用JS方法
-import { GetCookie } from './common/common'
+// 获取cookie
+import { GetCookie } from './common/important'
 
 Vue.use(iView)
 Vue.config.productionTip = false
@@ -32,9 +32,8 @@ router.beforeEach((to, from, next) => {
 		// 如果路由地址为登录页，则重定向到管理后台主页
 		if(to.name === 'Login') next({ name : 'Main'});
 		else{
-			// Token验证
-			//store.dispatch('CheckToken').then((res)=>{}).catch((err)=>{})
-			next();
+			// token验证
+			store.dispatch('CheckToken').then(res => next()).catch(err => {})
 		}
 	}
 	// 没有token则全部重定向到登录页

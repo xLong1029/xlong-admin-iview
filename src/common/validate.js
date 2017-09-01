@@ -4,8 +4,7 @@
  * 日期 : 2017-8-31
  * 版本 : version 1.0
  */
-import Reg from './common.js'
-import { CompareDate } from './common.js'
+import Common from './common.js'
 
 export default {
     // 验证密码
@@ -17,7 +16,7 @@ export default {
             else return callback();
         }
         else{           
-            if(!Reg.password.test(password)) return callback(new Error('密码格式为6-12位，字母、数字和下划线的组合'));
+            if(!Common.regPassword.test(password)) return callback(new Error('密码格式为6-12位，字母、数字和下划线的组合'));
             else return callback();
         }
     },
@@ -49,7 +48,7 @@ export default {
         }
         else{
             let nowDate = new Date();
-            const compare = CompareDate(birhtDate, nowDate.toLocaleDateString());
+            const compare = Common.CompareDate(birhtDate, nowDate.toLocaleDateString());
             if (!compare) return callback(new Error('出生日期不能大于当前日期'));
             else return callback();
         }
@@ -102,7 +101,7 @@ export default {
             if(!userName){
                 return callback(new Error('用户名不能为空'));
             }
-            else if (!Reg.email.test(userName) && !Reg.mobile.test(userName)) {
+            else if (!Common.regEmail.test(userName) && !Common.regEmail.Mobile.test(userName)) {
                 return callback(new Error('用户名格式不正确'));
             }
             else return callback(); 

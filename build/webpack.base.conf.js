@@ -34,7 +34,7 @@ module.exports = {
       'assets': resolve('src/assets'),
       'common': resolve('src/common'),
       'components': resolve('src/components'),
-      'views': resolve('src/views'),
+      'pages': resolve('src/pages'),
       'bmob': resolve( 'src/bmob')
     }
   },

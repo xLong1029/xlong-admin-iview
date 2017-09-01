@@ -1,18 +1,17 @@
+import Api from 'api/api.js'
 import LoginCheck from 'common/login_check.js'
-import Common from 'common/common.js'
+import { GetCookie } from 'common/important'
 const actions = {
     // Token验证
     CheckToken ({ commit , state }) {
-        Login.GetUserInfo(Common.GetCookie('token'))
-        .then((res)=>{
-            const result = res.data.data;
+        Api.GetUserInfo({ token: GetCookie('token') })
+        .then(res => {
             // 登录认证成功
-            if(res.data.code == 200)
-                LoginCheck.setAccount(commit, result);
+            if(res.length > 0) LoginCheck.setAccount(commit, res[0]);
             // 登录认证失败
             else LoginCheck.clearAccount(commit);
         })
-        .catch((err)=>{
+        .catch(err => {
             console.log(err);
             LoginCheck.clearAccount(commit);
         })

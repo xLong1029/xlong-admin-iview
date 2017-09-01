@@ -3,7 +3,7 @@
 > a management system for testing only
 
 ## 项目说明
-该项目为测试项目，请勿商用。
+该项目为page测试项目，请勿商用。
 
 项目用到技术、框架与插件：Vue2.0+、iView、Axios、Less、Vue-Awesome-Swiper、Bmob。
 
@@ -37,4 +37,34 @@ store ----- 仓库目录，数据源存储
 
 theme ----- 主题目录，专门用来存放iView的定制主题样式
 
-views ----- 项目的视图目录，专门用来存放各页面视图
+pages ----- 项目的页面目录，专门用来存放各页面
+
+* 组件
+
+LocatePath.vue ----- 封装iView面包屑组件
+
+MenuTop.vue ----- 封装iView菜单组件的顶部菜单
+
+Sidebar.vue ----- 封装iView菜单组件的侧边栏
+
+FuzzyQuery.vue ----- 模糊查询
+
+SingleImage.vue ----- 封装iView文件上传的单图片上传显示
+
+MultipleImage.vue ----- 封装iView文件上传的多图片上传显示
+
+* API数据来源
+
+bmob后端云
+
+* 作者联系方式	
+	
+QQ：381612175
+	
+github：https://github.com/xLong1029/
+
+站酷主页：http://xlong.zcool.com.cn/
+
+UI中国：http://i.ui.cn/ucenter/358591.html
+
+* 此项目做学习Vuejs测试使用，有什么问题可联系我讨论

@@ -5,19 +5,26 @@
  * 版本 : version 1.0
  */
 import BmobServer from 'bmob/bmob-server.js'
-import { GetParams } from 'common/common.js'
 export default {
-    // 获取登录信息
+    // 登录
     Login : (params) => {
-        let p = GetParams(params);
         let obj = BmobServer.Query('Login');
         // 两条查询语句一起写，就相当于AND查询
-        obj.equalTo(p.key[0], p.value[0]);
-        obj.equalTo(p.key[1], p.value[1]);        
+        obj.equalTo('username', params.username);
+        obj.equalTo('password', params.password);
         return new Promise((resolve, reject) => {
-			obj.find({ success: (object) => resolve(object), error: (error) => reject(error) });
+			obj.find({ success: (result) => resolve(result), error: (error) => reject(error) });
 		})
     },
+    // 获取用户信息
+    GetUserInfo: (params) => {
+        let obj = BmobServer.Query('UserInfo');
+        // 两条查询语句一起写，就相当于AND查询
+        obj.equalTo('token', params.token);
+        return new Promise((resolve, reject) => {
+			obj.find({ success: (result) => resolve(result), error: (error) => reject(error) });
+		})
+    }
     // Login : (objectId) => {
     //     return new Promise((resolve, reject) => {
     //         // 查询单条数据，第一个参数是这条数据的objectId值

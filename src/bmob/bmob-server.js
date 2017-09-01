@@ -4,13 +4,13 @@
  * 日期 : 2017-8-31
  * 版本 : version 1.0
  */
-import App from 'common/common.js'
+import Common from 'common/common.js'
 
 export default {
     // 初始化
     Init: () => {
         // Bmob.initialize("Application ID", "REST API Key");
-        Bmob.initialize(App.APPLICATION_ID, App.REST_API_KEY);
+        Bmob.initialize(Common.APPLICATION_ID, Common.REST_API_KEY);
     },
     // 添加一行数据
     Add: (tableName) => {

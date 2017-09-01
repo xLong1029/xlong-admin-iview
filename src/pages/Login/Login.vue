@@ -12,8 +12,8 @@
 	            	<Icon type="ios-locked-outline" slot="prepend"></Icon>
 	            </Input>
 	        </Form-item>
-	        <Form-item prop="remeberPassword">
-	            <Checkbox v-model="loginForm.remeberPassword">记住密码</Checkbox>
+	        <Form-item>
+	            <Checkbox v-model="remeberPwd">记住密码</Checkbox>
 	            <router-link to="/SendVerifyCode" class="fr">忘记密码</router-link>
 	        </Form-item>
 	        <Form-item>
@@ -22,14 +22,17 @@
 	        <!-- <Form-item>
 	            <Button type="primary" long @click="">注册</Button>
 	        </Form-item> -->
-	        <div style="text-align:center">测试使用登录账号:18376686974 密码:123456</div>
+	        <div style="text-align:center">测试使用登录账号:18376686974 密码:0101029</div>
 	    </Form>
 	</div>
 </template>
 
 <script>
-	// 通用JS
-	import { SetCookie } from 'common/common.js'
+	import { SetCookie } from 'common/important.js'
+	import { SetLocalS } from 'common/important.js'
+	import { GetLocalS } from 'common/important.js'
+	import { Encrypt } from 'common/important.js'
+	import { Decrypt } from 'common/important.js'
 	// Api方法
 	import Api from 'api/api.js'
 
@@ -48,7 +51,7 @@
 					password: '',
 				},
 				// 记住密码
-				remeberPassword: false,
+				remeberPwd: false,
 				// 验证规则
 				validate: {
                     username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
@@ -57,23 +60,36 @@
 			}
 		},
 		created() {
+			// 判断本地存储用户名是否存在
+			if (GetLocalS('username')) {
+				// 获取本地存储的用户名和密码
+				this.loginForm.username = GetLocalS('username');
+				this.loginForm.password = Decrypt(GetLocalS('password'));
+				this.remeberPwd = true;
+			}
 		},
 		methods:{
 			// 提交表单
 			submit (form){
                 this.$refs[form].validate((valid) => {
                     if (valid) {
-						
 						Api.Login(this.loginForm)
 						.then(res => {
 							// 查询到登录数据
-							if(res.length > 0){
+							if(res.length > 0){							
+								// token存cookie
+								SetCookie('token', res[0].attributes.token);
+								// 判断是否记住密码
+								if (this.remeberPwd) {
+									// 本地存储用户名和密码
+									SetLocalS('username', this.loginForm.username);
+									SetLocalS('password', Encrypt(this.loginForm.password));
+								}
 								this.$Message.success('登录成功!');
-								// token存cookie（随机token值，实际项目中token应由后端生成）
-								SetCookie('token', 'debug');
 								// 跳转到后台主页
 								this.$router.push({ name: 'Main' });
 							}
+							else this.$Message.error('用户名或密码不正确！');
 						})
 						.catch(err => this.$Message.error('登录失败!'));
                     }

@@ -9,11 +9,11 @@
             <span>Hi，欢迎您，</span>
             <Submenu name="1" style="z-index:10">
                 <template slot="title">
-                    <img class="account-face" src="" @error="notFoundPic"/>
-                    <strong> xLong </strong>
+                    <img class="account-face" :src="userFace" @error="notFoundPic"/>
+                    <strong>{{ nickName }}</strong>
                 </template>
-                <!-- <Menu-item name="personalProfile" class="dropdown-item"><router-link :to="{ name: 'PersonalProfile'}">个人资料</router-link></Menu-item>
-                <Menu-item name="changePassword" class="dropdown-item"><router-link :to="{ name: 'ChangePassword'}">修改密码</router-link></Menu-item> -->
+                <Menu-item name="personalProfile" class="dropdown-item"><router-link :to="{ name: 'PersonalProfile'}">个人资料</router-link></Menu-item>
+                <Menu-item name="changePassword" class="dropdown-item"><router-link :to="{ name: 'ChangePassword'}">修改密码</router-link></Menu-item>
                 <Menu-item name="logOut" class="dropdown-item"><a @click="logOut">退出登录</a></Menu-item>
             </Submenu>
         </div>
@@ -21,35 +21,31 @@
 </template>
 
 <script>
-    import { SetDefaultPic } from 'common/common.js'
+    import Common from 'common/common.js'
     import { mapGetters } from 'vuex'
 
 	export default {
 		computed: {
-            ...mapGetters([ 'sidebarSpan' ]),
+            ...mapGetters([ 'sidebarSpan', 'userFace', 'nickName' ]),
         },
 		methods: {
             // 改变侧边栏
             changeSideBar () {
-                if (this.sidebarSpan === 3) {
-                    this.$store.commit('SET_SIDEBAR_SPAN', 1);
-                }
-                else {
-                    this.$store.commit('SET_SIDEBAR_SPAN', 3);
-                }
+                if (this.sidebarSpan === 3) this.$store.commit('SET_SIDEBAR_SPAN', 1);
+                else this.$store.commit('SET_SIDEBAR_SPAN', 3);
             },
             // 登出
             logOut(){
                 this.$store.dispatch('LogOut')
-                .then((res)=>{
+                .then(res => {
                     this.$Message.success('已退出!');
                     this.$router.push({name: 'Login'});
                 })
-                .catch((err)=>{})
+                .catch(err => console.log(err))
             },
             // 无法显示图片
             notFoundPic:(event) => {
-                SetDefaultPic(event, 1);
+                Common.SetDefaultPic(event, 1);
             }
         }
 	}

@@ -38,7 +38,7 @@
     </div>
 </template>
 <script>
-    import { SetDefaultPic } from 'common/common.js'
+    import Common from 'common/common.js'
     import { mapGetters } from 'vuex'
 
     export default {
@@ -148,7 +148,7 @@
             },
             // 无法显示图片
             notFoundPic(event){
-                SetDefaultPic(event, 2);
+                Common.SetDefaultPic(event, 2);
             }, 
         }
     }
