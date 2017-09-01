@@ -59,7 +59,6 @@ const RouterMap = [
             { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },
             // 404
             { path: '/404', name: '404', component: Err404 },
-            
         ]
     }
 ]
