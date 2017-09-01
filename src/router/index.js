@@ -43,10 +43,6 @@ const RouterMap = [
             { path: '/Profile', name: 'Profile', component: Profile },
             // 修改密码
             { path: '/ChangePwd', name: 'ChangePwd', component: ChangePwd },
-            // 账户列表-新增账户
-            { path: '/Examples/AddAccount', name: 'AddAccount', component: AddAccount },
-            // 消息列表页面
-            { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },
             // 图片上传页面
             { path: '/Components/UploadImage', name: 'UploadImage', component: UploadImage },
             // Input输入框页面
