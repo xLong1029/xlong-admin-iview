@@ -7,7 +7,7 @@ const actions = {
         Api.GetUserInfo({ token: GetCookie('token') })
         .then(res => {
             // 登录认证成功
-            if(res.length > 0) LoginCheck.setAccount(commit, res[0]);
+            if(res) LoginCheck.setAccount(commit, res);
             // 登录认证失败
             else LoginCheck.clearAccount(commit);
         })
