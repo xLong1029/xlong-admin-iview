@@ -12,7 +12,7 @@
                     <Input type="password" v-model="editForm.passwdCheck" placeholder="请输入确认密码"></Input>
                 </Form-item>
                 <Form-item>
-                    <Button type="primary" @click="submit('editForm')">确认</Button>
+                    <Button type="primary" @click="submit('editForm')">功能待开发</Button>
                 </Form-item>
             </Form>
         </div>

@@ -14,7 +14,7 @@
 	        </Form-item>
 	        <Form-item>
 	            <Checkbox v-model="remeberPwd">记住密码</Checkbox>
-	            <router-link to="/SendVerifyCode" class="fr">忘记密码</router-link>
+	            <!-- <router-link to="/SendVerifyCode" class="fr">忘记密码</router-link> -->
 	        </Form-item>
 	        <Form-item>
 	            <Button type="primary" long @click="submit('loginForm')" :loading="loading">登录</Button>
@@ -76,9 +76,9 @@
 						Api.Login(this.loginForm)
 						.then(res => {
 							// 查询到登录数据
-							if(res.length > 0){							
+							if(res){
 								// token存cookie
-								SetCookie('token', res[0].attributes.token);
+								SetCookie('token', res.attributes.token);
 								// 判断是否记住密码
 								if (this.remeberPwd) {
 									// 本地存储用户名和密码
