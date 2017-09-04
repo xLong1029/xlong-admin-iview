@@ -86,7 +86,7 @@
                         Api.EditProfile(this.editForm, { username : this.editForm.username})
                         .then(res => {
                             this.pageLoading = false;
-                            if(res){
+                            if(res.code == 200){
                                 this.$Message.success('资料修改成功！');
                                 // 更新用户信息
                                 this.$store.commit('SET_USER_FACE', res.attributes.userface);
@@ -101,13 +101,12 @@
             },
             // 获取个人资料
             getProfile(){
-                console.log(this.token);
                 Api.GetUserInfo({ token: this.token })
                 .then(res => {
                     // 获取到数据
-                    if(res){
+                    if(res.code == 200){
                         this.pageLoading = false;					
-                        this.editForm = res.attributes;
+                        this.editForm = res.data.attributes;
                         // 设置头像
                         this.$store.commit('SET_IMAGE_URL', this.editForm.userface);
                     }
