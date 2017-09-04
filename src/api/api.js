@@ -18,8 +18,8 @@ export default {
         return new Promise((resolve, reject) => {
             // 仅获取一行数据
 			query.first({
-                success: (res) => resolve({ code: 200, data: res }),
-                err: (err) => reject({ code: 0, data: err })
+                success: res => resolve({ code: 200, data: res }),
+                error: err => reject(err)
             });
 		});
     },
@@ -30,8 +30,8 @@ export default {
         query.equalTo('token', token);
         return new Promise((resolve, reject) => {
 			query.first({
-                success: (res) => resolve({ code: 200, data: res }),
-                err: (err) => reject({ code: 0, data: err })
+                success: res => resolve({ code: 200, data: res }),
+                error: err => reject(err)
             });
 		});
     },
@@ -52,11 +52,11 @@ export default {
                     obj.set('userface', params.userface);
                     obj.set('gender', params.gender);
                     obj.save(null, {
-                        success: (res) => resolve({ code: 200, data: res }),
-                        err: (err) => reject({ code: 0, data: err })
+                        success: res => resolve({ code: 200, data: res }),
+                        err: err => reject(err)
                     });                    
                 },
-                error: (err) => console.log('无法通过该键值对获取数据')
+                error: err => console.log('无法通过该键值对获取数据')
             });
         });
     },
@@ -79,24 +79,24 @@ export default {
                     // 设置数据
                     obj.set('password', params.newPassword);
                     obj.save(null, {
-                        success: (res) => resolve({ code: 200, data: res }),
-                        err: (err) => reject({ code: 0, data: err })
+                        success: res => resolve({ code: 200, data: res }),
+                        err: err => reject(err)
                     });                    
                 },
-                error: (err) => console.log('无法通过该键值对获取数据')
+                error: err => console.log('无法通过该键值对获取数据')
             });
         });
     },
     // 获取账户列表
-    // num：返回的条数
-    GetAccList: (num) => {
+    // pageNo：当前第一页，pageSize：每页显示几条数据
+    GetAccList: (pageNo, pageSize) => {
         let query = BmobServer.Query('Account');
-        // 默认返回10条数据
-        query.limit(num);
+        // 跳过前面几条数据开始
+        query.skip((pageNo - 1) * pageSize);
         return new Promise((resolve, reject) => { 
             query.find({
-                success: (res) => resolve({ code: 200, data: res }),
-                err: (err) => reject({ code: 0, data: err })
+                success: res => resolve({ code: 200, data: res}),
+                error: err => reject(err)
             });
         });
     },
@@ -107,8 +107,8 @@ export default {
         return new Promise((resolve, reject) => { 
             // 添加数据，第一个入口参数是Json数据
             obj.save(params, {
-                success: (res) => resolve({ code: 200, data: res }),
-                error: (res, err) => reject({ code: 0, data: err })
+                success: res => resolve({ code: 200, data: res }),
+                error: (res, err) => reject(err)
             });
         });
     },
@@ -120,7 +120,7 @@ export default {
             //查询单条数据，第一个参数是这条数据的objectId值
             query.get(id, {
                 success: (res) => resolve({ code: 200, data: res }),
-                error: (res, err) => reject({ code: 0, data: err })
+                error: (err) => reject(err)
             });
         });
     },
@@ -137,12 +137,33 @@ export default {
                     }
                     // 设置并保存数据
                     obj.save(params, {
-                        success: (res) => resolve({ code: 200, data: res }),
-                        err: (err) => reject({ code: 0, data: err })
+                        success: res => resolve({ code: 200, data: res }),
+                        err: err => reject(err)
                     });                    
                 },
-                error: (err) => console.log(err)
+                error: err => console.log('无法通过该objectId获取数据')
             });
+        });
+    },
+    // 删除账户
+    // ids：需要删除的对象的objectId
+    DeleteAcc: (ids) => {
+        // 未成功删除的对象
+        let failObj = [];
+        // 是否删除失败
+        let fail = false;        
+        return new Promise((resolve, reject) => {
+            // 遍历删除
+            for(let i = 0 ; i < ids.length; i ++){
+                // 获取一行对象并删除
+                BmobServer.DelOne('Account', ids[i]).then()
+                .catch(err => { failObj.push(err); fail = true; })
+            }
+            // 延迟判断
+            setTimeout(() => {
+                if(!fail) resolve({ code: 200 })
+                else resolve({ code: 0, data: failObj })
+            }, 1000);
         });
     },
 }
