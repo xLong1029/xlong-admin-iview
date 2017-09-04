@@ -21,6 +21,7 @@ import Input from 'pages/Components/Input'
 // 示例相关页面
 import AccountList from 'pages/Examples/AccountList/AccountList'
 import AddAccount from 'pages/Examples/AccountList/AddAccount'
+import AccountDetail from 'pages/Examples/AccountList/AccountDetail'
 import MessageList from 'pages/Examples/MessageList/MessageList'
 
 // 错误页面
@@ -43,10 +44,6 @@ const RouterMap = [
             { path: '/Profile', name: 'Profile', component: Profile },
             // 修改密码
             { path: '/ChangePwd', name: 'ChangePwd', component: ChangePwd },
-            // 账户列表-新增账户
-            { path: '/Examples/AddAccount', name: 'AddAccount', component: AddAccount },
-            // 消息列表页面
-            { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },
             // 图片上传页面
             { path: '/Components/UploadImage', name: 'UploadImage', component: UploadImage },
             // Input输入框页面
@@ -55,6 +52,8 @@ const RouterMap = [
             { path: '/Examples/AccountList', name: 'AccountList', component: AccountList },
             // 账户列表-新增账户
             { path: '/Examples/AddAccount', name: 'AddAccount', component: AddAccount },
+            // 账户列表-账户详情
+            { path: '/Examples/AccountDetail', name: 'AccountDetail', component: AccountDetail },
             // 消息列表页面
             { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },
             // 404

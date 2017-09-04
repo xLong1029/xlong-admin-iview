@@ -12,7 +12,7 @@
                     <Input type="password" v-model="editForm.passwdCheck" placeholder="请输入确认密码"></Input>
                 </Form-item>
                 <Form-item>
-                    <Button type="primary" @click="submit('editForm')">确认</Button>
+                    <Button type="primary" @click="submit('editForm')">确认修改</Button>
                 </Form-item>
             </Form>
         </div>
@@ -23,15 +23,18 @@
     // 验证方法
 	import Validate from 'common/validate.js'
 	// Api方法
-	import Api from 'api/api.js'
+    import Api from 'api/api.js'
+    // Veux
+    import { mapGetters } from 'vuex'
 
 	export default {
+        computed: {
+            ...mapGetters([ 'token' ])
+        },
 		data(){
 			return {
 				// 表单信息
 				editForm:{
-					// 验证码
-					verifyCode: '',
                     // 旧密码
                     oldPassword: '',
 					// 新密码
@@ -77,33 +80,22 @@
             submit(form){
                 this.$refs[form].validate((valid) => {
                     if (valid) {
-                    console.log(this.editForm.oldPassword, this.editForm.newPassword)
                         // 修改密码 Api
-                        Profile.ChangePassword(
-                            this.editForm.oldPassword,
-                            this.editForm.newPassword
-                        )
+                        Api.ChangePwd(this.editForm, { token : this.token})
                         .then(res => {
-                            if (res.code == 200) {
+                            if(res.code == 200){                                                            
                                 // 登出 action方法
                                 this.$store.dispatch('LogOut')
                                 .then(res => {
                                     this.$Message.success('密码修改成功!请重新登录');
                                     this.$router.push({ name: 'Login' });
                                 })
-                                .catch(err => {
-                                    console.log(err);
-                                })
+                                .catch(err => console.log(err))
                             }
-                            else {
-                                console.log(res.msg);
-                                // 弹出提示框
-                                this.$Message.warning(res.msg);
-                            }
+                            else if(res.code == 404) this.$Message.error(res.msg); 
+                            else this.$Message.error('密码修改失败！');
                         })
-                        .catch(err => {
-                            console.log(err);
-                        })
+                        .catch(err => console.log(err));
                     }
                     else this.$Message.error('提交失败！填写有误');
                 })

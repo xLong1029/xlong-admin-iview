@@ -99,4 +99,19 @@
 		float: right;
 		margin-top: 30px;
 	}
+
+    .status {
+        &-success {
+            color: #19be6b;
+        }
+        &-wait {
+            color: #ff9900;
+        }
+        &-fail {
+            color: #ed3f14;
+        }
+        &-disable {
+            color: #ccc;
+        }
+  }
 </style>

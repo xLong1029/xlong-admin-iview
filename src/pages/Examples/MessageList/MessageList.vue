@@ -1,12 +1,6 @@
 <template>
 	<div class="g-content">
-		<!-- 面包屑 -->
-		<Breadcrumb class="breadcrumb">
-			<Breadcrumb-item href="/">后台首页</Breadcrumb-item>
-			<Breadcrumb-item>用户咨询</Breadcrumb-item>
-		</Breadcrumb>
-		<!-- 内容 -->
-		<div class="content-wrap chat-list-wrap">
+		<div class="chat-list-wrap">
 			<!--  加载判断 -->
 			<div v-if="pageLoading" class="page-load">
 				<Spin>

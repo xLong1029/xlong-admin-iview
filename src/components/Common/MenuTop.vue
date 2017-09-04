@@ -72,9 +72,9 @@
                 display: block;
                 color: #495060;
             }
-            .ivu-menu-item-selected, .ivu-menu-item-selected:hover{
+            .ivu-menu-item-selected:hover, .ivu-menu-item-active:hover{
                 a{
-                     color: #fff;
+                     color: #495060;
                 }
             }
         }

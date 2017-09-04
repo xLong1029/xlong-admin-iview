@@ -5,30 +5,98 @@
  * 版本 : version 1.0
  */
 import BmobServer from 'bmob/bmob-server.js'
+import { GetParams } from 'common/important.js'
+
 export default {
     // 登录
     Login : (params) => {
-        let obj = BmobServer.Query('Login');
+        let query = BmobServer.Query('Login');
         // 两条查询语句一起写，就相当于AND查询
-        obj.equalTo('username', params.username);
-        obj.equalTo('password', params.password);
+        query.equalTo('username', params.username);
+        query.equalTo('password', params.password);
         return new Promise((resolve, reject) => {
-			obj.find({ success: (result) => resolve(result), error: (error) => reject(error) });
+			query.first({
+                success: (res) => resolve({ code: 200, data: res }),
+                err: (err) => reject({ code: 0, data: err })
+            });
 		})
     },
     // 获取用户信息
     GetUserInfo: (params) => {
-        let obj = BmobServer.Query('UserInfo');
-        // 两条查询语句一起写，就相当于AND查询
-        obj.equalTo('token', params.token);
+        let query = BmobServer.Query('UserInfo');
+        query.equalTo('token', params.token);
         return new Promise((resolve, reject) => {
-			obj.find({ success: (result) => resolve(result), error: (error) => reject(error) });
+			query.first({
+                success: (res) => resolve({ code: 200, data: res }),
+                err: (err) => reject({ code: 0, data: err })
+            });
 		})
-    }
-    // Login : (objectId) => {
-    //     return new Promise((resolve, reject) => {
-    //         // 查询单条数据，第一个参数是这条数据的objectId值
-	// 		BmobServer.Query('Login').get(objectId, { success: (object) => resolve(object), error: (error) => reject(error) })
-	// 	})
-    // },
+    },
+    // 修改个人资料
+    // params: 修改的参数对象, key：查询的唯一键
+    EditProfile: (params, key) => {
+        let query = BmobServer.Query('UserInfo');
+        // 获取键值对
+        let p = GetParams(key);
+        // 根据唯一键查询对象
+        query.equalTo(p.key[0], p.value[0]);
+        // 仅获取一行数据
+        return new Promise((resolve, reject) => { 
+            query.first({
+                success: (obj) => {
+                    // 设置数据
+                    obj.set('nickname', params.nickname);
+                    obj.set('realname', params.realname);
+                    obj.set('userface', params.userface);
+                    obj.set('gender', params.gender);
+                    obj.save(null, {
+                        success: (res) => resolve({ code: 200, data: res }),
+                        err: (err) => reject({ code: 0, data: err })
+                    });                    
+                },
+                error: (err) => console.log('无法通过该键值对获取数据')
+            })
+        })
+    },
+    // 修改密码
+    // params: 修改的参数对象, key：查询的唯一键
+    ChangePwd: (params, key) => {
+        let query = BmobServer.Query('Login');
+        // 获取键值对
+        let p = GetParams(key);
+        // 根据唯一键查询对象
+        query.equalTo(p.key[0], p.value[0]);
+        query.equalTo('password', params.oldPassword);
+        // 仅获取一行数据
+        return new Promise((resolve, reject) => { 
+            query.first({
+                success: (obj) => {
+                    if(obj == undefined){
+                        resolve({ code: 404, msg: '旧密码不正确！请重试' });
+                        return false;
+                    }
+                    // 设置数据
+                    obj.set('password', params.newPassword);
+                    obj.save(null, {
+                        success: (res) => resolve({ code: 200, data: res }),
+                        err: (err) => reject({ code: 0, data: err })
+                    });                    
+                },
+                error: (err) => console.log('无法通过该键值对获取数据')
+            })
+        })
+    },
+    // 获取账户列表
+    // num：返回的条数
+    GetAccountList: (num) => {
+        let query = BmobServer.Query('Account');
+        // 默认返回10条数据
+        query.limit(num);
+        return new Promise((resolve, reject) => { 
+            query.find({
+                success: (res) => resolve({ code: 200, data: res }),
+                err: (err) => reject({ code: 0, data: err })
+            })
+        })
+    },
 }
