@@ -9,8 +9,8 @@
                     <Form-item label="真实姓名：" prop="realname">
                         <Input v-model="infoForm.realname" placeholder="请输入真实姓名"></Input>
                     </Form-item>
-                    <Form-item label="性别：" prop="sex">
-                        <Radio-group v-model="infoForm.sex">
+                    <Form-item label="性别：" prop="gender">
+                        <Radio-group v-model="infoForm.gender">
                             <Radio label="男">男</Radio>
                             <Radio label="女">女</Radio>
                         </Radio-group>
@@ -27,8 +27,8 @@
                         <!-- 组件-图片上传-单图片显示 -->
                         <SingleImage :preview="true"></SingleImage>
                     </Form-item>
-                    <Form-item label="出生日期：" prop="birthday">
-                        <Date-picker v-model="infoForm.birthday" type="date" placeholder="起始时间" @on-change="getBirthDate" style="width:100%"></Date-picker>
+                    <Form-item label="出生日期：" prop="birthdate">
+                        <Date-picker v-model="infoForm.birthdate" type="date" placeholder="起始时间" @on-change="getBirthDate" style="width:100%"></Date-picker>
                         <div class="clearfix"></div>
                     </Form-item>
                     </Col>
@@ -40,7 +40,7 @@
                 <Row>
                     <Col span="12">
                     <Form-item label="公司名称：">
-                        <Input v-model="infoForm.corporation" placeholder="请输入公司名称"></Input>
+                        <Input v-model="infoForm.companyName" placeholder="请输入公司名称"></Input>
                     </Form-item>
                     <Form-item label="专业领域：">
                         <Select v-model="infoForm.profession" placeholder="请选择专业领域">
@@ -80,21 +80,13 @@
     // 验证方法
     import Validate from 'common/validate.js'
     // Api方法
-    //import Account from 'api/account_manage.js'
+    import Api from 'api/api.js'
     // Json数据
     import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'
-    // Vuex
-    import { mapGetters } from 'vuex'
-    
+
     export default {
         components: { SingleImage },
-        computed: {
-            ...mapGetters([
-                // 获取图片Id
-                'getImageId',
-            ])
-        },
         data() {
             return {
                 // 职位列表
@@ -107,35 +99,29 @@
                 infoForm: {
                     // 真实姓名
                     realname: '',
-                    // 头像Id
-                    faceId: -1,
                     // 头像
-                    faceUrl: require('@/assets/images/default-face.jpg'),
+                    face: require('@/assets/images/default-face.jpg'),
                     // 性别
-                    sex: '男',
+                    gender: '男',
                     // 出生日期
-                    birthday: '',
+                    birthdate: '',
                     // 手机号
                     mobile: '',
                     // 邮箱
                     email: '',
                     // 公司
-                    corporation: '',
+                    companyName: '',
                     // 职位
                     job: '',
                     // 专业领域
                     profession: '',
                     // 所在地区
                     area: '',
-                    // 密码
-                    password: '',
-                    // 确认密码
-                    passwdCheck: '',
                 },
                 // 验证规则
                 validate: {
-                    name: [{ required: true, message: '真实姓名不能为空', trigger: 'blur'}],
-                    birthday: [{
+                    realname: [{ required: true, message: '真实姓名不能为空', trigger: 'blur'}],
+                    birthdate: [{
                         validator: (rule, value, callback) => {
                             Validate.ValidBirthDate(value, callback, false);
                         },
@@ -148,14 +134,7 @@
                     mobile: [
                         { required: true, message: '手机号码不能为空', trigger: 'blur'},
                         { pattern: Common.regMobile, message: '手机号码格式不正确', trigger: 'blur' }
-                    ],
-                    password: [{ pattern: Common.regPassword, message: '密码格式为6-12位，字母、数字和下划线的组合', trigger: 'blur' }],
-                    passwdCheck: [{
-                        validator: (rule, value, callback) => {
-                            Validate.ValidPwdCheck(this.infoForm.password, value, callback, false);
-                        },
-                        trigger: 'blur'
-                    }],
+                    ]
                 },
             }
         },
@@ -189,16 +168,14 @@
 
                         this.infoForm.faceId = this.getImageId; 
                         // 新增用户
-                        // Account.Add('user', this.infoForm)
-                        // .then(res => {
-                        //     // 取消页面加载
-                        //     this.pageLoading = false;
-                        //     if(res.code == 200){
-                        //         this.$Message.success('新增账户成功!');
-                        //     }
-                        //     else this.$Message.warning(res.msg);                           
-                        // })
-                        // .catch(err => console.log(err))
+                        Api.AddAccount(this.infoForm)
+                        .then(res => {
+                            // 取消页面加载
+                            this.pageLoading = false;
+                            if(res.code == 200) this.$Message.success('新增账户成功!');
+                            else this.$Message.warning(res.msg);                           
+                        })
+                        .catch(err => console.log(err))
                     }
                     else this.$Message.error('提交失败！填写有误');
                 })    
@@ -206,7 +183,7 @@
             // 获取出生日期
             getBirthDate(date) {
                 console.log('get birth date:' + date);
-                this.infoForm.birthday = date;
+                this.infoForm.birthdate = date;
             },
         }
     }
