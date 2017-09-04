@@ -40,7 +40,7 @@
                         <Option value="-1">禁用</Option>
                     </Select>
                 </div>
-                <Button class="query-button" type="primary" @click="query('queryForm', 'query')">查询</Button>
+                <Button class="query-button" type="primary" @click="query('queryForm', 'query')" disabled>查询(开发中)</Button>
             </Form>
             <div class="clearfix"></div>
         </div>
@@ -53,6 +53,7 @@
             <Button class="operation-btn" v-else type="primary" disabled>启用</Button>
             <Button class="operation-btn" v-if="selectList.length > 0" type="error" @click="enableOrdisable(2)">禁用</Button>
             <Button class="operation-btn" v-else type="primary" disabled>禁用</Button>
+            <span>（启用禁用和删除功能待开发中）</span>
         </div>
         <!-- 用户列表 -->
         <Table
@@ -240,7 +241,7 @@
                 this.queryForm.pageNo = this.page.pageNo;
                 this.queryForm.pageSize = this.page.pageSize;
                 // 获取用户列表
-                Api.GetAccountList(this.page.pageSize)
+                Api.GetAccList(this.page.pageSize)
                 .then(res => {
                     if(res.code == 200){
                         this.listData = res.data.map(item => {
