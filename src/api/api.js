@@ -10,12 +10,12 @@ import { GetParams } from 'common/important.js'
 export default {
     // 登录
     Login : (params) => {
-        let obj = BmobServer.Query('Login');
+        let query = BmobServer.Query('Login');
         // 两条查询语句一起写，就相当于AND查询
-        obj.equalTo('username', params.username);
-        obj.equalTo('password', params.password);
+        query.equalTo('username', params.username);
+        query.equalTo('password', params.password);
         return new Promise((resolve, reject) => {
-			obj.first({
+			query.first({
                 success: (res) => resolve({ code: 200, data: res }),
                 err: (err) => reject({ code: 0, data: err })
             });
@@ -23,10 +23,10 @@ export default {
     },
     // 获取用户信息
     GetUserInfo: (params) => {
-        let obj = BmobServer.Query('UserInfo');
-        obj.equalTo('token', params.token);
+        let query = BmobServer.Query('UserInfo');
+        query.equalTo('token', params.token);
         return new Promise((resolve, reject) => {
-			obj.first({
+			query.first({
                 success: (res) => resolve({ code: 200, data: res }),
                 err: (err) => reject({ code: 0, data: err })
             });
@@ -53,7 +53,7 @@ export default {
                         success: (res) => resolve({ code: 200, data: res }),
                         err: (err) => reject({ code: 0, data: err })
                     });                    
-                } ,
+                },
                 error: (err) => console.log('无法通过该键值对获取数据')
             })
         })
@@ -81,9 +81,22 @@ export default {
                         success: (res) => resolve({ code: 200, data: res }),
                         err: (err) => reject({ code: 0, data: err })
                     });                    
-                } ,
+                },
                 error: (err) => console.log('无法通过该键值对获取数据')
             })
         })
-    }
+    },
+    // 获取账户列表
+    // num：返回的条数
+    GetAccountList: (num) => {
+        let query = BmobServer.Query('Account');
+        // 默认返回10条数据
+        query.limit(num);
+        return new Promise((resolve, reject) => { 
+            query.find({
+                success: (res) => resolve({ code: 200, data: res }),
+                err: (err) => reject({ code: 0, data: err })
+            })
+        })
+    },
 }
