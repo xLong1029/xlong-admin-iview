@@ -29,7 +29,7 @@
                         type="daterange"
                         :options="dateSetting"
                         placement="bottom-end"
-                        placeholder="选择起始时间和结束时间"
+                        placeholder="选择创建时间"
                         @on-change="getDate"
                     ></Date-picker>
                 </div>
@@ -83,10 +83,12 @@
     // 通用JS
     import Common from 'common/common.js'
     // Api方法
-    //import Account from '@/api/account_manage.js'
+    import Api from '@/api/api.js'
     // Json数据
     import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'
+    // 表格设置
+    import tableSetting from 'common/table_setting.js'
     // 表格查询
     import TableQuery from 'mixins/table_query.js'
     // 表格操作
@@ -157,13 +159,13 @@
                         align: 'center',
                     },
                     {
-                        title: '用户名',
-                        key: 'name',
+                        title: '真实姓名',
+                        key: 'realname',
                         align: 'center'
                     },
                     {
                         title: '性别',
-                        key: 'sex',
+                        key: 'gender',
                         align: 'center'
                     },
                     {
@@ -210,7 +212,7 @@
                         align: 'center',
                         render: (h, params) => {
                             return h('div', [
-                                tableSetting.details(h, params, this, 'UserAccInfo'),
+                                tableSetting.details(h, params, this, 'AccountDetail'),
                             ]);                          
                         }
                     }
@@ -238,27 +240,26 @@
                 this.queryForm.pageNo = this.page.pageNo;
                 this.queryForm.pageSize = this.page.pageSize;
                 // 获取用户列表
-                // Account.GetUserList(this.queryForm)
-                // .then(res => {
-                //     // 取消页面加载
-                //     this.pageLoading = false;
-                    
-                //     if(res.code == 200){
-                //         // 设置是否查询状态
-                //         if(query) this.isQuery = true;
-                //         else this.isQuery = false;                  
-                //         // 设置数据
-                //         this.listData = res.data;
-                //         // 获取页码
-                //         const paging = res.paging;
-                //         // 设置页码
-                //         this.page.pageNo = paging.page;
-                //         this.page.pageSize = paging.size;
-                //         this.page.dataCount = paging.totalSize;                        
-                //     }
-                //     else this.$Message.warning(res.msg);
-                // })
-                // .catch(err => console.log(err))
+                Api.GetAccountList(this.page.pageSize)
+                .then(res => {
+                    if(res.code == 200){
+                        this.listData = res.data.map(item => {
+                            return {
+                                id: item.id,
+                                realname: item.attributes.realname,
+                                gender: item.attributes.gender,
+                                mobile: item.attributes.mobile,
+                                email: item.attributes.email,
+                                job: item.attributes.job,
+                                area: item.attributes.area,
+                                createTime: item.createdAt,
+                                enabledState: item.attributes.enabledState,
+                            }
+                        })
+                    }
+                    else this.$Message.error('获取数据失败!');
+                })
+                .catch(err => console.log(err))
             },
         }
     }
