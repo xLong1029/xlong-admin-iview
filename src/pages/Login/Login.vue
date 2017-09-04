@@ -79,6 +79,7 @@
 							if(res){
 								// token存cookie
 								SetCookie('token', res.attributes.token);
+								this.$store.commit('SET_USER_TOKEN', res.attributes.token);
 								// 判断是否记住密码
 								if (this.remeberPwd) {
 									// 本地存储用户名和密码
