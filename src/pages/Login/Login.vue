@@ -22,7 +22,7 @@
 	        <!-- <Form-item>
 	            <Button type="primary" long @click="">注册</Button>
 	        </Form-item> -->
-	        <div style="text-align:center">测试使用登录账号:18888888888 密码:123456</div>
+	        <div style="text-align:center">测试使用登录账号:18888888888 密码:666666</div>
 	    </Form>
 	</div>
 </template>
@@ -75,11 +75,11 @@
                     if (valid) {
 						Api.Login(this.loginForm)
 						.then(res => {
-							// 查询到登录数据
-							if(res){
+							if(res.code == 200){
+								const result = res.data;
 								// token存cookie
-								SetCookie('token', res.attributes.token);
-								this.$store.commit('SET_USER_TOKEN', res.attributes.token);
+								SetCookie('token', result.attributes.token);
+								this.$store.commit('SET_USER_TOKEN', result.attributes.token);
 								// 判断是否记住密码
 								if (this.remeberPwd) {
 									// 本地存储用户名和密码
