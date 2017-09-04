@@ -18,24 +18,30 @@ export default {
 			this.selectList = [];
 			for(let i = 0 ; i < selection.length ; i ++){
 				this.selectList.push(selection[i].id);
-			}
+            }
+            console.log(this.selectList);
         },
         // 清空选项
         clearSelect(){
             this.selectList = [];
         },
-		// 删除账户
-        deleteAccount(){
-            // this.apiDelete().then(res => {
-            //     if(res.code == 200){
-            //         this.$Message.success('删除成功!');
-            //         // 更新列表
-            //         this.updateList();
-            //         // 清空选项列表
-            //         this.clearSelect();
-            //     }
-            //     else this.$Message.warning(res.msg);
-            // }).catch(err => console.log(err))
+		// 删除数据
+        deleteData(){
+            // 延迟
+            setTimeout(() => this.pageLoading = true, 500);
+            
+            this.apiDelete()
+            .then(res => {
+                this.pageLoading = false;
+                if(res.code == 200){
+                    this.$Message.success('删除成功!');
+                    // 更新列表
+                    this.updateList();
+                    // 清空选项列表
+                    this.clearSelect();
+                }
+                else console.log(res);
+            }).catch(err => this.$Message.error('删除失败！'))
         },
         // 启用和禁用
         enableOrdisable(type){
