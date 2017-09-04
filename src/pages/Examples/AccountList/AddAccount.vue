@@ -6,8 +6,8 @@
             <div class="m-content">
                 <Row>
                     <Col span="12">
-                    <Form-item label="真实姓名：" prop="name">
-                        <Input v-model="infoForm.name" placeholder="请输入真实姓名"></Input>
+                    <Form-item label="真实姓名：" prop="realname">
+                        <Input v-model="infoForm.realname" placeholder="请输入真实姓名"></Input>
                     </Form-item>
                     <Form-item label="性别：" prop="sex">
                         <Radio-group v-model="infoForm.sex">
@@ -62,25 +62,9 @@
                     </Col>
                 </Row>
             </div>
-            <!-- 账号信息 -->
-            <h2 class="m-title">账号信息</h2>
-            <div class="m-content">
-                <Row>
-                    <Col span="12">
-                    <Form-item label="密码：" prop="password">
-                        <Input type="password" v-model="infoForm.password" placeholder="请输入密码"></Input>
-                    </Form-item>
-                    </Col>
-                    <Col span="12">
-                    <Form-item label="确认密码：" prop="passwdCheck">
-                        <Input type="password" v-model="infoForm.passwdCheck" placeholder="请输入确认密码"></Input>
-                    </Form-item>
-                    </Col>
-                </Row>
-            </div>
             <!-- 操作按钮 -->
             <div class="m-operation">
-                <Button class="fr" type="primary" @click="submit('infoForm')">新增</Button>
+                <Button class="fr" type="primary" @click="submit('infoForm')">确认新增</Button>
                 <Button class="fr" type="ghost" @click="$router.go(-1)">返回</Button>
                 <div class="clearfix"></div>
             </div>
@@ -122,7 +106,7 @@
                 // 表单信息
                 infoForm: {
                     // 真实姓名
-                    name: '',
+                    realname: '',
                     // 头像Id
                     faceId: -1,
                     // 头像
