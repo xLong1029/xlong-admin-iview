@@ -28,4 +28,21 @@ export default {
         let obj = new Bmob.Query(DataTable);
         return obj;
     },
+    // 删除一行数据
+    DelOne: (tableName, objectId) => {
+        let DataTable = Bmob.Object.extend(tableName);
+        let query = new Bmob.Query(DataTable);
+        // 获取对象并删除
+        return new Promise((resolve, reject) => { 
+            query.get(objectId, {
+                success: (obj) => {
+                    obj.destroy({
+                        success: (res) => resolve({ code: 200, data: res }),
+                        error: (res, err) => resolve(err)
+                    });
+                },
+                error: (obj, err) => console.log('获取对象失败')
+            });
+        });
+    }
 }
