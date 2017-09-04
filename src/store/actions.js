@@ -4,7 +4,7 @@ import { GetCookie } from 'common/important'
 const actions = {
     // Token验证
     CheckToken ({ commit , state }) {
-        Api.GetUserInfo({ token: GetCookie('token') })
+        Api.GetUserInfo(GetCookie('token'))
         .then(res => {
             // 登录成功
             if(res.code == 200) LoginCheck.setAccount(commit, res.data);
