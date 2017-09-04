@@ -6,15 +6,12 @@ const actions = {
     CheckToken ({ commit , state }) {
         Api.GetUserInfo({ token: GetCookie('token') })
         .then(res => {
-            // 登录认证成功
-            if(res) LoginCheck.setAccount(commit, res);
-            // 登录认证失败
+            // 登录成功
+            if(res.code == 200) LoginCheck.setAccount(commit, res.data);
+            // 登录失败
             else LoginCheck.clearAccount(commit);
         })
-        .catch(err => {
-            console.log(err);
-            LoginCheck.clearAccount(commit);
-        })
+        .catch(err => LoginCheck.clearAccount(commit))
     },
     // 登出
     LogOut ({ commit, state }) {
