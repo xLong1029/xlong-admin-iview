@@ -1,6 +1,8 @@
 <template>
     <div class="g-content">
-        <Form ref="infoForm" :model="infoForm" :rules="validate" :label-width="100">
+        <!--  加载判断 -->
+        <Loading v-if="pageLoading"></Loading>
+        <Form v-else ref="infoForm" :model="infoForm" :rules="validate" :label-width="100">
             <!-- 个人信息 -->
             <h2 class="m-title">个人信息</h2>
             <div class="m-content">
@@ -39,8 +41,9 @@
             <div class="m-content">
                 <Row>
                     <Col span="12">
-                    <Form-item label="公司名称：">
-                        <Input v-model="infoForm.companyName" placeholder="请输入公司名称"></Input>
+                    <Form-item label="企业名称：">
+                        <!-- 组件-匹配企业名称 -->
+						<CompanyName type="1"></CompanyName>
                     </Form-item>
                     <Form-item label="专业领域：">
                         <Select v-model="infoForm.profession" placeholder="请选择专业领域">
@@ -54,9 +57,15 @@
                             <Option v-for="(item, index) in jobList" :value="item.name" :key="index">{{ item.name }}</Option>
                         </Select>
                     </Form-item>
-                    <Form-item label="所在地区：">
-                        <Select v-model="infoForm.area" placeholder="请选择所在地区">
+                    <Form-item label="所在省市：">
+                        <Select class="select-province" v-model="infoForm.province" placeholder="请选择省份" @on-change="changeProvince">
                             <Option v-for="(item, index) in provinceList" :value="item.name" :key="index">{{ item.name }}</Option>
+                        </Select>
+                        <Select class="select-province" v-model="infoForm.city" placeholder="请选择城市" @on-change="changeCity">
+                            <Option v-for="(item, index) in cityList" :value="item.name" :key="index">{{ item.name }}</Option>
+                        </Select>
+                        <Select class="select-province" v-model="infoForm.area" placeholder="请选择区域" @on-change="changeArea">
+                            <Option v-for="(item, index) in areaList" :value="item.name" :key="index">{{ item.name }}</Option>
                         </Select>
                     </Form-item>
                     </Col>
@@ -74,6 +83,9 @@
 
 <script>
     // 组件
+    import Loading from 'components/Common/Loading'
+    import CompanyName from 'components/Input/FuzzyQuery'
+    // 组件
     import SingleImage from 'components/UploadImage/SingleImage'
     // 通用JS
     import Common from 'common/common.js'
@@ -81,14 +93,27 @@
     import Validate from 'common/validate.js'
     // Api方法
     import Api from 'api/api.js'
+    // 城市联动选择
+    import CitySelect from 'mixins/city_select.js'
     // Json数据
     import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'
+    // Vuex
+    import { mapGetters } from 'vuex'
     
     export default {
-        components: { SingleImage },
+        components: { Loading, CompanyName, SingleImage },
+        mixins: [ CitySelect ],
+        computed: {
+            ...mapGetters([
+                // 获取模糊查询输入框的值
+                'inputValue',
+            ])
+        },
         data() {
             return {
+                // 加载页面
+                pageLoading: true,
                 // 职位列表
                 jobList: [],
                 // 地区列表
@@ -111,14 +136,18 @@
                     mobile: '',
                     // 邮箱
                     email: '',
-                    // 公司
+                    // 企业名称
                     companyName: '',
                     // 职位
                     job: '',
                     // 专业领域
                     profession: '',
-                    // 所在地区
-                    area: '',
+                    // 所在省份
+                    province: '河北省',
+                    // 所在城市
+                    city: '唐山市',
+                    // 所在区域
+                    area: '路北区',
                 },
                 // 验证规则
                 validate: {
@@ -165,6 +194,9 @@
                     if (valid) {
                         // 页面加载
                         this.pageLoading = true;
+                        
+                        this.infoForm.companyName = this.inputValue;
+
                         // 修改账户信息
                         Api.EditAccount(this.infoForm, this.userId)
                         .then(res => {
@@ -181,16 +213,22 @@
             // 获取账户详情
             getDetail(){
                 Api.GetAccInfo(this.userId)
-                .then(res => {
+                .then(res => {                    
                     // 取消页面加载
                     this.pageLoading = false;
+                    const result = res.data.attributes;                    
                     if(res.code == 200){
                         // 设置数据
-                        this.infoForm = res.data.attributes;
+                        this.infoForm = result;
+                        // 设置省市
+                        if(this.infoForm.province != '') this.getCity(this.infoForm.province);
+                        if(this.infoForm.city != '') this.getArea(this.infoForm.city);
+                        // 设置企业名称
+						this.$store.commit('SET_INPUT_VALUE', result.companyName);                  
                         // 更新用户头像
                         this.$store.commit('SET_IMAGE_URL', this.infoForm.face);
                     }
-                    else this.$Message.warning(res.msg);                
+                    else this.$Message.warning(res.msg);
                 })
                 .catch(err => console.log(err))
             },
@@ -209,6 +247,14 @@
         a {
             min-width: 80px;
             margin-left: 10px;
+        }
+    }
+    .ivu-select.select-province {
+        float: left;
+        width: 32.5%;
+        margin-right: 1%;
+        &:nth-child(3n) {
+            margin-right: 0;
         }
     }
 </style>

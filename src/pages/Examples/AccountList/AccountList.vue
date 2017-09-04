@@ -1,86 +1,92 @@
 <template>
     <div class="g-content">
-        <!-- 按条件查询 -->
-        <div class="m-query-form">
-            <Form ref="queryForm" :model="queryForm" :rules="validate">
-                <div class="query-item">
-                    <Input v-model="queryForm.id" placeholder="用户编号"></Input>
-                </div>
-                <Form-item prop="mobile" class="query-item">
-                    <Input v-model="queryForm.mobile" placeholder="手机号码"></Input>
-                </Form-item>
-                <Form-item prop="email" class="query-item">
-                    <Input v-model="queryForm.email" placeholder="邮箱"></Input>
-                </Form-item>
-                <div class="query-item">
-                    <Select v-model="queryForm.job" placeholder="职位">
-                        <Option value="" >全部</Option>
-                        <Option v-for="(item, index) in jobList" :value="item.name" :key="index">{{ item.name }}</Option>
-                    </Select>
-                </div>
-                <div class="query-item">
-                    <Select v-model="queryForm.area" placeholder="所在地区">
-                        <Option value="" >全部</Option>
-                        <Option v-for="(item, index) in areaList" :value="item.name" :key="index">{{ item.name }}</Option>
-                    </Select>
-                </div>
-                <div class="query-item">
-                    <Date-picker
-                        type="daterange"
-                        :options="dateSetting"
-                        placement="bottom-end"
-                        placeholder="选择创建时间"
-                        @on-change="getDate"
-                    ></Date-picker>
-                </div>
-                <div class="query-item">
-                    <Select v-model="queryForm.enabledState" placeholder="用户状态">
-                        <Option value="">全部</Option>
-                        <Option value="1">启用</Option>
-                        <Option value="-1">禁用</Option>
-                    </Select>
-                </div>
-                <Button class="query-button" type="primary" @click="query('queryForm', 'query')" disabled>查询(开发中)</Button>
-            </Form>
-            <div class="clearfix"></div>
+        <!--  加载判断 -->
+        <Loading v-if="pageLoading"></Loading>
+        <div v-else>
+            <!-- 按条件查询 -->
+            <div class="m-query-form">
+                <Form ref="queryForm" :model="queryForm" :rules="validate">
+                    <div class="query-item">
+                        <Input v-model="queryForm.id" placeholder="用户编号"></Input>
+                    </div>
+                    <Form-item prop="mobile" class="query-item">
+                        <Input v-model="queryForm.mobile" placeholder="手机号码"></Input>
+                    </Form-item>
+                    <Form-item prop="email" class="query-item">
+                        <Input v-model="queryForm.email" placeholder="邮箱"></Input>
+                    </Form-item>
+                    <div class="query-item">
+                        <Select v-model="queryForm.job" placeholder="职位">
+                            <Option value="" >全部</Option>
+                            <Option v-for="(item, index) in jobList" :value="item.name" :key="index">{{ item.name }}</Option>
+                        </Select>
+                    </div>
+                    <div class="query-item">
+                        <Select v-model="queryForm.area" placeholder="所在地区">
+                            <Option value="" >全部</Option>
+                            <Option v-for="(item, index) in areaList" :value="item.name" :key="index">{{ item.name }}</Option>
+                        </Select>
+                    </div>
+                    <div class="query-item">
+                        <Date-picker
+                            type="daterange"
+                            :options="dateSetting"
+                            placement="bottom-end"
+                            placeholder="选择创建时间"
+                            @on-change="getDate"
+                        ></Date-picker>
+                    </div>
+                    <div class="query-item">
+                        <Select v-model="queryForm.enabledState" placeholder="用户状态">
+                            <Option value="">全部</Option>
+                            <Option value="1">启用</Option>
+                            <Option value="-1">禁用</Option>
+                        </Select>
+                    </div>
+                    <Button class="query-button" type="primary" @click="query('queryForm', 'query')" disabled>查询(开发中)</Button>
+                </Form>
+                <div class="clearfix"></div>
+            </div>
+            <!-- 操作按钮 -->
+            <div class="m-operation">
+                <router-link :to="{ name: 'AddAccount' }" class="operation-btn ivu-btn ivu-btn-primary">新增</router-link>
+                <Button class="operation-btn" v-if="selectList.length > 0" type="error" @click="deleteData">删除</Button>
+                <Button class="operation-btn" v-else type="primary" disabled>删除</Button>
+                <Button class="operation-btn" v-if="selectList.length > 0" type="primary" @click="enableOrdisable(1)" disabled>启用</Button>
+                <Button class="operation-btn" v-else type="primary" disabled>启用</Button>
+                <Button class="operation-btn" v-if="selectList.length > 0" type="error" @click="enableOrdisable(2)" disabled>禁用</Button>
+                <Button class="operation-btn" v-else type="primary" disabled>禁用</Button>
+                <span>（启用禁用功能待开发中）</span>
+            </div>
+            <!-- 用户列表 -->
+            <Table
+                class="m-table-list"
+                border
+                :columns="userList"
+                :data="listData"
+                @on-selection-change="setSelectList"
+            ></Table>
+            <!-- 分页 -->
+            <Page
+                class-name="m-page"
+                show-elevator
+                show-sizer
+                show-total
+                :total="page.dataCount"
+                :page-size="page.pageSize"
+                :current="page.pageNo"
+                :page-size-opts="page.pageSizeOpts"
+                @on-change="changePage"
+                @on-page-size-change="changePageSize"
+            >
+            </Page>
         </div>
-        <!-- 操作按钮 -->
-        <div class="m-operation">
-            <router-link :to="{ name: 'AddAccount' }" class="operation-btn ivu-btn ivu-btn-primary">新增</router-link>
-            <Button class="operation-btn" v-if="selectList.length > 0" type="error" @click="deleteAccount">删除</Button>
-            <Button class="operation-btn" v-else type="primary" disabled>删除</Button>
-            <Button class="operation-btn" v-if="selectList.length > 0" type="primary" @click="enableOrdisable(1)">启用</Button>
-            <Button class="operation-btn" v-else type="primary" disabled>启用</Button>
-            <Button class="operation-btn" v-if="selectList.length > 0" type="error" @click="enableOrdisable(2)">禁用</Button>
-            <Button class="operation-btn" v-else type="primary" disabled>禁用</Button>
-            <span>（启用禁用和删除功能待开发中）</span>
-        </div>
-        <!-- 用户列表 -->
-        <Table
-            class="m-table-list"
-            border
-            :columns="userList"
-            :data="listData"
-            @on-selection-change="setSelectList"
-        ></Table>
-        <!-- 分页 -->
-        <Page
-            class-name="m-page"
-            show-elevator
-            show-sizer
-            show-total
-            :total="page.dataCount"
-            :page-size="page.pageSize"
-            :current="page.pageNo"
-            :page-size-opts="page.pageSizeOpts"
-            @on-change="changePage"
-            @on-page-size-change="changePageSize"
-        >
-        </Page>
     </div>
 </template>
 
 <script>
+    // 组件
+    import Loading from '@/components/Common/Loading'
     // 通用JS
     import Common from 'common/common.js'
     // Api方法
@@ -98,19 +104,20 @@
     import Page from 'mixins/page.js'
 
     export default {
+        components: { Loading },
         mixins: [ TableQuery, TableOperate, Page ],
         computed: {
             // 删除操作接口
             apiDelete(){
-                return () => Account.DeleteUser({ ids: this.selectList });
+                return () => Api.DeleteAcc(this.selectList);
             },
             // 启用操作接口
             apiEnable(){
-                return () => Account.EnableUser({ ids: this.selectList });
+                return () => Account.EnableAcc(this.selectList);
             },
             // 禁用操作接口
             apiDisable(){
-                return () => Account.DisableUser({ ids: this.selectList });
+                return () => Account.DisableAcc(this.selectList);
             }
         },
         data() {
@@ -123,7 +130,7 @@
                 areaList: [],
                 // 查询表单
                 queryForm: {
-                    // 用户编号或姓名
+                    // 用户编号
                     id: '',
                     // 手机号码
                     mobile: '',
@@ -185,8 +192,8 @@
                         align: 'center'
                     },
                     {
-                        title: '地区',
-                        key: 'area',
+                        title: '所在省份',
+                        key: 'province',
                         align: 'center',
                     },
                     {
@@ -238,25 +245,33 @@
         methods: {
             // 获取表格列表
             getTableList(query){
-                this.queryForm.pageNo = this.page.pageNo;
-                this.queryForm.pageSize = this.page.pageSize;
+                this.pageLoading = true;
                 // 获取用户列表
-                Api.GetAccList(this.page.pageSize)
+                Api.GetAccList(this.page.pageNo, this.page.pageSize)
                 .then(res => {
+                    this.pageLoading = false;
                     if(res.code == 200){
-                        this.listData = res.data.map(item => {
-                            return {
-                                id: item.id,
-                                realname: item.attributes.realname,
-                                gender: item.attributes.gender,
-                                mobile: item.attributes.mobile,
-                                email: item.attributes.email,
-                                job: item.attributes.job,
-                                area: item.attributes.area,
-                                createTime: item.createdAt,
-                                enabledState: item.attributes.enabledState,
-                            }
-                        })
+                        // 清空数据
+                        this.listData = [];
+                        const result = res.data;
+                        // 设置数据
+                        for(let i = 0 ; i < this.page.pageSize; i ++){
+                            // 控制台会报错TypeError: Cannot read property 'id' of undefined，不明原因，实际上数据是可以获取到的
+                            this.listData.push({
+                                id: result[i].id,
+                                realname: result[i].attributes.realname,
+                                gender: result[i].attributes.gender,
+                                mobile: result[i].attributes.mobile,
+                                email: result[i].attributes.email,
+                                job: result[i].attributes.job,
+                                province: result[i].attributes.province,
+                                createTime: result[i].createdAt,
+                                enabledState: result[i].attributes.enabledState,
+                            });
+                        }
+                        // 设置页码
+                        this.page.dataCount = result.length;
+                        this.page.pageCount = Math.ceil(result.length / this.page.pageSize);
                     }
                     else this.$Message.error('获取数据失败!');
                 })

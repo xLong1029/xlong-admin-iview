@@ -39,8 +39,9 @@
             <div class="m-content">
                 <Row>
                     <Col span="12">
-                    <Form-item label="公司名称：">
-                        <Input v-model="infoForm.companyName" placeholder="请输入公司名称"></Input>
+                    <Form-item label="企业名称：">
+                        <!-- 组件-匹配企业名称 -->
+						<CompanyName type="1"></CompanyName>
                     </Form-item>
                     <Form-item label="专业领域：">
                         <Select v-model="infoForm.profession" placeholder="请选择专业领域">
@@ -55,8 +56,14 @@
                         </Select>
                     </Form-item>
                     <Form-item label="所在地区：">
-                        <Select v-model="infoForm.area" placeholder="请选择所在地区">
+                        <Select class="select-province" v-model="infoForm.province" placeholder="请选择省份" @on-change="changeProvince">
                             <Option v-for="(item, index) in provinceList" :value="item.name" :key="index">{{ item.name }}</Option>
+                        </Select>
+                        <Select class="select-province" v-model="infoForm.city" placeholder="请选择城市" @on-change="changeCity">
+                            <Option v-for="(item, index) in cityList" :value="item.name" :key="index">{{ item.name }}</Option>
+                        </Select>
+                        <Select class="select-province" v-model="infoForm.area" placeholder="请选择区域" @on-change="changeArea">
+                            <Option v-for="(item, index) in areaList" :value="item.name" :key="index">{{ item.name }}</Option>
                         </Select>
                     </Form-item>
                     </Col>
@@ -75,18 +82,22 @@
 <script>
     // 组件
     import SingleImage from 'components/UploadImage/SingleImage'
+    import CompanyName from 'components/Input/FuzzyQuery'
     // 通用JS
     import Common from 'common/common.js'
     // 验证方法
     import Validate from 'common/validate.js'
     // Api方法
     import Api from 'api/api.js'
+    // 城市联动选择
+    import CitySelect from 'mixins/city_select.js'
     // Json数据
     import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'
 
     export default {
-        components: { SingleImage },
+        components: { CompanyName, SingleImage },
+        mixins: [ CitySelect ],
         data() {
             return {
                 // 职位列表
@@ -115,7 +126,11 @@
                     job: '',
                     // 专业领域
                     profession: '',
-                    // 所在地区
+                    // 所在省份
+                    province: '',
+                    // 所在城市
+                    city: '',
+                    // 所在区域
                     area: '',
                 },
                 // 验证规则
@@ -166,16 +181,18 @@
                         // 页面加载
                         this.pageLoading = true;
 
-                        this.infoForm.faceId = this.getImageId; 
+                        this.infoForm.faceId = this.getImageId;
+                        this.infoForm.companyName = this.inputValue;
+                        
                         // 新增用户
                         Api.AddAccount(this.infoForm)
                         .then(res => {
                             // 取消页面加载
                             this.pageLoading = false;
                             if(res.code == 200) this.$Message.success('新增账户成功!');
-                            else this.$Message.warning(res.msg);                           
+                            else console.log(res);                           
                         })
-                        .catch(err => console.log(err))
+                        .catch(err => this.$Message.warning(err.message))
                     }
                     else this.$Message.error('提交失败！填写有误');
                 })    
@@ -195,6 +212,14 @@
         a {
             min-width: 80px;
             margin-left: 10px;
+        }
+    }
+    .ivu-select.select-province {
+        float: left;
+        width: 32.5%;
+        margin-right: 1%;
+        &:nth-child(3n) {
+            margin-right: 0;
         }
     }
 </style>
