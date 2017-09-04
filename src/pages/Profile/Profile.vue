@@ -101,6 +101,7 @@
             },
             // 获取个人资料
             getProfile(){
+                console.log(this.token);
                 Api.GetUserInfo({ token: this.token })
                 .then(res => {
                     // 获取到数据
