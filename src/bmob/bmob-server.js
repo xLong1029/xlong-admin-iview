@@ -44,5 +44,29 @@ export default {
                 error: (obj, err) => console.log('获取对象失败')
             });
         });
+    },
+    // 修改一行数据
+    EditOne: (tableName, objectId, params) => {
+        let DataTable = Bmob.Object.extend(tableName);
+        let query = new Bmob.Query(DataTable);
+        // 获取对象并修改
+        return new Promise((resolve, reject) => { 
+            query.get(objectId, {
+                success: (obj) => {
+                    // 设置并保存数据
+                    obj.save(params, {
+                        success: res => {
+                            resolve({ code: 200, data: res });
+                            console.log(res);
+                        },
+                        err: err => {
+                            reject(err);
+                            console.log(err);
+                        }
+                    });
+                },
+                error: (obj, err) => console.log('获取对象失败')
+            });
+        });
     }
 }
