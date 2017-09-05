@@ -50,12 +50,9 @@
             <!-- 操作按钮 -->
             <div class="m-operation">
                 <router-link :to="{ name: 'AddAccount' }" class="operation-btn ivu-btn ivu-btn-primary">新增</router-link>
-                <Button class="operation-btn" v-if="selectList.length > 0" type="error" @click="deleteData">删除</Button>
-                <Button class="operation-btn" v-else type="primary" disabled>删除</Button>
-                <Button class="operation-btn" v-if="selectList.length > 0" type="primary" @click="enableOrdisable(1)" disabled>启用</Button>
-                <Button class="operation-btn" v-else type="primary" disabled>启用</Button>
-                <Button class="operation-btn" v-if="selectList.length > 0" type="error" @click="enableOrdisable(2)" disabled>禁用</Button>
-                <Button class="operation-btn" v-else type="primary" disabled>禁用</Button>
+                <Button class="operation-btn" :disabled="selectList.length == 0" type="warning" @click="deleteData">删除</Button>
+                <Button class="operation-btn" :disabled="selectList.length == 0" type="primary" @click="enableOrDisable(1)">启用</Button>
+                <Button class="operation-btn" :disabled="selectList.length == 0" type="warning" @click="enableOrDisable(-1)">禁用</Button>
                 <span>（启用禁用功能待开发中）</span>
             </div>
             <!-- 用户列表 -->
@@ -111,14 +108,14 @@
             apiDelete(){
                 return () => Api.DeleteAcc(this.selectList);
             },
-            // 启用操作接口
+            // 启用和禁用操作接口
             apiEnable(){
-                return () => Account.EnableAcc(this.selectList);
+                return () => Api.EnableAcc({ enabledState: 1 }, this.selectList);
             },
             // 禁用操作接口
             apiDisable(){
-                return () => Account.DisableAcc(this.selectList);
-            }
+                return () => Api.EnableAcc({ enabledState: -1 }, this.selectList);
+            },
         },
         data() {
             return {
