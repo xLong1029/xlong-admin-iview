@@ -55,14 +55,8 @@ export default {
                 success: (obj) => {
                     // 设置并保存数据
                     obj.save(params, {
-                        success: res => {
-                            resolve({ code: 200, data: res });
-                            console.log(res);
-                        },
-                        err: err => {
-                            reject(err);
-                            console.log(err);
-                        }
+                        success: res => resolve({ code: 200, data: res }),
+                        err: err => reject(err)
                     });
                 },
                 error: (obj, err) => console.log('获取对象失败')
