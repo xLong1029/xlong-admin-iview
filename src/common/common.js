@@ -8,8 +8,8 @@
 /* 通用常量 */
 export default {
     // bmob 应用密钥
-    APPLICATION_ID: '9306539a0700dfcd77698bef93b3cbae',
-    REST_API_KEY: 'fd00a278544be1e2bd7ca6deeccbdebd',
+    APPLICATION_ID: '07ffab130cdf11f91381f18779fcf697',
+    REST_API_KEY: '653887187daf660941971acf257cccc1',
     // 邮政编码正则表达式
     regPostCode: '/^[1-9]\d{5}$/',
     // 邮箱正则表达式
