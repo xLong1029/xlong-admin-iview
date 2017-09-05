@@ -29,6 +29,11 @@ export default {
 		}
 	},
 	methods: {
+		// 设置页码
+		setPage(result){
+			this.page.dataCount = result.count;
+			this.page.pageCount = result.pages;
+		},
 		// 切换页码
 		changePage(pageNo) {
 			// 修改当前页码

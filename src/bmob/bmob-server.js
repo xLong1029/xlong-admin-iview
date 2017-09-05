@@ -28,4 +28,39 @@ export default {
         let obj = new Bmob.Query(DataTable);
         return obj;
     },
+    // 删除一行数据
+    DelOne: (tableName, objectId) => {
+        let DataTable = Bmob.Object.extend(tableName);
+        let query = new Bmob.Query(DataTable);
+        // 获取对象并删除
+        return new Promise((resolve, reject) => { 
+            query.get(objectId, {
+                success: (obj) => {
+                    obj.destroy({
+                        success: (res) => resolve({ code: 200, data: res }),
+                        error: (res, err) => resolve(err)
+                    });
+                },
+                error: (obj, err) => console.log('获取对象失败')
+            });
+        });
+    },
+    // 修改一行数据
+    EditOne: (tableName, objectId, params) => {
+        let DataTable = Bmob.Object.extend(tableName);
+        let query = new Bmob.Query(DataTable);
+        // 获取对象并修改
+        return new Promise((resolve, reject) => { 
+            query.get(objectId, {
+                success: (obj) => {
+                    // 设置并保存数据
+                    obj.save(params, {
+                        success: res => resolve({ code: 200, data: res }),
+                        err: err => reject(err)
+                    });
+                },
+                error: (obj, err) => console.log('获取对象失败')
+            });
+        });
+    }
 }

@@ -20,8 +20,8 @@ const getters = {
     getImageUrlArr: state => state.common.getImageUrlArr,
     // 图片上传-获取多图片上传的ID
     getImageIdArr: state => state.common.getImageIdArr,
-    // 获取可输入下拉框的值
-	getInputValue: state => state.common.getInputValue,
+    // 输入框的值
+	inputValue: state => state.common.inputValue,
 };
 
 export default getters

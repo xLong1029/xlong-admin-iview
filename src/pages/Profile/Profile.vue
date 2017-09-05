@@ -101,7 +101,7 @@
             },
             // 获取个人资料
             getProfile(){
-                Api.GetUserInfo({ token: this.token })
+                Api.GetUserInfo(this.token)
                 .then(res => {
                     // 获取到数据
                     if(res.code == 200){

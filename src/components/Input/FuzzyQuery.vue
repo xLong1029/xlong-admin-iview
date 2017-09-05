@@ -2,7 +2,7 @@
     <div id="fuzzyQuery" class="f-fuzzy-query">
         <!-- 关键字输入框 -->
         <Input
-            v-model="inputValue"
+            v-model="value"
             placeholder="请输入企业名称（例：设计）"
             @input="changeQuery"
             @on-focus="checkQuery"
@@ -27,13 +27,31 @@
 <script>
     // Json数据
     import JsonData from 'mock/data.json'
-    
+    // import { mapState } from 'vuex'
+        
     export default {
         name: 'fuzzyQuery',
+        computed: {
+            // 旧版本方法
+            // ...mapState({
+            //     value: state => state.common.inputValue,
+            // }),
+            // vue最近更新了版本，要求必须在计算属性里加上setter，否则报错[Vue warn]: Computed property "value" was assigned to but it has no setter.
+            // 旧版本不用
+            value: {
+                // getter  
+                get: function() {
+                    return this.$store.state.common.inputValue
+                },  
+                // setter  
+                set: function(newValue) {
+                    this.$store.state.common.value = newValue;
+                }
+            } 
+        },
         data () {
             return {
-                // 输入框的值
-                inputValue: '',
+                // value: '',
                 // 是否加载
                 loading: false,
                 // 当前选项索引
@@ -88,7 +106,7 @@
                 this.$store.commit('SET_INPUT_VALUE', text);
                 // 查询时，当前选项索引为-1
                 this.selectIndex = -1;
-                let keyword = this.inputValue;
+                let keyword = this.value;
                 this.getSelect = false;
                 console.log('get keyword:' + keyword);
                 // 搜索词为空
@@ -101,7 +119,7 @@
             // 选择下拉选项
             selectDropDownItem(item, index){
                 // 获取选项值
-                this.inputValue = item.label;
+                this.value = item.label;
                 // 当前选项索引
                 this.selectIndex = index;
                 // 更新输入框的值
@@ -132,7 +150,6 @@
             // 隐藏下拉框
             hideDropDownList(){                
                 if(this.notFound) this.selectIndex = -404;
-                // console.log(this.selectIndex, this.inputValue, this.getSelect);
                 // 匹配不到或者未选择
                 if(this.selectIndex == -404 || !this.getSelect){
                     this.showList = false;

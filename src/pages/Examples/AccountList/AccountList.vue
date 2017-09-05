@@ -19,9 +19,9 @@
                     </Select>
                 </div>
                 <div class="query-item">
-                    <Select v-model="queryForm.area" placeholder="所在地区">
+                    <Select v-model="queryForm.province" placeholder="所在省市">
                         <Option value="" >全部</Option>
-                        <Option v-for="(item, index) in areaList" :value="item.name" :key="index">{{ item.name }}</Option>
+                        <Option v-for="(item, index) in provinceList" :value="item.name" :key="index">{{ item.name }}</Option>
                     </Select>
                 </div>
                 <div class="query-item">
@@ -40,28 +40,29 @@
                         <Option value="-1">禁用</Option>
                     </Select>
                 </div>
-                <Button class="query-button" type="primary" @click="query('queryForm', 'query')">查询</Button>
+                <Button class="query-button" type="primary" @click="query('queryForm', 'valid')">查询</Button>
             </Form>
             <div class="clearfix"></div>
         </div>
-        <!-- 操作按钮 -->
-        <div class="m-operation">
-            <router-link :to="{ name: 'AddAccount' }" class="operation-btn ivu-btn ivu-btn-primary">新增</router-link>
-            <Button class="operation-btn" v-if="selectList.length > 0" type="error" @click="deleteAccount">删除</Button>
-            <Button class="operation-btn" v-else type="primary" disabled>删除</Button>
-            <Button class="operation-btn" v-if="selectList.length > 0" type="primary" @click="enableOrdisable(1)">启用</Button>
-            <Button class="operation-btn" v-else type="primary" disabled>启用</Button>
-            <Button class="operation-btn" v-if="selectList.length > 0" type="error" @click="enableOrdisable(2)">禁用</Button>
-            <Button class="operation-btn" v-else type="primary" disabled>禁用</Button>
+        <!--  加载判断 -->
+        <Loading v-if="pageLoading"></Loading>
+        <div v-else>            
+            <!-- 操作按钮 -->
+            <div class="m-operation">
+                <router-link :to="{ name: 'AddAccount' }" class="operation-btn ivu-btn ivu-btn-primary">新增</router-link>
+                <Button class="operation-btn" :disabled="selectList.length == 0" type="warning" @click="deleteData">删除</Button>
+                <Button class="operation-btn" :disabled="selectList.length == 0" type="primary" @click="enableOrDisable(1)">启用</Button>
+                <Button class="operation-btn" :disabled="selectList.length == 0" type="warning" @click="enableOrDisable(-1)">禁用</Button>
+            </div>
+            <!-- 用户列表 -->
+            <Table
+                class="m-table-list"
+                border
+                :columns="userList"
+                :data="listData"
+                @on-selection-change="setSelectList"
+            ></Table>
         </div>
-        <!-- 用户列表 -->
-        <Table
-            class="m-table-list"
-            border
-            :columns="userList"
-            :data="listData"
-            @on-selection-change="setSelectList"
-        ></Table>
         <!-- 分页 -->
         <Page
             class-name="m-page"
@@ -80,6 +81,8 @@
 </template>
 
 <script>
+    // 组件
+    import Loading from '@/components/Common/Loading'
     // 通用JS
     import Common from 'common/common.js'
     // Api方法
@@ -97,19 +100,28 @@
     import Page from 'mixins/page.js'
 
     export default {
+        components: { Loading },
         mixins: [ TableQuery, TableOperate, Page ],
         computed: {
+            // 获取所有列表
+            apiGetAll(){
+                return () => Api.GetAccList(this.page.pageNo, this.page.pageSize);
+            },
+            // 获取筛选列表
+            apiGetFilter(){
+                return () => Api.FilterAccList(this.queryForm, this.page.pageNo, this.page.pageSize);
+            },
             // 删除操作接口
             apiDelete(){
-                return () => Account.DeleteUser({ ids: this.selectList });
+                return () => Api.DeleteAcc(this.selectList);
             },
-            // 启用操作接口
+            // 启用和禁用操作接口
             apiEnable(){
-                return () => Account.EnableUser({ ids: this.selectList });
+                return () => Api.EnableAcc({ enabledState: 1 }, this.selectList);
             },
             // 禁用操作接口
             apiDisable(){
-                return () => Account.DisableUser({ ids: this.selectList });
+                return () => Api.EnableAcc({ enabledState: -1 }, this.selectList);
             }
         },
         data() {
@@ -119,10 +131,10 @@
                 // 职位列表
                 jobList: [],
                 // 地区列表
-                areaList: [],
+                provinceList: [],
                 // 查询表单
                 queryForm: {
-                    // 用户编号或姓名
+                    // 用户编号
                     id: '',
                     // 手机号码
                     mobile: '',
@@ -131,11 +143,11 @@
                     // 职位
                     job: '',
                     // 地区
-                    area: '',
+                    province: '',
                     // 起始时间
-                    createTimeStart: '',
+                    sTime: '',
                     // 结束时间
-                    createTimeEnd: '',
+                    eTime: '',
                     // 状态
                     enabledState: '',
                 },
@@ -184,8 +196,8 @@
                         align: 'center'
                     },
                     {
-                        title: '地区',
-                        key: 'area',
+                        title: '所在省市',
+                        key: 'province',
                         align: 'center',
                     },
                     {
@@ -231,35 +243,41 @@
             this.getTableList();
             // 获取本地“职位”列表
             this.jobList = JsonData.job;
-            // 获取本地“城市”列表
-            this.areaList = JsonCity;
+            // 获取本地“省份”列表
+            this.provinceList = JsonCity;
         },
         methods: {
             // 获取表格列表
             getTableList(query){
-                this.queryForm.pageNo = this.page.pageNo;
-                this.queryForm.pageSize = this.page.pageSize;
-                // 获取用户列表
-                Api.GetAccountList(this.page.pageSize)
-                .then(res => {
-                    if(res.code == 200){
-                        this.listData = res.data.map(item => {
-                            return {
-                                id: item.id,
-                                realname: item.attributes.realname,
-                                gender: item.attributes.gender,
-                                mobile: item.attributes.mobile,
-                                email: item.attributes.email,
-                                job: item.attributes.job,
-                                area: item.attributes.area,
-                                createTime: item.createdAt,
-                                enabledState: item.attributes.enabledState,
-                            }
-                        })
-                    }
-                    else this.$Message.error('获取数据失败!');
-                })
-                .catch(err => console.log(err))
+                this.pageLoading = true;
+                // 设置是否查询状态
+                if(query){
+                    this.isQuery = true;
+                    this.getFilterList();
+                }
+                else{
+                    this.isQuery = false;
+                    this.getAllList();
+                }
+            },
+            // 设置列表数据
+            setListData(result){
+                if(result.length > 0){
+                    this.listData = result.map(item => {
+                        return {
+                            id: item.id,
+                            realname: item.attributes.realname,
+                            gender: item.attributes.gender,
+                            mobile: item.attributes.mobile,
+                            email: item.attributes.email,
+                            job: item.attributes.job,
+                            province: item.attributes.province,
+                            createTime: item.createdAt,
+                            enabledState: item.attributes.enabledState,
+                        }
+                    });
+                }
+                else this.listData = [];
             },
         }
     }

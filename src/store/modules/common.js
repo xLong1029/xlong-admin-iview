@@ -16,8 +16,8 @@ const common = {
 		getImageUrlArr: [],
 		// 获取多图片上传的ID
 		getImageIdArr: [],
-		// 获取可输入下拉框的值
-		getInputValue: '',
+		// 输入框的值
+		inputValue: '',
 	},
 	mutations: {
 		SET_SIDEBAR_SPAN: (state, sidebarSpan) => {
@@ -38,8 +38,8 @@ const common = {
 		SET_IMAGE_ID_ARR: (state, getImageIdArr) => {
 		  state.getImageIdArr = getImageIdArr;
 		},
-		SET_INPUT_VALUE:(state, getInputValue) =>{
-			state.getInputValue = getInputValue;
+		SET_INPUT_VALUE:(state, inputValue) =>{
+			state.inputValue = inputValue;
 		},
 	},
 }

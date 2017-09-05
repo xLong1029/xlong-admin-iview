@@ -17,7 +17,7 @@ export default {
 	// 清空账户信息
 	clearAccount: (_commit) => {
 		// 清除token
-		DelCookie('token');
+		DelCookie('xl_admin_t');
 		_commit('SET_USER_TOKEN', '');
 		_commit('SET_USER_FACE', '');
 		_commit('SET_USER_NICKNAME', '');

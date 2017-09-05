@@ -1,6 +1,8 @@
 <template>
     <div class="g-content">
-        <Form ref="infoForm" :model="infoForm" :rules="validate" :label-width="100">
+        <!--  加载判断 -->
+        <Loading v-if="pageLoading"></Loading>
+        <Form v-else ref="infoForm" :model="infoForm" :rules="validate" :label-width="100">
             <!-- 个人信息 -->
             <h2 class="m-title">个人信息</h2>
             <div class="m-content">
@@ -55,7 +57,7 @@
                             <Option v-for="(item, index) in jobList" :value="item.name" :key="index">{{ item.name }}</Option>
                         </Select>
                     </Form-item>
-                    <Form-item label="所在地区：">
+                    <Form-item label="所在省市：">
                         <Select class="select-province" v-model="infoForm.province" placeholder="请选择省份" @on-change="changeProvince">
                             <Option v-for="(item, index) in provinceList" :value="item.name" :key="index">{{ item.name }}</Option>
                         </Select>
@@ -71,7 +73,7 @@
             </div>
             <!-- 操作按钮 -->
             <div class="m-operation">
-                <Button class="fr" type="primary" @click="submit('infoForm')">确认新增</Button>
+                <Button class="fr" type="primary" @click="submit('infoForm')">确认修改</Button>
                 <Button class="fr" type="ghost" @click="$router.go(-1)">返回</Button>
                 <div class="clearfix"></div>
             </div>
@@ -81,8 +83,10 @@
 
 <script>
     // 组件
-    import SingleImage from 'components/UploadImage/SingleImage'
+    import Loading from 'components/Common/Loading'
     import CompanyName from 'components/Input/FuzzyQuery'
+    // 组件
+    import SingleImage from 'components/UploadImage/SingleImage'
     // 通用JS
     import Common from 'common/common.js'
     // 验证方法
@@ -94,18 +98,30 @@
     // Json数据
     import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'
-
+    // Vuex
+    import { mapGetters } from 'vuex'
+    
     export default {
-        components: { CompanyName, SingleImage },
+        components: { Loading, CompanyName, SingleImage },
         mixins: [ CitySelect ],
+        computed: {
+            ...mapGetters([
+                // 获取模糊查询输入框的值
+                'inputValue',
+            ])
+        },
         data() {
             return {
+                // 加载页面
+                pageLoading: true,
                 // 职位列表
                 jobList: [],
                 // 地区列表
                 provinceList: [],
                 // 专业领域列表
                 professionList: [],
+                // 用户编号
+                userId: '',
                 // 表单信息
                 infoForm: {
                     // 真实姓名
@@ -120,18 +136,18 @@
                     mobile: '',
                     // 邮箱
                     email: '',
-                    // 公司
+                    // 企业名称
                     companyName: '',
                     // 职位
                     job: '',
                     // 专业领域
                     profession: '',
                     // 所在省份
-                    province: '',
+                    province: '河北省',
                     // 所在城市
-                    city: '',
+                    city: '唐山市',
                     // 所在区域
-                    area: '',
+                    area: '路北区',
                 },
                 // 验证规则
                 validate: {
@@ -158,14 +174,12 @@
             this.$store.commit('SET_BREADCRUMB', [
                 { name: '首页', path: '/Home' },
                 { name: '账户列表', path: '/Examples/AccountList' },
-                { name: '新增账户', path: '/Examples/AddAccount' }
+                { name: '账户详情', path: '/Examples/AccountDetail' }
             ]);
-
-            // 清空图片路径
-            this.$store.commit('SET_IMAGE_URL', '');
-            // 清空图片ID
-            this.$store.commit('SET_IMAGE_ID', '');
-    
+            // 获取用户编号
+            this.userId = this.$route.query.id;
+            // 获取账户详情
+            this.getDetail();
             // 获取本地“职位”列表
             this.jobList = JsonData.job;    
             // 获取本地“专业领域”列表
@@ -180,22 +194,43 @@
                     if (valid) {
                         // 页面加载
                         this.pageLoading = true;
-
-                        this.infoForm.faceId = this.getImageId;
-                        this.infoForm.companyName = this.inputValue;
                         
-                        // 新增用户
-                        Api.AddAccount(this.infoForm)
+                        this.infoForm.companyName = this.inputValue;
+
+                        // 修改账户信息
+                        Api.EditAccount(this.infoForm, this.userId)
                         .then(res => {
                             // 取消页面加载
                             this.pageLoading = false;
-                            if(res.code == 200) this.$Message.success('新增账户成功!');
-                            else console.log(res);                           
+                            if(res.code == 200) this.$Message.success('账户修改成功!');
+                            else this.$Message.warning(res.msg);
                         })
-                        .catch(err => this.$Message.warning(err.message))
+                        .catch(err => console.log(err))
                     }
                     else this.$Message.error('提交失败！填写有误');
                 })    
+            },
+            // 获取账户详情
+            getDetail(){
+                Api.GetAccInfo(this.userId)
+                .then(res => {                    
+                    // 取消页面加载
+                    this.pageLoading = false;
+                    const result = res.data.attributes;                    
+                    if(res.code == 200){
+                        // 设置数据
+                        this.infoForm = result;
+                        // 设置省市
+                        if(this.infoForm.province != '') this.getCity(this.infoForm.province);
+                        if(this.infoForm.city != '') this.getArea(this.infoForm.city);
+                        // 设置企业名称
+						this.$store.commit('SET_INPUT_VALUE', result.companyName);                  
+                        // 更新用户头像
+                        this.$store.commit('SET_IMAGE_URL', this.infoForm.face);
+                    }
+                    else this.$Message.warning(res.msg);
+                })
+                .catch(err => console.log(err))
             },
             // 获取出生日期
             getBirthDate(date) {

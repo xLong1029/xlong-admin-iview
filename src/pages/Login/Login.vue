@@ -78,7 +78,7 @@
 							if(res.code == 200){
 								const result = res.data;
 								// token存cookie
-								SetCookie('token', result.attributes.token);
+								SetCookie('xl_admin_t', result.attributes.token);
 								this.$store.commit('SET_USER_TOKEN', result.attributes.token);
 								// 判断是否记住密码
 								if (this.remeberPwd) {
