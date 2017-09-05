@@ -34,9 +34,9 @@ export default {
         // 获取城市列表
         getCity(province){
             // 循环读取 json 数据到列表中
-            for (let i = 0; i < this.provinceList.length; i++) {
-                if (province === this.provinceList[i].name) {
-                    this.cityList = this.provinceList[i].childs;
+            for (var item of this.provinceList) {
+                if (province === item.name) {
+                    this.cityList = item.childs;
                     break;
                 }
             }
@@ -52,12 +52,12 @@ export default {
         getArea(city){
             let stop = false;
             // 循环读取 json 数据到列表中
-            for (let i = 0; i < this.provinceList.length; i++) {
+            for (var province of this.provinceList) {
                 if (!stop) {
-                    if(this.infoForm.province == this.provinceList[i].name){
-                        for (let j = 0; j < this.provinceList[i].childs.length; j++) {
-                            if (city === this.provinceList[i].childs[j].name) {
-                                this.areaList = this.provinceList[i].childs[j].childs;
+                    if(this.infoForm.province == province.name){
+                        for (let child of province.childs) {
+                            if (city === child.name) {
+                                this.areaList = child.childs;
                                 stop = true;
                             }
                         }
