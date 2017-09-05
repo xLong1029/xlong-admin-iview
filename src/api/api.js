@@ -46,15 +46,11 @@ export default {
         return new Promise((resolve, reject) => { 
             query.first({
                 success: (obj) => {
-                    // 设置数据
-                    obj.set('nickname', params.nickname);
-                    obj.set('realname', params.realname);
-                    obj.set('userface', params.userface);
-                    obj.set('gender', params.gender);
-                    obj.save(null, {
+                    // 修改数据
+                    obj.save(params, {
                         success: res => resolve({ code: 200, data: res }),
                         err: err => reject(err)
-                    });                    
+                    });
                 },
                 error: err => console.log('无法通过该键值对获取数据')
             });
@@ -76,9 +72,8 @@ export default {
                         resolve({ code: 404, msg: '旧密码不正确！请重试' });
                         return false;
                     }
-                    // 设置数据
-                    obj.set('password', params.newPassword);
-                    obj.save(null, {
+                    // 修改数据
+                    obj.save({ password: params.newPassword }, {
                         success: res => resolve({ code: 200, data: res }),
                         err: err => reject(err)
                     });                    
@@ -139,7 +134,7 @@ export default {
                     obj.save(params, {
                         success: res => resolve({ code: 200, data: res }),
                         err: err => reject(err)
-                    });                    
+                    });
                 },
                 error: err => console.log('无法通过该objectId获取数据')
             });
@@ -156,8 +151,28 @@ export default {
             // 遍历删除
             for(let i = 0 ; i < ids.length; i ++){
                 // 获取一行对象并删除
-                BmobServer.DelOne('Account', ids[i]).then()
-                .catch(err => { failObj.push(err); fail = true; })
+                BmobServer.DelOne('Account', ids[i]).then().catch(err => { failObj.push(err); fail = true; })
+            }
+            // 延迟判断
+            setTimeout(() => {
+                if(!fail) resolve({ code: 200 })
+                else resolve({ code: 0, data: failObj })
+            }, 1000);
+        });
+    },
+    // 启用或禁用账户
+    // params: 修改的参数对象， ids：需要操作的对象的objectId
+    EnableAcc: (params, ids) => {
+        // 未成功修改的对象
+        let failObj = [];
+        // 是否修改失败
+        let fail = false;
+        let query = BmobServer.Query('Account');
+        return new Promise((resolve, reject) => {            
+            // 遍历修改
+            for(let i = 0 ; i < ids.length; i ++){
+                // 获取一行对象并修改
+                BmobServer.EditOne('Account', ids[i], params).then().catch(err => { failObj.push(err); fail = true; })
             }
             // 延迟判断
             setTimeout(() => {
