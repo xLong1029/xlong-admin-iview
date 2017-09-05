@@ -5,7 +5,7 @@ const user = {
 	// 负责存储整个应用的状态数据
 	state: {
 			// 登录凭证
-	  	token: GetCookie('token'),
+	  	token: GetCookie('xl_admin_t'),
 	  	// 用户头像
 	  	userFace:'',
 	  	// 昵称
