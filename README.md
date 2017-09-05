@@ -3,7 +3,7 @@
 > a management system for testing only
 
 ## 项目说明
-该项目为page测试项目，请勿商用。
+该项目为单页应用测试项目，请勿商用。
 
 项目用到技术、框架与插件：Vue2.0+、iView、Axios、Less、Vue-Awesome-Swiper、Bmob。
 
@@ -41,6 +41,8 @@ pages ----- 项目的页面目录，专门用来存放各页面
 
 * 组件
 
+Loading.vue ----- 封装iView的加载效果
+
 LocatePath.vue ----- 封装iView面包屑组件
 
 MenuTop.vue ----- 封装iView菜单组件的顶部菜单
@@ -48,6 +50,8 @@ MenuTop.vue ----- 封装iView菜单组件的顶部菜单
 Sidebar.vue ----- 封装iView菜单组件的侧边栏
 
 FuzzyQuery.vue ----- 模糊查询
+
+InputAndSelect.vue ----- 可输入下拉框 
 
 SingleImage.vue ----- 封装iView文件上传的单图片上传显示
 
