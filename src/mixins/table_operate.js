@@ -19,7 +19,6 @@ export default {
 			for(let i = 0 ; i < selection.length ; i ++){
 				this.selectList.push(selection[i].id);
             }
-            console.log(this.selectList);
         },
         // 清空选项
         clearSelect(){
@@ -30,8 +29,7 @@ export default {
             // 延迟
             setTimeout(() => this.pageLoading = true, 500);
             
-            this.apiDelete()
-            .then(res => {
+            this.apiDelete().then(res => {
                 this.pageLoading = false;
                 if(res.code == 200){
                     this.$Message.success('删除成功!');
@@ -44,38 +42,40 @@ export default {
             }).catch(err => this.$Message.error('删除失败！'))
         },
         // 启用和禁用
-        enableOrdisable(type){
-            if(this.selectList.length <= 0){
-                this.$Message.warning('请选择操作选项!');
-                return;
-            }
+        enableOrDisable(type){
+            // 延迟
+            setTimeout(() => this.pageLoading = true, 500);
+
             // 如果需要操作的状态为启用
             if(type === 1){
                 // 启用用户
-                // this.apiEnable().then(res => {
-                //     if(res.code == 200){
-                //         this.$Message.success('启用成功!');
-                //         // 更新列表
-                //         this.updateList();
-                //         // 清空选项列表
-                //         this.clearSelect();
-                //     }
-                //     else this.$Message.warning(res.msg);
-                // }).catch(err => console.log(err))
+                this.apiEnable()
+                .then(res => {
+                    this.pageLoading = false;
+                    if(res.code == 200){
+                        this.$Message.success('启用成功!');
+                        // 更新列表
+                        this.updateList();
+                        // 清空选项列表
+                        this.clearSelect();
+                    }
+                    else this.$Message.warning(res.msg);
+                }).catch(err => console.log(err))
             }
             // 如果需要操作的状态为禁用
-            else if(type === 2){                                
+            else if(type === -1){                                
                 // 禁用用户
-                // this.apiDisable().then(res => {
-                //     if(res.code == 200){
-                //         this.$Message.success('禁用成功!');
-                //         // 更新列表
-                //         this.updateList();
-                //         // 清空选项列表
-                //         this.clearSelect();
-                //     }
-                //     else this.$Message.warning(res.msg);
-                // }).catch(err => console.log(err))
+                this.apiDisable().then(res => {
+                    this.pageLoading = false;
+                    if(res.code == 200){
+                        this.$Message.success('禁用成功!');
+                        // 更新列表
+                        this.updateList();
+                        // 清空选项列表
+                        this.clearSelect();
+                    }
+                    else this.$Message.warning(res.msg);
+                }).catch(err => console.log(err))
             }
         },
 	}
