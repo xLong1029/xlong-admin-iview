@@ -1,59 +1,58 @@
 <template>
     <div class="g-content">
+        <!-- 按条件查询 -->
+        <div class="m-query-form">
+            <Form ref="queryForm" :model="queryForm" :rules="validate">
+                <div class="query-item">
+                    <Input v-model="queryForm.id" placeholder="用户编号"></Input>
+                </div>
+                <Form-item prop="mobile" class="query-item">
+                    <Input v-model="queryForm.mobile" placeholder="手机号码"></Input>
+                </Form-item>
+                <Form-item prop="email" class="query-item">
+                    <Input v-model="queryForm.email" placeholder="邮箱"></Input>
+                </Form-item>
+                <div class="query-item">
+                    <Select v-model="queryForm.job" placeholder="职位">
+                        <Option value="" >全部</Option>
+                        <Option v-for="(item, index) in jobList" :value="item.name" :key="index">{{ item.name }}</Option>
+                    </Select>
+                </div>
+                <div class="query-item">
+                    <Select v-model="queryForm.province" placeholder="所在省市">
+                        <Option value="" >全部</Option>
+                        <Option v-for="(item, index) in provinceList" :value="item.name" :key="index">{{ item.name }}</Option>
+                    </Select>
+                </div>
+                <div class="query-item">
+                    <Date-picker
+                        type="daterange"
+                        :options="dateSetting"
+                        placement="bottom-end"
+                        placeholder="选择创建时间"
+                        @on-change="getDate"
+                    ></Date-picker>
+                </div>
+                <div class="query-item">
+                    <Select v-model="queryForm.enabledState" placeholder="用户状态">
+                        <Option value="">全部</Option>
+                        <Option value="1">启用</Option>
+                        <Option value="-1">禁用</Option>
+                    </Select>
+                </div>
+                <Button class="query-button" type="primary" @click="query('queryForm', 'valid')">查询</Button>
+            </Form>
+            <div class="clearfix"></div>
+        </div>
         <!--  加载判断 -->
         <Loading v-if="pageLoading"></Loading>
-        <div v-else>
-            <!-- 按条件查询 -->
-            <div class="m-query-form">
-                <Form ref="queryForm" :model="queryForm" :rules="validate">
-                    <div class="query-item">
-                        <Input v-model="queryForm.id" placeholder="用户编号"></Input>
-                    </div>
-                    <Form-item prop="mobile" class="query-item">
-                        <Input v-model="queryForm.mobile" placeholder="手机号码"></Input>
-                    </Form-item>
-                    <Form-item prop="email" class="query-item">
-                        <Input v-model="queryForm.email" placeholder="邮箱"></Input>
-                    </Form-item>
-                    <div class="query-item">
-                        <Select v-model="queryForm.job" placeholder="职位">
-                            <Option value="" >全部</Option>
-                            <Option v-for="(item, index) in jobList" :value="item.name" :key="index">{{ item.name }}</Option>
-                        </Select>
-                    </div>
-                    <div class="query-item">
-                        <Select v-model="queryForm.area" placeholder="所在地区">
-                            <Option value="" >全部</Option>
-                            <Option v-for="(item, index) in areaList" :value="item.name" :key="index">{{ item.name }}</Option>
-                        </Select>
-                    </div>
-                    <div class="query-item">
-                        <Date-picker
-                            type="daterange"
-                            :options="dateSetting"
-                            placement="bottom-end"
-                            placeholder="选择创建时间"
-                            @on-change="getDate"
-                        ></Date-picker>
-                    </div>
-                    <div class="query-item">
-                        <Select v-model="queryForm.enabledState" placeholder="用户状态">
-                            <Option value="">全部</Option>
-                            <Option value="1">启用</Option>
-                            <Option value="-1">禁用</Option>
-                        </Select>
-                    </div>
-                    <Button class="query-button" type="primary" @click="query('queryForm', 'query')" disabled>查询(开发中)</Button>
-                </Form>
-                <div class="clearfix"></div>
-            </div>
+        <div v-else>            
             <!-- 操作按钮 -->
             <div class="m-operation">
                 <router-link :to="{ name: 'AddAccount' }" class="operation-btn ivu-btn ivu-btn-primary">新增</router-link>
                 <Button class="operation-btn" :disabled="selectList.length == 0" type="warning" @click="deleteData">删除</Button>
                 <Button class="operation-btn" :disabled="selectList.length == 0" type="primary" @click="enableOrDisable(1)">启用</Button>
                 <Button class="operation-btn" :disabled="selectList.length == 0" type="warning" @click="enableOrDisable(-1)">禁用</Button>
-                <span>（启用禁用功能待开发中）</span>
             </div>
             <!-- 用户列表 -->
             <Table
@@ -63,21 +62,21 @@
                 :data="listData"
                 @on-selection-change="setSelectList"
             ></Table>
-            <!-- 分页 -->
-            <Page
-                class-name="m-page"
-                show-elevator
-                show-sizer
-                show-total
-                :total="page.dataCount"
-                :page-size="page.pageSize"
-                :current="page.pageNo"
-                :page-size-opts="page.pageSizeOpts"
-                @on-change="changePage"
-                @on-page-size-change="changePageSize"
-            >
-            </Page>
         </div>
+        <!-- 分页 -->
+        <Page
+            class-name="m-page"
+            show-elevator
+            show-sizer
+            show-total
+            :total="page.dataCount"
+            :page-size="page.pageSize"
+            :current="page.pageNo"
+            :page-size-opts="page.pageSizeOpts"
+            @on-change="changePage"
+            @on-page-size-change="changePageSize"
+        >
+        </Page>
     </div>
 </template>
 
@@ -104,6 +103,14 @@
         components: { Loading },
         mixins: [ TableQuery, TableOperate, Page ],
         computed: {
+            // 获取所有列表
+            apiGetAll(){
+                return () => Api.GetAccList(this.page.pageNo, this.page.pageSize);
+            },
+            // 获取筛选列表
+            apiGetFilter(){
+                return () => Api.FilterAccList(this.queryForm, this.page.pageNo, this.page.pageSize);
+            },
             // 删除操作接口
             apiDelete(){
                 return () => Api.DeleteAcc(this.selectList);
@@ -115,7 +122,7 @@
             // 禁用操作接口
             apiDisable(){
                 return () => Api.EnableAcc({ enabledState: -1 }, this.selectList);
-            },
+            }
         },
         data() {
             return {
@@ -124,7 +131,7 @@
                 // 职位列表
                 jobList: [],
                 // 地区列表
-                areaList: [],
+                provinceList: [],
                 // 查询表单
                 queryForm: {
                     // 用户编号
@@ -136,11 +143,11 @@
                     // 职位
                     job: '',
                     // 地区
-                    area: '',
+                    province: '',
                     // 起始时间
-                    createTimeStart: '',
+                    sTime: '',
                     // 结束时间
-                    createTimeEnd: '',
+                    eTime: '',
                     // 状态
                     enabledState: '',
                 },
@@ -189,7 +196,7 @@
                         align: 'center'
                     },
                     {
-                        title: '所在省份',
+                        title: '所在省市',
                         key: 'province',
                         align: 'center',
                     },
@@ -236,43 +243,41 @@
             this.getTableList();
             // 获取本地“职位”列表
             this.jobList = JsonData.job;
-            // 获取本地“城市”列表
-            this.areaList = JsonCity;
+            // 获取本地“省份”列表
+            this.provinceList = JsonCity;
         },
         methods: {
             // 获取表格列表
             getTableList(query){
                 this.pageLoading = true;
-                // 获取用户列表
-                Api.GetAccList(this.page.pageNo, this.page.pageSize)
-                .then(res => {
-                    this.pageLoading = false;
-                    if(res.code == 200){
-                        // 清空数据
-                        this.listData = [];
-                        const result = res.data;
-                        // 设置数据
-                        for(let i = 0 ; i < this.page.pageSize; i ++){
-                            // 控制台会报错TypeError: Cannot read property 'id' of undefined，不明原因，实际上数据是可以获取到的
-                            this.listData.push({
-                                id: result[i].id,
-                                realname: result[i].attributes.realname,
-                                gender: result[i].attributes.gender,
-                                mobile: result[i].attributes.mobile,
-                                email: result[i].attributes.email,
-                                job: result[i].attributes.job,
-                                province: result[i].attributes.province,
-                                createTime: result[i].createdAt,
-                                enabledState: result[i].attributes.enabledState,
-                            });
+                // 设置是否查询状态
+                if(query){
+                    this.isQuery = true;
+                    this.getFilterList();
+                }
+                else{
+                    this.isQuery = false;
+                    this.getAllList();
+                }
+            },
+            // 设置列表数据
+            setListData(result){
+                if(result.length > 0){
+                    this.listData = result.map(item => {
+                        return {
+                            id: item.id,
+                            realname: item.attributes.realname,
+                            gender: item.attributes.gender,
+                            mobile: item.attributes.mobile,
+                            email: item.attributes.email,
+                            job: item.attributes.job,
+                            province: item.attributes.province,
+                            createTime: item.createdAt,
+                            enabledState: item.attributes.enabledState,
                         }
-                        // 设置页码
-                        this.page.dataCount = result.length;
-                        this.page.pageCount = Math.ceil(result.length / this.page.pageSize);
-                    }
-                    else this.$Message.error('获取数据失败!');
-                })
-                .catch(err => console.log(err))
+                    });
+                }
+                else this.listData = [];
             },
         }
     }
