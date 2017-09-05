@@ -82,13 +82,40 @@ export default {
             });
         });
     },
-    // 获取账户列表
-    // pageNo：当前第一页，pageSize：每页显示几条数据
+    // 获取所有账户列表
+    // pageNo：当前第一页, pageSize：每页显示几条数据
     GetAccList: (pageNo, pageSize) => {
         let query = BmobServer.Query('Account');
-        // 跳过前面几条数据开始
-        query.skip((pageNo - 1) * pageSize);
-        return new Promise((resolve, reject) => { 
+        return new Promise((resolve, reject) => {
+            query.find({
+                success: obj => {
+                    // 设置页码
+                    let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
+                    // 返回数据条数，默认返回10条数据
+                    query.limit(pageSize);
+                    // 跳过前面几条数据开始
+                    query.skip((pageNo - 1) * pageSize);
+                    query.find({
+                        success: res => resolve({ code: 200, data: res, page }),
+                        error: err => reject(err)
+                    });
+                },
+                error: err => console.log(err)
+            });
+        });
+    },
+    // 筛选账户列表
+    // params: 筛选参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
+    FilterAccList: (params, pageNo, pageSize) => {
+        let query = BmobServer.Query('Account');
+        // 查询语句
+        if(params.id != '') query.equalTo('objectId', params.id);
+        if(params.mobile != '') query.equalTo('mobile', params.mobile);
+        if(params.email != '') query.equalTo('email', params.email);
+        if(params.job != '') query.equalTo('job', params.job);
+        if(params.province != '') query.equalTo('province', params.province);
+        if(params.enabledState != '') query.equalTo('id', params.enabledState);
+        return new Promise((resolve, reject) => {
             query.find({
                 success: res => resolve({ code: 200, data: res}),
                 error: err => reject(err)
@@ -149,9 +176,9 @@ export default {
         let fail = false;        
         return new Promise((resolve, reject) => {
             // 遍历删除
-            for(let i = 0 ; i < ids.length; i ++){
+            for(var id of ids){
                 // 获取一行对象并删除
-                BmobServer.DelOne('Account', ids[i]).then().catch(err => { failObj.push(err); fail = true; })
+                BmobServer.DelOne('Account', id).then().catch(err => { failObj.push(err); fail = true; })
             }
             // 延迟判断
             setTimeout(() => {
@@ -161,7 +188,7 @@ export default {
         });
     },
     // 启用或禁用账户
-    // params: 修改的参数对象， ids：需要操作的对象的objectId
+    // params: 修改的参数对象, ids：需要操作的对象的objectId
     EnableAcc: (params, ids) => {
         // 未成功修改的对象
         let failObj = [];
@@ -170,9 +197,9 @@ export default {
         let query = BmobServer.Query('Account');
         return new Promise((resolve, reject) => {            
             // 遍历修改
-            for(let i = 0 ; i < ids.length; i ++){
+            for(var id of ids){
                 // 获取一行对象并修改
-                BmobServer.EditOne('Account', ids[i], params).then().catch(err => { failObj.push(err); fail = true; })
+                BmobServer.EditOne('Account', id, params).then().catch(err => { failObj.push(err); fail = true; })
             }
             // 延迟判断
             setTimeout(() => {
