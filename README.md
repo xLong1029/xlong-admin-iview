@@ -5,7 +5,7 @@
 ## 项目说明
 该项目为单页应用测试项目，请勿商用。
 
-项目用到技术、框架与插件：Vue2.0+、iView、Axios、Less、Vue-Awesome-Swiper、Bmob。
+项目用到技术、框架与插件：Vue2.0+、iView、Less、Bmob。
 
 ## 安装项目依赖包
 npm install
