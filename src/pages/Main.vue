@@ -46,10 +46,18 @@
         left:0;
         background: #4d5256;
         transition: width .2s ease-in-out;
+        transition: width .2s ease-in-out; 
+        -moz-transition: width .2s ease-in-out; /* Firefox 4 */ 
+        -webkit-transition: width .2s ease-in-out; /* Safari and Chrome */ 
+        -o-transition: width .2s ease-in-out; /* Opera */ 
     }
     .layout-right{
         width: 100%;
         padding-left: 200px;
+        transition: padding-left .2s ease-in-out;
+        -moz-transition: padding-left .2s ease-in-out; /* Firefox 4 */ 
+        -webkit-transition: padding-left .2s ease-in-out; /* Safari and Chrome */ 
+        -o-transition: padding-left .2s ease-in-out; /* Opera */ 
     }
 
     .g-layout.layout-mini{
