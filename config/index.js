@@ -24,7 +24,7 @@ module.exports = {
   dev: {
     env: require('./dev.env'),
     // 端口修改
-    port: 6666,
+    port: 6060,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
