@@ -1,5 +1,6 @@
 <template>
 	<div class="g-content">
+		<p class="hint">注：此页面仅做布局展示，无交互功能</p>
 		<div class="chat-list-wrap">
 			<!--  加载判断 -->
 			<div v-if="pageLoading" class="page-load">
@@ -379,6 +380,11 @@
 			width:86%;
 		}
 	}
+
+	.hint{
+        color:#ed3f14;
+        margin-bottom: 15px;
+    }
 
 	@media screen and (max-width: 1673px) {
         .consult-list-chat{
