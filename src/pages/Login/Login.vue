@@ -1,5 +1,5 @@
 <template>
-  	<div class="m-login">
+  	<div id="login" class="m-login">
        <Form ref="loginForm" :model="loginForm" :rules="validate" class="login-form">
        		<h3 class="form-title"><img :src="logo"/></h3>
 	        <Form-item prop="username">
@@ -67,6 +67,13 @@
 				this.loginForm.password = Decrypt(GetLocalS('password'));
 				this.remeberPwd = true;
 			}
+		},
+		mounted(){
+			// 监听窗口变化
+            window.onresize = () => {
+				let docHeight = document.body.scrollHeight;
+				document.getElementById('login').style.height = docHeight + 'px';
+            }
 		},
 		methods:{
 			// 提交表单
