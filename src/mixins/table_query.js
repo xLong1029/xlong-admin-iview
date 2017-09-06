@@ -74,6 +74,10 @@ export default {
 						// 页码
                     	page = { count: result.length, pages: Math.ceil(result.length / pageSize) };
 					}
+					else{
+						result = res.data;
+						page = res.page;
+					}
 					/* 筛选制定日期内的数据 */
 					
 			        // 设置数据
