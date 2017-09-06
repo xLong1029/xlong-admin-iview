@@ -6,6 +6,7 @@
  */
 import BmobServer from 'bmob/bmob-server.js'
 import { GetParams } from 'common/important.js'
+import Common from 'common/common.js'
 
 export default {
     // 登录
@@ -89,7 +90,6 @@ export default {
         return new Promise((resolve, reject) => {
             query.find({
                 success: obj => {
-                    // 设置页码
                     let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
                     // 返回数据条数，默认返回10条数据
                     query.limit(pageSize);
@@ -117,8 +117,36 @@ export default {
         if(params.enabledState != '') query.equalTo('enabledState', parseInt(params.enabledState));
         return new Promise((resolve, reject) => {
             query.find({
-                success: res => resolve({ code: 200, data: res}),
-                error: err => reject(err)
+                success: obj => {                 
+                    /* 筛选制定日期内的数据 */					
+                    if(params.sTime != '' && params.eTime != ''){
+                        let result = [];
+                        for(let item of obj){
+                            // 比较日期大小，若第一个值小于第二个值则返回true
+                            let start = Common.CompareDate(params.sTime, item.createdAt),
+                                end = Common.CompareDate(item.createdAt, params.eTime);
+                            // 满足条件则保留数据
+                            if(start && end) result.push(item);
+                        }
+                        let page = { count: result.length, pages: Math.ceil(result.length / pageSize) };
+                        // 截取部分数据
+                        result = result.splice((pageNo - 1)* pageSize, pageNo* pageSize);                        
+                        resolve({ code: 200, data: result, page });
+                    }
+                    /* 筛选制定日期内的数据 */
+                    else{
+                        let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
+                        // 返回数据条数，默认返回10条数据
+                        query.limit(pageSize);
+                        // 跳过前面几条数据开始
+                        query.skip((pageNo - 1) * pageSize);
+                        query.find({
+                            success: res => resolve({ code: 200, data: res, page }),
+                            error: err => reject(err)
+                        });
+                    }                   
+                },
+                error: err => console.log(err)
             });
         });
     },

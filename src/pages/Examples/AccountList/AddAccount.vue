@@ -19,7 +19,7 @@
                         <Input v-model="infoForm.mobile" placeholder="请输入手机号码"></Input>
                     </Form-item>
                     <Form-item label="邮箱：" prop="email">
-                        <Input v-model="infoForm.email" placeholder="请输入邮箱地址"></Input>
+                        <AutoComplete v-model="infoForm.email" :data="emailList" @on-search="selectEmail" @on-select="setEmail" placeholder="请输入邮箱地址"></AutoComplete>
                     </Form-item>
                     </Col>
                     <Col span="12">
@@ -106,6 +106,8 @@
                 provinceList: [],
                 // 专业领域列表
                 professionList: [],
+                // 邮箱列表
+                emailList: [],
                 // 表单信息
                 infoForm: {
                     // 真实姓名
@@ -132,6 +134,8 @@
                     city: '',
                     // 所在区域
                     area: '',
+                    // 默认账户禁用
+                    enabledState: -1,
                 },
                 // 验证规则
                 validate: {
@@ -142,10 +146,6 @@
                         },
                         trigger: 'change'
                     }],
-                    email: [
-                        { required: true, message: '邮箱不能为空', trigger: 'blur'},
-                        { pattern: Common.regEmail, message: '邮箱格式不正确', trigger: 'blur' }
-                    ],
                     mobile: [
                         { required: true, message: '手机号码不能为空', trigger: 'blur'},
                         { pattern: Common.regMobile, message: '手机号码格式不正确', trigger: 'blur' }
@@ -202,6 +202,16 @@
                 console.log('get birth date:' + date);
                 this.infoForm.birthdate = date;
             },
+            // 选择邮箱后缀名
+            selectEmail(value) {
+                this.emailList = !value || value.indexOf('@') >= 0 ? [] : [
+                    value + '@qq.com',
+                    value + '@sina.com',
+                    value + '@dingtalk.com',
+                    value + '@115.com',
+                    value + '@163.com',
+                ];
+            }
         }
     }
 </script>

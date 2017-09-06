@@ -35,7 +35,7 @@ export default {
 		getDate(date) {
 			console.log('get date:' + date);
 			this.queryForm.sTime = date[0] + ' 00:00:00';
-			this.queryForm.eTime = date[1] + ' 00:00:00';
+			this.queryForm.eTime = date[1] + ' 23:59:59';
 		},
 		// 查询
 		// form:表单对象， getValid:是否需要验证表单
@@ -59,31 +59,33 @@ export default {
 			.then(res => {
 			    this.pageLoading = false;
 			    if(res.code == 200){
-					/* 筛选制定日期内的数据 */
-					let result = [], page;					
-					if(this.queryForm.sTime != '' && this.queryForm.eTime != ''){
-						for(let item of res.data){
-							// 比较日期大小，若第一个值小于第二个值则返回true
-							let start = Common.CompareDate(this.queryForm.sTime, item.createdAt),
-								end = Common.CompareDate(item.createdAt, this.queryForm.eTime);
-							// 满足条件则保留数据
-							if(start && end){
-								result.push(item);
-							}
-						}
-						// 页码
-                    	page = { count: result.length, pages: Math.ceil(result.length / pageSize) };
-					}
-					else{
-						result = res.data;
-						page = res.page;
-					}
-					/* 筛选制定日期内的数据 */
+					// /* 筛选制定日期内的数据 */
+					// let result = [], page;					
+					// if(this.queryForm.sTime != '' && this.queryForm.eTime != ''){
+					// 	for(let item of res.data){
+					// 		console.log(item.createdAt, this.queryForm.sTime, this.queryForm.eTime)
+					// 		// 比较日期大小，若第一个值小于第二个值则返回true
+					// 		let start = Common.CompareDate(this.queryForm.sTime, item.createdAt),
+					// 			end = Common.CompareDate(item.createdAt, this.queryForm.eTime);
+					// 		// 满足条件则保留数据
+					// 		if(start && end){
+					// 			result.push(item);
+					// 		}
+					// 	}
+					// 	// 页码
+                    // 	page = { count: result.length, pages: Math.ceil(result.length / this.page.pageSize) };
+					// }
+					// else{
+					// 	result = res.data;
+					// 	page = res.page;
+					// }
+					// /* 筛选制定日期内的数据 */
+					console.log(res);
 					
 			        // 设置数据
-					this.setListData(result);
+					this.setListData(res.data);
 					// 设置页码
-					this.setPage(page);
+					this.setPage(res.page);
 			    }
 			    else this.$Message.error('获取数据失败!');
 			})
