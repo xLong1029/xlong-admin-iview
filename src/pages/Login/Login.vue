@@ -69,10 +69,12 @@
 			}
 		},
 		mounted(){
+			const loginBg = document.getElementById('login');
+			// 设置背景颜色高度
+			loginBg.style.height = document.body.scrollHeight + 'px';
 			// 监听窗口变化
             window.onresize = () => {
-				let docHeight = document.body.scrollHeight;
-				document.getElementById('login').style.height = docHeight + 'px';
+				loginBg.style.height = document.body.scrollHeight + 'px';
             }
 		},
 		methods:{
@@ -113,16 +115,19 @@
 	    width: 100%;
 	    height: 100%;
 	    height: 100vh;
+		min-height: 900px;
 	    background-color: #4d5256;
 	}
 
 	.login-form{
 	    position: absolute;
-	    left: 0;
-	    right: 0;
+	    left: 50%;
+		top: 50%;
 	    width: 400px;
 	    padding: 35px 35px 15px;
-	    margin: 200px auto;
+	    margin: auto;
+		margin-top: -250px;
+		margin-left: -200px;
 	    background: #fff;
 	    border: 1px solid #eaeaea;
 	    border-radius: 5px;
