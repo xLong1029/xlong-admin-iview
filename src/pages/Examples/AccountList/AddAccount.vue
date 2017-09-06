@@ -132,6 +132,8 @@
                     city: '',
                     // 所在区域
                     area: '',
+                    // 默认账户禁用
+                    enabledState: -1,
                 },
                 // 验证规则
                 validate: {
