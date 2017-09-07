@@ -99,9 +99,9 @@
 								// 跳转到后台主页
 								this.$router.push({ name: 'Main' });
 							}
-							else this.$Message.error('用户名或密码不正确！');
+							else this.$Message.error('登录失败!用户名或密码不正确！');
 						})
-						.catch(err => this.$Message.error('登录失败!'));
+						.catch(err => this.$Message.error('登录失败!用户名或密码不正确！'));
                     }
                     else this.$Message.error('登录失败!填写有误！');
                 })

@@ -10,12 +10,8 @@ const common = {
 		}],
 		// 获取单图片显示路径
 		getImageUrl: '',
-		// 获取单图片上传的ID
-		getImageId: '',
 		// 获取多图片显示路径
 		getImageUrlArr: [],
-		// 获取多图片上传的ID
-		getImageIdArr: [],
 		// 输入框的值
 		inputValue: '',
 	},
@@ -29,14 +25,8 @@ const common = {
 		SET_IMAGE_URL: (state, getImageUrl) => {
 		  state.getImageUrl = getImageUrl;
 		},
-		SET_IMAGE_ID: (state, getImageId) => {
-		  state.getImageId = getImageId;
-		},
 		SET_IMAGE_URL_ARR: (state, getImageUrlArr) => {
 		  state.getImageUrlArr = getImageUrlArr;
-		},
-		SET_IMAGE_ID_ARR: (state, getImageIdArr) => {
-		  state.getImageIdArr = getImageIdArr;
 		},
 		SET_INPUT_VALUE:(state, inputValue) =>{
 			state.inputValue = inputValue;

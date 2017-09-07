@@ -41,7 +41,7 @@
     export default {
         components: {  Loading, SingleImage },
         computed: {
-            ...mapGetters([ 'token' ])
+            ...mapGetters([ 'token', 'getImageUrl' ])
         },
 		data(){
 			return {
@@ -83,6 +83,7 @@
                     if (valid) {
                         // 页面加载
                         this.pageLoading = true;
+                        this.editForm.userface = this.getImageUrl;
                         Api.EditProfile(this.editForm, { username : this.editForm.username})
                         .then(res => {
                             this.pageLoading = false;
