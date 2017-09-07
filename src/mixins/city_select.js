@@ -40,9 +40,14 @@ export default {
                     break;
                 }
             }
+            if(this.infoForm.city != ''){
+                this.infoForm.area = '';
+                this.changeCity(this.infoForm.city);                
+            }
         },
         // 城市改变联动区域列表
         changeCity(res) {
+            console.log('城市name:' + res);
             // 清空选项列表
             this.areaList = [];
             // 获取区域列表
@@ -70,6 +75,7 @@ export default {
         // 区域改变
         changeArea(res) {
             console.log('区域name:' + res);
+            this.infoForm.area = res;
         },
 	}
 }
