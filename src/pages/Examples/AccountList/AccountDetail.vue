@@ -20,7 +20,7 @@
                     <Form-item label="手机号码：" prop="mobile">
                         <Input v-model="infoForm.mobile" placeholder="请输入手机号码"></Input>
                     </Form-item>
-                    <Form-item label="邮箱：" prop="email">
+                    <Form-item label="邮箱：">
                         <AutoComplete v-model="infoForm.email" :data="emailList" @on-search="selectEmail" @on-select="setEmail" placeholder="请输入邮箱地址"></AutoComplete>
                     </Form-item>
                     </Col>
@@ -160,10 +160,6 @@
                         },
                         trigger: 'change'
                     }],
-                    email: [
-                        { required: true, message: '邮箱不能为空', trigger: 'blur'},
-                        { pattern: Common.regEmail, message: '邮箱格式不正确', trigger: 'blur' }
-                    ],
                     mobile: [
                         { required: true, message: '手机号码不能为空', trigger: 'blur'},
                         { pattern: Common.regMobile, message: '手机号码格式不正确', trigger: 'blur' }
@@ -248,6 +244,10 @@
                     value + '@115.com',
                     value + '@163.com',
                 ];
+            },
+            // 设置邮箱
+            setEmail(value){
+                this.infoForm.email = value;
             }
         }
     }

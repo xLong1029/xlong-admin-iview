@@ -34,17 +34,20 @@
                 { name: '首页', path: '/Home' },
                 { name: '图片上传', path: '/Components/UploadImage' }
             ]);
+            // 初始化图片显示链接
+            this.$store.commit('SET_IMAGE_URL', '');
+            this.$store.commit('SET_IMAGE_URL_ARR', '');
         }
     }
 </script>
 
 <style lang="less" scoped>
     .m-content{
-        width:500px;
         padding-left: 20px;
     }
 
     .m-desc{
+        width: 500px;
         margin-top: 20px;
         border: 1px solid #d4ece8;
         border-radius: 4px;
