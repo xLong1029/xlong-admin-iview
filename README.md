@@ -7,6 +7,8 @@
 
 项目用到技术、框架与插件：Vue2.0+、iView、Less、Bmob。
 
+图片上传用的是七牛云存储。
+
 ## 安装项目依赖包
 npm install
 

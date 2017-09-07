@@ -12,13 +12,7 @@
         <!-- 上传按钮 -->
         <div>
             <Button type="ghost" :loading="loading" icon="ios-cloud-upload-outline" @click="uploadClick">上传图片</Button>
-            <input
-                ref="imgFile"
-                type="file"
-                :accept="format"
-                style="FILTER: alpha(opacity=0); moz-opacity: 0; opacity: 0;"
-                @change="selectFile"
-            />
+            <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
         </div>
         <!-- 上传进度条  -->
         <template v-if="uploadStatus != 'finished'">
@@ -35,6 +29,7 @@
         </Modal>
     </div>
 </template>
+
 <script>
     // 通用JS
     import Common from 'common/common.js'
@@ -49,7 +44,13 @@
         name: 'multipleImage',
         mixins: [ UploadImg ],
         // 获取父级传值preview，true为可预览图片，false为不可预览
-        props: [ 'preview' ],
+        props: {
+            // 设置默认值
+            preview:{
+                type: Boolean,
+                default: false
+            }, 
+        },
         computed: {
             ...mapGetters([
                 // 获取图片显示路径
@@ -126,6 +127,7 @@
         }
     }
 </script>
+
 <style lang="less" scoped>
     .hint{
         color:#ed3f14;

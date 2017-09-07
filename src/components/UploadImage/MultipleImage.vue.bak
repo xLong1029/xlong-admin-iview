@@ -38,6 +38,7 @@
         </Modal>
     </div>
 </template>
+
 <script>
     import Common from 'common/common.js'
     import { mapGetters } from 'vuex'
@@ -154,6 +155,7 @@
         }
     }
 </script>
+
 <style lang="less" scoped>
     .hint{
         color:#ed3f14;
