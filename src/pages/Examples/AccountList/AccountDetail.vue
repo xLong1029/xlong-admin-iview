@@ -172,7 +172,7 @@
             this.$store.commit('SET_BREADCRUMB', [
                 { name: '首页', path: '/Home' },
                 { name: '账户列表', path: '/Examples/AccountList' },
-                { name: '账户详情', path: '/Examples/AccountDetail' }
+                { name: '账户详情', path: '' }
             ]);
             // 获取用户编号
             this.userId = this.$route.query.id;

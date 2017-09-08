@@ -225,7 +225,7 @@
                         align: 'center',
                         render: (h, params) => {
                             return h('div', [
-                                tableSetting.details(h, params, this, 'AccountDetail'),
+                                tableSetting.gotoPage(h, params, this, '查看详情', 'AccountDetail'),
                             ]);                          
                         }
                     }

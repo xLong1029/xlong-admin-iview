@@ -17,12 +17,15 @@ import ChangePwd from 'pages/Profile/ChangePwd'
 // 组件相关页面
 import UploadImage from 'pages/Components/UploadImage'
 import Input from 'pages/Components/Input'
-import Table from 'pages/Components/Table'
 
 // 示例相关页面
 import AccountList from 'pages/Examples/AccountList/AccountList'
 import AddAccount from 'pages/Examples/AccountList/AddAccount'
 import AccountDetail from 'pages/Examples/AccountList/AccountDetail'
+
+import SectionList from 'pages/Examples/SectionList/SectionList'
+import ContManage from 'pages/Examples/SectionList/ContManage'
+
 import MessageList from 'pages/Examples/MessageList/MessageList'
 
 // 错误页面
@@ -49,16 +52,18 @@ const RouterMap = [
             { path: '/Components/UploadImage', name: 'UploadImage', component: UploadImage },
             // Input输入框页面
             { path: '/Components/Input', name: 'Input', component: Input },
-            // 表格页面
-            { path: '/Components/Table', name: 'Table', component: Table },
             // 账户列表页面
             { path: '/Examples/AccountList', name: 'AccountList', component: AccountList },
             // 账户列表-新增账户
             { path: '/Examples/AddAccount', name: 'AddAccount', component: AddAccount },
             // 账户列表-账户详情
             { path: '/Examples/AccountDetail', name: 'AccountDetail', component: AccountDetail },
+            // 板块列表页面
+            { path: '/Examples/SectionList', name: 'SectionList', component: SectionList },
+            // 板块内容管理页面
+            { path: '/Examples/SectionList/ContManage', name: 'ContManage', component: ContManage },
             // 消息列表页面
-            { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },
+            { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },            
             // 404
             { path: '/404', name: '404', component: Err404 },
         ]

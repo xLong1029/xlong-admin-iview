@@ -65,10 +65,6 @@
                                 name: 'Input',
                                 text: 'Input输入框'
                             },
-                            {
-                                name: 'Table',
-                                text: '表格'
-                            },
                         ]
                     },
                     {
@@ -79,6 +75,10 @@
                             {
                                 name: 'AccountList',
                                 text: '账户列表'
+                            },
+                            {
+                                name: 'SectionList',
+                                text: '版块列表'
                             },
                             {
                                 name: 'MessageList',

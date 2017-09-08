@@ -160,7 +160,7 @@
             this.$store.commit('SET_BREADCRUMB', [
                 { name: '首页', path: '/Home' },
                 { name: '账户列表', path: '/Examples/AccountList' },
-                { name: '新增账户', path: '/Examples/AddAccount' }
+                { name: '新增账户', path: '' }
             ]);
 
             // 清空图片路径

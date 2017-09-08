@@ -24,6 +24,34 @@ export default {
         clearSelect(){
             this.selectList = [];
         },
+        // 新增数据
+        addData(){
+            this.apiAdd().then(res => {
+                this.pageLoading = false;
+                if(res.code == 200){
+                    this.$Message.success('新增成功!');
+                    // 更新列表
+                    this.updateList();
+                    // 清空选项列表
+                    this.clearSelect();
+                }
+                else console.log(res);
+            }).catch(err => this.$Message.error('新增失败！'))
+        },
+        // 编辑数据
+        EditData(){
+            this.apiEdit().then(res => {
+                this.pageLoading = false;
+                if(res.code == 200){
+                    this.$Message.success('编辑成功!');
+                    // 更新列表
+                    this.updateList();
+                    // 清空选项列表
+                    this.clearSelect();
+                }
+                else console.log(res);
+            }).catch(err => this.$Message.error('编辑失败！'))
+        },
 		// 删除数据
         deleteData(){
             // 延迟
