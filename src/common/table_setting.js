@@ -1,8 +1,8 @@
 import Common from 'common/common.js'
 
 export default {
-    // 查看详情
-    details: (h, params, _this , routeName, marginR) => h('Button', {
+    // 跳转页面
+    gotoPage: (h, params, _this , btnName, routeName, marginR) => h('Button', {
         props: {
             type: 'primary',
             size: 'small'
@@ -12,13 +12,29 @@ export default {
             marginRight: marginR,
         },
         on: {
-            // 点击跳转到详情页
             click: () => {
-                // 跳转到账户详情，传值用户编号
+                // 跳转到指定页面,传值列表ID
                 _this.$router.push({ name : routeName, query : { id : params.row.id } });
             }
         }
-    }, '查看详情'),
+    }, btnName),
+    // 弹窗
+    popUp: (h, params, _this , btnName, marginR) => h('Button', {
+        props: {
+            type: 'primary',
+            size: 'small'
+        },
+        style: {
+            minWidth: '64px',
+            marginRight: marginR,
+        },
+        on: {
+            click: () => {
+                // 打开弹窗操作
+                _this.openModel(params.row);
+            }
+        }
+    }, btnName),
 	// 图片显示
 	showImage: (h, params, _this) => h('img', {
         attrs: {
