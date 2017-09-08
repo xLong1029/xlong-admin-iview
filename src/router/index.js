@@ -17,6 +17,7 @@ import ChangePwd from 'pages/Profile/ChangePwd'
 // 组件相关页面
 import UploadImage from 'pages/Components/UploadImage'
 import Input from 'pages/Components/Input'
+import Table from 'pages/Components/Table'
 
 // 示例相关页面
 import AccountList from 'pages/Examples/AccountList/AccountList'
@@ -48,6 +49,8 @@ const RouterMap = [
             { path: '/Components/UploadImage', name: 'UploadImage', component: UploadImage },
             // Input输入框页面
             { path: '/Components/Input', name: 'Input', component: Input },
+            // 表格页面
+            { path: '/Components/Table', name: 'Table', component: Table },
             // 账户列表页面
             { path: '/Examples/AccountList', name: 'AccountList', component: AccountList },
             // 账户列表-新增账户
