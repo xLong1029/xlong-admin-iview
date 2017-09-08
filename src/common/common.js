@@ -12,7 +12,7 @@ export default {
     REST_API_KEY: '653887187daf660941971acf257cccc1',
     // 七牛云上传Token，因无服务端所以目前是手动设置，时效为12小时
     // 七牛云存储在线上传凭证地址：http://jsfiddle.net/gh/get/extjs/4.2/icattlecoder/jsfiddle/tree/master/uptoken?ref=developer.qiniu.com
-    UPLOAD_TOKEN: 'd4N11KEZxF2QFo9is4DFKGXRFfdyhFuAbNRYqzP0:4xsznbv0OCG3-DX4lrrENf5QNeE=:eyJzY29wZSI6ImltYWdlc3RvcmUiLCJkZWFkbGluZSI6MTUwNDc5NjYwMH0=',
+    UPLOAD_TOKEN: 'd4N11KEZxF2QFo9is4DFKGXRFfdyhFuAbNRYqzP0:lDMvnK9QmT4n3WYJAgsxsbReAkA=:eyJzY29wZSI6ImltYWdlc3RvcmUiLCJkZWFkbGluZSI6MTUwNDg4NTEzNn0=',
     // 上传文件显示的测试地址
     UPLOAD_URL: 'http://ovw49042e.bkt.clouddn.com/',
     // 邮政编码正则表达式

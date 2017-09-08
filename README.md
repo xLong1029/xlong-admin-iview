@@ -7,7 +7,13 @@
 
 项目用到技术、框架与插件：Vue2.0+、iView、Less、Bmob。
 
+<<<<<<< HEAD
 图片上传用的是七牛云存储。
+=======
+Bmob的图片上传SDK有跨域问题，所以改用七牛云存储，需要配置token才可以上传。
+七牛云存储在线上传凭证地址：http://jsfiddle.net/gh/get/extjs/4.2/icattlecoder/jsfiddle/tree/master/uptoken?ref=developer.qiniu.com
+在common.js文件中可修改token
+>>>>>>> develop
 
 ## 安装项目依赖包
 npm install

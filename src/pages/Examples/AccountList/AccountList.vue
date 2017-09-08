@@ -77,6 +77,7 @@
             @on-page-size-change="changePageSize"
         >
         </Page>
+        <div class="clearfix"></div>
     </div>
 </template>
 
