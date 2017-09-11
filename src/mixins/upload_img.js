@@ -14,8 +14,6 @@ export default {
             showMask: false,
             // 上传进度
             percentage: 0,
-            // 是否显示图片
-            visible: true,
         }
     },
     created(){},
@@ -78,7 +76,6 @@ export default {
                 this.$Notice.success({ title: '图片上传成功!' });
             })
             .catch(err => {
-                // 上传失败
                 // 停止加载和隐藏进度条
                 this.progressHide();                 
                 clearInterval(progress);                
