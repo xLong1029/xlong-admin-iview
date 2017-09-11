@@ -35,7 +35,6 @@
                     <!-- 操作按钮 -->
                     <div v-if="th.type == 'Button'">
                         <Button
-                            disabled
                             :key="index"
                             :type="th.button.type"
                             :size="th.button.size"
@@ -107,6 +106,8 @@
     import TableOperate from 'mixins/table_operate.js'
     // 页码设置
     import Page from 'mixins/page.js'
+    // Vuex
+    import { mapGetters } from 'vuex'
     // axios
     import axios from 'axios'
       
@@ -114,6 +115,7 @@
         components: { SingleImage },
         mixins: [ TableQuery, TableOperate, Page ],
         computed: {
+            ...mapGetters([ 'getImageUrl' ]),
             // 获取所有列表
             apiGetAll(){
                 return () => Api.GetContList(this.page.pageNo, this.page.pageSize);
@@ -125,6 +127,10 @@
             // 删除操作接口
             apiDelete(){
                 return () => Api.DeleteCont(this.selectList);
+            },
+            // 编辑操作接口
+            apiEdit(){
+                return () => Api.EditContent(this.paramsForm, this.editId);
             },
         },
         data(){
@@ -169,6 +175,7 @@
                         key: 'id',
                         align: 'center',
                         type: 'Text',
+                        width: '100'
                     },
                     {
                         title: '内容标题',
@@ -272,7 +279,7 @@
             // 查看图片
             viewImage(index){
                 this.showImgModal = true;
-                this.imgUrl = this.data[index].img;
+                this.imgUrl = this.listData[index].img;
             },
             // 上传按钮点击事件
             uploadClick(index){
@@ -311,7 +318,7 @@
                 axios.post('http://upload.qiniu.com/', params, { emulateJSON: true})
                 .then(res => {
                     // 设置图片
-                    this.data[this.rowIndex].img = Common.UPLOAD_URL + res.data.hash;
+                    this.listData[this.rowIndex].img = Common.UPLOAD_URL + res.data.hash;
                     this.$Notice.success({ title: '图片上传成功！' });
                 })
                 .catch(err => {              
@@ -338,11 +345,19 @@
             },
             // 保存数据
             saveThis(index){
-                this.editId = index;
+                this.editId = this.listData[index].id;
+                this.paramsForm.title = this.listData[index].title;
+                this.paramsForm.img = this.listData[index].img;
+                this.paramsForm.url = this.listData[index].url;
+                // 编辑数据
+                this.EditData();
             },
             // 打开弹窗
             openModel(){
                 this.showAddModal = true;
+                this.paramsForm.title = '';
+                this.paramsForm.img = '';
+                this.paramsForm.url = '';                
             },
             // 关闭弹窗
             closeModal(name){
@@ -355,6 +370,9 @@
                 // 表单验证
                 this.$refs[name].validate((valid)=>{
                     if(valid){
+                        // 设置图片路径
+                        this.paramsForm.img = this.getImageUrl;
+                        // 新增那个数据
                         this.addData();
                         // 延迟关闭
                         setTimeout(() => {

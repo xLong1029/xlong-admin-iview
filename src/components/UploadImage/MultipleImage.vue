@@ -105,7 +105,7 @@
                 params.append('file', file);
                 
                 // 上传请求
-                axios.post('http://upload.qiniu.com/', params, { emulateJSON: true})
+                axios.post('http://upload.qiniu.com/', params)
                 .then(res => {
                     let url = Common.UPLOAD_URL + res.data.hash;
                     this.urlArr.push(url);

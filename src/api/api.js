@@ -363,4 +363,25 @@ export default {
             }, 1000);
         });
     },
+    // 编辑内容
+    // params: 修改的参数对象, id：查询的objectId
+    EditContent: (params, id) => {
+        let query = BmobServer.Query('SectionCont');
+        return new Promise((resolve, reject) => {
+            query.get(id, {
+                success: (obj) => {
+                    if(obj == undefined){
+                        resolve({ code: 404, msg: '无该id数据可获取！' });
+                        return false;
+                    }
+                    // 设置并保存数据
+                    obj.save(params, {
+                        success: res => resolve({ code: 200, data: res }),
+                        err: err => reject(err)
+                    });
+                },
+                error: err => console.log('无法通过该objectId获取数据')
+            });
+        });
+    },
 }
