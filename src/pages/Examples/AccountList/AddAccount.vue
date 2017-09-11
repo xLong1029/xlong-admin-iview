@@ -62,7 +62,9 @@
                         <Select class="select-province" v-model="infoForm.city" placeholder="请选择城市" @on-change="changeCity">
                             <Option v-for="(item, index) in cityList" :value="item.name" :key="index">{{ item.name }}</Option>
                         </Select>
+                        <!-- iView的Select组件这里有个Bug,有时会导致选中的选项无法显示，但实际已经获取到值  -->
                         <Select class="select-province" v-model="infoForm.area" placeholder="请选择区域" @on-change="changeArea">
+                            <span>{{ infoForm.area }}</span>
                             <Option v-for="(item, index) in areaList" :value="item.name" :key="index">{{ item.name }}</Option>
                         </Select>
                     </Form-item>
@@ -94,10 +96,15 @@
     // Json数据
     import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'
+    // Vuex
+    import { mapGetters } from 'vuex'
 
     export default {
         components: { CompanyName, SingleImage },
         mixins: [ CitySelect ],
+        computed: {
+            ...mapGetters([ 'getImageUrl' ]),
+        },
         data() {
             return {
                 // 职位列表
@@ -158,7 +165,7 @@
             this.$store.commit('SET_BREADCRUMB', [
                 { name: '首页', path: '/Home' },
                 { name: '账户列表', path: '/Examples/AccountList' },
-                { name: '新增账户', path: '/Examples/AddAccount' }
+                { name: '新增账户', path: '' }
             ]);
 
             // 清空图片路径
@@ -181,7 +188,7 @@
                         // 页面加载
                         this.pageLoading = true;
 
-                        this.infoForm.faceId = this.getImageId;
+                        this.infoForm.face = this.getImageUrl;
                         this.infoForm.companyName = this.inputValue;
                         
                         // 新增用户
@@ -211,6 +218,10 @@
                     value + '@115.com',
                     value + '@163.com',
                 ];
+            },
+            // 设置邮箱
+            setEmail(value){
+                this.infoForm.email = value;
             }
         }
     }

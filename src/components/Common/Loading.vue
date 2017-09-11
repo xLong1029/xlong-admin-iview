@@ -1,30 +1,40 @@
 <template>
   <div id="loading" class="page-load">
-        <Spin>
-            <Icon type="load-c" size=18 class="spin-icon-load"></Icon>
-            <div>玩命加载中...</div>
-        </Spin>
-    </div>
+    <Spin>
+      <Icon type="load-c" size=18 class="spin-icon-load"></Icon>
+      <div>玩命加载中...</div>
+    </Spin>
+  </div>
 </template>
+
 <script>
   export default {
     name: 'loading',
-    data () {
+    data() {
       return {}
     }
   }
 </script>
+
 <style lang="less" scoped>
-  .page-load{
+  .page-load {
     margin-top: 200px;
   }
-  .spin-icon-load{
+  
+  .spin-icon-load {
     animation: ani-demo-spin 1s linear infinite;
   }
+  
   @keyframes ani-demo-spin {
-    from { transform: rotate(0deg);}
-    50%  { transform: rotate(180deg);}
-    to   { transform: rotate(360deg);}
+    from {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 </style>
 

@@ -77,6 +77,7 @@
             @on-page-size-change="changePageSize"
         >
         </Page>
+        <div class="clearfix"></div>
     </div>
 </template>
 
@@ -224,7 +225,7 @@
                         align: 'center',
                         render: (h, params) => {
                             return h('div', [
-                                tableSetting.details(h, params, this, 'AccountDetail'),
+                                tableSetting.gotoPage(h, params, this, '查看详情', 'AccountDetail'),
                             ]);                          
                         }
                     }

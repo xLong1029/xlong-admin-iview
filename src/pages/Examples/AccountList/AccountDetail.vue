@@ -20,7 +20,7 @@
                     <Form-item label="手机号码：" prop="mobile">
                         <Input v-model="infoForm.mobile" placeholder="请输入手机号码"></Input>
                     </Form-item>
-                    <Form-item label="邮箱：" prop="email">
+                    <Form-item label="邮箱：">
                         <AutoComplete v-model="infoForm.email" :data="emailList" @on-search="selectEmail" @on-select="setEmail" placeholder="请输入邮箱地址"></AutoComplete>
                     </Form-item>
                     </Col>
@@ -105,10 +105,7 @@
         components: { Loading, CompanyName, SingleImage },
         mixins: [ CitySelect ],
         computed: {
-            ...mapGetters([
-                // 获取模糊查询输入框的值
-                'inputValue',
-            ])
+            ...mapGetters(['inputValue', 'getImageUrl' ])
         },
         data() {
             return {
@@ -160,10 +157,6 @@
                         },
                         trigger: 'change'
                     }],
-                    email: [
-                        { required: true, message: '邮箱不能为空', trigger: 'blur'},
-                        { pattern: Common.regEmail, message: '邮箱格式不正确', trigger: 'blur' }
-                    ],
                     mobile: [
                         { required: true, message: '手机号码不能为空', trigger: 'blur'},
                         { pattern: Common.regMobile, message: '手机号码格式不正确', trigger: 'blur' }
@@ -176,7 +169,7 @@
             this.$store.commit('SET_BREADCRUMB', [
                 { name: '首页', path: '/Home' },
                 { name: '账户列表', path: '/Examples/AccountList' },
-                { name: '账户详情', path: '/Examples/AccountDetail' }
+                { name: '账户详情', path: '' }
             ]);
             // 获取用户编号
             this.userId = this.$route.query.id;
@@ -197,6 +190,7 @@
                         // 页面加载
                         this.pageLoading = true;
                         
+                        this.infoForm.face = this.getImageUrl;
                         this.infoForm.companyName = this.inputValue;
 
                         // 修改账户信息
@@ -248,6 +242,10 @@
                     value + '@115.com',
                     value + '@163.com',
                 ];
+            },
+            // 设置邮箱
+            setEmail(value){
+                this.infoForm.email = value;
             }
         }
     }

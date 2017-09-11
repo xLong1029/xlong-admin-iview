@@ -22,6 +22,10 @@ import Input from 'pages/Components/Input'
 import AccountList from 'pages/Examples/AccountList/AccountList'
 import AddAccount from 'pages/Examples/AccountList/AddAccount'
 import AccountDetail from 'pages/Examples/AccountList/AccountDetail'
+
+import SectionList from 'pages/Examples/SectionList/SectionList'
+import ContManage from 'pages/Examples/SectionList/ContManage'
+
 import MessageList from 'pages/Examples/MessageList/MessageList'
 
 // 错误页面
@@ -54,8 +58,12 @@ const RouterMap = [
             { path: '/Examples/AddAccount', name: 'AddAccount', component: AddAccount },
             // 账户列表-账户详情
             { path: '/Examples/AccountDetail', name: 'AccountDetail', component: AccountDetail },
+            // 板块列表页面
+            { path: '/Examples/SectionList', name: 'SectionList', component: SectionList },
+            // 板块内容管理页面
+            { path: '/Examples/SectionList/ContManage', name: 'ContManage', component: ContManage },
             // 消息列表页面
-            { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },
+            { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },            
             // 404
             { path: '/404', name: '404', component: Err404 },
         ]

@@ -31,7 +31,13 @@
     export default {
         name: 'inputAndSelect',
         // 获取父组件传值direction，top：向上显示列表，down：向下显示列表
-        props: [ 'direction' ],
+        props: {
+            // 设置默认值
+            direction:{
+                type: String,
+                default: 'down'
+            }, 
+        },
         data () {
             return {
                 // 输入框的值

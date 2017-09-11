@@ -14,12 +14,8 @@ const getters = {
     breadcrumb: state => state.common.breadcrumb,
     // 图片上传-获取单图片显示路径
     getImageUrl: state => state.common.getImageUrl,
-    // 图片上传-获取单图片上传的ID
-    getImageId: state => state.common.getImageId,
     // 图片上传-获取多图片显示路径
     getImageUrlArr: state => state.common.getImageUrlArr,
-    // 图片上传-获取多图片上传的ID
-    getImageIdArr: state => state.common.getImageIdArr,
     // 输入框的值
 	inputValue: state => state.common.inputValue,
 };

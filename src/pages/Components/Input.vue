@@ -41,6 +41,7 @@
     }
 
     .m-desc{
+        width: 500px;
         margin-top: 20px;
         border: 1px solid #d4ece8;
         border-radius: 4px;

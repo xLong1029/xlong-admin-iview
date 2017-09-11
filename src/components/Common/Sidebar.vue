@@ -77,6 +77,10 @@
                                 text: '账户列表'
                             },
                             {
+                                name: 'SectionList',
+                                text: '版块列表'
+                            },
+                            {
                                 name: 'MessageList',
                                 text: '消息列表'
                             },
