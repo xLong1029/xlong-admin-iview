@@ -33,11 +33,11 @@
             <div class="clearfix"></div>
         </div>
         <!-- 新增窗口-->
-        <Modal v-model="showModal" width="500" class-name="g-edit-model" @on-cancel="closeModal('paramsForm')">
+        <Modal v-model="showModal" width="500" @on-cancel="closeModal('paramsForm')">
             <p slot="header">
                 <span v-text="paramsForm.title == '' ? '新增版块' : '编辑版块'"></span>
             </p>
-            <div class="m-edit-form">
+            <div>
                 <Form ref="paramsForm" :model="paramsForm" :rules="validate" :label-width="100">
                     <Form-item label="版块标题：" prop="title">
                         <Input v-model="paramsForm.title"></Input>
@@ -65,6 +65,8 @@
     import Api from '@/api/api.js'
     // 表格设置
     import tableSetting from 'common/table_setting.js'
+    // 表格查询
+    import TableQuery from 'mixins/table_query.js'
     // 表格操作
     import TableOperate from 'mixins/table_operate.js'
     // 页码设置
@@ -72,8 +74,12 @@
 
     export default {
         components: { Loading },
-        mixins: [ TableOperate, Page ],
+        mixins: [ TableQuery, TableOperate, Page ],
         computed: {
+            // 获取所有列表
+            apiGetAll(){
+                return () => Api.GetSecList(this.page.pageNo, this.page.pageSize);
+            },
             // 新增操作接口
             apiAdd(){
                 return () => Api.AddSection(this.paramsForm);
@@ -174,15 +180,7 @@
         methods: {
             // 获取表格列表
             getTableList(query){
-                Api.GetSecList().then(res => {
-                    this.pageLoading = false;
-                    if(res.code == 200){
-                        // 设置数据
-                        this.setListData(res.data);
-                    }
-                    else this.$Message.error('获取数据失败!');
-                })
-                .catch(err => console.log(err))
+                this.getAllList();
             },
             // 设置列表数据
             setListData(result){
@@ -199,6 +197,7 @@
             },
             // 关闭弹窗
             closeModal(name){
+                this.showModal = false;
                 // 数据初始化（重置）
                 this.$refs[name].resetFields();
             },
@@ -211,13 +210,19 @@
             },
             // 弹窗操作
             operation(name, type){
-                // 操作
-                if(type == 1) this.addData();
-                else if(type == 2) this.EditData();                
-                // 延迟关闭
-                setTimeout(() => {
-                    this.showModal = false;
-                }, 500);
+                // 表单验证
+                this.$refs[name].validate((valid)=>{
+                    if(valid){
+                        // 操作
+                        if(type == 1) this.addData();
+                        else if(type == 2) this.EditData();
+                        // 延迟关闭
+                        setTimeout(() => {
+                            this.closeModal();
+                        }, 500);
+                    }
+                    else this.$Message.error('提交失败！填写有误');
+                })
             },
             addSection(){
                 this.showModal = true;
