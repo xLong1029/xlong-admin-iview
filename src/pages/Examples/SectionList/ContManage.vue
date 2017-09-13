@@ -2,8 +2,8 @@
     <div class="g-content">
         <!-- 操作按钮 -->
         <div class="m-operation">
-            <Button class="operation-btn" type="primary" disabled>新增(待开发)</Button>
-            <Button class="operation-btn" type="warning" @click="deleteData"  disabled>删除(待开发)</Button>
+            <Button class="operation-btn" type="primary" @click="openModel">新增</Button>
+            <Button class="operation-btn" type="warning" :disabled="selectList.length == 0" @click="deleteData">删除</Button>
             <Button class="operation-btn" type="ghost" @click="$router.go(-1)">返回</Button>
         </div>
         <!-- 内容列表 -->
@@ -14,7 +14,7 @@
                 <span v-else>{{ item.title }}</span>
             </th>
             <!-- 表格内容 -->
-            <tr v-for="(item, index) in data" :key="index">
+            <tr v-for="(item, index) in listData" :key="index">
                 <td v-for="(th, i) in title" :key="i" :align="th.align">
                     <!-- 勾选框 -->
                     <Checkbox v-if="th.type == 'CheckBox'" v-model="item.isCheck" @on-change="selectRow(index, item.isCheck)"></Checkbox>
@@ -47,13 +47,6 @@
                 </td>
             </tr>
         </table>
-        <!-- 隐藏的上传按钮 -->
-        <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
-        <!-- 查看图片 -->
-        <Modal title="查看图片" v-model="showModal">
-            <img :src="imgUrl" style="width: 100%" @error="notFoundPic"/>
-            <div slot="footer"></div>
-        </Modal>
         <!-- 分页 -->
         <Page
             class-name="m-page"
@@ -69,25 +62,75 @@
         >
         </Page>
         <div class="clearfix"></div>
+        <!-- 隐藏的上传按钮 -->
+        <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
+        <!-- 查看图片 -->
+        <Modal title="查看图片" v-model="showImgModal">
+            <img :src="imgUrl" style="width: 100%" @error="notFoundPic"/>
+            <div slot="footer"></div>
+        </Modal>
+        <!-- 新增内容 -->
+        <Modal title="新增内容" v-model="showAddModal" @on-cancel="closeModal('paramsForm')">
+            <div>
+                <Form ref="paramsForm" :model="paramsForm" :rules="validate" :label-width="100">
+                    <Form-item label="内容标题：" prop="title">
+                        <Input v-model="paramsForm.title"></Input>
+                    </Form-item>
+                    <Form-item label="封面图片：">
+                        <!-- 组件-图片上传-单图片显示 -->
+                        <SingleImage :preview="false"></SingleImage>
+                    </Form-item>
+                    <Form-item label="跳转链接：">
+                        <Input v-model="paramsForm.url"></Input>
+                    </Form-item>
+                </Form>
+            </div>
+            <div slot="footer">
+                <Button size="large" @click="closeModal('paramsForm')">取消</Button>
+                <Button type="primary" size="large" @click="add('paramsForm')">确定</Button>
+            </div>
+        </Modal>
     </div>
 </template>
 
 <script>
+    // 组件
+    import SingleImage from 'components/UploadImage/SingleImage'
     // 通用JS
     import Common from 'common/common.js'
+    // Api方法
+    import Api from '@/api/api.js'
+    // 表格查询
+    import TableQuery from 'mixins/table_query.js'
     // 表格操作
     import TableOperate from 'mixins/table_operate.js'
     // 页码设置
     import Page from 'mixins/page.js'
+    // Vuex
+    import { mapGetters } from 'vuex'
     // axios
     import axios from 'axios'
       
     export default {
-        mixins: [ TableOperate, Page ],
+        components: { SingleImage },
+        mixins: [ TableQuery, TableOperate, Page ],
         computed: {
+            ...mapGetters([ 'getImageUrl' ]),
+            // 获取所有列表
+            apiGetAll(){
+                return () => Api.GetContList(this.page.pageNo, this.page.pageSize);
+            },
+            // 新增操作接口
+            apiAdd(){
+                return () => Api.AddContent(this.paramsForm);
+            },
             // 删除操作接口
             apiDelete(){
-                return () => Api.DeleteAcc(this.selectList);
+                return () => Api.DeleteCont(this.selectList);
+            },
+            // 编辑操作接口
+            apiEdit(){
+                return () => Api.EditContent(this.paramsForm, this.editId);
             },
         },
         data(){
@@ -95,7 +138,7 @@
                 //选中所有项
                 checkAll: false,
                 // 显示查看图片
-                showModal: false,
+                showImgModal: false,
                 // 显示图片Url
                 imgUrl: '',
                 // 当前操作行索引
@@ -110,8 +153,15 @@
                     img: '',
                     url: '',
                 },
+                // 验证规则
+                validate: {
+                    title:[{ required: true, message: '内容标题不能为空', trigger: 'blur' }],
+                },
                 // 需要编辑的对象id
                 editId: '',
+                // 显示新增弹窗
+                showAddModal: false,
+                // 表格表头
                 title: [
                     {
                         title: '全选',
@@ -125,6 +175,7 @@
                         key: 'id',
                         align: 'center',
                         type: 'Text',
+                        width: '100'
                     },
                     {
                         title: '内容标题',
@@ -160,7 +211,8 @@
                         width: '100',
                     },
                 ],
-                data: [
+                // 表格信息
+                listData: [
                     {
                         id: '1001',
                         title: '六个六产品',
@@ -183,19 +235,37 @@
                 { name: '板块列表', path: '/Examples/SectionList' },
                 { name: '内容管理', path: '' }
             ]);
+            // 获取内容列表
+            this.getTableList();
             // 初始化表格内容
-            this.initData(this.data);
+            this.initData(this.listData);
         },
         methods: {
             // 全选
             selectAll(check){
-                this.data.forEach(item => {
-                    if(check) item.isCheck = true;
-                    else item.isCheck = false;
+                this.listData.forEach(item => {                    
+                    if(check){
+                        item.isCheck = true;
+                        // 设置选项列表
+                        this.selectList.push(item.id);
+                    }
+                    else{
+                        item.isCheck = false;
+                        // 清空选项列表
+                        this.clearSelect();
+                    }
                 })
             },
             // 选中一行
             selectRow(index, check){
+                if(check){
+                    this.selectList.push(this.listData[index].id);
+                }
+                else{
+                    this.selectList.forEach((item, i) => {           
+                        if(item == this.listData[index].id) this.selectList.splice(i,1);
+                    })
+                }
             },
             // 初始化表格内容
             initData(data){
@@ -208,8 +278,8 @@
             },
             // 查看图片
             viewImage(index){
-                this.showModal = true;
-                this.imgUrl = this.data[index].img;
+                this.showImgModal = true;
+                this.imgUrl = this.listData[index].img;
             },
             // 上传按钮点击事件
             uploadClick(index){
@@ -248,16 +318,69 @@
                 axios.post('http://upload.qiniu.com/', params, { emulateJSON: true})
                 .then(res => {
                     // 设置图片
-                    this.data[this.rowIndex].img = Common.UPLOAD_URL + res.data.hash;
+                    this.listData[this.rowIndex].img = Common.UPLOAD_URL + res.data.hash;
                     this.$Notice.success({ title: '图片上传成功！' });
                 })
                 .catch(err => {              
                     this.$Notice.error({ title: '图片上传失败，请重试！' });
                 })
             },
-            // 保存记录
+            // 获取表格列表
+            getTableList(query){
+                this.getAllList();
+            },
+            // 设置列表数据
+            setListData(result){
+                if(result.length > 0){
+                    this.listData = result.map(item => {
+                        return {
+                            id: item.id,
+                            title: item.attributes.title,
+                            img: item.attributes.img,
+                            url: item.attributes.url,
+                        }
+                    });
+                }
+                else this.listData = [];
+            },
+            // 保存数据
             saveThis(index){
-                this.editId = index;
+                this.editId = this.listData[index].id;
+                this.paramsForm.title = this.listData[index].title;
+                this.paramsForm.img = this.listData[index].img;
+                this.paramsForm.url = this.listData[index].url;
+                // 编辑数据
+                this.EditData();
+            },
+            // 打开弹窗
+            openModel(){
+                this.showAddModal = true;
+                this.paramsForm.title = '';
+                this.paramsForm.img = '';
+                this.paramsForm.url = '';                
+            },
+            // 关闭弹窗
+            closeModal(name){
+                this.showAddModal = false;
+                // 数据初始化（重置）
+                this.$refs[name].resetFields();
+            },
+            // 新增数据
+            add(name){
+                // 表单验证
+                this.$refs[name].validate((valid)=>{
+                    if(valid){
+                        // 设置图片路径
+                        this.paramsForm.img = this.getImageUrl;
+                        // 新增那个数据
+                        this.addData();
+                        // 延迟关闭
+                        setTimeout(() => {
+                            this.closeModal(name);
+                        }, 500);                  
+                    }
+                    else this.$Message.error('提交失败！填写有误');
+                })
             },
             // 无法显示图片
             notFoundPic(event){

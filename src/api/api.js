@@ -310,4 +310,78 @@ export default {
             }, 1000);
         });
     },
+    // 获取版块列表
+    // pageNo：当前第一页, pageSize：每页显示几条数据
+    GetContList: (pageNo, pageSize) => {
+        let query = BmobServer.Query('SectionCont');
+        return new Promise((resolve, reject) => {
+            query.find({
+                success: obj => {
+                    let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
+                    // 返回数据条数，默认返回10条数据
+                    query.limit(pageSize);
+                    // 跳过前面几条数据开始
+                    query.skip((pageNo - 1) * pageSize);
+                    query.find({
+                        success: res => resolve({ code: 200, data: res, page }),
+                        error: err => reject(err)
+                    });
+                },
+                error: err => console.log(err)
+            });
+        });
+    },
+    // 新增内容
+    // params: 修改的参数对象
+    AddContent: (params) => {
+        let obj = BmobServer.Add('SectionCont');
+        return new Promise((resolve, reject) => {
+            // 添加数据，第一个入口参数是Json数据
+            obj.save(params, {
+                success: res => resolve({ code: 200, data: res }),
+                error: (res, err) => reject(err)
+            });
+        });
+    },
+    // 删除内容
+    // ids：需要删除的对象的objectId
+    DeleteCont: (ids) => {
+        // 未成功删除的对象
+        let failObj = [];
+        // 是否删除失败
+        let fail = false;        
+        return new Promise((resolve, reject) => {
+            // 遍历删除
+            for(var id of ids){
+                // 获取一行对象并删除
+                BmobServer.DelOne('SectionCont', id).then().catch(err => { failObj.push(err); fail = true; })
+            }
+            // 延迟判断
+            setTimeout(() => {
+                if(!fail) resolve({ code: 200 })
+                else resolve({ code: 0, data: failObj })
+            }, 1000);
+        });
+    },
+    // 编辑内容
+    // params: 修改的参数对象, id：查询的objectId
+    EditContent: (params, id) => {
+        let query = BmobServer.Query('SectionCont');
+        return new Promise((resolve, reject) => {
+            query.get(id, {
+                success: (obj) => {
+                    if(obj == undefined){
+                        resolve({ code: 404, msg: '无该id数据可获取！' });
+                        return false;
+                    }
+                    // 设置并保存数据
+                    obj.save(params, {
+                        success: res => resolve({ code: 200, data: res }),
+                        err: err => reject(err)
+                    });
+                },
+                error: err => console.log('无法通过该objectId获取数据')
+            });
+        });
+    },
 }

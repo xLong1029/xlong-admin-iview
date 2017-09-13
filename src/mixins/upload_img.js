@@ -65,7 +65,7 @@ export default {
             params.append('file', file);
             
             // 七牛存储空间测试时请选择华东，否则报错：incorrect region, please use up-z2.qiniu.com
-            axios.post('http://upload.qiniu.com/', params, { emulateJSON: true})
+            axios.post('http://upload.qiniu.com/', params)
             .then(res => {
                 let url = Common.UPLOAD_URL + res.data.hash;
                 this.$store.commit('SET_IMAGE_URL', url);

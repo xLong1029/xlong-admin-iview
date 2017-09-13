@@ -96,10 +96,15 @@
     // Json数据
     import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'
+    // Vuex
+    import { mapGetters } from 'vuex'
 
     export default {
         components: { CompanyName, SingleImage },
         mixins: [ CitySelect ],
+        computed: {
+            ...mapGetters([ 'getImageUrl' ]),
+        },
         data() {
             return {
                 // 职位列表
@@ -183,7 +188,7 @@
                         // 页面加载
                         this.pageLoading = true;
 
-                        this.infoForm.faceId = this.getImageId;
+                        this.infoForm.face = this.getImageUrl;
                         this.infoForm.companyName = this.inputValue;
                         
                         // 新增用户

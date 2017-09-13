@@ -105,10 +105,7 @@
         components: { Loading, CompanyName, SingleImage },
         mixins: [ CitySelect ],
         computed: {
-            ...mapGetters([
-                // 获取模糊查询输入框的值
-                'inputValue',
-            ])
+            ...mapGetters(['inputValue', 'getImageUrl' ])
         },
         data() {
             return {
@@ -193,6 +190,7 @@
                         // 页面加载
                         this.pageLoading = true;
                         
+                        this.infoForm.face = this.getImageUrl;
                         this.infoForm.companyName = this.inputValue;
 
                         // 修改账户信息
