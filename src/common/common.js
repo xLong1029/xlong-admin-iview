@@ -16,7 +16,7 @@ export default {
     // 上传文件显示的测试地址
     UPLOAD_URL: 'http://ovw49042e.bkt.clouddn.com/',
     // 邮政编码正则表达式
-    regPostCode: '/^[1-9]\d{5}$/',
+    regPostCode: /^[1-9]\d{5}$/,
     // 邮箱正则表达式
     regEmail: /^[\.a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
     // 手机号正则表达式
