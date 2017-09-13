@@ -9,7 +9,7 @@
 
 Bmob的图片上传SDK有跨域问题，所以改用七牛云存储，需要配置token才可以上传。
 七牛云存储在线上传凭证地址：http://jsfiddle.net/gh/get/extjs/4.2/icattlecoder/jsfiddle/tree/master/uptoken?ref=developer.qiniu.com
-在common.js文件中可修改token
+请在common.js文件换上你自己的token和上传显示地址
 
 ## 安装项目依赖包
 npm install
