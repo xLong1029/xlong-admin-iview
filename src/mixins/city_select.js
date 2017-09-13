@@ -24,12 +24,17 @@ export default {
 	methods: {
 		// 省份选改变联动城市列表
         changeProvince(res) {
+            console.log('省份name:' + res);
             // 清空选项列表
             this.cityList = [];
             // 清空选项列表
             this.areaList = [];
             // 获取城市列表
             this.getCity(res);
+            if(this.infoForm.city != ''){
+                this.infoForm.area = '';
+                this.getArea(this.infoForm.city);                
+            }
         },
         // 获取城市列表
         getCity(province){
