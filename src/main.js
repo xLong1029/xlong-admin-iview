@@ -14,8 +14,11 @@ import './theme/index.less'
 import BmobServer from './bmob/bmob-server'
 // 获取cookie
 import { GetCookie } from './common/important'
+// 富文本编辑器
+import VueQuillEditor from 'vue-quill-editor'
 
 Vue.use(iView)
+Vue.use(VueQuillEditor)
 Vue.config.productionTip = false
 
 // 初始化BmobSDK

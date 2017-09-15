@@ -16,22 +16,22 @@
                 :data="listData"
                 @on-selection-change="setSelectList"
             ></Table>
-            <!-- 分页 -->
-            <Page
-                class-name="m-page"
-                show-elevator
-                show-sizer
-                show-total
-                :total="page.dataCount"
-                :page-size="page.pageSize"
-                :current="page.pageNo"
-                :page-size-opts="page.pageSizeOpts"
-                @on-change="changePage"
-                @on-page-size-change="changePageSize"
-            >
-            </Page>
-            <div class="clearfix"></div>
         </div>
+        <!-- 分页 -->
+        <Page
+            class-name="m-page"
+            show-elevator
+            show-sizer
+            show-total
+            :total="page.dataCount"
+            :page-size="page.pageSize"
+            :current="page.pageNo"
+            :page-size-opts="page.pageSizeOpts"
+            @on-change="changePage"
+            @on-page-size-change="changePageSize"
+        >
+        </Page>
+        <div class="clearfix"></div>
         <!-- 新增窗口-->
         <Modal v-model="showModal" width="500" @on-cancel="closeModal('paramsForm')">
             <p slot="header">
@@ -96,7 +96,7 @@
         data() {
             return {
                 // 加载页面
-                pageLoading: false,
+                pageLoading: true,
                 // 是否显示弹窗
                 showModal: false,
                 // 参数表单
@@ -218,7 +218,7 @@
                         else if(type == 2) this.EditData();
                         // 延迟关闭
                         setTimeout(() => {
-                            this.closeModal();
+                            this.closeModal(name);
                         }, 500);
                     }
                     else this.$Message.error('提交失败！填写有误');
