@@ -79,6 +79,7 @@
         background: #fff;
         border-radius: 4px;
         padding: 15px;
+        position: relative;
     }
 
     .content-main{
@@ -92,7 +93,7 @@
     }
 
     .m-title {
-        padding: 20px 0;
+        padding: 10px 0 20px 0;
         border-bottom: 1px solid #eee;
         font-size: 14px;
         font-weight: 700;

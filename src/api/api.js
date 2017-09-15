@@ -79,7 +79,7 @@ export default {
                         err: err => reject(err)
                     });                    
                 },
-                error: err => console.log('无法通过该键值对获取数据')
+                error: err => reject(err)
             });
         });
     },
@@ -260,6 +260,39 @@ export default {
     EditProduct: (params, id) => {
         return new Promise((resolve, reject) => {
             BmobServer.EditOne('Product', id, params).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
+    // 获取案例列表
+    // id：查询的objectId
+    GetCaseList: (id) => {
+        let query = BmobServer.GetQuery('Product');
+        return new Promise((resolve, reject) => { 
+            query.get(id, {
+                success: (obj) => resolve({ code: 200, data: obj.attributes.caseList }),
+                error: (obj, err) => reject(err)
+            });
+        });
+    },
+    // 新增案例
+    // params: 修改的参数对象,id：查询的objectId
+    AddCase: (params, id) => {
+        let query = BmobServer.GetQuery('Product');
+        return new Promise((resolve, reject) => { 
+            query.get(id, {
+                success: (obj) => {
+                    if(obj == undefined){
+                        resolve({ code: 404, msg: '无该id数据可获取！' });
+                        return false;
+                    }
+                    obj.addUnique('caseList', params);
+                    // 设置并保存数据
+                    obj.save(null, {
+                        success: res => resolve({ code: 200, data: res }),
+                        err: err => reject(err)
+                    });
+                },
+                error: (obj, err) => reject(err)
+            });
         });
     },
 }

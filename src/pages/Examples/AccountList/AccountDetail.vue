@@ -171,6 +171,8 @@
                 { name: '账户列表', path: '/Examples/AccountList' },
                 { name: '账户详情', path: '' }
             ]);
+            // 初始化图片上传
+            Common.initPicStore(this);
             // 获取用户编号
             this.userId = this.$route.query.id;
             // 获取账户详情

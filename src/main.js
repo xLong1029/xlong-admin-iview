@@ -16,9 +16,13 @@ import BmobServer from './bmob/bmob-server'
 import { GetCookie } from './common/important'
 // 富文本编辑器
 import VueQuillEditor from 'vue-quill-editor'
+// 轮播图
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
 
 Vue.use(iView)
 Vue.use(VueQuillEditor)
+Vue.use(VueAwesomeSwiper)
 Vue.config.productionTip = false
 
 // 初始化BmobSDK

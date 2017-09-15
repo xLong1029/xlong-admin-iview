@@ -66,7 +66,7 @@
             </div>
             <div slot="footer">
                 <Button size="large" @click="closeModal('paramsForm')">取消</Button>
-                <Button type="primary" size="large" @click="operation('paramsForm')">确定</Button>
+                <Button type="primary" size="large" @click="add('paramsForm')">确定</Button>
             </div>
         </Modal>
     </div>
@@ -237,8 +237,8 @@
                 this.paramsForm.dataFrom = params.dataFrom;
                 this.editId = params.id;
             },
-            // 弹窗操作
-            operation(name){
+            // 新增产品
+            add(name){
                 // 表单验证
                 this.$refs[name].validate((valid)=>{
                     if(valid){

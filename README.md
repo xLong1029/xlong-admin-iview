@@ -5,7 +5,7 @@
 ## 项目说明
 该项目为单页应用测试项目，请勿商用。
 
-项目用到技术、框架与插件：Vue2.0+、iView、Less、Bmob、Vue-quill-editor(最近新增得富文本编辑器，待研究使用)。
+项目用到技术、框架与插件：Vue2.0+、iView、Less、Bmo(后端云)、Vue-quill-editor(轻量级富文本编辑器)、Vue-awesome-swiper(轮播插图)。
 
 Bmob的图片上传SDK有跨域问题，所以改用七牛云存储，需要配置token才可以上传。
 七牛云存储在线上传凭证地址：http://jsfiddle.net/gh/get/extjs/4.2/icattlecoder/jsfiddle/tree/master/uptoken?ref=developer.qiniu.com

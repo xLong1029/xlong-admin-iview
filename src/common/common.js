@@ -78,5 +78,10 @@ export default {
         }
         //控制不要一直跳动
         event.currentTarget.onerror = null;
-    }
+    },
+    // 初始化图片存储
+    initPicStore: (_this) => {
+        _this.$store.commit('SET_IMAGE_URL', '');
+        _this.$store.commit('SET_IMAGE_URL_ARR', []);
+    },
 }
