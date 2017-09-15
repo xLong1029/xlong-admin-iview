@@ -3,9 +3,9 @@
         <!-- 按条件查询 -->
         <div class="m-query-form">
             <Form ref="queryForm" :model="queryForm" :rules="validate">
-                <div class="query-item">
+                <Form-item class="query-item">
                     <Input v-model="queryForm.id" placeholder="用户编号"></Input>
-                </div>
+                </Form-item>
                 <Form-item prop="mobile" class="query-item">
                     <Input v-model="queryForm.mobile" placeholder="手机号码"></Input>
                 </Form-item>
@@ -65,7 +65,7 @@
         </div>
         <!-- 分页 -->
         <Page
-            class-name="m-page"
+            class-name="m-page fr"
             show-elevator
             show-sizer
             show-total
@@ -314,7 +314,6 @@
     }
     
     .page {
-        float: right;
         margin-top: 30px;
     }
 </style>

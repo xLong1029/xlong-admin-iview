@@ -81,6 +81,10 @@
                                 text: '版块列表'
                             },
                             {
+                                name: 'ProductList',
+                                text: '产品列表'
+                            },
+                            {
                                 name: 'MessageList',
                                 text: '消息列表'
                             },

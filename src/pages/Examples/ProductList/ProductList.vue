@@ -4,16 +4,16 @@
         <div class="m-query-form fr">
             <Form ref="queryForm" :model="queryForm">
                 <Form-item class="query-item">
-                    <Input v-model="queryForm.id" placeholder="版块编号"></Input>
+                    <Input v-model="queryForm.id" placeholder="产品编号"></Input>
                 </Form-item>
                 <Form-item class="query-item">
-                    <Input v-model="queryForm.title" placeholder="版块标题"></Input>
+                    <Input v-model="queryForm.productName" placeholder="产品名称"></Input>
                 </Form-item>
                 <div class="query-item">
-                    <Select v-model="queryForm.type" placeholder="版块类型">
+                    <Select v-model="queryForm.dataFrom" placeholder="数据来源">
                         <Option value="">全部</Option>
-                        <Option value="1">行业分类</Option>
-                        <Option value="2">地区分类</Option>
+                        <Option value="1">系统录入</Option>
+                        <Option value="2">数据库添加</Option>
                     </Select>
                 </div>
                 <Button class="query-button" type="primary" @click="query('queryForm', '')">查询</Button>
@@ -59,20 +59,14 @@
             </p>
             <div>
                 <Form ref="paramsForm" :model="paramsForm" :rules="validate" :label-width="100">
-                    <Form-item label="版块标题：" prop="title">
-                        <Input v-model="paramsForm.title"></Input>
-                    </Form-item>
-                    <Form-item label="版块分类：" prop="type">
-                        <Radio-group v-model="paramsForm.type">
-                            <Radio label="1">行业分类</Radio>
-                            <Radio label="2">地区分类</Radio>
-                        </Radio-group>
+                    <Form-item label="产品名称：" prop="productName">
+                        <Input v-model="paramsForm.productName"></Input>
                     </Form-item>
                 </Form>
             </div>
             <div slot="footer">
                 <Button size="large" @click="closeModal('paramsForm')">取消</Button>
-                <Button type="primary" size="large" @click="operation('paramsForm', operateType)">确定</Button>
+                <Button type="primary" size="large" @click="operation('paramsForm')">确定</Button>
             </div>
         </Modal>
     </div>
@@ -98,23 +92,23 @@
         computed: {
             // 获取所有列表
             apiGetAll(){
-                return () => Api.GetSecList(this.page.pageNo, this.page.pageSize);
+                return () => Api.GetProdList(this.page.pageNo, this.page.pageSize);
             },
             // 获取筛选列表
             apiGetFilter(){
-                return () => Api.FilterSecList(this.queryForm, this.page.pageNo, this.page.pageSize);
+                return () => Api.FilterProdList(this.queryForm, this.page.pageNo, this.page.pageSize);
             },
             // 新增操作接口
             apiAdd(){
-                return () => Api.AddSection(this.paramsForm);
+                return () => Api.AddProduct(this.paramsForm);
             },
             // 编辑操作接口
             apiEdit(){
-                return () => Api.EditSection(this.paramsForm, this.editId);
+                return () => Api.EditProduct(this.paramsForm, this.editId);
             },
             // 删除操作接口
             apiDelete(){
-                return () => Api.DeleteSec(this.selectList);
+                return () => Api.DeleteProd(this.selectList);
             },
         },
         data() {
@@ -125,8 +119,8 @@
                 showModal: false,
                 // 参数表单
                 paramsForm: {
-                    title: '',
-                    type: ''
+                    productName: '',
+                    dataFrom: 1,
                 },
                 // 需要编辑的对象id
                 editId: '',
@@ -134,16 +128,16 @@
                 operateType: 0,
                 // 验证规则
                 validate: {
-                    title:[{ required: true, message: '版块标题不能为空', trigger: 'blur' }],
+                    productName:[{ required: true, message: '产品名称不能为空', trigger: 'blur' }],
                 },
                 // 查询表单
                 queryForm: {
-                    // 版块编号
+                    // 产品编号
                     id: '',
-                    // 版块标题
-                    title: '',
-                    // 版块类型
-                    type: ''
+                    // 产品名称
+                    productName: '',
+                    // 数据来源
+                    dataFrom: '',
                 },
                 // 板块列表
                 userList:[
@@ -155,47 +149,36 @@
                         align: 'center',
                     },
                     {
-                        title: '版块编号',
+                        title: '产品编号',
                         key: 'id',
                         align: 'center',
                     },
                     {
-                        title: '版块标题',
-                        key: 'title',
+                        title: '产品名称',
+                        key: 'productName',
                         align: 'center'
                     },
                     {
-                        title: '版块类型',
-                        key: 'type',
+                        title: '数据来源',
+                        key: 'dataFrom',
                         align: 'center',
                         render: (h, params) => {
-                            return h('span', {}, params.row.type == 1 ? '行业分类' : '地区分类');
+                            return h('span', {}, params.row.dataFrom == 1 ? '系统录入' : '数据库添加');
                         }
+                    },
+                    {
+                        title: '更新时间',
+                        key: 'UpdateTime',
+                        align: 'center'
                     },
                     {
                         title: '操作',
                         key: 'operation',
-                        width: '200',
+                        width: '120',
                         align: 'center',
                         render: (h, params) => {
                             return h('div', [
-                                tableSetting.gotoPage(h, params, this, '内容管理', 'ContManage', '10px'),
-                                h('Button', {
-                                    props: {
-                                        type: 'primary',
-                                        size: 'small'
-                                    },
-                                    style: {
-                                        minWidth: '64px',
-                                    },
-                                    on: {
-                                        click: () => {
-                                            // 打开弹窗操作
-                                            this.openModel(params.row);
-                                            this.operateType = 2;
-                                        }
-                                    }
-                                }, '编辑')
+                                tableSetting.gotoPage(h, params, this, '查看详情', 'ProductDetail'),
                             ]);                          
                         }
                     }
@@ -233,8 +216,9 @@
                     this.listData = result.map(item => {
                         return {
                             id: item.id,
-                            title: item.attributes.title,
-                            type: item.attributes.type,
+                            productName: item.attributes.productName,
+                            dataFrom: item.attributes.dataFrom,
+                            UpdateTime: item.updatedAt
                         }
                     });
                 }
@@ -249,19 +233,17 @@
             // 打开弹窗
             openModel(params){
                 this.showModal = true;
-                this.paramsForm.title = params.title;
-                this.paramsForm.type = params.type;
+                this.paramsForm.productName = params.productName;
+                this.paramsForm.dataFrom = params.dataFrom;
                 this.editId = params.id;
             },
             // 弹窗操作
-            operation(name, type){
+            operation(name){
                 // 表单验证
                 this.$refs[name].validate((valid)=>{
                     if(valid){
-                        this.paramsForm.type = parseInt(this.paramsForm.type);
                         // 操作
-                        if(type == 1) this.addData();
-                        else if(type == 2) this.EditData();
+                        this.addData();
                         // 延迟关闭
                         setTimeout(() => {
                             this.closeModal(name);

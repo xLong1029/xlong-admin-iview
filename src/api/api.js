@@ -147,6 +147,18 @@ export default {
             BmobServer.PageQuery('Section', pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
         });
     },
+    // 筛选版块列表
+    // params: 筛选参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
+    FilterSecList: (params, pageNo, pageSize) => {
+        let query = BmobServer.GetQuery('Section');
+        // 查询语句
+        if(params.id != '') query.equalTo('objectId', params.id);
+        if(params.title != '') query.equalTo('title', params.title);
+        if(params.type != '') query.equalTo('type', parseInt(params.type));
+        return new Promise((resolve, reject) => {
+            BmobServer.FilterQuery(query, params, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
     // 新增版块
     // params: 修改的参数对象
     AddSection: (params) => {
@@ -168,7 +180,7 @@ export default {
             BmobServer.DelMore('Section', ids).then(res => resolve(res)).catch(err => reject(err))
         });
     },
-    // 获取版块列表
+    // 获取内容列表
     // pageNo：当前第一页, pageSize：每页显示几条数据
     GetContList: (pageNo, pageSize) => {
         return new Promise((resolve, reject) => {
@@ -194,6 +206,46 @@ export default {
     EditContent: (params, id) => {
         return new Promise((resolve, reject) => {
             BmobServer.EditOne('SectionCont', id, params).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
+    // 获取产品列表
+    // pageNo：当前第一页, pageSize：每页显示几条数据
+    GetProdList: (pageNo, pageSize) => {
+        return new Promise((resolve, reject) => {
+            BmobServer.PageQuery('Product', pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
+    // 筛选产品列表
+    // params: 筛选参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
+    FilterProdList: (params, pageNo, pageSize) => {
+        let query = BmobServer.GetQuery('Product');
+        // 查询语句
+        if(params.id != '') query.equalTo('objectId', params.id);
+        if(params.productName != '') query.equalTo('productName', params.productName);
+        if(params.dataFrom != '') query.equalTo('dataFrom', parseInt(params.dataFrom));
+        return new Promise((resolve, reject) => {
+            BmobServer.FilterQuery(query, params, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
+    // 新增产品
+    // params: 修改的参数对象
+    AddProduct: (params) => {
+        return new Promise((resolve, reject) => {
+            BmobServer.AddOne('Product', params).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
+    // 编辑产品
+    // params: 修改的参数对象, id：查询的objectId
+    EditProduct: (params, id) => {
+        return new Promise((resolve, reject) => {
+            BmobServer.EditOne('Product', id, params).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
+    // 删除产品
+    // ids：需要删除的对象的objectId
+    DeleteProd: (ids) => {
+        return new Promise((resolve, reject) => {
+            BmobServer.DelMore('Product', ids).then(res => resolve(res)).catch(err => reject(err))
         });
     },
 }

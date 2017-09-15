@@ -41,6 +41,25 @@ export default {
             });
         });
     },
+    // 筛选数据
+    FilterQuery: (query, params, pageNo, pageSize) => {
+        return new Promise((resolve, reject) => {
+            query.find({
+                success: obj => {
+                    let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
+                    // 返回数据条数，默认返回10条数据
+                    query.limit(pageSize);
+                    // 跳过前面几条数据开始
+                    query.skip((pageNo - 1) * pageSize);
+                    query.find({
+                        success: res => resolve({ code: 200, data: res, page }),
+                        error: err => reject(err)
+                    });
+                },
+                error: err => reject(err)
+            });
+        });
+    },
     // 根据日期筛选数据
     DateFilterQuery: (query, params, pageNo, pageSize) => {
         return new Promise((resolve, reject) => {
