@@ -16,7 +16,7 @@
                             <img :src="item.img" @error="notFoundPic"/>
                             <span>{{ item.title }}</span>
                         </div>
-                    </swiper-slide>                    
+                    </swiper-slide>
                 </swiper>
                 <!-- 操作按钮 -->
                 <a class="swiper-btn-prev" @click="swiperPrev()"></a>
