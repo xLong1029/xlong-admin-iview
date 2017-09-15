@@ -106,7 +106,7 @@ export default {
         });
     },
     // 新增账户
-    // params: 修改的参数对象
+    // params: 新增的参数对象
     AddAccount: (params) => {
         return new Promise((resolve, reject) => {
             BmobServer.AddOne('Account', params).then(res => resolve(res)).catch(err => reject(err))
@@ -160,7 +160,7 @@ export default {
         });
     },
     // 新增版块
-    // params: 修改的参数对象
+    // params: 新增的参数对象
     AddSection: (params) => {
         return new Promise((resolve, reject) => {
             BmobServer.AddOne('Section', params).then(res => resolve(res)).catch(err => reject(err))
@@ -188,7 +188,7 @@ export default {
         });
     },
     // 新增内容
-    // params: 修改的参数对象
+    // params: 新增的参数对象
     AddContent: (params) => {
         return new Promise((resolve, reject) => {
             BmobServer.AddOne('SectionCont', params).then(res => resolve(res)).catch(err => reject(err))
@@ -228,7 +228,7 @@ export default {
         });
     },
     // 新增产品
-    // params: 修改的参数对象
+    // params: 新增的参数对象
     AddProduct: (params) => {
         return new Promise((resolve, reject) => {
             BmobServer.AddOne('Product', params).then(res => resolve(res)).catch(err => reject(err))
@@ -274,7 +274,7 @@ export default {
         });
     },
     // 新增案例
-    // params: 修改的参数对象,id：查询的objectId
+    // params: 新增的参数对象, id：查询的objectId
     AddCase: (params, id) => {
         let query = BmobServer.GetQuery('Product');
         return new Promise((resolve, reject) => { 
@@ -295,4 +295,46 @@ export default {
             });
         });
     },
+    // 编辑案例
+    // params: 修改的参数对象, id：查询的objectId, index: 案例数组对应索引
+    EditCase: (params, id, index) => {
+        let query = BmobServer.GetQuery('Product');
+        return new Promise((resolve, reject) => { 
+            query.get(id, {
+                success: (obj) => {
+                    if(obj == undefined){
+                        resolve({ code: 404, msg: '无该id数据可获取！' });
+                        return false;
+                    }
+                    let arr = obj.attributes.caseList;
+                    // 删除当前对象并插入一项
+                    arr.splice(index, 1, params);
+                    // 修改数据
+                    BmobServer.EditOne('Product', id, { caseList : arr }).then(res => resolve(res)).catch(err => reject(err))
+                },
+                error: (obj, err) => reject(err)
+            });
+        });
+    },
+    // 删除案例
+    // id：查询的objectId, index: 案例数组对应索引
+    DelCase: (id, index) => {
+        let query = BmobServer.GetQuery('Product');
+        return new Promise((resolve, reject) => { 
+            query.get(id, {
+                success: (obj) => {
+                    if(obj == undefined){
+                        resolve({ code: 404, msg: '无该id数据可获取！' });
+                        return false;
+                    }
+                    let arr = obj.attributes.caseList;
+                    // 删除当前对象
+                    arr.splice(index, 1);
+                    // 修改数据
+                    BmobServer.EditOne('Product', id, { caseList : arr }).then(res => resolve(res)).catch(err => reject(err))
+                },
+                error: (obj, err) => reject(err)
+            });
+        });
+    }
 }

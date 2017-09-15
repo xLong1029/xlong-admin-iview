@@ -18,7 +18,6 @@ import { GetCookie } from './common/important'
 import VueQuillEditor from 'vue-quill-editor'
 // 轮播图
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-import 'swiper/dist/css/swiper.css'
 
 Vue.use(iView)
 Vue.use(VueQuillEditor)

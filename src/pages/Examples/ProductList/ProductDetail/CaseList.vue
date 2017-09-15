@@ -6,16 +6,16 @@
             <div class="case-pic-list">
                 <!-- 案例列表轮播 -->
                 <swiper :options="swiperOption" ref="caseList">
-                    <!-- 轮播图新增按钮 -->
-                    <swiper-slide>
-                        <div class="u-add-btn" @click="addCase">+ 新增案例</div>
-                    </swiper-slide>
                     <!-- 轮播图列表 -->
                     <swiper-slide v-for="(item, index) in caseList" :key="index" >
                         <div :class="caseIndex === index ? 'swiper-active': 'swiper-div'" @click="showThisCase(index)">
                             <img :src="item.img" @error="notFoundPic"/>
                             <span>{{ item.title }}</span>
                         </div>
+                    </swiper-slide>
+                    <!-- 轮播图新增按钮 -->
+                    <swiper-slide>
+                        <div class="u-add-btn" @click="addCase">+ 新增案例</div>
                     </swiper-slide>
                 </swiper>
                 <!-- 操作按钮 -->
@@ -24,14 +24,21 @@
             </div>
             <div v-if="caseList.length > 0" class="case-cont">
                 <div class="case-cont-item">
-                    <span>案例标题：</span>{{ caseInfo.title }}
+                    <span class="item-label">案例标题：</span><span class="item-info">{{ caseInfo.title }}</span>
                 </div>
                 <div class="case-cont-item">
-                    <span>品牌名称：</span>{{ caseInfo.brand }}
+                    <span class="item-label">案例封面：</span><img class="item-info" :src="caseInfo.img" @error="notFoundPic"/>
+                </div>
+                <div class="case-cont-item">
+                    <span class="item-label">品牌名称：</span><span class="item-info">{{ caseInfo.brand }}</span>
+                </div>
+                <div class="case-cont-item">
+                    <span class="item-label">更新时间：</span><span class="item-info">{{ caseInfo.updateTime }}</span>
                 </div>
                 <!-- 操作按钮 -->
-                <div class="m-operation">
-                    <Button class="fr" type="primary" @click="editCase" disabled>编辑(开发中)</Button>
+                <div class="m-operation">                    
+                    <Button class="fr" type="primary" @click="editCase">编辑</Button>
+                    <Button class="fr" type="primary" @click="deleteCase">删除</Button>
                     <div class="clearfix"></div>
                 </div>
             </div>
@@ -50,7 +57,7 @@
                         <!-- 组件-图片上传-单图片显示 -->
                         <SingleImage :preview="true"></SingleImage>
                     </Form-item>
-                    <Form-item label="对应品牌：" prop="brand">
+                    <Form-item label="品牌名称：" prop="brand">
                         <Input v-model="paramsForm.brand" placeholder="请输入案例品牌名称"></Input>
                     </Form-item>
                 </Form>
@@ -73,6 +80,8 @@
     import Api from 'api/api.js'
     // Vuex
     import { mapGetters } from 'vuex'
+    // 轮播图样式
+    import 'swiper/dist/css/swiper.css'
     
     export default {
         components: { Loading, SingleImage },
@@ -117,12 +126,14 @@
 					img: '',
 					title: '',
 					brand: '',
+                    updateTime: '',
                 },
                 // 参数表单
 				paramsForm:{
 					img: '',
 					title: '',
 					brand: '',
+                    updateTime: '',
                 },
                 // 验证规则
                 validate: {
@@ -143,12 +154,10 @@
         methods: {
             // 轮播上一页
 			swiperPrev(){
-                console.log(this.swiper);
                 this.swiper.slidePrev();
 			},
 			// 轮播下一页
 			swiperNext(){
-                console.log(this.swiper);
 				this.swiper.slideNext();
             },
             // 通过产品ID获取案例
@@ -171,6 +180,7 @@
                 this.caseIndex = index;
                 this.caseInfo.title = this.caseList[index].title;
                 this.caseInfo.brand = this.caseList[index].brand;
+                this.caseInfo.updateTime = this.caseList[index].updateTime;
             },
             // 关闭弹窗
             closeModal(name){
@@ -198,6 +208,31 @@
                 this.$store.commit('SET_IMAGE_URL', '');
                 this.openModel();
             },
+            // 删除案例
+            deleteCase(){
+                // 弹窗提示确认删除
+                this.$Modal.confirm({
+                    // 确认按钮文本
+                    okText: '确认',
+                    // 渲染内容
+                    render: (h) => {
+                        return h('p', {}, '是否确认删除？');
+                    },
+                    // 确定
+                    onOk: () => {
+                        Api.DelCase(this.productId, this.caseIndex)
+                        .then(res => {
+                            if(res.code == 200){
+                                this.$Message.success('删除成功!');
+                                // 重新获取案例列表
+                                this.getCaseList(this.productId);
+                            }
+                            else console.log(res);
+                        })
+                        .catch(err => console.log(err));
+                    }
+                });
+            },
             // 弹窗操作
             operation(name, type){
                 // 表单验证
@@ -205,17 +240,35 @@
                     if(valid){
                         // 设置图片路径
                         this.paramsForm.img = this.getImageUrl;
-                        Api.AddCase(this.paramsForm, this.productId)
-                        .then(res => {
-                            if(res.code == 200){
-                                this.closeModal(name);
-                                this.$Message.success('新增成功!');
-                                // 重新获取案例列表
-                                this.getCaseList(this.productId);
-                            }
-                            else console.log(res);
-                        })
-                        .catch(err => console.log(err));
+                        // 获取当前时间,格式化
+                        this.paramsForm.updateTime = Common.FormatDate(new Date());
+                        // 操作
+                        if(type == 1){
+                            Api.AddCase(this.paramsForm, this.productId)
+                            .then(res => {
+                                if(res.code == 200){
+                                    this.closeModal(name);
+                                    this.$Message.success('新增成功!');
+                                    // 重新获取案例列表
+                                    this.getCaseList(this.productId);
+                                }
+                                else console.log(res);
+                            })
+                            .catch(err => console.log(err));
+                        }
+                        else if(type == 2){
+                            Api.EditCase(this.paramsForm, this.productId, this.caseIndex)
+                            .then(res => {
+                                if(res.code == 200){
+                                    this.closeModal(name);
+                                    this.$Message.success('编辑成功!');
+                                    // 重新获取案例列表
+                                    this.getCaseList(this.productId);
+                                }
+                                else console.log(res);
+                            })
+                            .catch(err => console.log(err));
+                        }
                     }
                     else this.$Message.error('提交失败！填写有误');
                 })
@@ -249,10 +302,21 @@
     
     .case-cont-item{
         margin-bottom:20px;
-        span{
-            width: 120px;
+        &::after{
+            clear: both;
+            content: "";
+            display:block;
+        }
+        .item-label{
+            float: left;
+            width: 100px;
+            text-align: right;
             display: inline-block;
-        } 
+            margin-right: 20px;
+        }
+        .item-info{
+            float: left;
+        }
     }
     
     .swiper-container {
