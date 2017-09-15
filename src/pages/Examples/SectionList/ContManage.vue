@@ -235,6 +235,8 @@
                 { name: '板块列表', path: '/Examples/SectionList' },
                 { name: '内容管理', path: '' }
             ]);
+            // 初始化图片上传
+            Common.initPicStore(this);
             // 获取内容列表
             this.getTableList();
             // 初始化表格内容
@@ -365,14 +367,14 @@
                 // 数据初始化（重置）
                 this.$refs[name].resetFields();
             },
-            // 新增数据
+            // 新增内容
             add(name){
                 // 表单验证
                 this.$refs[name].validate((valid)=>{
                     if(valid){
                         // 设置图片路径
                         this.paramsForm.img = this.getImageUrl;
-                        // 新增那个数据
+                        // 新增数据
                         this.addData();
                         // 延迟关闭
                         setTimeout(() => {
