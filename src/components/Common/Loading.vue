@@ -18,7 +18,7 @@
 
 <style lang="less" scoped>
   .page-load {
-    margin-top: 200px;
+    margin:200px 0;
   }
   
   .spin-icon-load {

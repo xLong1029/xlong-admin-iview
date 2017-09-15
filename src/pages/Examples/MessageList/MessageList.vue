@@ -82,7 +82,14 @@
                     <div class="clearfix"></div>
 				</div>				
 				<!-- 分页 -->
-				<Page class-name="m-page" show-elevator show-total :total="page.dataCount" :page-size="page.pageSize" :current="page.pageNo" @on-change="changePage">
+				<Page
+					class-name="m-page fr"
+					show-elevator show-total
+					:total="page.dataCount"
+					:page-size="page.pageSize"
+					:current="page.pageNo"
+					@on-change="changePage"
+				>
 				</Page>
 				<div class="clearfix"></div>
 			</div>

@@ -16,7 +16,7 @@ export default {
     // 上传文件显示的测试地址
     UPLOAD_URL: 'http://ovw49042e.bkt.clouddn.com/',
     // 邮政编码正则表达式
-    regPostCode: '/^[1-9]\d{5}$/',
+    regPostCode: /^[1-9]\d{5}$/,
     // 邮箱正则表达式
     regEmail: /^[\.a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
     // 手机号正则表达式
@@ -62,10 +62,10 @@ export default {
             let year = date.getFullYear(); 
             let month = date.getMonth() + 1; 
             let day = date.getDate(); 
-            let hour = date.getHours(); 
-            let minute = date.getMinutes(); 
-            let second = date.getSeconds(); 
-            return year + "-" + this.formatTen(month) + "-" + this.formatTen(day); 
+            let hour = date.getHours() > 9 ? date.getHours() : '0' + date.getHours(); 
+            let minute = date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes();
+            let second = date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds(); 
+            return year + "-" + month + "-" + day + ' ' + hour + ':' + minute + ':' + second; 
         }        
     },
     // 设置默认图片
@@ -78,5 +78,10 @@ export default {
         }
         //控制不要一直跳动
         event.currentTarget.onerror = null;
-    }
+    },
+    // 初始化图片存储
+    initPicStore: (_this) => {
+        _this.$store.commit('SET_IMAGE_URL', '');
+        _this.$store.commit('SET_IMAGE_URL_ARR', []);
+    },
 }

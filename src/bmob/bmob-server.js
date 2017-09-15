@@ -12,21 +12,115 @@ export default {
         // Bmob.initialize("Application ID", "REST API Key");
         Bmob.initialize(Common.APPLICATION_ID, Common.REST_API_KEY);
     },
-    // 添加数据
-    Add: (tableName) => {
+    // 获取查询数据对象
+    GetQuery: (tableName) => {
+        // 创建Bmob.Object子类
+        let DataTable = Bmob.Object.extend(tableName);
+        // 创建查询对象，入口参数是对象类的实例
+        let query = new Bmob.Query(DataTable);
+        return query;
+    },
+    // 根据分页查询数据
+    PageQuery: (tableName, pageNo, pageSize) => {
+        let DataTable = Bmob.Object.extend(tableName);
+        let query = new Bmob.Query(DataTable);
+        return new Promise((resolve, reject) => {
+            query.find({
+                success: obj => {
+                    let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
+                    // 返回数据条数，默认返回10条数据
+                    query.limit(pageSize);
+                    // 跳过前面几条数据开始
+                    query.skip((pageNo - 1) * pageSize);
+                    query.find({
+                        success: res => resolve({ code: 200, data: res, page }),
+                        error: err => reject(err)
+                    });
+                },
+                error: err => reject(err)
+            });
+        });
+    },
+    // 筛选数据
+    FilterQuery: (query, params, pageNo, pageSize) => {
+        return new Promise((resolve, reject) => {
+            query.find({
+                success: obj => {
+                    let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
+                    // 返回数据条数，默认返回10条数据
+                    query.limit(pageSize);
+                    // 跳过前面几条数据开始
+                    query.skip((pageNo - 1) * pageSize);
+                    query.find({
+                        success: res => resolve({ code: 200, data: res, page }),
+                        error: err => reject(err)
+                    });
+                },
+                error: err => reject(err)
+            });
+        });
+    },
+    // 根据日期筛选数据
+    DateFilterQuery: (query, params, pageNo, pageSize) => {
+        return new Promise((resolve, reject) => {
+            query.find({
+                success: obj => {                 
+                    /* 筛选指定日期内的数据 */
+                    if(params.sTime != '' && params.eTime != ''){
+                        let result = [];
+                        for(let item of obj){
+                            // 比较日期大小，若第一个值小于第二个值则返回true
+                            let start = Common.CompareDate(params.sTime, item.createdAt),
+                                end = Common.CompareDate(item.createdAt, params.eTime);
+                            // 满足条件则保留数据
+                            if(start && end) result.push(item);
+                        }
+                        let page = { count: result.length, pages: Math.ceil(result.length / pageSize) };
+                        // 截取部分数据
+                        result = result.splice((pageNo - 1)* pageSize, pageNo* pageSize);                        
+                        resolve({ code: 200, data: result, page });
+                    }
+                    /* 筛选指定日期内的数据 */
+                    else{
+                        let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
+                        // 返回数据条数，默认返回10条数据
+                        query.limit(pageSize);
+                        // 跳过前面几条数据开始
+                        query.skip((pageNo - 1) * pageSize);
+                        query.find({
+                            success: res => resolve({ code: 200, data: res, page }),
+                            error: err => reject(err)
+                        });
+                    }
+                },
+                error: err => reject(err)
+            });
+        });
+    },
+    // 获取一行数据
+    GetOne: (tableName, objectId) => {
+        let DataTable = Bmob.Object.extend(tableName);
+        let query = new Bmob.Query(DataTable);
+        return new Promise((resolve, reject) => {
+            query.get(objectId, {
+                success: (res) => resolve({ code: 200, data: res }),
+                error: (err) => reject(err)
+            });
+        });
+    },
+    // 添加一行数据
+    AddOne: (tableName, params) => {
         // 创建Bmob.Object子类
         let DataTable = Bmob.Object.extend(tableName);
         // 创建类
         let obj = new DataTable;
-        return obj;
-    },
-    // 查询数据
-    Query: (tableName) => {
-        // 创建Bmob.Object子类
-        let DataTable = Bmob.Object.extend(tableName);
-        // 创建查询对象，入口参数是对象类的实例
-        let obj = new Bmob.Query(DataTable);
-        return obj;
+        return new Promise((resolve, reject) => {
+            // 添加数据，第一个入口参数是Json数据
+            obj.save(params, {
+                success: res => resolve({ code: 200, data: res }),
+                error: (res, err) => reject(err)
+            });
+        });
     },
     // 删除一行数据
     DelOne: (tableName, objectId) => {
@@ -36,12 +130,16 @@ export default {
         return new Promise((resolve, reject) => { 
             query.get(objectId, {
                 success: (obj) => {
+                    if(obj == undefined){
+                        resolve({ code: 404, msg: '无该id数据可获取！' });
+                        return false;
+                    }
                     obj.destroy({
                         success: (res) => resolve({ code: 200, data: res }),
                         error: (res, err) => resolve(err)
                     });
                 },
-                error: (obj, err) => console.log('获取对象失败')
+                error: (obj, err) => console.log('无法通过该objectId获取数据')
             });
         });
     },
@@ -53,14 +151,75 @@ export default {
         return new Promise((resolve, reject) => { 
             query.get(objectId, {
                 success: (obj) => {
+                    if(obj == undefined){
+                        resolve({ code: 404, msg: '无该id数据可获取！' });
+                        return false;
+                    }
                     // 设置并保存数据
                     obj.save(params, {
                         success: res => resolve({ code: 200, data: res }),
                         err: err => reject(err)
                     });
                 },
-                error: (obj, err) => console.log('获取对象失败')
+                error: (obj, err) => console.log('无法通过该objectId获取数据')
             });
         });
-    }
+    },
+    // 批量删除数据
+    DelMore: (tableName, objectIds) => {
+        let DataTable = Bmob.Object.extend(tableName);
+        let query = new Bmob.Query(DataTable);
+        // 删除成功或失败的对象集合
+        let failObj = [], succObj = [];
+        // 是否删除失败
+        let fail = false;
+        return new Promise((resolve, reject) => {
+            // 遍历删除
+            for(var objectId of objectIds){
+                query.get(objectId, {
+                    success: (obj) => {
+                        obj.destroy({
+                            success: (res) => { succObj.push(res); },
+                            error: (res, err) => { failObj.push(err); fail = true; }
+                        });
+                    },
+                    error: (obj, err) => console.log('获取对象失败')
+                });
+            }
+            // 延迟判断
+            setTimeout(() => {
+                if(!fail) resolve({ code: 200, data: succObj })
+                else resolve({ code: 0, data: failObj })
+            }, 1000);
+        });
+    },
+    // 批量修改数据
+    EditMore: (tableName, objectIds, params) => {
+        let DataTable = Bmob.Object.extend(tableName);
+        let query = new Bmob.Query(DataTable);
+        // 删除成功或失败的对象集合
+        let failObj = [], succObj = [];
+        // 是否删除失败
+        let fail = false;
+        return new Promise((resolve, reject) => {
+            // 遍历删除
+            for(var objectId of objectIds){
+                query.get(objectId, {
+                    success: (obj) => {
+                        // 设置并保存数据
+                        obj.save(params, {
+                            success: (res) => { succObj.push(res); },
+                            error: (res, err) => { failObj.push(err); fail = true; }
+                        });
+                    },
+                    error: (obj, err) => console.log('获取对象失败')
+                });
+            }
+            // 延迟判断
+            setTimeout(() => {
+                if(!fail) resolve({ code: 200, data: succObj })
+                else resolve({ code: 0, data: failObj })
+            }, 1000);
+        });
+    },
 }
