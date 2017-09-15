@@ -36,6 +36,7 @@ module.exports = {
       'components': resolve('src/components'),
       'pages': resolve('src/pages'),
       'bmob': resolve( 'src/bmob'),
+      'qullEditor': resolve( 'src/qullEditor'),
     }
   },
   plugins: [

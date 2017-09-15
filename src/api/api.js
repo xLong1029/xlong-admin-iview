@@ -248,4 +248,18 @@ export default {
             BmobServer.DelMore('Product', ids).then(res => resolve(res)).catch(err => reject(err))
         });
     },
+    // 获取产品详情
+    // id：查询的objectId
+    GetProdInfo: (id) => {
+        return new Promise((resolve, reject) => {
+            BmobServer.GetOne('Product', id).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
+    // 修改产品信息
+    // params: 修改的参数对象, id：查询的objectId
+    EditProduct: (params, id) => {
+        return new Promise((resolve, reject) => {
+            BmobServer.EditOne('Product', id, params).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
 }
