@@ -2,10 +2,10 @@
     <div class="g-content">
         <Tabs class="m-tabs" type="card" :animated="false">
             <TabPane label="基本信息">
-                <div class="m-tabs-cont"><ProductInfo :product-id="productId"></ProductInfo></div>
+                <div class="tabs-cont"><ProductInfo :product-id="productId"></ProductInfo></div>
             </TabPane>
             <TabPane label="案例展示">
-                <div class="m-tabs-cont"><CaseList :product-id="productId"></CaseList></div>
+                <div class="tabs-cont"><CaseList :product-id="productId"></CaseList></div>
             </TabPane>
         </Tabs>
         <Button class="u-btn-goback fr" type="ghost" @click="$router.go(-1)">返回</Button>
@@ -51,7 +51,7 @@
         margin-top: 5px;
     }
 
-    .m-tabs-cont{
+    .tabs-cont{
         min-height: 300px;
         border-left: 1px solid #dddee1;
         border-right: 1px solid #dddee1;
