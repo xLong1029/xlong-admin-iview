@@ -181,6 +181,7 @@
                 this.caseInfo.title = this.caseList[index].title;
                 this.caseInfo.brand = this.caseList[index].brand;
                 this.caseInfo.updateTime = this.caseList[index].updateTime;
+                this.caseInfo.img = this.caseList[this.caseIndex].img;
             },
             // 关闭弹窗
             closeModal(name){
@@ -316,6 +317,11 @@
         }
         .item-info{
             float: left;
+        }
+
+        img{
+            border: 1px solid #eee;
+            border-radius: 4px; 
         }
     }
     
