@@ -73,7 +73,7 @@
             </div>
             <!-- 操作按钮 -->
             <div class="m-operation">
-                <Button class="fr" type="primary" @click="submit('infoForm')">确认修改</Button>
+                <Button class="fr" type="primary" @click="edit('infoForm')">确认修改</Button>
                 <Button class="fr" type="ghost" @click="$router.go(-1)">返回</Button>
                 <div class="clearfix"></div>
             </div>
@@ -171,6 +171,8 @@
                 { name: '账户列表', path: '/Examples/AccountList' },
                 { name: '账户详情', path: '' }
             ]);
+            // 初始化图片上传
+            Common.initPicStore(this);
             // 获取用户编号
             this.userId = this.$route.query.id;
             // 获取账户详情
@@ -183,29 +185,6 @@
             this.provinceList = JsonCity;
         },
         methods: {
-            // 提交表单
-            submit(form) {
-                this.$refs[form].validate((valid) => {
-                    if (valid) {
-                        // 页面加载
-                        this.pageLoading = true;
-                        
-                        this.infoForm.face = this.getImageUrl;
-                        this.infoForm.companyName = this.inputValue;
-
-                        // 修改账户信息
-                        Api.EditAccount(this.infoForm, this.userId)
-                        .then(res => {
-                            // 取消页面加载
-                            this.pageLoading = false;
-                            if(res.code == 200) this.$Message.success('账户修改成功!');
-                            else this.$Message.warning(res.msg);
-                        })
-                        .catch(err => console.log(err))
-                    }
-                    else this.$Message.error('提交失败！填写有误');
-                })    
-            },
             // 获取账户详情
             getDetail(){
                 Api.GetAccInfo(this.userId)
@@ -227,6 +206,29 @@
                     else this.$Message.warning(res.msg);
                 })
                 .catch(err => console.log(err))
+            },
+            // 修改信息
+            edit(name) {
+                this.$refs[name].validate((valid) => {
+                    if (valid) {
+                        // 页面加载
+                        this.pageLoading = true;
+                        
+                        this.infoForm.face = this.getImageUrl;
+                        this.infoForm.companyName = this.inputValue;
+
+                        // 修改账户信息
+                        Api.EditAccount(this.infoForm, this.userId)
+                        .then(res => {
+                            // 取消页面加载
+                            this.pageLoading = false;
+                            if(res.code == 200) this.$Message.success('账户修改成功!');
+                            else this.$Message.warning(res.msg);
+                        })
+                        .catch(err => console.log(err))
+                    }
+                    else this.$Message.error('提交失败！填写有误');
+                })    
             },
             // 获取出生日期
             getBirthDate(date) {
@@ -253,8 +255,7 @@
 
 <style lang="less" scoped>    
     .m-operation {
-        button,
-        a {
+        button, a {
             min-width: 80px;
             margin-left: 10px;
         }

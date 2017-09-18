@@ -3,9 +3,9 @@
         <!-- 按条件查询 -->
         <div class="m-query-form">
             <Form ref="queryForm" :model="queryForm" :rules="validate">
-                <div class="query-item">
+                <Form-item class="query-item">
                     <Input v-model="queryForm.id" placeholder="用户编号"></Input>
-                </div>
+                </Form-item>
                 <Form-item prop="mobile" class="query-item">
                     <Input v-model="queryForm.mobile" placeholder="手机号码"></Input>
                 </Form-item>
@@ -44,16 +44,16 @@
             </Form>
             <div class="clearfix"></div>
         </div>
+        <!-- 操作按钮 -->
+        <div class="m-operation">
+            <router-link :to="{ name: 'AddAccount' }" class="operation-btn ivu-btn ivu-btn-primary">新增</router-link>
+            <Button class="operation-btn" :disabled="selectList.length == 0" type="warning" @click="deleteData">删除</Button>
+            <Button class="operation-btn" :disabled="selectList.length == 0" type="primary" @click="enableOrDisable(1)">启用</Button>
+            <Button class="operation-btn" :disabled="selectList.length == 0" type="warning" @click="enableOrDisable(-1)">禁用</Button>
+        </div>
         <!--  加载判断 -->
         <Loading v-if="pageLoading"></Loading>
         <div v-else>            
-            <!-- 操作按钮 -->
-            <div class="m-operation">
-                <router-link :to="{ name: 'AddAccount' }" class="operation-btn ivu-btn ivu-btn-primary">新增</router-link>
-                <Button class="operation-btn" :disabled="selectList.length == 0" type="warning" @click="deleteData">删除</Button>
-                <Button class="operation-btn" :disabled="selectList.length == 0" type="primary" @click="enableOrDisable(1)">启用</Button>
-                <Button class="operation-btn" :disabled="selectList.length == 0" type="warning" @click="enableOrDisable(-1)">禁用</Button>
-            </div>
             <!-- 用户列表 -->
             <Table
                 class="m-table-list"
@@ -65,7 +65,7 @@
         </div>
         <!-- 分页 -->
         <Page
-            class-name="m-page"
+            class-name="m-page fr"
             show-elevator
             show-sizer
             show-total
@@ -314,7 +314,6 @@
     }
     
     .page {
-        float: right;
         margin-top: 30px;
     }
 </style>

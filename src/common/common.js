@@ -4,15 +4,16 @@
  * 日期 : 2017-8-31
  * 版本 : version 1.0
  */
+import { genUpToken } from 'qiniu/qiniu_token.js'
 
 /* 通用常量 */
 export default {
     // bmob 应用密钥
     APPLICATION_ID: '07ffab130cdf11f91381f18779fcf697',
     REST_API_KEY: '653887187daf660941971acf257cccc1',
-    // 七牛云上传Token，因无服务端所以目前是手动设置，可选时效为12小时
-    // 七牛云存储在线上传凭证地址：http://jsfiddle.net/gh/get/extjs/4.2/icattlecoder/jsfiddle/tree/master/uptoken?ref=developer.qiniu.com
-    UPLOAD_TOKEN: 'd4N11KEZxF2QFo9is4DFKGXRFfdyhFuAbNRYqzP0:HidZJLKp_gWsHsNw0r_0oPbINAw=:eyJzY29wZSI6ImltYWdlc3RvcmUiLCJkZWFkbGluZSI6MTUwNTE0ODY1Mn0=',
+    // 获取七牛云上传Token，参数分别为：AccessKey，SecretKey，bucketName
+    // 这里仅作测试使用，实际项目使用时请换上你自己的AccessKey，SecretKey和bucketName
+    UPLOAD_TOKEN: genUpToken('d4N11KEZxF2QFo9is4DFKGXRFfdyhFuAbNRYqzP0', 'WL8EjjlXTovSJ2WTMxZLiat_gO936zBxKaHMA4lv', 'imagestore'),
     // 上传文件显示的测试地址
     UPLOAD_URL: 'http://ovw49042e.bkt.clouddn.com/',
     // 邮政编码正则表达式
@@ -62,10 +63,10 @@ export default {
             let year = date.getFullYear(); 
             let month = date.getMonth() + 1; 
             let day = date.getDate(); 
-            let hour = date.getHours(); 
-            let minute = date.getMinutes(); 
-            let second = date.getSeconds(); 
-            return year + "-" + this.formatTen(month) + "-" + this.formatTen(day); 
+            let hour = date.getHours() > 9 ? date.getHours() : '0' + date.getHours(); 
+            let minute = date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes();
+            let second = date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds(); 
+            return year + "-" + month + "-" + day + ' ' + hour + ':' + minute + ':' + second; 
         }        
     },
     // 设置默认图片
@@ -78,5 +79,10 @@ export default {
         }
         //控制不要一直跳动
         event.currentTarget.onerror = null;
-    }
+    },
+    // 初始化图片存储
+    initPicStore: (_this) => {
+        _this.$store.commit('SET_IMAGE_URL', '');
+        _this.$store.commit('SET_IMAGE_URL_ARR', []);
+    },
 }

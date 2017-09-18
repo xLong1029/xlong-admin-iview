@@ -5,11 +5,12 @@
 ## 项目说明
 该项目为单页应用测试项目，请勿商用。
 
-项目用到技术、框架与插件：Vue2.0+、iView、Less、Bmob。
+项目用到技术、框架与插件：Vue2.0+、iView、Less、Bmo(后端云)、Vue-quill-editor(轻量级富文本编辑器)、Vue-awesome-swiper(轮播插图)。
 
 Bmob的图片上传SDK有跨域问题，所以改用七牛云存储，需要配置token才可以上传。
+*做了新更新，上传凭证算法已写好，可直接使用或进行修改（一般不建议在前端直接生成TOKEN，这里仅作测试使用）。
+
 七牛云存储在线上传凭证地址：http://jsfiddle.net/gh/get/extjs/4.2/icattlecoder/jsfiddle/tree/master/uptoken?ref=developer.qiniu.com
-请在common.js文件换上你自己的token和上传显示地址
 
 ## 安装项目依赖包
 npm install
@@ -34,6 +35,10 @@ components ----- 专门存放项目中的vue组件，包括公用组件、各页
 mixins ----- 专门用来存放混合对象，高效的实现组件内容的复用
 
 mock ----- 专门用来存放一些本地的模拟数据
+
+qiniu ----- 七牛云存储上传凭证算法实现，仅做测试学习使用
+
+qullEditor ----- 专门用来存放富文本编辑器Vue-quill-editor的图片上传配置文件
 
 router ----- 路由目录，专门用来存放页面跳转路由文件
 

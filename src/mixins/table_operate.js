@@ -54,20 +54,32 @@ export default {
         },
 		// 删除数据
         deleteData(){
-            // 延迟
-            setTimeout(() => this.pageLoading = true, 500);
-            
-            this.apiDelete().then(res => {
-                this.pageLoading = false;
-                if(res.code == 200){
-                    this.$Message.success('删除成功!');
-                    // 更新列表
-                    this.updateList();
-                    // 清空选项列表
-                    this.clearSelect();
+            // 弹窗提示确认删除
+            this.$Modal.confirm({
+                // 确认按钮文本
+                okText: '确认',
+                // 渲染内容
+                render: (h) => {
+                    return h('p', {}, '是否确认删除？');
+                },
+                // 确定
+                onOk: () => {
+                    // 延迟
+                    setTimeout(() => this.pageLoading = true, 500);
+                    
+                    this.apiDelete().then(res => {
+                        this.pageLoading = false;
+                        if(res.code == 200){
+                            this.$Message.success('删除成功!');
+                            // 更新列表
+                            this.updateList();
+                            // 清空选项列表
+                            this.clearSelect();
+                        }
+                        else console.log(res);
+                    }).catch(err => this.$Message.error('删除失败！'))
                 }
-                else console.log(res);
-            }).catch(err => this.$Message.error('删除失败！'))
+            });
         },
         // 启用和禁用
         enableOrDisable(type){

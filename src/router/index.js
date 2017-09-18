@@ -27,6 +27,9 @@ import AccountDetail from 'pages/Examples/AccountList/AccountDetail'
 import SectionList from 'pages/Examples/SectionList/SectionList'
 import ContManage from 'pages/Examples/SectionList/ContManage'
 
+import ProductList from 'pages/Examples/ProductList/ProductList'
+import ProductDetail from 'pages/Examples/ProductList/ProductDetail'
+
 import MessageList from 'pages/Examples/MessageList/MessageList'
 
 // 错误页面
@@ -65,6 +68,10 @@ const RouterMap = [
             { path: '/Examples/SectionList', name: 'SectionList', component: SectionList },
             // 板块内容管理页面
             { path: '/Examples/SectionList/ContManage', name: 'ContManage', component: ContManage },
+            // 产品列表页面
+            { path: '/Examples/ProductList', name: 'ProductList', component: ProductList },
+            // 产品列表-产品详情
+            { path: '/Examples/ProductDetail', name: 'ProductDetail', component: ProductDetail },
             // 消息列表页面
             { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },            
             // 404
