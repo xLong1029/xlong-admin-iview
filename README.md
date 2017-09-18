@@ -7,7 +7,7 @@
 
 项目用到技术、框架与插件：Vue2.0+、iView、Less、Bmo(后端云)、Vue-quill-editor(轻量级富文本编辑器)、Vue-awesome-swiper(轮播插图)。
 
-Bmob的图片上传SDK有跨域问题，所以改用七牛云存储，需要配置token才可以上传。
+Bmob的图片上传SDK有跨域问题，所以改用七牛云存储，需要配置TOKEN（上传凭证）才可以上传。
 *做了新更新，上传凭证算法已写好，可直接使用或进行修改（一般不建议在前端直接生成TOKEN，这里仅作测试使用）。
 
 七牛云存储在线上传凭证地址：http://jsfiddle.net/gh/get/extjs/4.2/icattlecoder/jsfiddle/tree/master/uptoken?ref=developer.qiniu.com
