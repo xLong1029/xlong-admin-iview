@@ -28,11 +28,7 @@
 </template>
 
 <script>
-	import { SetCookie } from 'common/important.js'
-	import { SetLocalS } from 'common/important.js'
-	import { GetLocalS } from 'common/important.js'
-	import { Encrypt } from 'common/important.js'
-	import { Decrypt } from 'common/important.js'
+	import { SetCookie, SetLocalS, GetLocalS, Encrypt, Decrypt } from 'common/important.js'
 	// Api方法
 	import Api from 'api/api.js'
 
