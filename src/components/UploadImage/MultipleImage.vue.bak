@@ -59,8 +59,6 @@
             return {
                 // 上传加载  
                 loading: false,
-                // 显示遮罩
-                showMask: false,
                 // 显示查看图片
                 showModal: false,
                 // 显示图片的地址
@@ -199,5 +197,6 @@
         height: 100%;
         border-radius: 4px;
         max-width: 350px;
+        background: #fff;
     }
 </style>

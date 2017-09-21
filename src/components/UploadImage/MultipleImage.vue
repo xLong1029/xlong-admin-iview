@@ -61,8 +61,6 @@
             return {
                 // 上传加载
                 loading: false,
-                // 显示查看图片
-                showModal: false,
                 // 显示图片URL
                 showImgUrl: '',
                 // 图片文件大小
@@ -171,5 +169,6 @@
         height: 100%;
         border-radius: 4px;
         max-width: 350px;
+        background: #fff;
     }
 </style>
