@@ -56,8 +56,6 @@
             return {
                 // 上传加载  
                 loading: false,                
-                // 显示遮罩
-                showMask: false,
                 // 显示查看图片
                 showModal: false,
                 // 是否显示图片
@@ -183,5 +181,6 @@
         height: 100%;
         border-radius: 4px;
         max-width: 350px;
+        background: #fff;
     }
 </style>
