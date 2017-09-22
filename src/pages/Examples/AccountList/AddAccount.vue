@@ -115,8 +115,6 @@
                 provinceList: [],
                 // 专业领域列表
                 professionList: [],
-                // 邮箱列表
-                emailList: [],
                 // 表单信息
                 infoForm: {
                     // 真实姓名

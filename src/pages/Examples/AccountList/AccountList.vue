@@ -10,7 +10,7 @@
                     <Input v-model="queryForm.mobile" placeholder="手机号码"></Input>
                 </Form-item>
                 <Form-item prop="email" class="query-item">
-                    <Input v-model="queryForm.email" placeholder="邮箱"></Input>
+                    <AutoComplete v-model="queryForm.email" :data="emailList" @on-search="selectEmail" @on-select="setEmail" placeholder="邮箱"></AutoComplete>
                 </Form-item>
                 <div class="query-item">
                     <Select v-model="queryForm.job" placeholder="职位">
@@ -91,6 +91,8 @@
     // Json数据
     import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'
+    // 邮箱自动填充
+    import EmailComplete from 'mixins/email_complete.js'
     // 表格设置
     import tableSetting from 'common/table_setting.js'
     // 表格查询
@@ -102,7 +104,7 @@
 
     export default {
         components: { Loading },
-        mixins: [ TableQuery, TableOperate, Page ],
+        mixins: [ EmailComplete, TableQuery, TableOperate, Page ],
         computed: {
             // 获取所有列表
             apiGetAll(){
@@ -154,7 +156,7 @@
                 },
                 // 验证规则
                 validate: {
-                    email:[{ pattern: Common.regEmail , message: '邮箱格式不正确', trigger: 'blur' }],
+                    email:[{ pattern: Common.regEmail , message: '邮箱格式不正确' }],
                     mobile:[{ pattern: Common.regMobile , message: '手机号码格式不正确', trigger: 'blur' }],
                 },
                 // 用户列表
