@@ -10,7 +10,7 @@
                     <Input v-model="queryForm.mobile" placeholder="手机号码"></Input>
                 </Form-item>
                 <Form-item prop="email" class="query-item">
-                    <AutoComplete v-model="queryForm.email" :data="emailList" @on-search="selectEmail" @on-select="setEmail" placeholder="请输入邮箱地址"></AutoComplete>
+                    <AutoComplete v-model="queryForm.email" :data="emailList" @on-search="selectEmail" @on-select="setEmail" placeholder="邮箱"></AutoComplete>
                 </Form-item>
                 <div class="query-item">
                     <Select v-model="queryForm.job" placeholder="职位">
