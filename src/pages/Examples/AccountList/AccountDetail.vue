@@ -95,6 +95,8 @@
     import Api from 'api/api.js'
     // 城市联动选择
     import CitySelect from 'mixins/city_select.js'
+    // 邮箱自动填充
+    import EmailComplete from 'mixins/email_complete.js'
     // Json数据
     import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'
@@ -103,7 +105,7 @@
     
     export default {
         components: { Loading, CompanyName, SingleImage },
-        mixins: [ CitySelect ],
+        mixins: [ CitySelect, EmailComplete ],
         computed: {
             ...mapGetters(['inputValue', 'getImageUrl' ])
         },
@@ -117,8 +119,6 @@
                 provinceList: [],
                 // 专业领域列表
                 professionList: [],
-                // 邮箱列表
-                emailList: [],
                 // 用户编号
                 userId: '',
                 // 表单信息
@@ -235,20 +235,6 @@
                 console.log('get birth date:' + date);
                 this.infoForm.birthdate = date;
             },
-            // 选择邮箱后缀名
-            selectEmail(value) {
-                this.emailList = !value || value.indexOf('@') >= 0 ? [] : [
-                    value + '@qq.com',
-                    value + '@sina.com',
-                    value + '@dingtalk.com',
-                    value + '@115.com',
-                    value + '@163.com',
-                ];
-            },
-            // 设置邮箱
-            setEmail(value){
-                this.infoForm.email = value;
-            }
         }
     }
 </script>
