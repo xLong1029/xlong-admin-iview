@@ -26,7 +26,8 @@ export default {
         },
         // 设置邮箱
         setEmail(value){
-            this.infoForm.email = value;
+            if(this.infoForm) this.infoForm.email = value;
+            else if(this.queryForm) this.queryForm.email = value; 
         }
 	}
 }
