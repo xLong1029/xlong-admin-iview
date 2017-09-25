@@ -179,7 +179,7 @@
 			this.consultList = JsonData.consultList;
 		},
 		methods: {
-			// 显示详情
+			// 显示对话框
 			showModal(index) {
 				// 更改为聊天状态
 				this.showChat = true;
@@ -202,7 +202,7 @@
 					}
 				}
 			},
-			// 关闭相亲
+			// 关闭对话框
 			closeModal(){
 				// 取消聊天状态
 				this.showChat = false;
