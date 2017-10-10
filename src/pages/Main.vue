@@ -52,6 +52,7 @@
         -o-transition: width .2s ease-in-out; /* Opera */ 
     }
     .layout-right{
+        height: auto;
         width: 100%;
         padding-left: 200px;
         transition: padding-left .2s ease-in-out;
@@ -74,7 +75,8 @@
     }
 
     .g-content{
-        min-height: 700px;
+        min-height: 50vh;
+        margin-top:-10px;
         margin: 15px;
         background: #fff;
         border-radius: 4px;
@@ -88,8 +90,9 @@
     
     .copyright{
         text-align: center;
-        padding: 5px 15px;
+        padding: 10px 15px;
         color: #9ea7b4;
+        background: #eee;
     }
 
     .m-title {
