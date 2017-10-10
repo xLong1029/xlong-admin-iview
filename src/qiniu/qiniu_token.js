@@ -184,6 +184,6 @@ export function genUpToken(accessKey, secretKey, bucketName) {
     // console && console.log("encoded_signed=", encoded_signed)
     
     var upload_token = accessKey + ":" + safe64(encoded_signed) + ":" + encoded;
-    console && console.log("upload_token=", upload_token)
+    // console && console.log("upload_token=", upload_token)
     return upload_token;
 }

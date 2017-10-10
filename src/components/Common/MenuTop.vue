@@ -4,8 +4,16 @@
 	    <Button type="text" @click="changeSideBar">
 	        <Icon type="navicon" size="32"></Icon>
 	    </Button>
+        <!-- 退出全屏 -->
+        <Button v-if="setFull" type="text" class="fr" @click="fullExit">
+            <Icon type="arrow-shrink" size="30"></Icon>
+        </Button>
+        <!-- 全屏 -->
+        <Button v-else type="text" class="fr" @click="fullScreen">
+            <Icon type="arrow-expand" size="30"></Icon>
+        </Button>
         <!-- 账户信息 -->
-        <div class="account">
+        <div class="account fr">
             <span>Hi，欢迎您，</span>
             <Submenu name="1" style="z-index:10">
                 <template slot="title">
@@ -28,11 +36,27 @@
 		computed: {
             ...mapGetters([ 'sidebarSpan', 'userFace', 'nickName' ]),
         },
+        data() {
+            return{
+                // 是否设置全屏
+                setFull: false,
+            }
+        },
 		methods: {
             // 改变侧边栏
-            changeSideBar () {
+            changeSideBar() {
                 if (this.sidebarSpan === 3) this.$store.commit('SET_SIDEBAR_SPAN', 1);
                 else this.$store.commit('SET_SIDEBAR_SPAN', 3);
+            },
+            // 全屏显示
+            fullScreen(){
+                this.setFull = true;
+                Common.launchFullScreen(document.documentElement);
+            },
+            // 退出全屏
+            fullExit(){
+                this.setFull = false;
+                Common.exitFullscreen();
             },
             // 登出
             logOut(){
@@ -56,8 +80,6 @@
         background: #fff;
     }
     .account{
-        float: right;
-        margin-right: 50px;
         span, strong{
             float: left;
             margin-right: 10px;

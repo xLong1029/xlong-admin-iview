@@ -60,6 +60,8 @@
             return {
                 // 上传加载
                 loading: false,
+                // 是否显示弹窗
+                showModal: false,
                 // 图片文件大小
                 maxSize: 2048,
                 // 可接受的图片上传格式
