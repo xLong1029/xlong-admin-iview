@@ -1,8 +1,8 @@
 /*
  * 功能 : 封装与iView框架相关的表单验证方法
  * 作者 : 罗永梅（381612175@qq.com）
- * 日期 : 2017-8-31
- * 版本 : version 1.0
+ * 日期 : 2017-10-25
+ * 版本 : version 2.0
  */
 import Common from './common.js'
 
@@ -54,24 +54,14 @@ export default {
         }
     },
     // 验证所在省市
-    ValidProvince: (province, city, area, cityList, areaList, callback, required) => {
+    ValidProvince: (province, callback, required) => {
         // 若必填
         if(required){
             // 省份为空
             if(province == ''){
-                return callback(new Error('省份不能为空'));
+                return callback(new Error('所在省份不能为空'));
             }
-            else{
-                if(cityList.length > 0 && city == ''){
-                    return callback(new Error('城市不能为空'));
-                }
-                else{
-                    if(areaList.length > 0 && area == ''){
-                        return callback(new Error('区域不能为空'));
-                    }
-                    else return callback();
-                }
-            }
+            else return callback();
         }
         else return callback();
     },

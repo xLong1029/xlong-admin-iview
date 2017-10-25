@@ -58,15 +58,7 @@
                         </Select>
                     </Form-item>
                     <Form-item label="所在省市：">
-                        <Select class="select-province" v-model="infoForm.province" placeholder="请选择省份" @on-change="changeProvince">
-                            <Option v-for="(item, index) in provinceList" :value="item.name" :key="index">{{ item.name }}</Option>
-                        </Select>
-                        <Select class="select-province" v-model="infoForm.city" placeholder="请选择城市" @on-change="changeCity">
-                            <Option v-for="(item, index) in cityList" :value="item.name" :key="index">{{ item.name }}</Option>
-                        </Select>
-                        <Select class="select-province" v-model="infoForm.area" placeholder="请选择区域" @on-change="changeArea">
-                            <Option v-for="(item, index) in areaList" :value="item.name" :key="index">{{ item.name }}</Option>
-                        </Select>
+                        <Cascader :data="cityList" v-model="provinceValue" placeholder="请选择所在省市" @on-change="selectCity"></Cascader>
                     </Form-item>
                     </Col>
                 </Row>
@@ -115,10 +107,10 @@
                 pageLoading: true,
                 // 职位列表
                 jobList: [],
-                // 地区列表
-                provinceList: [],
                 // 专业领域列表
                 professionList: [],
+                // 城市联动选择值
+                provinceValue:[],
                 // 用户编号
                 userId: '',
                 // 表单信息
@@ -181,8 +173,6 @@
             this.jobList = JsonData.job;    
             // 获取本地“专业领域”列表
             this.professionList = JsonData.profession;
-            // 获取本地“城市”列表
-            this.provinceList = JsonCity;
         },
         methods: {
             // 获取账户详情
@@ -195,9 +185,8 @@
                     if(res.code == 200){
                         // 设置数据
                         this.infoForm = result;
-                        // 设置省市
-                        if(this.infoForm.province != '') this.getCity(this.infoForm.province);
-                        if(this.infoForm.city != '') this.getArea(this.infoForm.city);
+                        // 设置省市值
+                        this.provinceValue = [this.infoForm.province, this.infoForm.city, this.infoForm.area];
                         // 设置企业名称
 						this.$store.commit('SET_INPUT_VALUE', result.companyName);                  
                         // 更新用户头像

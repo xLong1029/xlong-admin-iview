@@ -56,17 +56,7 @@
                         </Select>
                     </Form-item>
                     <Form-item label="所在地区：">
-                        <Select class="select-province" v-model="infoForm.province" placeholder="请选择省份" @on-change="changeProvince">
-                            <Option v-for="(item, index) in provinceList" :value="item.name" :key="index">{{ item.name }}</Option>
-                        </Select>
-                        <Select class="select-province" v-model="infoForm.city" placeholder="请选择城市" @on-change="changeCity">
-                            <Option v-for="(item, index) in cityList" :value="item.name" :key="index">{{ item.name }}</Option>
-                        </Select>
-                        <!-- iView的Select组件这里有个Bug,有时会导致选中的选项无法显示，但实际已经获取到值  -->
-                        <Select class="select-province" v-model="infoForm.area" placeholder="请选择区域" @on-change="changeArea">
-                            <span>{{ infoForm.area }}</span>
-                            <Option v-for="(item, index) in areaList" :value="item.name" :key="index">{{ item.name }}</Option>
-                        </Select>
+                        <Cascader :data="cityList" v-model="provinceValue" placeholder="请选择所在省市" @on-change="selectCity"></Cascader>
                     </Form-item>
                     </Col>
                 </Row>
@@ -111,10 +101,10 @@
             return {
                 // 职位列表
                 jobList: [],
-                // 地区列表
-                provinceList: [],
                 // 专业领域列表
                 professionList: [],
+                // 城市联动选择值
+                provinceValue:[],
                 // 表单信息
                 infoForm: {
                     // 真实姓名
@@ -173,8 +163,6 @@
             this.jobList = JsonData.job;    
             // 获取本地“专业领域”列表
             this.professionList = JsonData.profession;
-            // 获取本地“城市”列表
-            this.provinceList = JsonCity;
         },
         methods: {
             // 提交表单

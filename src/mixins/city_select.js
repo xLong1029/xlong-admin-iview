@@ -1,86 +1,49 @@
 /*
  * 模块 : 城市联动选择相关配置
  * 作者 : 罗永梅（381612175@qq.com）
- * 日期 : 2017-8-31
- * 版本 : version 1.0
+ * 日期 : 2017-10-25
+ * 版本 : version 2.0
  */
-import JsonCity from 'mock/city.json'
+// Json数据
+import JsonCity from '@/mock/city.json'
 
 export default {
 	data() {
 		return {
-			// 省份列表
-            provinceList: [],
-            // 城市列表
+            // 城市选项列表
             cityList: [],
-            // 区域列表
-            areaList: [],
 		}
     },
     created(){
-        // 获取本地“省份”列表
-        this.provinceList = JsonCity;
+        // 获取本地城市列表
+        this.cityList = JsonCity.map(province => {
+            let p = {
+                value: province.name,
+                label: province.name
+            };
+            p.children = province.childs.map(city => {
+                let c = {
+                    value: city.name,
+                    label: city.name
+                };
+                c.children = city.childs.map(area => {
+                    return {
+                        value: area.name,
+                        label: area.name
+                    };
+                })
+                return c;
+            })
+            return p;
+        });
+        //console.log(this.cityList);
     },
 	methods: {
-		// 省份选改变联动城市列表
-        changeProvince(res) {
-            console.log('省份name:' + res);
-            // 清空选项列表
-            this.cityList = [];
-            // 清空选项列表
-            this.areaList = [];
-            // 获取城市列表
-            this.getCity(res);
-            if(this.infoForm.city != ''){
-                this.infoForm.area = '';
-                this.getArea(this.infoForm.city);                
-            }
-        },
-        // 获取城市列表
-        getCity(province){
-            // 循环读取 json 数据到列表中
-            for (var item of this.provinceList) {
-                if (province === item.name) {
-                    this.cityList = item.childs;
-                    break;
-                }
-            }
-            if(this.infoForm.city != ''){
-                this.infoForm.area = '';
-                this.changeCity(this.infoForm.city);                
-            }
-        },
-        // 城市改变联动区域列表
-        changeCity(res) {
-            console.log('城市name:' + res);
-            // 清空选项列表
-            this.areaList = [];
-            // 获取区域列表
-            this.getArea(res);
-        },
-        // 获取区域列表
-        getArea(city){
-            let stop = false;
-            // 循环读取 json 数据到列表中
-            for (var province of this.provinceList) {
-                if (!stop) {
-                    if(this.infoForm.province == province.name){
-                        for (let child of province.childs) {
-                            if (city === child.name) {
-                                this.areaList = child.childs;
-                                stop = true;
-                            }
-                        }
-                    }
-                    else continue;                        
-                }
-                else break;
-            }
-        },
-        // 区域改变
-        changeArea(res) {
-            console.log('区域name:' + res);
-            this.infoForm.area = res;
-        },
+        // 省市选值
+        selectCity(value, selectedData){
+            this.infoForm.province = selectedData[0].value;
+            if(selectedData[1]) this.infoForm.city = selectedData[1].value;
+            if(selectedData[2]) this.infoForm.area = selectedData[2].value;
+        }
 	}
 }
