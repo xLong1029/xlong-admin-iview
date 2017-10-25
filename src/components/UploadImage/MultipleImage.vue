@@ -63,6 +63,8 @@
                 loading: false,
                 // 显示图片URL
                 showImgUrl: '',
+                // 显示对话框
+                showModal: false,
                 // 图片文件大小
                 maxSize: 2048,
                 // 可接受的图片上传格式

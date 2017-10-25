@@ -32,8 +32,7 @@ const whiteList = [ '404', 'Login']
 
 router.beforeEach((to, from, next) => {
 	// 获取存储token
-	//let isLogin = Boolean(GetCookie('xl_admin_t'));
-	let isLogin = Boolean(true);
+	let isLogin = Boolean(GetCookie('xl_admin_t'));
 	// 判断是否已登录
 	if(isLogin){
 		// 如果路由地址为登录页，则重定向到管理后台主页
