@@ -90,8 +90,8 @@
                             if(res.code == 200){
                                 this.$Message.success('资料修改成功！');
                                 // 更新用户信息
-                                this.$store.commit('SET_USER_FACE', res.attributes.userface);
-                                this.$store.commit('SET_USER_NICKNAME', res.attributes.nickname);
+                                this.$store.commit('SET_USER_FACE', res.data.attributes.userface);
+                                this.$store.commit('SET_USER_NICKNAME', res.data.attributes.nickname);
                             }
                             else this.$Message.error('资料修改失败！');
                         })
