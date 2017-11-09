@@ -81,7 +81,7 @@ export default {
         event.currentTarget.onerror = null;
     },
     // 初始化图片存储
-    initPicStore: (_this) => {
+    InitPicStore: (_this) => {
         _this.$store.commit('SET_IMAGE_URL', '');
         _this.$store.commit('SET_IMAGE_URL_ARR', []);
     },

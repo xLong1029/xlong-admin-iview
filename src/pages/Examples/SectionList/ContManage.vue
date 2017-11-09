@@ -236,7 +236,7 @@
                 { name: '内容管理', path: '' }
             ]);
             // 初始化图片上传
-            Common.initPicStore(this);
+            Common.InitPicStore(this);
             // 获取内容列表
             this.getTableList();
             // 初始化表格内容

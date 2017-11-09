@@ -143,7 +143,7 @@
         },
         created() {
             // 初始化图片上传
-            Common.initPicStore(this);
+            Common.InitPicStore(this);
             // 获取案例列表
 			this.getCaseList(this.productId);
         },

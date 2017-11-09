@@ -158,7 +158,7 @@
                 { name: '新增账户', path: '' }
             ]);
             // 初始化图片上传
-            Common.initPicStore(this);    
+            Common.InitPicStore(this);    
             // 获取本地“职位”列表
             this.jobList = JsonData.job;    
             // 获取本地“专业领域”列表
