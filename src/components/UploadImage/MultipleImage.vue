@@ -12,6 +12,7 @@
         <!-- 上传按钮 -->
         <div>
             <Button type="ghost" :loading="loading" icon="ios-cloud-upload-outline" @click="uploadClick">上传图片</Button>
+            <span class="size-hint" v-if="sizeHint">（图片尺寸： {{ sizeHint }}）</span>
             <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
         </div>
         <!-- 上传进度条  -->
@@ -43,13 +44,17 @@
     export default {
         name: 'multipleImage',
         mixins: [ UploadImg ],
-        // 获取父级传值preview，true为可预览图片，false为不可预览
+        // 获取父级传值是否可预览图片preview，上传按钮尺寸提示文本sizeHint
         props: {
             // 设置默认值
             preview:{
                 type: Boolean,
                 default: false
-            }, 
+            },
+            sizeHint:{
+                type: String,
+                default: ''
+            }
         },
         computed: {
             ...mapGetters([
@@ -129,48 +134,5 @@
 </script>
 
 <style lang="less" scoped>
-    .hint{
-        color:#ed3f14;
-        margin-top: 15px;
-    }
-    .upload-show{
-        float: left;
-        position: relative;
-        min-width: 90px;
-        height: 90px;
-        margin-right: 15px;
-        border: 1px solid #e4e5e7;
-        border-radius: 4px;
-        overflow: hidden;
-        text-align: center;
-
-        &:hover{
-            .upload-mask{
-                display: block;
-            }
-        }   
-    }
-    .upload-mask{
-        cursor: pointer;
-        display: none;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        background: rgba(0,0,0,0.8);
-        border-radius: 4px;
-        text-align: center;
-        .ivu-icon{
-            color:#fff;
-            line-height: 90px;
-            font-size: 20px;
-        }
-    }
-    .upload-image{
-        height: 100%;
-        border-radius: 4px;
-        max-width: 350px;
-        background: #fff;
-    }
+    @import "../../assets/less/upload_img";
 </style>

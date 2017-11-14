@@ -178,8 +178,7 @@
                         width: '200',
                         align: 'center',
                         render: (h, params) => {
-                            return h('div', [
-                                tableSetting.gotoPage(h, params, this, '内容管理', 'ContManage', '10px'),
+                            return h('div', [                                
                                 h('Button', {
                                     props: {
                                         type: 'primary',
@@ -187,6 +186,7 @@
                                     },
                                     style: {
                                         minWidth: '64px',
+                                        marginRight: '10px'
                                     },
                                     on: {
                                         click: () => {
@@ -195,7 +195,8 @@
                                             this.operateType = 2;
                                         }
                                     }
-                                }, '编辑')
+                                }, '编辑'),
+                                tableSetting.gotoPage(h, params, this, '内容管理', 'ContManage'),
                             ]);                          
                         }
                     }

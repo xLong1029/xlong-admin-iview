@@ -25,7 +25,7 @@
                     <Col span="12">
                     <Form-item label="头像：" style="margin-bottom:16px;">
                         <!-- 组件-图片上传-单图片显示 -->
-                        <SingleImage :preview="true"></SingleImage>
+                        <SingleImage :preview="true" size-hint="100*100px"></SingleImage>
                     </Form-item>
                     <Form-item label="出生日期：" prop="birthdate">
                         <Date-picker v-model="infoForm.birthdate" type="date" placeholder="起始时间" @on-change="getBirthDate" style="width:100%"></Date-picker>
