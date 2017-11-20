@@ -180,7 +180,11 @@
                         .then(res => {
                             // 取消页面加载
                             this.pageLoading = false;
-                            if(res.code == 200) this.$Message.success('新增账户成功!');
+                            if(res.code == 200){
+                                this.$Message.success('新增账户成功!');
+                                // 跳转到列表
+								this.$router.push({ name: 'AccountList' });
+                            }
                             else console.log(res);                           
                         })
                         .catch(err => this.$Message.warning(err.message))

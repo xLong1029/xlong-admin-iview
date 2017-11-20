@@ -12,6 +12,10 @@ export default {
 		}
 	},
 	methods: {
+        // 设置表格行显示样式
+        rowClassName(row, index){
+            return row.enabledState == 1 ? '' : 'tr-disable';
+        },
 		// 设置选项列表
 		setSelectList(selection, row){
 			// 清空选项列表

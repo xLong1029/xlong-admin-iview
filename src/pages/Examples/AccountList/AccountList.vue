@@ -56,6 +56,7 @@
         <div v-else>            
             <!-- 用户列表 -->
             <Table
+                :row-class-name="rowClassName"
                 class="m-table-list"
                 border
                 :columns="userList"
