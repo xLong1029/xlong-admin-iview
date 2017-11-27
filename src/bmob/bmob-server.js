@@ -69,9 +69,13 @@ export default {
                     if(params.sTime != '' && params.eTime != ''){
                         let result = [];
                         for(let item of obj){
+                            let startDate = (new Date(params.sTime)).toLocaleDateString();
+                            // bmob的问题，结束日期当天获取不到，只能获取到结束日期的前一天，所以此处需要多加一天
+                            let endDate = new Date(params.eTime);
+                            endDate = endDate.getFullYear() + '/' + (endDate.getMonth() + 1) + '/' + (endDate.getDate() + 1);
                             // 比较日期大小，若第一个值小于第二个值则返回true
-                            let start = Common.CompareDate(params.sTime, item.createdAt),
-                                end = Common.CompareDate(item.createdAt, params.eTime);
+                            let start = Common.CompareDate(startDate, item.createdAt),
+                                end = Common.CompareDate(item.createdAt, endDate);
                             // 满足条件则保留数据
                             if(start && end) result.push(item);
                         }

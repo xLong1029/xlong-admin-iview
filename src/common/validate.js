@@ -48,7 +48,7 @@ export default {
         }
         else{
             let nowDate = new Date();
-            const compare = Common.CompareDate(new Date(birhtDate).toLocaleDateString(), nowDate.toLocaleDateString());
+            const compare = Common.CompareDate(birhtDate, nowDate);
             if (!compare) return callback(new Error('出生日期不能大于当前日期'));
             else return callback();
         }

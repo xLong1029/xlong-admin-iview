@@ -32,9 +32,18 @@ export default {
     /* 公共方法 */
     // 比较日期大小
     CompareDate: (dateOne, dateTwo) => {
-        let sTime = new Date(dateOne).toLocaleDateString();
-        let eTime = new Date(dateTwo).toLocaleDateString();
-        return ((new Date(sTime.replace(/-/g,"\/"))) <= (new Date(eTime.replace(/-/g,"\/"))));
+        console.log(typeof(dateOne));
+        console.log(typeof(dateTwo));
+        // 字符串
+        if(typeof(dateOne) == 'string' && typeof(dateTwo) == 'string'){
+            return ((new Date(dateOne.replace(/-/g,"\/"))) <= (new Date(dateTwo.replace(/-/g,"\/"))));
+        }
+        // DATE对象
+        else if(typeof(dateOne) == 'object' && typeof(dateTwo) == 'object') return (dateOne <= dateTwo);
+        else {
+            console.log('日期比较格式不统一');
+            return false;
+        }
     },
     // 设置时间
     // type：1 最近一周，2 最近一个月，3 最近三个月
