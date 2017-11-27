@@ -48,7 +48,7 @@ export default {
         }
         else{
             let nowDate = new Date();
-            const compare = Common.CompareDate(birhtDate, nowDate.toLocaleDateString());
+            const compare = Common.CompareDate(new Date(birhtDate).toLocaleDateString(), nowDate.toLocaleDateString());
             if (!compare) return callback(new Error('出生日期不能大于当前日期'));
             else return callback();
         }
@@ -98,4 +98,30 @@ export default {
         }
         else return callback();       
     },
+    // 验证日期范围选择
+    ValidRangeDate: (startDate, endDate, callback, required) => {
+        // 若必填
+        if(required && startDate == '') return callback(new Error('开始日期不能为空'));
+        if(required && endDate == '') return callback(new Error('结束日期不能为空'));
+        else{
+            if(startDate){
+                let nowDate = new Date();
+                const compare = Common.CompareDate(startDate, nowDate);
+                
+                if (!compare) return callback(new Error('开始日期不能大于当前日期'));
+                else{
+                    if(endDate){
+                        const compare = Common.CompareDate(startDate, endDate);
+                        if (!compare) return callback(new Error('结束日期不能小于开始日期'));
+                        else return callback(); 
+                    }
+                    else return callback(); 
+                }
+            }
+            else{
+                if(endDate) return callback(new Error('请选择开始日期'));
+                else return callback();
+            }
+        } 
+    }
 }

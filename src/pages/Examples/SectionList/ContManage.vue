@@ -393,14 +393,7 @@
 </script>
 
 <style lang="less" scoped>
-    .m-operation {
-        padding-bottom: 20px;
-        padding-top:0;
-    }
-    .operation-btn {
-        margin-right: 5px;
-        min-width:80px;
-    }
+    @import "../../../assets/less/table_list";
 
     .m-table{
         position: relative;

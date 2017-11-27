@@ -9,14 +9,16 @@
                 <Form-item class="query-item">
                     <Input v-model="queryForm.productName" placeholder="产品名称"></Input>
                 </Form-item>
-                <div class="query-item">
+                <Form-item class="query-item">
                     <Select v-model="queryForm.dataFrom" placeholder="数据来源">
                         <Option value="">全部</Option>
                         <Option value="1">系统录入</Option>
                         <Option value="2">数据库添加</Option>
                     </Select>
-                </div>
-                <Button class="query-button" type="primary" @click="query('queryForm', '')">查询</Button>
+                </Form-item>
+                <Form-item class="fl">
+                    <Button class="query-button" type="primary" @click="query('queryForm', '')">查询</Button>
+                </Form-item>
             </Form>
         </div>
         <!-- 操作按钮 -->
@@ -39,7 +41,7 @@
         </div>
         <!-- 分页 -->
         <Page
-            class-name="m-page fr"
+            class-name="m-page"
             show-elevator
             show-sizer
             show-total
@@ -261,31 +263,5 @@
 </script>
 
 <style lang="less" scoped>
-    .m-operation {
-        padding-bottom: 20px;
-        padding-top:0;
-    }
-    .operation-btn {
-        margin-right: 5px;
-        min-width:80px;
-    }
-    
-    .m-query-form {
-        //padding-bottom: 20px;
-    }
-
-    .query-item {
-        float: left;
-        width: 200px;
-        margin-right: 10px;
-    }  
-    .query-button {
-        float: left;
-        margin-right: 0;
-        min-width:80px;
-    }
-    
-    .page {
-        margin-top: 30px;
-    }
+    @import "../../../assets/less/table_list";
 </style>

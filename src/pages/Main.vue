@@ -37,7 +37,7 @@
 <style lang="less">
     .g-layout{
         position: relative;
-        min-width: 1000px;
+        min-width: 1200px;
     }
     .layout-left{
         height: 100%;
@@ -52,7 +52,7 @@
         -o-transition: width .2s ease-in-out; /* Opera */ 
     }
     .layout-right{
-        height: auto;
+        min-height: 100vh;
         width: 100%;
         padding-left: 200px;
         transition: padding-left .2s ease-in-out;
@@ -75,7 +75,6 @@
     }
 
     .g-content{
-        min-height: 50vh;
         margin-top:-10px;
         margin: 15px;
         background: #fff;
@@ -89,6 +88,7 @@
     }
     
     .copyright{
+        position: relative;
         text-align: center;
         padding: 10px 15px;
         color: #9ea7b4;
@@ -106,11 +106,6 @@
     .m-content{
         margin-top: 30px;
     }
-
-    .m-page {
-		float: right;
-		margin-top: 30px;
-	}
 
     .status {
         &-success {

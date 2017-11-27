@@ -11,31 +11,41 @@ export default {
 		return {
 			// 判断是否是查询状态
             isQuery: false,
-			// 日期设置
-			dateSetting: {
-				shortcuts: [
-					{
-						text: '最近一周',
-						value () { return Common.SetDate(1); }
-					},
-					{
-						text: '最近一个月',
-						value () { return Common.SetDate(2); }
-					},
-					{
-						text: '最近三个月',
-						value () { return Common.SetDate(3); }
-					}
-				]
-			},
+			// 日期设置--用于iView的DatePicker的daterange类型数据配置，和Vue版本冲突，Vue2.4版本以上不可用
+			// dateSetting: {
+			// 	shortcuts: [
+			// 		{
+			// 			text: '最近一周',
+			// 			value () { return Common.SetDate(1); }
+			// 		},
+			// 		{
+			// 			text: '最近一个月',
+			// 			value () { return Common.SetDate(2); }
+			// 		},
+			// 		{
+			// 			text: '最近三个月',
+			// 			value () { return Common.SetDate(3); }
+			// 		}
+			// 	]
+			// },
 		}
 	},
 	methods: {
-		// 获取查询起始和结束时间
-		getDate(date) {
-			console.log('get date:' + date);
-			this.queryForm.sTime = date[0] + ' 00:00:00';
-			this.queryForm.eTime = date[1] + ' 23:59:59';
+		// 获取查询起始和结束时间--用于iView的DatePicker的daterange类型数据设置方法，和Vue版本冲突，Vue2.4版本以上不可用
+		// getDate(date) {
+		// 	console.log('get date:' + date);
+		// 	this.queryForm.sTime = date[0] + ' 00:00:00';
+		// 	this.queryForm.eTime = date[1] + ' 23:59:59';
+		// },
+		// 获取查询开始日期
+		getStartDate(date) {
+			console.log('get start date:' + date);
+			this.queryForm.sTime = date;
+		},
+		// 获取查询结束日期
+		getEndDate(date) {
+			console.log('get end date:' + date);
+			this.queryForm.eTime = date;
 		},
 		// 查询
 		// form:表单对象， getValid:是否需要验证表单
@@ -53,8 +63,21 @@ export default {
 			}
 			else this.getTableList(true);
 		},
+		// 删除查询对象属性（清空对象）
+		clearQuery(){		
+			for(let key in this.queryForm){
+				delete this.queryForm[key];
+			}
+		},
+		// 重置查询内容
+		resetQuery(form){
+			this.clearQuery();
+			this.$refs[form].resetFields();
+			this.getTableList();
+		},
 		// 获取筛选列表
 		getFilterList(){
+			if(this.queryForm.eTime == '') this.queryForm.eTime = (new Date()).toLocaleDateString();
 			this.apiGetFilter()
 			.then(res => {
 			    this.pageLoading = false;

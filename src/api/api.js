@@ -94,6 +94,7 @@ export default {
     // params: 筛选参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
     FilterAccList: (params, pageNo, pageSize) => {
         let query = BmobServer.GetQuery('Account');
+        console.log(params);
         // 查询语句
         if(params.id != '') query.equalTo('objectId', params.id);
         if(params.mobile != '') query.equalTo('mobile', params.mobile);

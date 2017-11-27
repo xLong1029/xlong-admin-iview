@@ -152,6 +152,10 @@
                     mobile: [
                         { required: true, message: '手机号码不能为空', trigger: 'blur'},
                         { pattern: Common.regMobile, message: '手机号码格式不正确', trigger: 'blur' }
+                    ],
+                    email: [
+                        { required: true, message: '邮箱不能为空', trigger: 'blur'},
+                        { pattern: Common.regEmail, message: '邮箱格式不正确', trigger: 'change' }
                     ]
                 },
             }
@@ -205,6 +209,9 @@
                         
                         this.infoForm.face = this.getImageUrl;
                         this.infoForm.companyName = this.inputValue;
+                        // 日期转成字符串
+                        if(this.infoForm.birthdate != '')
+                            this.infoForm.birthdate = new Date(this.infoForm.birthdate).toLocaleDateString();
 
                         // 修改账户信息
                         Api.EditAccount(this.infoForm, this.userId)

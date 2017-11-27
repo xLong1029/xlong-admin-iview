@@ -32,7 +32,9 @@ export default {
     /* 公共方法 */
     // 比较日期大小
     CompareDate: (dateOne, dateTwo) => {
-        return ((new Date(dateOne.replace(/-/g,"\/"))) <= (new Date(dateTwo.replace(/-/g,"\/"))));
+        let sTime = new Date(dateOne).toLocaleDateString();
+        let eTime = new Date(dateTwo).toLocaleDateString();
+        return ((new Date(sTime.replace(/-/g,"\/"))) <= (new Date(eTime.replace(/-/g,"\/"))));
     },
     // 设置时间
     // type：1 最近一周，2 最近一个月，3 最近三个月

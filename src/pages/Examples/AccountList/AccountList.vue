@@ -12,35 +12,34 @@
                 <Form-item prop="email" class="query-item">
                     <AutoComplete v-model="queryForm.email" :data="emailList" @on-search="selectEmail" @on-select="setEmail" placeholder="邮箱"></AutoComplete>
                 </Form-item>
-                <div class="query-item">
+                <Form-item class="query-item">
                     <Select v-model="queryForm.job" placeholder="职位">
                         <Option value="" >全部</Option>
                         <Option v-for="(item, index) in jobList" :value="item.name" :key="index">{{ item.name }}</Option>
                     </Select>
-                </div>
-                <div class="query-item">
+                </Form-item>
+                <Form-item class="query-item">
                     <Select v-model="queryForm.province" placeholder="所在省市">
                         <Option value="" >全部</Option>
                         <Option v-for="(item, index) in provinceList" :value="item.name" :key="index">{{ item.name }}</Option>
                     </Select>
-                </div>
-                <div class="query-item">
-                    <Date-picker
-                        type="daterange"
-                        :options="dateSetting"
-                        placement="bottom-end"
-                        placeholder="选择创建时间"
-                        @on-change="getDate"
-                    ></Date-picker>
-                </div>
-                <div class="query-item">
+                </Form-item>
+                <Form-item class="fl" prop="date">
+                    <Date-picker class="query-item" type="date" v-model="queryForm.sTime" placement="bottom-end" placeholder="请选择开始日期" @on-change="getStartDate"></Date-picker>
+                    <Date-picker class="query-item" type="date" v-model="queryForm.eTime" placement="bottom-end" placeholder="请选择结束日期" @on-change="getEndDate"></Date-picker>
+                    <div class="clearfix"></div>
+                </Form-item>
+                <Form-item class="query-item">
                     <Select v-model="queryForm.enabledState" placeholder="用户状态">
                         <Option value="">全部</Option>
                         <Option value="1">启用</Option>
                         <Option value="-1">禁用</Option>
                     </Select>
-                </div>
-                <Button class="query-button" type="primary" @click="query('queryForm', 'valid')">查询</Button>
+                </Form-item>
+                <Form-item class="fl">
+                    <Button class="query-button" type="primary" @click="query('queryForm', 'valid')">查询</Button>
+                    <Button class="query-button" type="ghost" @click="resetQuery('queryForm')">重置</Button>
+                </Form-item>
             </Form>
             <div class="clearfix"></div>
         </div>
@@ -50,6 +49,7 @@
             <Button class="operation-btn" :disabled="selectList.length == 0" type="warning" @click="deleteData">删除</Button>
             <Button class="operation-btn" :disabled="selectList.length == 0" type="primary" @click="enableOrDisable(1)">启用</Button>
             <Button class="operation-btn" :disabled="selectList.length == 0" type="warning" @click="enableOrDisable(-1)">禁用</Button>
+            <div class="clearfix"></div>
         </div>
         <!--  加载判断 -->
         <Loading v-if="pageLoading"></Loading>
@@ -63,22 +63,22 @@
                 :data="listData"
                 @on-selection-change="setSelectList"
             ></Table>
+            <!-- 分页 -->
+            <Page
+                class-name="m-page"
+                show-elevator
+                show-sizer
+                show-total
+                :total="page.dataCount"
+                :page-size="page.pageSize"
+                :current="page.pageNo"
+                :page-size-opts="page.pageSizeOpts"
+                @on-change="changePage"
+                @on-page-size-change="changePageSize"
+            >
+            </Page>
+            <div class="clearfix"></div>
         </div>
-        <!-- 分页 -->
-        <Page
-            class-name="m-page fr"
-            show-elevator
-            show-sizer
-            show-total
-            :total="page.dataCount"
-            :page-size="page.pageSize"
-            :current="page.pageNo"
-            :page-size-opts="page.pageSizeOpts"
-            @on-change="changePage"
-            @on-page-size-change="changePageSize"
-        >
-        </Page>
-        <div class="clearfix"></div>
     </div>
 </template>
 
@@ -87,6 +87,8 @@
     import Loading from '@/components/Common/Loading'
     // 通用JS
     import Common from 'common/common.js'
+    // 通用JS
+    import Validate from 'common/validate.js'
     // Api方法
     import Api from '@/api/api.js'
     // Json数据
@@ -159,6 +161,12 @@
                 validate: {
                     email:[{ pattern: Common.regEmail , message: '邮箱格式不正确' }],
                     mobile:[{ pattern: Common.regMobile , message: '手机号码格式不正确', trigger: 'blur' }],
+                    date:[{
+                        validator: (rule, value, callback) => {
+                            Validate.ValidRangeDate(this.queryForm.sTime, this.queryForm.eTime, callback, false);
+                        },
+                        trigger: 'change',
+                    }]
                 },
                 // 用户列表
                 userList:[
@@ -288,35 +296,8 @@
 </script>
 
 <style lang="less" scoped>
-    .m-operation {
-        padding-bottom: 20px;
-        padding-top:0;
-    }
-    .operation-btn {
-        margin-right: 5px;
-        min-width:80px;
-    }
-    
-    .m-query-form {
-        //padding-bottom: 20px;
-    }
-
-    .query-item {
-        float: left;
-        width: 12%;
-        margin-right: 1%;
-        position: relative;
-        .ivu-date-picker{
-            width:100%;
-        }
-    }  
-    .query-button {
-        float: right;
-        margin-right: 0;
-        min-width:80px;
-    }
-    
-    .page {
-        margin-top: 30px;
+    @import "../../../assets/less/table_list";
+    .query-item{
+        width: 150px;
     }
 </style>

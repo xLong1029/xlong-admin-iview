@@ -146,6 +146,10 @@
                     mobile: [
                         { required: true, message: '手机号码不能为空', trigger: 'blur'},
                         { pattern: Common.regMobile, message: '手机号码格式不正确', trigger: 'blur' }
+                    ],
+                    email: [
+                        { required: true, message: '邮箱不能为空', trigger: 'blur'},
+                        { pattern: Common.regEmail, message: '邮箱格式不正确', trigger: 'change' }
                     ]
                 },
             }
@@ -174,6 +178,9 @@
 
                         this.infoForm.face = this.getImageUrl;
                         this.infoForm.companyName = this.inputValue;
+                        // 日期转成字符串
+                        if(this.infoForm.birthdate != '')
+                            this.infoForm.birthdate = new Date(this.infoForm.birthdate).toLocaleDateString();
                         
                         // 新增用户
                         Api.AddAccount(this.infoForm)
@@ -181,9 +188,13 @@
                             // 取消页面加载
                             this.pageLoading = false;
                             if(res.code == 200){
-                                this.$Message.success('新增账户成功!');
-                                // 跳转到列表
-								this.$router.push({ name: 'AccountList' });
+                                this.$Message.success({
+                                    content: '新增账户成功!',
+                                    onClose: () => {
+                                        // 跳转到列表页
+								        this.$router.push({ name: 'AccountList' });
+                                    }
+                                }); 
                             }
                             else console.log(res);                           
                         })
@@ -195,7 +206,7 @@
             // 获取出生日期
             getBirthDate(date) {
                 console.log('get birth date:' + date);
-                this.infoForm.birthdate = date;
+                this.infoForm.birthdate = date;              
             },
         }
     }
