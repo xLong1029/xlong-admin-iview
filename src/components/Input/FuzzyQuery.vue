@@ -6,19 +6,22 @@
             placeholder="请输入企业名称（例：设计）"
             @input="changeQuery"
             @on-focus="checkQuery"
-            @on-blur="hideDropDownList"                   
+            @on-blur="hideDropDownList"
+            @on-keyup.up="changeUp"
+            @on-keydown.down="changeDown"
+            @on-enter="selectDropDownItem(optionList[selectIndex].label, selectIndex)"                 
         ></Input>
         <!-- 下拉列表 -->
-        <div :class="['query-select-dropdown', showList ? '' : 'hidden']">
+        <div ref="dropDownList" :class="['query-select-dropdown', showList ? '' : 'hidden']">
             <ul v-show="notFound" class="query-select-not-found">无匹配数据</ul>
             <ul v-show="loading" class="query-select-loading">加载中</ul>
             <!-- 选项列表 -->
-            <ul @mouseleave="leaveList" @mouseenter ="enterList">
+            <ul v-show="getList" @mouseleave="leaveList" @mouseenter ="enterList">
                 <li                        
                     v-for="(item, index) in optionList"
                     :class="['query-select-item', selectIndex === index ? 'query-select-item-selected' : '']"
                     :key="index"                   
-                    @click="selectDropDownItem(item, index)"
+                    @click="selectDropDownItem(item.label, index)"
                 >{{ item.label }}</li>
             </ul>                    
         </div>
@@ -51,17 +54,22 @@
         },
         data () {
             return {
-                // value: '',
+                // 是否开始输入
+                startInput: false,
                 // 是否加载
                 loading: false,
-                // 当前选项索引
+                // 状态判断
                 // -404：表示无匹配数据
                 // -1: 表示正在查询
-                selectIndex: -404,
+                state: -404,
+                // 当前选项索引
+                selectIndex: -1,
                 // 是否显示下拉框
                 showList: false,
                 // 无匹配数据
                 notFound: false,
+                // 是否获取到列表内容
+                getList: false,
                 // 是否选择选项
                 getSelect: false,
                 // 选项列表
@@ -75,6 +83,7 @@
             fuzzyQuery(keyword){
                 this.optionList = [];
                 this.loading = true;
+                this.getList = false;
                 this.notFound = false;
                 // 显示选择框
                 this.showList = true;
@@ -97,47 +106,77 @@
 
                 this.loading = false;
 
-                if(this.optionList.length <= 0) this.notFound = true;
-                else this.notFound = false;
+                if (this.optionList.length <= 0){
+                    this.notFound = true;
+                    this.getList = false;
+                }
+                else{
+                    this.notFound = false;
+                    this.getList = true;
+                }
             },
             // 搜索词改变时
             changeQuery(text){
-                // 更新输入框的值
-                this.$store.commit('SET_INPUT_VALUE', text);
-                // 查询时，当前选项索引为-1
-                this.selectIndex = -1;
-                let keyword = this.value;
-                this.getSelect = false;
-                console.log('get keyword:' + keyword);
-                // 搜索词为空
-                if (keyword == '') {
-                    this.optionList = [];
-                    this.notFound = true;
+                // 开始查询
+                if(this.startInput){
+                    // 更新输入框的值
+                    this.$store.commit('SET_INPUT_VALUE', text);
+                    this.state = -1;
+                    this.getSelect = false;
+                    console.log('get search word:' + text);
+                    // 搜索词为空
+                    if (text == '') {
+                        this.optionList = [];
+                        // 隐藏下拉框
+                        this.showList = false;
+                    }
+                    else this.fuzzyQuery(text);
                 }
-                else this.fuzzyQuery(keyword);
             },
             // 选择下拉选项
-            selectDropDownItem(item, index){
+            selectDropDownItem(text, index){
                 // 获取选项值
-                this.value = item.label;
+                this.value = text;
                 // 当前选项索引
                 this.selectIndex = index;
                 // 更新输入框的值
-                this.$store.commit('SET_INPUT_VALUE', item.label);
+                this.$store.commit('SET_INPUT_VALUE', text);
                 // 隐藏下拉框
                 this.showList = false;
                 this.getSelect = true;
             },
             // 检查搜索词
-            checkQuery(text){
-                let keyword = text.target._value;
-                console.log('get keyword:' + keyword);
+            checkQuery(event){
+                this.startInput = true;
+                let text = event.target._value;
+                console.log('get check word:' + text);
                 // 搜索词为空
-                if (keyword == '') {                    
+                if (text == '') {                    
                     this.optionList = [];
                     this.notFound = true;
                 }
-                else this.fuzzyQuery(keyword);
+                else this.fuzzyQuery(text);
+            },
+            // 键盘向上移动选择
+            changeUp(){
+                if(this.selectIndex <= 0){
+                    this.selectIndex = this.optionList.length;
+                }
+                this.selectIndex--;
+                // 下拉框滚动条向上移动
+                this.$refs.dropDownList.scrollTop = (this.selectIndex - 5) * 30;
+            },
+            // 键盘向下移动选择
+            changeDown(){
+                if(this.optionList.length > 0 && this.selectIndex >= (this.optionList.length - 1)){
+                    this.selectIndex = -1;
+                }
+                this.selectIndex++;
+                // 下拉框滚动条向下移动
+                if(this.selectIndex >= 5){
+                    this.$refs.dropDownList.scrollTop = (this.selectIndex - 5) * 30;
+                }
+                else this.$refs.dropDownList.scrollTop = 0;
             },
             // 鼠标进入列表
             enterList(item, index){
@@ -146,12 +185,13 @@
             // 鼠标离开列表
             leaveList(item, index){
                 this.getSelect = false;
+                this.startInput = false;
             },
             // 隐藏下拉框
             hideDropDownList(){                
-                if(this.notFound) this.selectIndex = -404;
+                if(this.notFound) this.state = -404;
                 // 匹配不到或者未选择
-                if(this.selectIndex == -404 || !this.getSelect){
+                if(this.state == -404 || !this.getSelect){
                     this.showList = false;
                 }
             }
