@@ -65,10 +65,10 @@
                                 name: 'Input',
                                 text: 'Input输入框'
                             },
-                            // {
-                            //     name: 'Table',
-                            //     text: '表格'
-                            // },
+                            {
+                                name: 'Sidebar',
+                                text: '侧边栏'
+                            }
                         ]
                     },
                     {

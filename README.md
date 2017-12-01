@@ -56,7 +56,7 @@ LocatePath.vue ----- 封装iView面包屑组件
 
 MenuTop.vue ----- 封装iView菜单组件的顶部菜单
 
-Sidebar.vue ----- 封装iView菜单组件的侧边栏
+Sidebar.vue ----- 有2个，一个是封装iView菜单组件的侧边栏，另一个是重写的自定义侧边栏组件
 
 FuzzyQuery.vue ----- 模糊查询
 

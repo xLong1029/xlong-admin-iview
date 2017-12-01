@@ -5,8 +5,7 @@
         <div class="m-content">
             <InputAndSelect direction="down"></InputAndSelect>
             <div class="m-desc">
-                <p>组件包含属性：direction</p>
-                <p>可选值为 "top" 表示向上显示列表，"down" 表示向下显示列表</p>
+                <p>组件包含属性：direction。String类型, 可选值为 "top" 表示向上显示列表，"down" 表示向下显示列表</p>
             </div>
         </div>
         <!-- 模糊查询组件 -->
@@ -35,16 +34,12 @@
 </script>
 
 <style lang="less" scoped>
+    @import "../../assets/less/page_desc";
     .m-content{
-        padding-left: 20px;
         width: 500px;
     }
 
     .m-desc{
         width: 500px;
-        margin-top: 20px;
-        border: 1px solid #d4ece8;
-        border-radius: 4px;
-        padding: 10px; 
     }
 </style>

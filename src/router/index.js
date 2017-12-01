@@ -17,7 +17,12 @@ import ChangePwd from 'pages/Profile/ChangePwd'
 // 组件相关页面
 import UploadImage from 'pages/Components/UploadImage'
 import Input from 'pages/Components/Input'
-import Table from 'pages/Components/Table'
+
+import Sidebar from 'pages/Components/Sidebar/Sidebar'
+import PageOne from 'pages/Components/Sidebar/PageOne'
+import PageTwo from 'pages/Components/Sidebar/PageTwo'
+import PageThree from 'pages/Components/Sidebar/PageThree'
+import PageFour from 'pages/Components/Sidebar/PageFour'
 
 // 示例相关页面
 import AccountList from 'pages/Examples/AccountList/AccountList'
@@ -31,6 +36,7 @@ import ProductList from 'pages/Examples/ProductList/ProductList'
 import ProductDetail from 'pages/Examples/ProductList/ProductDetail'
 
 import MessageList from 'pages/Examples/MessageList/MessageList'
+
 
 // 错误页面
 import Err404 from 'pages/Error/Err404'
@@ -56,8 +62,23 @@ const RouterMap = [
             { path: '/Components/UploadImage', name: 'UploadImage', component: UploadImage },
             // Input输入框页面
             { path: '/Components/Input', name: 'Input', component: Input },
-            // 表格页面
-            { path: '/Components/Table', name: 'Table', component: Table },
+            // 侧边栏演示页面
+            {   
+                path: '/Components/Sidebar',
+                name: 'Sidebar',
+                component: Sidebar,
+                redirect: '/Components/Sidebar/PageOne',
+                children:[
+                    // 测试页面一
+                    { path: '/Components/Sidebar/PageOne', name:'PageOne', component: PageOne },
+                    // 测试页面二
+                    { path: '/Components/Sidebar/PageTwo', name:'PageTwo', component: PageTwo },
+                    // 测试页面三
+                    { path: '/Components/Sidebar/PageThree', name:'PageThree', component: PageThree },
+                    // 测试页面四
+                    { path: '/Components/Sidebar/PageFour', name:'PageFour', component: PageFour },
+                ]
+            },
             // 账户列表页面
             { path: '/Examples/AccountList', name: 'AccountList', component: AccountList },
             // 账户列表-新增账户
