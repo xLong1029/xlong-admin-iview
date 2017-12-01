@@ -69,7 +69,6 @@
     },
     mounted(){        
         this.setSideBar();
-        //if(this.activeName != '' && this.nowActive == '') this.nowActive = this.activeName;
     },
     methods:{
         // 设置侧边栏
@@ -106,6 +105,7 @@
                 child.show(100);
                 activeItem.addClass('xl-submenu-active');     
                 item.siblings().find('.m-xl-submenu-list').hide();
+                item.siblings().find('.xl-submenu-title').removeClass('xl-submenu-active');
             }
             this.activeMenu(item);
         },
@@ -137,10 +137,10 @@
         },
         // 激活二级菜单
         selectSubmenu(mIndex, subIndex){
-            console.log(1);
             let parent = $('.xl-menu-item').eq(mIndex);
             let item = parent.find('.xl-submenu-title');
             item.removeClass('xl-submenu-active').eq(subIndex).addClass('xl-submenu-active');
+            console.log(parent.siblings().find('.xl-submenu-title'));
             parent.siblings().find('.xl-submenu-title').removeClass('xl-submenu-active');
         }
     },

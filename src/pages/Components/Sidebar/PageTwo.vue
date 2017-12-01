@@ -1,6 +1,8 @@
 <template>
     <div class="g-content">
         页面：二级菜单-2.1
+        <br/><br/>
+        <Button type="primary" @click="$router.push({ name: 'PageFour' })">跳转到一级菜单-3.1页面</Button>
     </div>
 </template>
 
