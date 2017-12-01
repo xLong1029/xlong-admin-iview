@@ -184,7 +184,7 @@
         }
     }
 
-    .xl-menu-item:hover a{
+    .xlmenu-item:hover .xl-menu-title a{
         color: #fff;
     }
 

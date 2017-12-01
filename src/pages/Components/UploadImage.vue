@@ -6,18 +6,20 @@
             <SingleImage :preview="true" size-hint="100*100px"></SingleImage>
             <div class="m-desc">
                 <p>组件包含属性：</p>
-                <p>1. “preview”，是否可预览上传图片，Boolean类型，"true" 表示可预览，"false" 表示不可预览</p>
-                <p>2. “sizeHint”，是否显示图片尺寸建议，String类型，""表示不显示，若为其他字符串内容直接显示</p>
+                <p>1. preview，是否可预览上传图片。Boolean类型，默认值为false，不可预览</p>
+                <p>2. sizeHint，是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
+                <p>3. fileSize，设置最大图片文件大小。Number类型，默认为150kb</p>
             </div>
         </div>
         <!-- 多图片上传显示组件 -->
         <h2 class="m-title">多图片上传显示</h2>
         <div class="m-content">
-            <MultipleImage :preview="true" size-hint="100*100px"></MultipleImage>
+            <MultipleImage :preview="true" size-hint="100*100px" :file-size="Number(5120)"></MultipleImage>
             <div class="m-desc">
                 <p>组件包含属性：</p>
-                <p>1. preview，是否可预览上传图片。Boolean类型，"true" 表示可预览，"false" 表示不可预览</p>
-                <p>2. sizeHint，是否显示图片尺寸建议。String类型，""表示不显示，若为其他字符串内容直接显示</p>
+                <p>1. preview，是否可预览上传图片。Boolean类型，默认值为false，不可预览</p>
+                <p>2. sizeHint，是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
+                <p>3. fileSize，设置最大图片文件大小。Number类型，默认为150kb</p>
             </div>
         </div>
     </div>

@@ -20,11 +20,16 @@
         </template>
         <br/>
         <!-- 图片格式提示 -->
-        <span class="hint">* 图片格式要求：jpg、jpeg、png，文件大小为2M以内。</span>
+        <span class="hint">
+            * 图片格式要求：jpg、jpeg、png，文件大小为
+            <span v-if="fileSize < 1024">{{ fileSize }}kb</span>
+            <span v-else>{{ Math.floor(fileSize/1024) }}M</span>
+            以内。
+        </span>
         <div class="clearfix"></div>
         <!-- 查看图片 -->
-        <Modal title="查看图片" v-model="showModal">
-            <img :src="getImageUrl" style="width: 100%" @error="notFoundPic"/>
+        <Modal title="查看图片" class="m-view-img" v-model="showModal" width="600">
+            <img :src="getImageUrl" @error="notFoundPic"/>
             <div slot="footer"></div>
         </Modal>
     </div>
@@ -43,7 +48,7 @@
     export default {
         name: 'singleImage',
         mixins: [ UploadImg ],
-        // 获取父级传值是否可预览图片preview，上传按钮尺寸提示文本sizeHint
+        // 获取父级传值是否可预览图片preview，上传按钮尺寸提示文本sizeHint，图片文件大小fileSize
         props: {
             // 设置默认值
             preview:{
@@ -53,6 +58,10 @@
             sizeHint:{
                 type: String,
                 default: ''
+            },
+            fileSize:{
+              type: Number,
+              default: 150
             }
         },
         computed: {
@@ -67,8 +76,6 @@
                 loading: false,
                 // 是否显示弹窗
                 showModal: false,
-                // 图片文件大小
-                maxSize: 2048,
                 // 可接受的图片上传格式
                 format: ['image/jpg', 'image/jpeg', 'image/png'],
                 // 上传状态，上传成功完成为finished

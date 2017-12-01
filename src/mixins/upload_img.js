@@ -36,12 +36,17 @@ export default {
             const fileList = this.$refs.imgFile.files;
             if(fileList.length > 0){
                 let fileName = fileList[0].name;
+                // 将文件大小字节转成kb
                 let fileSize = Math.floor(fileList[0].size / 1024);
+
+                let maxSize = this.fileSize;                
+                let overHint = maxSize + 'kb';
                 // 控制文件大小
-                if(fileSize > this.maxSize){
+                if(fileSize > maxSize){
+                    if(maxSize > 1024) overHint = Math.floor(maxSize/1024) + 'M';
                     this.$Notice.warning({
                         title: '超出文件大小限制',
-                        desc: '文件 ' + fileName + ' 太大，不能超过 ' + 2 + 'M。'
+                        desc: '文件 ' + fileName + ' 太大，不能超过 ' + overHint
                     });
                     this.progressHide();
                     return false;
