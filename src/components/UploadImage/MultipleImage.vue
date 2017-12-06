@@ -49,20 +49,27 @@
     export default {
         name: 'multipleImage',
         mixins: [ UploadImg ],
-        // 获取父级传值是否可预览图片preview，上传按钮尺寸提示文本sizeHint，图片文件大小fileSize
+        // 获取父级传值
         props: {
-            // 设置默认值
+            // 是否可预览
             preview:{
                 type: Boolean,
                 default: false
             },
+            // 上传按钮尺寸提示文本
             sizeHint:{
                 type: String,
                 default: ''
             },
+            // 图片文件大小限制，单位KB
             fileSize:{
               type: Number,
               default: 150
+            },
+            // 最大上传个数
+            maxNum: {
+                type: Number,
+                default: 5
             }
         },
         computed: {
@@ -104,6 +111,18 @@
             },
             // 上传文件
             uploadFile(file){
+                // 判断图片上传个数
+                const check = this.getImageUrlArr.length < this.maxNum;
+                if(!check){
+                    this.$Notice.warning({
+                        title: '超出文件个数限制',
+                        desc: '最多只能上传' + this.maxNum + '张图片'
+                    });
+                    // 停止加载和隐藏进度条
+                    this.progressHide(); 
+                    return check;
+                }
+
                 // 设置定时器累增进度条百分比
                 let progress = setInterval(() => {
                     if(this.percentage == 90) clearInterval(progress);
@@ -135,7 +154,7 @@
                     clearInterval(progress);
                     this.$Notice.error({ title: '图片上传失败，请重试！' });
                 })
-            },
+            }
         }
     }
 </script>

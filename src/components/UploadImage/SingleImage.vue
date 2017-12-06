@@ -48,17 +48,19 @@
     export default {
         name: 'singleImage',
         mixins: [ UploadImg ],
-        // 获取父级传值是否可预览图片preview，上传按钮尺寸提示文本sizeHint，图片文件大小fileSize
+        // 获取父级传值
         props: {
-            // 设置默认值
+            // 是否可预览
             preview:{
                 type: Boolean,
                 default: false
             },
+            // 上传按钮尺寸提示文本
             sizeHint:{
                 type: String,
                 default: ''
             },
+            // 图片文件大小限制，单位KB
             fileSize:{
               type: Number,
               default: 150
