@@ -89,7 +89,11 @@
                             stop = true;
                             break;
                         }
-                        else this.nowActive = 'Home';
+                        else{
+                            this.nowActive = 'Home';
+                            // 激活当前菜单
+                            this.setActive(0, 0);
+                        }
                     }
                 }
                 else break;
@@ -98,16 +102,21 @@
         // 激活当前菜单
         setActive(mIndex, subIndex){
             let item = $('.xl-menu-item').eq(mIndex);
+            this.activeMenu(item);
+
             let child = item.find('.m-xl-submenu-list');
             if(child.length > 0){
                 let activeItem = child.find('.xl-submenu-title').eq(subIndex);
                 if(activeItem.hasClass('xl-submenu-active')) return;
-                child.show(100);
+                child.css('display','block');
                 activeItem.addClass('xl-submenu-active');     
-                item.siblings().find('.m-xl-submenu-list').hide();
+                item.siblings().find('.m-xl-submenu-list').css('display','none');
                 item.siblings().find('.xl-submenu-title').removeClass('xl-submenu-active');
             }
-            this.activeMenu(item);
+            else{
+                item.siblings().find('.m-xl-submenu-list').css('display','none');
+                item.siblings().find('.xl-submenu-title').removeClass('xl-submenu-active');
+            }
         },
         // 选中一级菜单
         selectMenu(index){    
@@ -122,13 +131,18 @@
                 else{
                     this.activeMenu(item);
                     child.slideDown(250);
-                    item.siblings().find('.m-xl-submenu-list').slideUp(250);
+                    this.removeActive(item.siblings());
                 }
             }
             else{
                 this.activeMenu(item);
-                item.siblings().find('.m-xl-submenu-list').slideUp(250);
+                this.removeActive(item.siblings());
             }            
+        },
+        // 取消一级菜单的激活状态
+        removeActive(item){
+            item.find('.m-xl-submenu-list').slideUp(250);
+            item.find('.xl-submenu-title').removeClass('xl-submenu-active');
         },
         // 激活当前一级菜单
         activeMenu(item){
