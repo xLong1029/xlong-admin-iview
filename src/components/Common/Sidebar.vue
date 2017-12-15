@@ -58,8 +58,8 @@
                         // menu-item 参数
                         menuItem: [
                             {
-                                name: 'UploadImage',
-                                text: '图片上传'
+                                name: 'Image',
+                                text: 'Image图片操作'
                             },
                             {
                                 name: 'Input',

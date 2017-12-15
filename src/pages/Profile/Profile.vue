@@ -32,7 +32,7 @@
 <script>
     // 组件
     import Loading from 'components/Common/Loading'
-	import SingleImage from 'components/UploadImage/SingleImage'
+	import SingleImage from 'components/Image/UploadImage/SingleImage'
 	// Api方法
     import Api from 'api/api.js'
     // Veux

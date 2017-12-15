@@ -73,7 +73,7 @@
 <script>
     // 组件
     import Loading from 'components/Common/Loading'
-    import SingleImage from 'components/UploadImage/SingleImage'
+    import SingleImage from 'components/Image/UploadImage/SingleImage'
     // 通用JS
     import Common from 'common/common.js'
     // Api方法

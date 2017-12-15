@@ -73,7 +73,7 @@
 
 <script>
     // 组件
-    import SingleImage from 'components/UploadImage/SingleImage'
+    import SingleImage from 'components/Image/UploadImage/SingleImage'
     import CompanyName from 'components/Input/FuzzyQuery'
     // 通用JS
     import Common from 'common/common.js'
