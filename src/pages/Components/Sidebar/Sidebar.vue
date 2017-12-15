@@ -109,4 +109,8 @@
     .m-desc{
         width:100%;
     }
+
+    .m-content{
+        padding: 0 20px 20px 20px;
+    }
 </style>

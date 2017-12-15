@@ -6,8 +6,8 @@
  */
 import { genUpToken } from 'qiniu/qiniu_token.js'
 
-/* 通用常量 */
 export default {
+    /* 配置信息 */
     // bmob 应用密钥
     APPLICATION_ID: '07ffab130cdf11f91381f18779fcf697',
     REST_API_KEY: '653887187daf660941971acf257cccc1',
@@ -16,18 +16,36 @@ export default {
     UPLOAD_TOKEN: genUpToken('d4N11KEZxF2QFo9is4DFKGXRFfdyhFuAbNRYqzP0', 'WL8EjjlXTovSJ2WTMxZLiat_gO936zBxKaHMA4lv', 'imagestore'),
     // 上传文件显示的测试地址
     UPLOAD_URL: 'http://ovw49042e.bkt.clouddn.com/',
+
+    /* 通用正则表达式 */
+    // 企业单位名称
+    regCompanyName: /^[\u4E00-\u9FA5a-zA-Z]((?![·\.\(\)（）]{2,4})([\u4E00-\u9FA5a-zA-Z·\.\(\)（）])){0,98}[\u4E00-\u9FA5]$/,
+    // 真实姓名
+    regRealName: /^[\u4E00-\u9FA5](([\u4E00-\u9FA5]|·(?!·))){0,18}[\u4E00-\u9FA5]$/,
+    // 统一社会信用代码
+    regUscCode: /^[0-9A-ZW]{18}$/,
+    // 银行账户
+    regBankAccount: /^[1-9]\d{7,25}$/,
     // 邮政编码正则表达式
     regPostCode: /^[1-9]\d{5}$/,
     // 邮箱正则表达式
     regEmail: /^[\.a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
+    // 企业单位名称
+    regCompanyName: /^[\u4E00-\u9FA5a-zA-Z]((?![·\.\(\)（）]{2,4})([\u4E00-\u9FA5a-zA-Z·\.\(\)（）])){0,98}[\u4E00-\u9FA5]$/,
     // 手机号正则表达式
     regMobile: /^1(3|4|5|7|8)\d{9}$/,
     // 手机号正则表达式
     regPassword: /^[\w]{6,12}$/,
     // 网站地址正则表达式
-    regWebsite: /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/,
+    regWebsite: /^[\u4E00-\u9FA5A\w\-_]+(\.[\u4E00-\u9FA5A\w\-_]+)+([\u4E00-\u9FA5A\w\-\.,@?^=%&amp;:/~\+#]*[\u4E00-\u9FA5A\w\-\@?^=%&amp;/~\+#])?/,
     // 普通电话(包含手机和座机)正则表达式
     regPhone: /^(1\d{10}$)|(((400)-(\d{3})-(\d{4}))|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{3,7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/,
+    // 快递单号
+    regExpressNum: /^[1-9]\d{9,17}$/,
+    // 订单编号
+    regOrderID: /^[0-9A-ZW]{20}$/,
+    // 发票编号
+    regInvoiceID: /^[1-9]\d{1,10}$/,
 
     /* 公共方法 */
     // 比较日期大小

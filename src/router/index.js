@@ -15,7 +15,7 @@ import Profile from 'pages/Profile/Profile'
 import ChangePwd from 'pages/Profile/ChangePwd'
 
 // 组件相关页面
-import UploadImage from 'pages/Components/UploadImage'
+import Image from 'pages/Components/Image'
 import Input from 'pages/Components/Input'
 
 import Sidebar from 'pages/Components/Sidebar/Sidebar'
@@ -59,7 +59,7 @@ const RouterMap = [
             // 修改密码
             { path: '/ChangePwd', name: 'ChangePwd', component: ChangePwd },
             // 图片上传页面
-            { path: '/Components/UploadImage', name: 'UploadImage', component: UploadImage },
+            { path: '/Components/Image', name: 'Image', component: Image },
             // Input输入框页面
             { path: '/Components/Input', name: 'Input', component: Input },
             // 侧边栏演示页面

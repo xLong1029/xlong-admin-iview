@@ -104,7 +104,7 @@
     }
 
     .m-content{
-        margin-top: 30px;
+        margin-top: 30px; 
     }
 
     .status {

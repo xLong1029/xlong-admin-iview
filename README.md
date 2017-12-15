@@ -50,21 +50,23 @@ pages ----- 项目的页面目录，专门用来存放各页面
 
 * 组件
 
-Loading.vue ----- 封装iView的加载效果
+Loading.vue ----- 封装iView的加载效果组件
 
 LocatePath.vue ----- 封装iView面包屑组件
 
-MenuTop.vue ----- 封装iView菜单组件的顶部菜单
+MenuTop.vue ----- 封装iView菜单组件的顶部菜单组件
 
 Sidebar.vue ----- 有2个，一个是封装iView菜单组件的侧边栏，另一个是重写的自定义侧边栏组件
 
-FuzzyQuery.vue ----- 模糊查询
+FuzzyQuery.vue ----- 模糊查询组件
 
-InputAndSelect.vue ----- 可输入下拉框 
+InputAndSelect.vue ----- 可输入下拉框组件
 
-SingleImage.vue ----- 封装iView文件上传的单图片上传显示
+SingleImage.vue ----- 封装iView文件上传的单图片上传组件
 
-MultipleImage.vue ----- 封装iView文件上传的多图片上传显示
+MultipleImage.vue ----- 封装iView文件上传的多图片上传组件
+
+ShowImage.vue ----- 自定义图片展示组件
 
 * API数据来源
 

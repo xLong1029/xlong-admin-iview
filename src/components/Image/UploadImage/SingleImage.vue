@@ -91,5 +91,5 @@
 </script>
 
 <style lang="less" scoped>
-    @import "../../assets/less/upload_img";
+    @import "../../../assets/less/upload_img";
 </style>
