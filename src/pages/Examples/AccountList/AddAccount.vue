@@ -95,7 +95,7 @@
         components: { CompanyName, SingleImage },
         mixins: [ CitySelect, EmailComplete ],
         computed: {
-            ...mapGetters([ 'getImageUrl' ]),
+            ...mapGetters([ 'getImageUrl', 'companyName' ]),
         },
         data() {
             return {
@@ -161,8 +161,9 @@
                 { name: '账户列表', path: '/Examples/AccountList' },
                 { name: '新增账户', path: '' }
             ]);
-            // 初始化图片上传
-            Common.InitPicStore(this);    
+            // 初始化图片和输入框
+            Common.InitPicStore(this);
+            Common.InitInputStore(this);   
             // 获取本地“职位”列表
             this.jobList = JsonData.job;    
             // 获取本地“专业领域”列表
@@ -177,7 +178,7 @@
                         this.pageLoading = true;
 
                         this.infoForm.face = this.getImageUrl;
-                        this.infoForm.companyName = this.inputValue;
+                        this.infoForm.companyName = this.companyName;
                         // 日期转成字符串
                         if(this.infoForm.birthdate != '')
                             this.infoForm.birthdate = new Date(this.infoForm.birthdate).toLocaleDateString();

@@ -37,14 +37,14 @@
         computed: {
             // 旧版本方法
             // ...mapState({
-            //     value: state => state.common.inputValue,
+            //     value: state => state.common.companyName,
             // }),
             // vue最近更新了版本，要求必须在计算属性里加上setter，否则报错[Vue warn]: Computed property "value" was assigned to but it has no setter.
             // 旧版本不用
             value: {
                 // getter  
                 get: function() {
-                    return this.$store.state.common.inputValue
+                    return this.$store.state.common.companyName
                 },  
                 // setter  
                 set: function(newValue) {
@@ -120,7 +120,7 @@
                 // 开始查询
                 if(this.startInput){
                     // 更新输入框的值
-                    this.$store.commit('SET_INPUT_VALUE', text);
+                    this.$store.commit('SET_COMPANY_NAME', text);
                     this.state = -1;
                     this.getSelect = false;
                     console.log('get search word:' + text);
@@ -140,7 +140,7 @@
                 // 当前选项索引
                 this.selectIndex = index;
                 // 更新输入框的值
-                this.$store.commit('SET_INPUT_VALUE', text);
+                this.$store.commit('SET_COMPANY_NAME', text);
                 // 隐藏下拉框
                 this.showList = false;
                 this.getSelect = true;

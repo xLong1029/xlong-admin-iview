@@ -116,6 +116,7 @@
 
                     // 判断下拉框显示方向
                     if(this.direction == 'top') dropDownList.style.top = - setTop + 'px';
+                    else dropDownList.style.top = '31px';
                 }
             },
             // 隐藏下拉框

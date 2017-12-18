@@ -17,7 +17,9 @@ const getters = {
     // 图片上传-获取多图片显示路径
     getImageUrlArr: state => state.common.getImageUrlArr,
     // 输入框的值
-	inputValue: state => state.common.inputValue,
+    inputValue: state => state.common.inputValue,
+    // 企业名称
+    companyName: state => state.common.companyName,
 };
 
 export default getters

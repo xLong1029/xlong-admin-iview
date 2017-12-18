@@ -14,6 +14,8 @@ const common = {
 		getImageUrlArr: [],
 		// 输入框的值
 		inputValue: '',
+		// 企业名称
+		companyName: '',
 	},
 	mutations: {
 		SET_SIDEBAR_SPAN: (state, sidebarSpan) => {
@@ -31,6 +33,9 @@ const common = {
 		SET_INPUT_VALUE:(state, inputValue) =>{
 			state.inputValue = inputValue;
 		},
+		SET_COMPANY_NAME:(state, companyName) => {
+			state.companyName = companyName;
+		}
 	},
 }
 
