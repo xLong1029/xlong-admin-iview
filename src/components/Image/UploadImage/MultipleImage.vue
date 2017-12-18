@@ -25,7 +25,7 @@
             * 图片格式要求：jpg、jpeg、png，文件大小为
             <span v-if="fileSize < 1024">{{ fileSize }}kb</span>
             <span v-else>{{ Math.floor(fileSize/1024) }}M</span>
-            以内。
+            以内，最多可上传{{ maxNum }}个文件。
         </span>
         <div class="clearfix"></div>
         <!-- 查看图片 -->
@@ -160,63 +160,5 @@
 </script>
 
 <style lang="less" scoped>
-    .m-show-img {
-        float: left;
-        position: relative;
-        height: 150px;
-        width: 150px;
-        margin: 0 10px 10px 0;
-        border: 1px solid #eee;
-        border-radius: 4px;
-        padding: 10px;
-        &:hover{
-            .img-mask{
-                display: block;
-            }
-        }
-    }
-
-    .img-show{
-        height: 128px;
-        width: 128px;
-        display: table-cell;
-        text-align: center;
-        vertical-align: middle;
-        background: #fff;
-        img{
-            max-height: 128px;
-            max-width: 128px;
-            vertical-align: middle;
-            display: inline-block;
-        }
-    }
-
-    .img-mask{
-        display: none;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        background: rgba(0,0,0,0.8);
-        border-radius: 4px;
-        text-align: center;
-        .ivu-icon{
-            cursor: pointer;
-            color:#fff;
-            position: absolute;
-            top: 50%;
-            margin-top: -13px;
-            margin-left: -13px;
-            font-size: 26px;
-        }
-    }
-
-    .m-pop-img{
-        img{
-            display:block;
-            margin: auto;
-            max-width: 100%;
-        }
-    }
+    @import "../../../assets/less/upload_img";
 </style>

@@ -99,7 +99,7 @@
         components: { Loading, CompanyName, SingleImage },
         mixins: [ CitySelect, EmailComplete ],
         computed: {
-            ...mapGetters(['inputValue', 'getImageUrl' ])
+            ...mapGetters(['companyName', 'getImageUrl' ])
         },
         data() {
             return {
@@ -167,8 +167,9 @@
                 { name: '账户列表', path: '/Examples/AccountList' },
                 { name: '账户详情', path: '' }
             ]);
-            // 初始化图片上传
+            // 初始化图片和输入框
             Common.InitPicStore(this);
+            Common.InitInputStore(this);
             // 获取用户编号
             this.userId = this.$route.query.id;
             // 获取账户详情
@@ -208,7 +209,7 @@
                         this.pageLoading = true;
                         
                         this.infoForm.face = this.getImageUrl;
-                        this.infoForm.companyName = this.inputValue;
+                        this.infoForm.companyName = this.companyName;
                         // 日期转成字符串
                         if(this.infoForm.birthdate != '')
                             this.infoForm.birthdate = new Date(this.infoForm.birthdate).toLocaleDateString();

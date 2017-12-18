@@ -58,7 +58,7 @@
             // 上传按钮尺寸提示文本
             sizeHint:{
                 type: String,
-                default: ''
+                default: '100*100px'
             },
             // 图片文件大小限制，单位KB
             fileSize:{

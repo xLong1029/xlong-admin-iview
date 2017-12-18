@@ -4,7 +4,7 @@
         <h2 class="m-title">单图片上传</h2>
         <div class="m-content">
             <div class="m-compo-part">
-                <SingleImage :preview="true" size-hint="100*100px"></SingleImage>
+                <SingleImage :preview="sUploadAttr.preview" :size-hint="sUploadAttr.sizeHint" :file-size="sUploadAttr.fileSize"></SingleImage>
                 <div class="m-desc">
                     <p>组件包含属性：</p>
                     <p>1. preview，是否可预览。Boolean类型，默认值为false，不可预览</p>
@@ -12,15 +12,34 @@
                     <p>3. fileSize，设置最大图片文件大小，单位KB。Number类型，默认值为150</p>
                 </div>
             </div>
-            <div class="m-test-part" style="color:#aaa;">
-                属性的测试功能开发中...
+            <div class="m-test-part">
+                <p class="g-mb10">组件属性值测试：</p>
+                <!-- 功能表单 -->
+                <Form ref="sUploadAttr" :model="sUploadAttr" :rules="uploadValid" :label-width="75" style="width:400px;">
+                    <Form-item label="preview：" prop="setpreview">
+                        <RadioGroup v-model="sUploadAttr.setpreview">
+                            <Radio label="true">true</Radio>
+                            <Radio label="false">false</Radio>
+                        </RadioGroup>
+                    </Form-item>
+                    <Form-item label="sizeHint：" prop="setSizeHint">
+                        <Input v-model="sUploadAttr.setSizeHint" placeholder="请输入尺寸建议，例如：100*100px"></Input>
+                    </Form-item>
+                    <Form-item label="fileSize：" prop="setFileSize">
+                        <Input v-model="sUploadAttr.setFileSize" placeholder="请输入限制最大文件大小，例如：1024"></Input>
+                    </Form-item>
+                    <Form-item>
+                        <Button type="primary" style="margin-top:2px" @click="uploadAttrTest('sUploadAttr', 1)">测试</Button>
+                        <Button type="ghost" style="margin-top:2px" @click="clearForm('sUploadAttr', 1)">重置</Button>
+                    </Form-item>
+                </Form>
             </div>
         </div>
         <!-- 多图片上传组件 -->
         <h2 class="m-title">多图片上传</h2>
         <div class="m-content">
             <div class="m-compo-part">
-                <MultipleImage :preview="true" size-hint="100*100px" :file-size="Number(5120)" :max-num="Number(3)"></MultipleImage>
+                <MultipleImage :preview="mUploadAttr.preview" :size-hint="mUploadAttr.sizeHint" :file-size="mUploadAttr.fileSize" :max-num="mUploadAttr.maxNum"></MultipleImage>
                 <div class="m-desc">
                     <p>组件包含属性：</p>
                     <p>1. preview，是否可预览。Boolean类型，默认值为false，不可预览</p>
@@ -29,8 +48,30 @@
                     <p>4. maxNum，设置最大上传个数。Number类型，默认值为5</p>
                 </div>
             </div>
-            <div class="fl m-test-part" style="color:#aaa;">
-                属性的测试功能开发中...
+            <div class="m-test-part">
+                <p class="g-mb10">组件属性值测试：</p>
+                <!-- 功能表单 -->
+                <Form ref="mUploadAttr" :model="mUploadAttr" :rules="uploadValid" :label-width="75" style="width:400px;">
+                    <Form-item label="preview：" prop="setpreview">
+                        <RadioGroup v-model="mUploadAttr.setpreview">
+                            <Radio label="true">true</Radio>
+                            <Radio label="false">false</Radio>
+                        </RadioGroup>
+                    </Form-item>
+                    <Form-item label="sizeHint：" prop="setSizeHint">
+                        <Input v-model="mUploadAttr.setSizeHint" placeholder="请输入尺寸建议，例如：100*100px"></Input>
+                    </Form-item>
+                    <Form-item label="fileSize：" prop="setFileSize">
+                        <Input v-model="mUploadAttr.setFileSize" placeholder="请输入限制最大文件大小，例如：1024"></Input>
+                    </Form-item>
+                    <Form-item label="fileSize：" prop="setMaxNum">
+                        <Input v-model="mUploadAttr.setMaxNum" placeholder="请输入限制上传最大个数，例如：3"></Input>
+                    </Form-item>
+                    <Form-item>
+                        <Button type="primary" style="margin-top:2px" @click="uploadAttrTest('mUploadAttr', 2)">测试</Button>
+                        <Button type="ghost" style="margin-top:2px" @click="clearForm('mUploadAttr', 2)">重置</Button>
+                    </Form-item>
+                </Form>
             </div>
         </div>
         <!-- 图片展示组件 -->
@@ -49,16 +90,16 @@
                 <Button class="fl" type="primary" @click="showTest">测试功能</Button>
                 <div class="clearfix"></div>
                 <!-- 功能表单 -->
-                <Form v-if="showTestFun" class="g-mt20" ref="addUrlPart" :model="addUrlPart" :rules="addValid" :label-width="100">
+                <Form v-if="addFunDisplay" class="g-mt20" ref="addUrlPart" :model="addUrlPart" :rules="addValid" :label-width="100">
                     <Form-item class="fl g-mr10" label="新增URL：" prop="url">
                         <Input v-model="addUrlPart.url" style="width:460px" placeholder="请输入需要展示的图片链接"></Input>
                     </Form-item>
                     <Button class="fl g-mr10" type="primary" style="margin-top:2px" @click="addShowImgUrl('addUrlPart')">新增</Button>
-                    <Button class="fl" type="ghost" style="margin-top:2px" @click="clearForm('addUrlPart')">重置</Button>
+                    <Button class="fl" type="ghost" style="margin-top:2px" @click="clearForm('addUrlPart', 3)">重置</Button>
                     <div class="clearfix"></div>
                 </Form>
                 <!-- 图片链接展示 -->
-                <p :class="!showTestFun ? 'g-mt20' : ''">当前显示图片Url: </p>
+                <p :class="!addFunDisplay ? 'g-mt20' : ''">当前显示图片Url: </p>
                 <ul v-if="imgUrlArr.length > 0 && imgUrlArr[0] != ''" class="g-mt15">
                     <li class="g-mb10" v-for="(item, index) in imgUrlArr" :key="index"><a :href="item" target="_blank">{{ index + 1 }}. {{ item }}</a></li>
                 </ul>
@@ -78,17 +119,43 @@
         components:{ SingleImage, MultipleImage, ShowImage },
         data() {
             return {
+                /* 单图片上传 */
+                sUploadAttr:{
+                    preview: true,
+                    setpreview: 'true',
+                    sizeHint: '',
+                    setSizeHint: '',
+                    fileSize: 150,
+                    setFileSize: ''
+                },
+                /* 多图片上传 */
+                mUploadAttr: {
+                    preview: true,
+                    setpreview: 'true',
+                    sizeHint: '',
+                    setSizeHint: '',
+                    fileSize: 150,
+                    setFileSize: '',
+                    maxNum: 5,
+                    setMaxNum: ''
+                },
+                uploadValid:{
+                    setSizeHint: [{ pattern: /^[\S]+$/, message: '请不要输入空字符', trigger: 'blur' }],
+                    setFileSize: [{ pattern: /^[\d]+$/, message: '请输入纯数字', trigger: 'blur' }],
+                    setMaxNum: [{ pattern: /^[\d]+$/, message: '请输入纯数字', trigger: 'blur' }],
+                },
+                /* 图片展示 */
                 // 显示查看图片
                 imgUrlArr: ['https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1569462993,172008204&fm=5'],
                 // 显示图片的地址
                 showImgUrl: '',
-                // 显示测试功能
-                showTestFun: false,
-                // 新增图片链接部分
+                // 显示新增图片框
+                addFunDisplay: false,
+                // 图片链接
                 addUrlPart:{
                     url: '',
                 },
-                // 新增图片验证
+                // 验证
                 addValid:{
                     url: [
                         { required: true, message: '图片链接不能为空', trigger: 'blur'},
@@ -124,15 +191,48 @@
             },
             // 显示功能测试
             showTest(){
-                this.showTestFun = true;
+                this.addFunDisplay = true;
             },
             // 清空图片链接
             clearImgUrl(){
                 this.imgUrlArr = [''];
             },
+            // 测试上传属性设置
+            uploadAttrTest(form, type){
+                switch(type){
+                    case 1:
+                        this.sUploadAttr.preview = this.sUploadAttr.setPreview == 'true' ? true : false;
+                        this.sUploadAttr.sizeHint = this.sUploadAttr.setSizeHint;
+                        this.sUploadAttr.fileSize = Number(this.sUploadAttr.setFileSize);
+                        break;
+                    case 2:
+                        this.mUploadAttr.preview = this.mUploadAttr.setPreview == 'true' ? true : false;
+                        this.mUploadAttr.sizeHint = this.mUploadAttr.setSizeHint;
+                        this.mUploadAttr.fileSize = Number(this.mUploadAttr.setFileSize);
+                        this.mUploadAttr.maxNum = Number(this.mUploadAttr.setMaxNum);
+                        break;
+                    default: console.log('清空type传值出错');
+                } 
+            },
             // 清空表单
-            clearForm(form){
+            clearForm(form, type){
                 this.$refs[form].resetFields();
+                switch(type){
+                    case 1:
+                        this.sUploadAttr.preview = true;
+                        this.sUploadAttr.sizeHint = '';
+                        this.sUploadAttr.fileSize = 150;
+                        break;
+                    case 2:
+                        this.mUploadAttr.preview = true;
+                        this.mUploadAttr.sizeHint = '';
+                        this.mUploadAttr.fileSize = 150;
+                        this.mUploadAttr.maxNum = 5;
+                        break;
+                    case 3:
+                        break;
+                    default: console.log('清空type传值出错');
+                }                
             }
         }
     }

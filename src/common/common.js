@@ -114,6 +114,11 @@ export default {
         _this.$store.commit('SET_IMAGE_URL', '');
         _this.$store.commit('SET_IMAGE_URL_ARR', []);
     },
+    // 初始化输入框存储
+    InitInputStore: (_this) => {
+        _this.$store.commit('SET_COMPANY_NAME', '');
+        _this.$store.commit('SET_INPUT_VALUE', '');
+    },
     // 启动全屏
     launchFullScreen: (element) => {
         if(element.requestFullscreen) element.requestFullscreen();
