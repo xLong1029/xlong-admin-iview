@@ -1,4 +1,6 @@
-import { GetCookie } from 'common/important.js'
+import Api from 'api/api.js'
+import LoginCheck from 'common/login_check.js'
+import { GetCookie } from 'common/important'
 
 // 用户信息
 const user = {
@@ -12,6 +14,13 @@ const user = {
 	  	nickName: '',	  	
 	  	// 用户ID
 	  	userId: '',
+	},
+	// 计算属性
+	getters: {
+    token: state => state.token,
+    userFace: state => state.userFace,
+    nickName: state => state.nickName,
+    userId: state => state.userId,
 	},
 	// 用来处理数据的函数，只能同步操作
 	mutations: {
@@ -28,6 +37,24 @@ const user = {
 	      state.userId = userId;
 	    },
 	},
+	// 异步操作
+	actions: {
+			// Token验证
+			CheckToken ({ commit , state }) {
+					Api.GetUserInfo(GetCookie('xl_admin_t'))
+					.then(res => {
+							// 登录成功
+							if(res.code == 200) LoginCheck.setAccount(commit, res.data);
+							// 登录失败
+							else LoginCheck.clearAccount(commit);
+					})
+					.catch(err => LoginCheck.clearAccount(commit))
+			},
+			// 登出
+			LogOut ({ commit, state }) {
+					LoginCheck.clearAccount(commit);           
+			},
+	}
 }
 
 export default user;

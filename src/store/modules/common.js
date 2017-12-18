@@ -17,6 +17,16 @@ const common = {
 		// 企业名称
 		companyName: '',
 	},
+	// 计算属性
+	getters: {
+			sidebarSpan: state => state.sidebarSpan,
+			breadcrumb: state => state.breadcrumb,
+			getImageUrl: state => state.getImageUrl,
+			getImageUrlArr: state => state.getImageUrlArr,
+			inputValue: state => state.inputValue,
+			companyName: state => state.companyName,
+	},
+	// 用来处理数据的函数，只能同步操作
 	mutations: {
 		SET_SIDEBAR_SPAN: (state, sidebarSpan) => {
 	      state.sidebarSpan = sidebarSpan;
