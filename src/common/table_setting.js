@@ -1,6 +1,23 @@
 import Common from 'common/common.js'
 
 export default {
+    // 查看详情
+    gotoDetail: (h, params, _this , btnName, routeName, marginR) => h('Button', {
+        props: {
+            type: 'primary',
+            size: 'small'
+        },
+        style: {
+            minWidth: '64px',
+            marginRight: marginR,
+        },
+        on: {
+            click: () => {
+                // 跳转到指定页面,传值列表ID
+                _this.$router.push({ name : routeName, query : { id : params.row.id } });
+            }
+        }
+    }, btnName),
     // 跳转页面
     gotoPage: (h, params, _this , btnName, routeName, marginR) => h('Button', {
         props: {
@@ -14,7 +31,7 @@ export default {
         on: {
             click: () => {
                 // 跳转到指定页面,传值列表ID
-                _this.$router.push({ name : routeName, query : { id : params.row.id } });
+                _this.$router.push({ name : routeName });
             }
         }
     }, btnName),
