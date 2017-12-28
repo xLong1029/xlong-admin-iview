@@ -26,8 +26,7 @@ import PageFour from 'pages/Components/Sidebar/PageFour'
 
 // 示例相关页面
 import AccountList from 'pages/Examples/AccountList/AccountList'
-import AddAccount from 'pages/Examples/AccountList/AddAccount'
-import AccountDetail from 'pages/Examples/AccountList/AccountDetail'
+import StoreAccount from 'pages/Examples/AccountList/StoreAccount'
 
 import SectionList from 'pages/Examples/SectionList/SectionList'
 import ContManage from 'pages/Examples/SectionList/ContManage'
@@ -81,10 +80,8 @@ const RouterMap = [
             },
             // 账户列表页面
             { path: '/Examples/AccountList', name: 'AccountList', component: AccountList },
-            // 账户列表-新增账户
-            { path: '/Examples/AddAccount', name: 'AddAccount', component: AddAccount },
-            // 账户列表-账户详情
-            { path: '/Examples/AccountDetail', name: 'AccountDetail', component: AccountDetail },
+            // 账户列表-新增/编辑
+            { path: '/Examples/AccountList/StoreAccount', name: 'StoreAccount', component: StoreAccount },
             // 板块列表页面
             { path: '/Examples/SectionList', name: 'SectionList', component: SectionList },
             // 板块内容管理页面

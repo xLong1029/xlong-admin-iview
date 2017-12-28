@@ -198,7 +198,7 @@
                                         }
                                     }
                                 }, '编辑'),
-                                tableSetting.gotoPage(h, params, this, '内容管理', 'ContManage'),
+                                tableSetting.gotoDetail(h, params, this, '内容管理', 'ContManage'),
                             ]);                          
                         }
                     }

@@ -180,7 +180,7 @@
                         align: 'center',
                         render: (h, params) => {
                             return h('div', [
-                                tableSetting.gotoPage(h, params, this, '查看详情', 'ProductDetail'),
+                                tableSetting.gotoDetail(h, params, this, '查看详情', 'ProductDetail'),
                             ]);                          
                         }
                     }

@@ -50,8 +50,6 @@ export default {
     /* 公共方法 */
     // 比较日期大小
     CompareDate: (dateOne, dateTwo) => {
-        console.log(typeof(dateOne));
-        console.log(typeof(dateTwo));
         // 字符串
         if(typeof(dateOne) == 'string' && typeof(dateTwo) == 'string'){
             return ((new Date(dateOne.replace(/-/g,"\/"))) <= (new Date(dateTwo.replace(/-/g,"\/"))));

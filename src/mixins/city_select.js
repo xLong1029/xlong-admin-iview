@@ -15,28 +15,7 @@ export default {
 		}
     },
     created(){
-        // 获取本地城市列表
-        this.cityList = JsonCity.map(province => {
-            let p = {
-                value: province.name,
-                label: province.name
-            };
-            p.children = province.childs.map(city => {
-                let c = {
-                    value: city.name,
-                    label: city.name
-                };
-                c.children = city.childs.map(area => {
-                    return {
-                        value: area.name,
-                        label: area.name
-                    };
-                })
-                return c;
-            })
-            return p;
-        });
-        //console.log(this.cityList);
+        this.getCityList();
     },
 	methods: {
         // 省市选值
@@ -44,6 +23,30 @@ export default {
             this.infoForm.province = selectedData[0].value;
             if(selectedData[1]) this.infoForm.city = selectedData[1].value;
             if(selectedData[2]) this.infoForm.area = selectedData[2].value;
+        },
+        // 获取本地城市列表
+        getCityList(){
+            this.cityList = JsonCity.map(province => {
+                let p = {
+                    value: province.name,
+                    label: province.name
+                };
+                p.children = province.childs.map(city => {
+                    let c = {
+                        value: city.name,
+                        label: city.name
+                    };
+                    c.children = city.childs.map(area => {
+                        return {
+                            value: area.name,
+                            label: area.name
+                        };
+                    })
+                    return c;
+                })
+                return p;
+            });
+            //console.log(this.cityList);
         }
 	}
 }
