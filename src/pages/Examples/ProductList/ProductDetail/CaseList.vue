@@ -283,6 +283,7 @@
 </script>
 
 <style lang="less">
+    @import "../../../../assets/less/color";
     .m-operation {
         button, a {
             min-width: 80px;
@@ -333,12 +334,12 @@
 
     .swiper-div{
     	height:100%;
-    	border:2px solid #dddee1;
+    	border:2px solid @table-border-color;
     }
 
     .swiper-active{
     	height:100%;
-    	border:2px solid #0cbd9f;
+    	border:2px solid @primary-color;
     }
     .swiper-slide {
         text-align: center;

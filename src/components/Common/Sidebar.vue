@@ -128,10 +128,11 @@
 	}
 </script>
 
-<style lang="less">    
+<style lang="less">
+    @import "../../assets/less/color";
     .sidebar-title{
         padding: 13px 0;
-        color: #00c5a3;
+        color: @primary-color;
         text-align:center;
         border-bottom: 1px solid #3a3d44;
     }

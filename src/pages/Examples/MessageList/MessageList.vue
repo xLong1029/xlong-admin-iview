@@ -228,17 +228,18 @@
 </script>
 
 <style lang="less" scoped>
+	@import "../../../assets/less/color";
 	.consult-list-normal,.consult-list-chat {
-		border-top: 1px solid #e9eaec;
+		border-top: 1px solid @td-border-color;
 		tr:hover {
-			background: #edfbf3;
+			background: @table-light-color;
 			cursor: pointer;
 		}
 		td {
 			text-align: center;
 			vertical-align: middle;
 			height: 46px;
-			border-bottom: 1px solid #e9eaec;
+			border-bottom: 1px solid @td-border-color;
 		}
 		.item-face {
 			display: inline-block;
@@ -280,16 +281,16 @@
 	.modal-chat{
 		float: right;
 		width: 50%;
-		border: 1px solid #e9eaec;
+		border: 1px solid @td-border-color;
 		border-radius:4px; 
 		height: 100%;
 	}
 
 	.chat-title{
 		padding: 8px 15px;
-		background: #0cbd9f;
+		background: @primary-color;
 		color: #fff;
-		border-bottom: 1px solid #e9eaec;
+		border-bottom: 1px solid @td-border-color;
 		border-radius: 4px 4px 0 0;
 		i{
 			font-size: 26px;
@@ -368,10 +369,10 @@
 			}
 			.msg-arrow{
 				right: -5px;
-				border-left: 5px solid #0cbd9f;
+				border-left: 5px solid @primary-color;
 			}
 			.msg-bg{
-				background: #0cbd9f;
+				background: @primary-color;
 				color: #fff;
 				float: right;
 			}
@@ -379,7 +380,7 @@
 	}
 
 	.chat-textarea{
-		border-top: 1px solid #e9eaec;
+		border-top: 1px solid @td-border-color;
 		border-radius: 0 0 4px 4px;
 		background: #f5f5f5;
 		height: 85px;

@@ -142,6 +142,7 @@
     }
 </script>
 <style lang="less">
+    @import "../../assets/less/color";
     .f-input-and-select{
         width:100%;
         height:100%;
@@ -187,7 +188,7 @@
 
         .input-select-item-selected, .input-select-item-selected:hover {
             color: #fff;
-            background: rgba(45,140,240,.9);
+            background: @primary-color;
         }
     }
 

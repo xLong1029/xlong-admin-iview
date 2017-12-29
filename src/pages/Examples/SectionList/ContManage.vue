@@ -394,10 +394,10 @@
 
 <style lang="less" scoped>
     @import "../../../assets/less/table_list";
-
+    @import "../../../assets/less/color";
     .m-table{
         position: relative;
-        border: 1px solid #dddee1;
+        border: 1px solid @table-border-color;
         border-bottom: 0;
         border-right: 0;
         font-size: 12px;
@@ -406,8 +406,8 @@
             box-sizing: border-box;
             text-overflow: ellipsis;
             vertical-align: middle;
-            border-bottom: 1px solid #e9eaec;
-            border-right: 1px solid #e9eaec;
+            border-bottom: 1px solid @table-border-color;
+            border-right: 1px solid @table-border-color;
             padding: 12px;
         }
 
