@@ -70,26 +70,7 @@
                 { name: 'Input输入框', path: '/Components/Input' }
             ]);
         },
-        methods:{
-            // 清空表单
-            // clearForm(form, type){
-            //     this.$refs[form].resetFields();
-            //     switch(type){
-            //         case 1:
-            //             this.sUploadAttr.preview = true;
-            //             this.sUploadAttr.sizeHint = '';
-            //             this.sUploadAttr.fileSize = 150;
-            //             break;
-            //         case 2:
-            //             this.mUploadAttr.preview = true;
-            //             this.mUploadAttr.sizeHint = '';
-            //             this.mUploadAttr.fileSize = 150;
-            //             this.mUploadAttr.maxNum = 5;
-            //             break;
-            //         default: console.log('清空type传值出错');
-            //     }                
-            // }
-        }
+        methods:{}
     }
 </script>
 

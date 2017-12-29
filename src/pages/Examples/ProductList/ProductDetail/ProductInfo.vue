@@ -127,6 +127,7 @@
 </script>
 
 <style lang="less">
+    @import "../../../../assets/less/color";
     .m-product-info{
         background: #f5f5f5;
         border-radius: 4px;
@@ -144,7 +145,7 @@
         background: #fff;
         .ql-toolbar{
             border-radius: 4px 4px 0 0;
-            border: 1px solid #dddee1;
+            border: 1px solid @table-border-color;
         }
         .ql-container{
             min-height: 500px;

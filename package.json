@@ -17,6 +17,7 @@
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "style-loader": "^0.18.2",
+    "tinymce": "^4.7.4",
     "vue": "^2.3.3",
     "vue-awesome-swiper": "^2.6.4",
     "vue-quill-editor": "^2.3.2",

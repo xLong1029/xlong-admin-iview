@@ -154,7 +154,6 @@
             let parent = $('.xl-menu-item').eq(mIndex);
             let item = parent.find('.xl-submenu-title');
             item.removeClass('xl-submenu-active').eq(subIndex).addClass('xl-submenu-active');
-            console.log(parent.siblings().find('.xl-submenu-title'));
             parent.siblings().find('.xl-submenu-title').removeClass('xl-submenu-active');
         }
     },
@@ -167,6 +166,7 @@
   }
 </script>
 <style lang="less" scoped>
+    @import "../../assets/less/color";
     .m-xl-menu-list{
         width: 100%;
         font-size: 14px;
@@ -208,9 +208,9 @@
     }
     .xl-menu-active{        
         &.xl-menu-item{
-            border-right: 2px solid #00c5a3;
+            border-right: 2px solid @primary-color;
             .xl-menu-title a{
-                color: #00c5a3;
+                color: @primary-color;
             }
         }
         &.xl-menu-submenu{
@@ -258,7 +258,7 @@
         &.xl-submenu-active{
             a{
                 color: #fff;
-                background: #00c5a3 !important;
+                background: @primary-color !important;
             }            
         }
     }

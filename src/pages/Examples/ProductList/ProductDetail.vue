@@ -40,6 +40,7 @@
 </script>
 
 <style lang="less" scoped>
+    @import "../../../assets/less/color";
     .u-btn-goback{
         position: absolute;
         top: 15px;
@@ -53,9 +54,9 @@
 
     .tabs-cont{
         min-height: 300px;
-        border-left: 1px solid #dddee1;
-        border-right: 1px solid #dddee1;
-        border-bottom: 1px solid #dddee1;
+        border-left: 1px solid @table-border-color;
+        border-right: 1px solid @table-border-color;
+        border-bottom: 1px solid @table-border-color;
         border-radius: 0 0 4px 4px;
         padding: 15px;
     }

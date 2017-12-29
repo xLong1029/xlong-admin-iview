@@ -94,31 +94,4 @@
         color: #9ea7b4;
         background: #eee;
     }
-
-    .m-title {
-        padding: 10px 0 20px 0;
-        border-bottom: 1px solid #eee;
-        font-size: 14px;
-        font-weight: 700;
-        color: #00c5a3;
-    }
-
-    .m-content{
-        margin-top: 30px; 
-    }
-
-    .status {
-        &-success {
-            color: #19be6b;
-        }
-        &-wait {
-            color: #ff9900;
-        }
-        &-fail {
-            color: #ed3f14;
-        }
-        &-disable {
-            color: #ccc;
-        }
-  }
 </style>

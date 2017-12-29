@@ -199,6 +199,7 @@
     }
 </script>
 <style lang="less">
+    @import "../../assets/less/color";
     .f-fuzzy-query{
         width:100%;
         height:100%;
@@ -250,7 +251,7 @@
 
         .query-select-item-selected, .query-select-item-selected:hover {
             color: #fff;
-            background: rgba(12, 189, 159, 0.9);
+            background: @primary-color;
         }
     }
 </style>
