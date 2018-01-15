@@ -16,8 +16,8 @@
                 <p class="g-mb10">组件属性值测试：</p>
                 <!-- 功能表单 -->
                 <Form ref="sUploadAttr" :model="sUploadAttr" :rules="uploadValid" :label-width="75" style="width:400px;">
-                    <Form-item label="preview：" prop="setpreview">
-                        <RadioGroup v-model="sUploadAttr.setpreview">
+                    <Form-item label="preview：" prop="setPreview">
+                        <RadioGroup v-model="sUploadAttr.setPreview">
                             <Radio label="true">true</Radio>
                             <Radio label="false">false</Radio>
                         </RadioGroup>
@@ -52,8 +52,8 @@
                 <p class="g-mb10">组件属性值测试：</p>
                 <!-- 功能表单 -->
                 <Form ref="mUploadAttr" :model="mUploadAttr" :rules="uploadValid" :label-width="75" style="width:400px;">
-                    <Form-item label="preview：" prop="setpreview">
-                        <RadioGroup v-model="mUploadAttr.setpreview">
+                    <Form-item label="preview：" prop="setPreview">
+                        <RadioGroup v-model="mUploadAttr.setPreview">
                             <Radio label="true">true</Radio>
                             <Radio label="false">false</Radio>
                         </RadioGroup>
@@ -122,7 +122,7 @@
                 /* 单图片上传 */
                 sUploadAttr:{
                     preview: true,
-                    setpreview: 'true',
+                    setPreview: 'true',
                     sizeHint: '',
                     setSizeHint: '',
                     fileSize: 150,
@@ -131,7 +131,7 @@
                 /* 多图片上传 */
                 mUploadAttr: {
                     preview: true,
-                    setpreview: 'true',
+                    setPreview: 'true',
                     sizeHint: '',
                     setSizeHint: '',
                     fileSize: 150,
