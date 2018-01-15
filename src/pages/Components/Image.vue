@@ -201,6 +201,7 @@
             uploadAttrTest(form, type){
                 switch(type){
                     case 1:
+                        console.log(this.mUploadAttr.setPreview);
                         this.sUploadAttr.preview = this.sUploadAttr.setPreview == 'true' ? true : false;
                         this.sUploadAttr.sizeHint = this.sUploadAttr.setSizeHint;
                         this.sUploadAttr.fileSize = Number(this.sUploadAttr.setFileSize);
