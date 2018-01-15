@@ -12,6 +12,10 @@ Bmob的图片上传SDK有跨域问题，所以改用七牛云存储，需要配�
 
 七牛云存储在线上传凭证地址：http://jsfiddle.net/gh/get/extjs/4.2/icattlecoder/jsfiddle/tree/master/uptoken?ref=developer.qiniu.com
 
+## 项目运行截图
+> 登录界面
+![Image text](static/images/screen-1.gif)
+
 ## 安装项目依赖包
 npm install
 
