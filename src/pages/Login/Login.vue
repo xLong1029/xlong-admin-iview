@@ -3,7 +3,7 @@
        <Form ref="loginForm" :model="loginForm" :rules="validate" class="login-form">
        		<h3 class="form-title"><img :src="logo"/></h3>
 	        <Form-item prop="username">
-	            <Input v-model="loginForm.username" placeholder="请输入手机号码或者邮箱地址">
+	            <Input v-model="loginForm.username" placeholder="请输入手机号码">
 	            	<Icon type="ios-person-outline" slot="prepend"></Icon>
 	            </Input>
 	        </Form-item>
