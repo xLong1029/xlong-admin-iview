@@ -23,7 +23,7 @@
                         <Form-item label="手机号码：" prop="mobile">
                             <Input v-model="infoForm.mobile" placeholder="请输入手机号码"></Input>
                         </Form-item>
-                        <Form-item label="邮箱：">
+                        <Form-item label="邮箱：" prop="email">
                             <AutoComplete v-model="infoForm.email" :data="emailList" @on-search="selectEmail" @on-select="setEmail" placeholder="请输入邮箱地址"></AutoComplete>
                         </Form-item>
                     </Col>
@@ -163,7 +163,7 @@
                     // 参加工作时间
                     workTime: '',
                     // 在校，尚未毕业
-                    isGraduate: '',
+                    isGraduate: false,
                 },
                 // 验证规则
                 validate: {
@@ -266,7 +266,7 @@
                         this.infoForm.birthdate = this.dateFormat(this.infoForm.birthdate);
                         this.infoForm.workTime = this.dateFormat(this.infoForm.workTime);
                         
-                        if(this.pageType == 'addd'){
+                        if(this.pageType == 'add'){
                             // 新增用户
                             Api.AddAccount(this.infoForm)
                             .then(res => {

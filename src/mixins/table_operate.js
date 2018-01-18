@@ -75,6 +75,11 @@ export default {
                         this.pageLoading = false;
                         if(res.code == 200){
                             this.$Message.success('删除成功!');
+                            // 判断是否为最后一页的唯一项被删除
+                            if(this.page.pageNo > 1 && this.listData.length <= 1){
+                                this.page.pageNo--;
+                                this.page.pageCount--;
+                            }
                             // 更新列表
                             this.updateList();
                             // 清空选项列表

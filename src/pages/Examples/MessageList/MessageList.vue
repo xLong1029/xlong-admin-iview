@@ -78,11 +78,12 @@
 							<div class="fl textarea"><Input type="textarea" v-model="msgContent" placeholder="可以输入内容，点击发送试试"></Input></div>
 							<Button class="fr" type="info" style="width:80px;height:52px" @click="sendMsg">发送</Button>							
 						</div>
-					</div>
-                    <div class="clearfix"></div>
-				</div>				
+					</div>                    
+				</div>
+				<div class="clearfix"></div>				
 				<!-- 分页 -->
 				<Page
+					style="margin-top:20px;"
 					class-name="m-page fr"
 					show-elevator show-total
 					:total="page.dataCount"
