@@ -20,7 +20,12 @@ export default {
 	methods: {
         // 省市选值
         selectCity(value, selectedData){
-            this.infoForm.province = selectedData[0].value;
+            if(selectedData.length <= 0){
+                this.infoForm.province = '';
+                this.infoForm.city = '';
+                this.infoForm.area = '';
+            }
+            if(selectedData[0]) this.infoForm.province = selectedData[0].value;
             if(selectedData[1]) this.infoForm.city = selectedData[1].value;
             if(selectedData[2]) this.infoForm.area = selectedData[2].value;
         },
