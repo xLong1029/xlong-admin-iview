@@ -56,21 +56,24 @@ export function GetParams(params){
     }
     return obj;
 }
-// 密码加密（简单模拟）
-export function Encrypt(pwd){
-    let value = '';
-    for (let i = 0; i < pwd.length; i++) {
-        let r = pwd.charCodeAt(i);
-        value += String.fromCharCode(r + 2);
-    }
-    return value;
-}
-// 密码解密（简单模拟）
-export function Decrypt(value){
-    let pwd = '';
+// 加密（简单模拟）
+export function Encrypt(value){
+    let code = '';
     for (let i = 0; i < value.length; i++) {
         let r = value.charCodeAt(i);
-        pwd += String.fromCharCode(r - 2);
+        code += String.fromCharCode(r + 2);
     }
-    return pwd;
+    // 对字符串进行特殊字符编码，分号（;）、逗号（,）、等号（=）以及空格问题
+    return escape(code);
+}
+// 解密（简单模拟）
+export function Decrypt(value){
+    // 对字符串进行特殊字符解码，分号（;）、逗号（,）、等号（=）以及空格问题
+    value = unescape(value);
+    let correct = '';
+    for (let i = 0; i < value.length; i++) {
+        let r = value.charCodeAt(i);
+        correct += String.fromCharCode(r - 2);
+    }
+    return correct;
 }
