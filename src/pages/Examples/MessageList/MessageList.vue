@@ -231,16 +231,16 @@
 <style lang="less" scoped>
 	@import "../../../assets/less/color";
 	.consult-list-normal,.consult-list-chat {
-		border-top: 1px solid @td-border-color;
+		border-top: 1px solid @td_border_color;
 		tr:hover {
-			background: @table-light-color;
+			background: @table_light_color;
 			cursor: pointer;
 		}
 		td {
 			text-align: center;
 			vertical-align: middle;
 			height: 46px;
-			border-bottom: 1px solid @td-border-color;
+			border-bottom: 1px solid @td_border_color;
 		}
 		.item-face {
 			display: inline-block;
@@ -282,7 +282,7 @@
 	.modal-chat{
 		float: right;
 		width: 50%;
-		border: 1px solid @td-border-color;
+		border: 1px solid @td_border_color;
 		border-radius:4px; 
 		height: 100%;
 	}
@@ -291,7 +291,7 @@
 		padding: 8px 15px;
 		background: @base_color;
 		color: #fff;
-		border-bottom: 1px solid @td-border-color;
+		border-bottom: 1px solid @td_border_color;
 		border-radius: 4px 4px 0 0;
 		i{
 			font-size: 26px;
@@ -381,7 +381,7 @@
 	}
 
 	.chat-textarea{
-		border-top: 1px solid @td-border-color;
+		border-top: 1px solid @td_border_color;
 		border-radius: 0 0 4px 4px;
 		background: #f5f5f5;
 		height: 85px;

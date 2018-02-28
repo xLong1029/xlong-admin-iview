@@ -54,9 +54,9 @@
 
     .tabs-cont{
         min-height: 300px;
-        border-left: 1px solid @table-border-color;
-        border-right: 1px solid @table-border-color;
-        border-bottom: 1px solid @table-border-color;
+        border-left: 1px solid @table_border_color;
+        border-right: 1px solid @table_border_color;
+        border-bottom: 1px solid @table_border_color;
         border-radius: 0 0 4px 4px;
         padding: 15px;
     }

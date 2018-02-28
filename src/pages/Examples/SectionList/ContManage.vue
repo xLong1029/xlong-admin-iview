@@ -397,7 +397,7 @@
     @import "../../../assets/less/color";
     .m-table{
         position: relative;
-        border: 1px solid @table-border-color;
+        border: 1px solid @table_border_color;
         border-bottom: 0;
         border-right: 0;
         font-size: 12px;
@@ -406,8 +406,8 @@
             box-sizing: border-box;
             text-overflow: ellipsis;
             vertical-align: middle;
-            border-bottom: 1px solid @table-border-color;
-            border-right: 1px solid @table-border-color;
+            border-bottom: 1px solid @table_border_color;
+            border-right: 1px solid @table_border_color;
             padding: 12px;
         }
 

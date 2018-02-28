@@ -334,7 +334,7 @@
 
     .swiper-div{
     	height:100%;
-    	border:2px solid @table-border-color;
+    	border:2px solid @table_border_color;
     }
 
     .swiper-active{

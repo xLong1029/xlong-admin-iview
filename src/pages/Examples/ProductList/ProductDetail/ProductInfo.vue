@@ -145,7 +145,7 @@
         background: #fff;
         .ql-toolbar{
             border-radius: 4px 4px 0 0;
-            border: 1px solid @table-border-color;
+            border: 1px solid @table_border_color;
         }
         .ql-container{
             min-height: 500px;
