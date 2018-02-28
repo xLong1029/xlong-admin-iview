@@ -74,18 +74,37 @@
         // 设置侧边栏
         setSideBar(){
             let stop = false;
+            let activeName = '';
             const menu = this.MenuList;
             // 遍历menu
             for(let i = 0 ; i < menu.length ; i ++){
                 if(!stop){
-                    // 遍历menu下的menu-item
-                    for(let j = 0 ; j < menu[i].submenu.length; j ++){	        			
-                        // 获取Menu的下Menu-item的name
-                        let activeName = menu[i].submenu[j].name;
+                    if(menu[i].submenu.length > 0){
+                        // 遍历menu下的menu-item
+                        for(let j = 0 ; j < menu[i].submenu.length; j ++){
+                            // 获取二级菜单路由name        			
+                            activeName = menu[i].submenu[j].name;
+                            if(window.location.href.indexOf(activeName) != -1){                            
+                                this.nowActive = activeName;                            
+                                // 激活当前菜单
+                                this.setActive(i, j);
+                                stop = true;
+                                break;
+                            }
+                            else{
+                                this.nowActive = 'Home';
+                                // 激活当前菜单
+                                this.setActive(0, 0);
+                            }
+                        }
+                    }
+                    else{
+                        // 获取一级菜单路由name
+                        activeName = menu[i].name;
                         if(window.location.href.indexOf(activeName) != -1){                            
                             this.nowActive = activeName;                            
                             // 激活当前菜单
-                            this.setActive(i, j);
+                            this.setActive(i, 0);
                             stop = true;
                             break;
                         }
