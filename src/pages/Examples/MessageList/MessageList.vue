@@ -289,7 +289,7 @@
 
 	.chat-title{
 		padding: 8px 15px;
-		background: @primary-color;
+		background: @base_color;
 		color: #fff;
 		border-bottom: 1px solid @td-border-color;
 		border-radius: 4px 4px 0 0;
@@ -370,10 +370,10 @@
 			}
 			.msg-arrow{
 				right: -5px;
-				border-left: 5px solid @primary-color;
+				border-left: 5px solid @base_color;
 			}
 			.msg-bg{
-				background: @primary-color;
+				background: @base_color;
 				color: #fff;
 				float: right;
 			}

@@ -339,7 +339,7 @@
 
     .swiper-active{
     	height:100%;
-    	border:2px solid @primary-color;
+    	border:2px solid @base_color;
     }
     .swiper-slide {
         text-align: center;

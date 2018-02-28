@@ -251,7 +251,7 @@
 
         .query-select-item-selected, .query-select-item-selected:hover {
             color: #fff;
-            background: @primary-color;
+            background: @base_color;
         }
     }
 </style>

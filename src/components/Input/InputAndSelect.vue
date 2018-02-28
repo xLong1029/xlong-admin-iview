@@ -188,7 +188,7 @@
 
         .input-select-item-selected, .input-select-item-selected:hover {
             color: #fff;
-            background: @primary-color;
+            background: @base_color;
         }
     }
 
