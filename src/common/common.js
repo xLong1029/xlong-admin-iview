@@ -118,7 +118,7 @@ export default {
         _this.$store.commit('SET_INPUT_VALUE', '');
     },
     // 启动全屏
-    launchFullScreen: (element) => {
+    LaunchFullScreen: (element) => {
         if(element.requestFullscreen) element.requestFullscreen();
         else if(element.mozRequestFullScreen) element.mozRequestFullScreen();
         else if(element.webkitRequestFullscreen) element.webkitRequestFullscreen();
