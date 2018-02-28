@@ -125,7 +125,7 @@ export default {
         else if(element.msRequestFullscreen) element.msRequestFullscreen();
     },
     // 退出全屏
-    exitFullscreen: () => {
+    ExitFullscreen: () => {
         if(document.exitFullscreen) document.exitFullscreen();
         else if(document.mozCancelFullScreen) document.mozCancelFullScreen();
         else if(document.webkitExitFullscreen) document.webkitExitFullscreen();

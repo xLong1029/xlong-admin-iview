@@ -51,12 +51,12 @@
             // 全屏显示
             fullScreen(){
                 this.setFull = true;
-                Common.launchFullScreen(document.documentElement);
+                Common.LaunchFullScreen(document.documentElement);
             },
             // 退出全屏
             fullExit(){
                 this.setFull = false;
-                Common.exitFullscreen();
+                Common.ExitFullscreen();
             },
             // 登出
             logOut(){
