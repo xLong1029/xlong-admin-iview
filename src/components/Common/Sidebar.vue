@@ -132,7 +132,7 @@
     @import "../../assets/less/color";
     .sidebar-title{
         padding: 13px 0;
-        color: @primary-color;
+        color: @base_color;
         text-align:center;
         border-bottom: 1px solid #3a3d44;
     }

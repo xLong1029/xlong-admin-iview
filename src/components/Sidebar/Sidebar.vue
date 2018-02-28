@@ -208,9 +208,9 @@
     }
     .xl-menu-active{        
         &.xl-menu-item{
-            border-right: 2px solid @primary-color;
+            border-right: 2px solid @base_color;
             .xl-menu-title a{
-                color: @primary-color;
+                color: @base_color;
             }
         }
         &.xl-menu-submenu{
@@ -258,7 +258,7 @@
         &.xl-submenu-active{
             a{
                 color: #fff;
-                background: @primary-color !important;
+                background: @base_color !important;
             }            
         }
     }

@@ -1,9 +1,10 @@
+@import '../assets/less/color.less';
 @import '~iview/src/styles/index.less';
 
 // iview定制主题，变量覆盖
-@primary-color: #00c5a3;
-@hover-color: #00c5a3;
-@info-color: #079a81;
+@primary-color: @base_color;
+@hover-color: lighten(@base_color, 5%);
+@info-color: darken(@base_color, 5%);
 @table-td-hover-bg: #edfbf3;
 @table-td-highlight-b: #edfbf3;
 @date-picker-cell-hover-bg: #edfbf3;
@@ -47,7 +48,7 @@ a{
 }
 
 .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover {
-    background: #0cbd9f !important;
+    background: @primary-color !important;
 }
 
 .ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item-selected, .ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item-selected:hover{
@@ -59,7 +60,7 @@ a{
 }
 
 .ivu-tabs-nav .ivu-tabs-tab:hover {
-    color: #0cbd9f !important;
+    color: @primary-color !important;
 }
 
 .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar{
