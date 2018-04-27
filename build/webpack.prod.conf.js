@@ -15,7 +15,8 @@ var webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
-      extract: true
+      // 解决打包后iView字体图标路径不对问题
+      extract: false
     })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
