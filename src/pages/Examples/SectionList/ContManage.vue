@@ -153,6 +153,7 @@
                     title: '',
                     img: '',
                     url: '',
+                    parentId: ''
                 },
                 // 验证规则
                 validate: {
@@ -350,7 +351,8 @@
                 this.showAddModal = true;
                 this.paramsForm.title = '';
                 this.paramsForm.img = '';
-                this.paramsForm.url = '';                
+                this.paramsForm.url = '';
+                this.paramsForm.parentId = this.parentId;                
             },
             // 关闭弹窗
             closeModal(name){

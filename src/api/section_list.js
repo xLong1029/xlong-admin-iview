@@ -51,12 +51,12 @@ export default {
     // 获取内容列表
     // pageNo：当前第一页, pageSize：每页显示几条数据, parentId：父级板块id
     GetContList: (parentId, pageNo, pageSize) => {
-        let query = BmobServer.GetQuery('Section');
-        console.log(query);
-        // return new Promise((resolve, reject) => {
-        //     let query = BmobServer.GetQuery('Section');
-        //     BmobServer.PageQuery('SectionCont', pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
-        // });
+        let query = BmobServer.GetQuery('SectionCont');
+        // 查询语句
+        query.equalTo('parentId', parentId);
+        return new Promise((resolve, reject) => {
+            BmobServer.FilterQuery(query, {}, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
+        });
     },
     // 新增内容
     // params: 新增的参数对象
