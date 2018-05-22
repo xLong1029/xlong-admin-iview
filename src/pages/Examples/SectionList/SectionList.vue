@@ -18,6 +18,7 @@
                 </Form-item>
                 <Form-item class="fl">
                     <Button class="query-button" type="primary" @click="query('queryForm', '')">查询</Button>
+                    <Button class="query-button" type="ghost" @click="resetQuery('queryForm')">重置</Button>
                 </Form-item>
             </Form>
         </div>

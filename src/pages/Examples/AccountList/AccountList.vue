@@ -25,8 +25,8 @@
                     </Select>
                 </Form-item>
                 <Form-item class="fl" prop="date">
-                    <Date-picker class="query-item" type="date" v-model="queryForm.sTime" placement="bottom-end" placeholder="请选择开始日期" @on-change="getStartDate"></Date-picker>
-                    <Date-picker class="query-item" type="date" v-model="queryForm.eTime" placement="bottom-end" placeholder="请选择结束日期" @on-change="getEndDate"></Date-picker>
+                    <Date-picker class="query-item" type="date" v-model="queryForm.sTime" placement="bottom-end" placeholder="创建日期-起始" @on-change="getStartDate"></Date-picker>
+                    <Date-picker class="query-item" type="date" v-model="queryForm.eTime" placement="bottom-end" placeholder="创建日期-结束" @on-change="getEndDate"></Date-picker>
                     <div class="clearfix"></div>
                 </Form-item>
                 <Form-item class="query-item">
@@ -87,7 +87,7 @@
     import Loading from '@/components/Common/Loading'
     // 通用JS
     import Common from 'common/common.js'
-    // 通用JS
+    // 验证方法
     import Validate from 'common/validate.js'
     // Api方法
     import Api from '@/api/account_list.js'

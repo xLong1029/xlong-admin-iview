@@ -75,8 +75,8 @@
             </div>
             <!-- 操作按钮 -->
             <div class="m-operation">
-                <Button v-if="pageType == 'edit'" class="fr" type="primary" @click="submit('infoForm', 'edit')">确认修改</Button>
-                <Button v-else class="fr" type="primary" @click="submit('infoForm', 'edit')">确认新增</Button>
+                <Button v-if="pageType == 'edit'" class="fr" type="primary" @click="submit('infoForm')">确认修改</Button>
+                <Button v-else class="fr" type="primary" @click="submit('infoForm')">确认新增</Button>
                 <Button class="fr" type="ghost" @click="$router.go(-1)">返回</Button>
                 <div class="clearfix"></div>
             </div>
@@ -255,7 +255,7 @@
         },
         methods: {
             // 提交表单
-            submit(form, type) {
+            submit(form) {
                 this.$refs[form].validate((valid) => {
                     if (valid) {
                         // 页面加载
@@ -293,7 +293,10 @@
                             .then(res => {
                                 // 取消页面加载
                                 this.pageLoading = false;
-                                if(res.code == 200) this.$Message.success('账户修改成功!');
+                                if(res.code == 200){
+                                    this.getDetail();
+                                    this.$Message.success('账户修改成功!');
+                                }
                                 else this.$Message.warning(res.msg);
                             })
                             .catch(err => console.log(err))

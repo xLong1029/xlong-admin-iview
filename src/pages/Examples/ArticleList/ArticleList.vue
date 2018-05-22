@@ -2,12 +2,18 @@
     <div class="g-content">
         <!-- 按条件查询 -->
         <div class="m-query-form fr">
-            <Form ref="queryForm" :model="queryForm">
+            <Form ref="queryForm" :model="queryForm" :rules="validate">
                 <Form-item class="query-item">
                     <Input v-model="queryForm.id" placeholder="文章编号"></Input>
                 </Form-item>
+                <Form-item class="fl" prop="date">
+                    <Date-picker class="query-item" type="date" v-model="queryForm.sTime" placement="bottom-end" placeholder="创建日期-起始" @on-change="getStartDate"></Date-picker>
+                    <Date-picker class="query-item" type="date" v-model="queryForm.eTime" placement="bottom-end" placeholder="创建日期-结束" @on-change="getEndDate"></Date-picker>
+                    <div class="clearfix"></div>
+                </Form-item>
                 <Form-item class="fl">
-                    <Button class="query-button" type="primary" @click="query('queryForm', '')">查询</Button>
+                    <Button class="query-button" type="primary" @click="query('queryForm', 'valid')">查询</Button>
+                    <Button class="query-button" type="ghost" @click="resetQuery('queryForm')">重置</Button>
                 </Form-item>
             </Form>
         </div>
@@ -50,6 +56,8 @@
 <script>
     // 组件
     import Loading from '@/components/Common/Loading'
+    // 验证方法
+    import Validate from 'common/validate.js'
     // Api方法
     import Api from '@/api/article_list.js'
     // 表格设置
@@ -67,23 +75,15 @@
         computed: {
             // 获取所有列表
             apiGetAll(){
-                return () => Api.GetProdList(this.page.pageNo, this.page.pageSize);
+                return () => Api.GetArtcList(this.page.pageNo, this.page.pageSize);
             },
             // 获取筛选列表
             apiGetFilter(){
-                return () => Api.FilterProdList(this.queryForm, this.page.pageNo, this.page.pageSize);
-            },
-            // 新增操作接口
-            apiAdd(){
-                return () => Api.AddProduct(this.paramsForm);
-            },
-            // 编辑操作接口
-            apiEdit(){
-                return () => Api.EditProduct(this.paramsForm, this.editId);
+                return () => Api.FilterArtcList(this.queryForm, this.page.pageNo, this.page.pageSize);
             },
             // 删除操作接口
             apiDelete(){
-                return () => Api.DeleteProd(this.selectList);
+                return () => Api.DeleteArtc(this.selectList);
             },
         },
         data() {
@@ -100,6 +100,19 @@
                 queryForm: {
                     // 文章编号
                     id: '',
+                    // 起始时间
+                    sTime: '',
+                    // 结束时间
+                    eTime: '',
+                },
+                // 验证规则
+                validate: {
+                    date:[{
+                        validator: (rule, value, callback) => {
+                            Validate.ValidRangeDate(this.queryForm.sTime, this.queryForm.eTime, callback, false);
+                        },
+                        trigger: 'change',
+                    }]
                 },
                 // 板块列表
                 userList:[
@@ -119,6 +132,14 @@
                         title: '文章标题',
                         key: 'title',
                         align: 'center'
+                    },
+                    {
+                        title: '文章标签',
+                        key: 'tags',
+                        align: 'center',
+                        render: (h, params) => {
+                            return h('span', {}, params.row.tags.toString());
+                        }
                     },
                     {
                         title: '创建时间',
@@ -177,6 +198,8 @@
                             id: item.id,
                             title: item.attributes.title,
                             dataFrom: item.attributes.dataFrom,
+                            tags: item.attributes.tags,
+                            CreatedTime: item.createdAt,
                             UpdateTime: item.updatedAt
                         }
                     });

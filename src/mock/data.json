@@ -143,6 +143,32 @@
             "name": "南宁风生水传媒有限公司"
         }
     ],
+    "articleTags": [
+        {
+            "id": 1,
+            "name": "设计"
+        },
+        {
+            "id": 2,
+            "name": "IT技术"
+        },
+        {
+            "id": 3,
+            "name": "故事"
+        },
+        {
+            "id": 4,
+            "name": "星座"
+        },
+        {
+            "id": 5,
+            "name": "其他"
+        },
+        {
+            "id": 6,
+            "name": "科学"
+        }
+    ],
     "consultList":[
         {
             "face": "https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar",

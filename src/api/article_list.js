@@ -10,19 +10,34 @@ import BmobServer from 'bmob/bmob-server.js'
 export default {
     // 获取文章列表
     // pageNo：当前第一页, pageSize：每页显示几条数据
-    GetArticleList: (pageNo, pageSize) => {
+    GetArtcList: (pageNo, pageSize) => {
         return new Promise((resolve, reject) => {
             BmobServer.PageQuery('Article', pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
         });
     },
     // 筛选文章列表
     // params: 筛选参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
-    FilterArticleList: (params, pageNo, pageSize) => {
+    FilterArtcList: (params, pageNo, pageSize) => {
         let query = BmobServer.GetQuery('Article');
         // 查询语句
         if(params.id != '') query.equalTo('objectId', params.id);
         return new Promise((resolve, reject) => {
-            BmobServer.FilterQuery(query, params, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
+            BmobServer.DateFilterQuery(query, params, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
+    // 删除文章
+    // ids：需要删除的对象的objectId
+    DeleteArtc: (ids) => {
+        console.log(ids);
+        return new Promise((resolve, reject) => {
+            BmobServer.DelMore('Article', ids).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
+    // 获取文章详情
+    // id：查询的objectId
+    GetArtcDetail: (id) => {
+        return new Promise((resolve, reject) => {
+            BmobServer.GetOne('Article', id).then(res => resolve(res)).catch(err => reject(err))
         });
     },
     // 新增文章

@@ -114,7 +114,10 @@
                         .then(res => {
                             // 取消页面加载
                             this.pageLoading = false;
-                            if(res.code == 200) this.$Message.success('信息修改成功!');
+                            if(res.code == 200){
+                                this.$Message.success('信息修改成功!');
+                                this.getDetail();
+                            }
                             else this.$Message.warning(res.msg);
                         })
                         .catch(err => console.log(err))
