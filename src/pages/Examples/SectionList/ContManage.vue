@@ -98,6 +98,7 @@
     import SingleImage from 'components/Image/UploadImage/SingleImage'
     // 通用JS
     import Common from 'common/common.js'
+    import { GetUrlQuery } from 'common/important.js'
     // Api方法
     import Api from '@/api/section_list.js'
     // 表格查询
@@ -224,6 +225,7 @@
                 { name: '板块列表', path: '/Examples/SectionList' },
                 { name: '内容管理', path: '' }
             ]);
+            this.parentId = GetUrlQuery('id'); 
             // 初始化图片上传
             Common.InitPicStore(this);
             // 获取内容列表

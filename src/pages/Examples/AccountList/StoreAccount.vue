@@ -92,6 +92,7 @@
     import SingleImage from 'components/Image/UploadImage/SingleImage'
     // 通用JS
     import Common from 'common/common.js'
+    import { GetUrlQuery } from 'common/important.js'
     // 验证方法
     import Validate from 'common/validate.js'
     // Api方法
@@ -228,11 +229,12 @@
             // 获取本地“职位”列表
             this.jobList = JsonData.job;    
             // 获取本地“专业领域”列表
-            this.professionList = JsonData.profession;            
+            this.professionList = JsonData.profession;
+            let id = GetUrlQuery('id');          
             // 判断是否是编辑页
-            if(this.$route.query.id){
+            if(id){
                 // 获取用户编号
-                this.userId = this.$route.query.id;
+                this.userId = id;
                 this.$store.commit('SET_BREADCRUMB', [
                     { name: '首页', path: '/Home' },
                     { name: '账户列表', path: '/Examples/AccountList' },

@@ -22,7 +22,7 @@
                 <a class="swiper-btn-prev" @click="swiperPrev()"></a>
                 <a class="swiper-btn-next" @click="swiperNext()"></a>
             </div>
-            <div v-if="caseList.length > 0" class="case-cont">
+            <div v-if="caseList.length" class="case-cont">
                 <div class="case-cont-item">
                     <span class="item-label">案例标题：</span><span class="item-info">{{ caseInfo.title }}</span>
                 </div>
@@ -166,10 +166,13 @@
                 .then(res => {
                     if(res.code == 200){
                         const result = res.data;
-                        // 设置案例列表
-                        this.caseList = res.data;
-                        // 获取第一个案例内容
-	    				this.showThisCase(this.caseIndex);
+                        // 设置案例列表                        
+                        if(res.data == undefined) this.caseList = [];
+                        else{
+                            this.caseList = res.data;
+                            // 获取第一个案例内容
+	    				    this.showThisCase(this.caseIndex);
+                        }                        
                     }
                     else console.log(res);
                 })

@@ -16,6 +16,9 @@
     // 组件
     import ProductInfo from 'pages/Examples/ProductList/ProductDetail/ProductInfo'
     import CaseList from 'pages/Examples/ProductList/ProductDetail/CaseList'
+    // 通用JS
+    import { GetUrlQuery } from 'common/important.js'
+    
     export default {
         components: { ProductInfo, CaseList },
         data() {
@@ -32,7 +35,7 @@
                 { name: '产品详情', path: '' }
             ]);
             // 获取产品编号
-            this.productId = this.$route.query.id;
+            this.productId = GetUrlQuery('id');
         },
         methods: {
         }
