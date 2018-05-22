@@ -157,6 +157,8 @@
                 validate: {
                     title:[{ required: true, message: '内容标题不能为空', trigger: 'blur' }],
                 },
+                // 父级板块id
+                parentId: '',
                 // 需要编辑的对象id
                 editId: '',
                 // 显示新增弹窗
@@ -212,20 +214,7 @@
                     },
                 ],
                 // 表格信息
-                listData: [
-                    {
-                        id: '1001',
-                        title: '六个六产品',
-                        img: '',
-                        url: 'http://fanyi.baidu.com/static/translation/img/header/logo_cbfea26.png'
-                    },
-                    {
-                        id: '1002',
-                        title: '六个六产品',
-                        img: '',
-                        url: 'http://fanyi.baidu.com/static/translation/img/header/logo_cbfea26.png'
-                    },
-                ],
+                listData: [],
             }
         },
         created(){

@@ -47,6 +47,12 @@ export function DelLocalS(key){
 export function ClearLocalS(){
     localStorage.clear();
 }
+// 获取url传值参数
+export function GetUrlQuery(name, thisUrl){
+    let reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i"), url = thisUrl || location.href;
+　　if (reg.test(url)) return decodeURI(RegExp.$2.replace(/\+/g, " "));
+　　else return false;
+}
 // 获取参数值
 export function GetParams(params){
     let obj = { key : [], value: [] };
