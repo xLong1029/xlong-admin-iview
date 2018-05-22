@@ -30,7 +30,7 @@
 <script>
 	import { SetCookie, SetLocalS, GetLocalS, Encrypt, Decrypt } from 'common/important.js'
 	// Api方法
-	import Api from 'api/api.js'
+	import Api from 'api/login.js'
 
 	export default {
 		data(){

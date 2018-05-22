@@ -90,7 +90,7 @@
     // 通用JS
     import Validate from 'common/validate.js'
     // Api方法
-    import Api from '@/api/api.js'
+    import Api from '@/api/account_list.js'
     // Json数据
     import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'

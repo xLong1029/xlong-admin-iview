@@ -34,7 +34,7 @@
     import Loading from 'components/Common/Loading'
 	import SingleImage from 'components/Image/UploadImage/SingleImage'
 	// Api方法
-    import Api from 'api/api.js'
+    import Api from 'api/profile.js'
     // Veux
     import { mapGetters } from 'vuex'
 

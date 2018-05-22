@@ -1,4 +1,4 @@
-import Api from 'api/api.js'
+import Api from 'api/login.js'
 import LoginCheck from 'common/login_check.js'
 import { GetCookie } from 'common/important'
 

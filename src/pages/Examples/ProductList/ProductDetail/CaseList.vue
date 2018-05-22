@@ -77,7 +77,7 @@
     // 通用JS
     import Common from 'common/common.js'
     // Api方法
-    import Api from 'api/api.js'
+    import Api from 'api/product_list.js'
     // Vuex
     import { mapGetters } from 'vuex'
     // 轮播图样式

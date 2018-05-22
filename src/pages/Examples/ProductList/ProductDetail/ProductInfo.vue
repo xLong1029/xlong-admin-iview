@@ -31,7 +31,7 @@
     // 组件
     import Loading from 'components/Common/Loading'
     // Api方法
-    import Api from 'api/api.js'
+    import Api from 'api/product_list.js'
     // Vue-quill-editor
     import Quill from 'quill'
     // QullEditor图片上传配置
@@ -89,18 +89,18 @@
             },
             // 获取产品详情
             getDetail(){
-                // Api.GetProdInfo(this.productId)
-                // .then(res => {                    
-                //     // 取消页面加载
-                //     this.pageLoading = false;
-                //     const result = res.data.attributes;                    
-                //     if(res.code == 200){
-                //         // 设置数据
-                //         this.infoForm = result;
-                //     }
-                //     else this.$Message.warning(res.msg);
-                // })
-                // .catch(err => console.log(err))
+                Api.GetProdInfo(this.productId)
+                .then(res => {                    
+                    // 取消页面加载
+                    this.pageLoading = false;
+                    const result = res.data.attributes;                    
+                    if(res.code == 200){
+                        // 设置数据
+                        this.infoForm = result;
+                    }
+                    else this.$Message.warning(res.msg);
+                })
+                .catch(err => console.log(err))
             },
             // 修改信息
             edit(name) {

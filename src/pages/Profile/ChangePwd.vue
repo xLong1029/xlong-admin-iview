@@ -23,7 +23,7 @@
     // 验证方法
 	import Validate from 'common/validate.js'
 	// Api方法
-    import Api from 'api/api.js'
+    import Api from 'api/profile.js'
     // Veux
     import { mapGetters } from 'vuex'
 

@@ -84,7 +84,7 @@
     // 组件
     import Loading from '@/components/Common/Loading'
     // Api方法
-    import Api from '@/api/api.js'
+    import Api from '@/api/section_list.js'
     // 表格设置
     import tableSetting from 'common/table_setting.js'
     // 表格查询
