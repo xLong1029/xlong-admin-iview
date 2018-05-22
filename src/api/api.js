@@ -338,4 +338,42 @@ export default {
             });
         });
     },
+    // 编辑内容
+    // params: 修改的参数对象, id：查询的objectId
+    EditContent: (params, id) => {
+        return new Promise((resolve, reject) => {
+            BmobServer.EditOne('SectionCont', id, params).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
+    // 获取文章列表
+    // pageNo：当前第一页, pageSize：每页显示几条数据
+    GetArticleList: (pageNo, pageSize) => {
+        return new Promise((resolve, reject) => {
+            BmobServer.PageQuery('Article', pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
+    // 筛选文章列表
+    // params: 筛选参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
+    FilterArticleList: (params, pageNo, pageSize) => {
+        let query = BmobServer.GetQuery('Article');
+        // 查询语句
+        if(params.id != '') query.equalTo('objectId', params.id);
+        return new Promise((resolve, reject) => {
+            BmobServer.FilterQuery(query, params, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
+    // 新增文章
+    // params: 新增的参数对象
+    AddArticle: (params) => {
+        return new Promise((resolve, reject) => {
+            BmobServer.AddOne('Article', params).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
+    // 编辑文章
+    // params: 修改的参数对象, id：查询的objectId
+    EditArticle: (params, id) => {
+        return new Promise((resolve, reject) => {
+            BmobServer.EditOne('Article', id, params).then(res => resolve(res)).catch(err => reject(err))
+        });
+    },
 }
