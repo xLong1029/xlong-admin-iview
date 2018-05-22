@@ -34,6 +34,9 @@ import ContManage from 'pages/Examples/SectionList/ContManage'
 import ProductList from 'pages/Examples/ProductList/ProductList'
 import ProductDetail from 'pages/Examples/ProductList/ProductDetail'
 
+import ArticleList from 'pages/Examples/ArticleList/ArticleList'
+import StoreArticle from 'pages/Examples/ArticleList/StoreArticle'
+
 import MessageList from 'pages/Examples/MessageList/MessageList'
 
 
@@ -90,6 +93,10 @@ const RouterMap = [
             { path: '/Examples/ProductList', name: 'ProductList', component: ProductList },
             // 产品列表-产品详情
             { path: '/Examples/ProductDetail', name: 'ProductDetail', component: ProductDetail },
+            // 文章列表页面
+            { path: '/Examples/ArticleList', name: 'ArticleList', component: ArticleList },
+            // 文章列表-文章详情
+            { path: '/Examples/StoreArticle', name: 'StoreArticle', component: StoreArticle },
             // 消息列表页面
             { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },            
             // 404

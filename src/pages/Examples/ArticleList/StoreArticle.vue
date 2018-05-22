@@ -1,29 +1,27 @@
 <template>
-    <div class="m-product-info">
+    <div class="g-content">
         <!--  加载判断 -->
         <Loading v-if="pageLoading"></Loading>
-        <div v-else>
-            <Form ref="infoForm" :model="infoForm" :rules="validate" :label-width="100">
-                <Form-item label="产品名称：" prop="productName">
-                    <Input v-model="infoForm.productName" placeholder="请输入产品名称"></Input>
-                </Form-item>
-                <Form-item label="产品说明：" prop="productDesc">
-                    <quill-editor
-                        class="instruction-editor"
-                        v-model="infoForm.productDesc"
-                        ref="myQuillEditor"
-                        :options="editorOption"
-                        @ready="onEditorReady($event)"
-                    >
-                    </quill-editor>
-                </Form-item>
-                <!-- 操作按钮 -->
-                <div class="m-operation">
-                    <Button class="fr" type="primary" @click="edit('infoForm')">确认修改</Button>
-                    <div class="clearfix"></div>
-                </div>
-            </Form>
-        </div>
+        <Form ref="infoForm" :model="infoForm" :rules="validate" :label-width="100">
+            <Form-item label="文章标题：" prop="title">
+                <Input v-model="infoForm.title" placeholder="请输入产品名称"></Input>
+            </Form-item>
+            <Form-item label="文章内容：" prop="content">
+                <quill-editor
+                    class="instruction-editor"
+                    v-model="infoForm.content"
+                    ref="myQuillEditor"
+                    :options="editorOption"
+                    @ready="onEditorReady($event)"
+                >
+                </quill-editor>
+            </Form-item>
+            <!-- 操作按钮 -->
+            <div class="m-operation">
+                <Button class="fr" type="primary" @click="submit('infoForm')">确认保存</Button>
+                <div class="clearfix"></div>
+            </div>
+        </Form>
     </div>
 </template>
 
@@ -66,17 +64,18 @@
                 },
                 // 表单信息
                 infoForm: {
-                    productName: '',
-                    productDesc: '',
+                    title: '',
+                    content: '',
                 },
                 // 验证规则
                 validate: {
-                    productName: [{ required: true, message: '产品名称不能为空', trigger: 'blur'}],
+                    title: [{ required: true, message: '文章标题不能为空', trigger: 'blur'}],
+                    content: [{ required: true, message: '文章内容不能为空', trigger: 'blur'}]
                 },
             }
         },
         created() {
-            // 获取产品详情
+            // 获取文章详情
             this.getDetail();
         },
         methods: {
@@ -87,23 +86,23 @@
             onEditorChange({ editor, html, text }) {
                 this.content = html
             },
-            // 获取产品详情
+            // 获取文章详情
             getDetail(){
-                // Api.GetProdInfo(this.productId)
-                // .then(res => {                    
-                //     // 取消页面加载
-                //     this.pageLoading = false;
-                //     const result = res.data.attributes;                    
-                //     if(res.code == 200){
-                //         // 设置数据
-                //         this.infoForm = result;
-                //     }
-                //     else this.$Message.warning(res.msg);
-                // })
-                // .catch(err => console.log(err))
+                Api.GetProdInfo(this.productId)
+                .then(res => {                    
+                    // 取消页面加载
+                    this.pageLoading = false;
+                    const result = res.data.attributes;                    
+                    if(res.code == 200){
+                        // 设置数据
+                        this.infoForm = result;
+                    }
+                    else this.$Message.warning(res.msg);
+                })
+                .catch(err => console.log(err))
             },
-            // 修改信息
-            edit(name) {
+            // 保存文章
+            submit(name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         // 页面加载
@@ -127,7 +126,7 @@
 </script>
 
 <style lang="less">
-    @import "../../../../assets/less/color";
+    @import "../../../assets/less/color";
     .m-product-info{
         background: #f5f5f5;
         border-radius: 4px;

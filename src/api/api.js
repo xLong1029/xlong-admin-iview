@@ -337,5 +337,5 @@ export default {
                 error: (obj, err) => reject(err)
             });
         });
-    }
+    },
 }
