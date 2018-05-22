@@ -119,7 +119,7 @@
             ...mapGetters([ 'getImageUrl' ]),
             // 获取所有列表
             apiGetAll(){
-                return () => Api.GetContList(this.page.pageNo, this.page.pageSize);
+                return () => Api.GetContList(this.parentId, this.page.pageNo, this.page.pageSize);
             },
             // 新增操作接口
             apiAdd(){
