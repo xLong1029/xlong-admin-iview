@@ -35,7 +35,7 @@
 	import SingleImage from 'components/Image/UploadImage/SingleImage'
 	// Api方法
     import Api from 'api/profile.js'
-    // Veux
+    // Vuex
     import { mapGetters } from 'vuex'
 
     export default {

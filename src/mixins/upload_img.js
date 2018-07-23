@@ -29,9 +29,6 @@ export default {
         },
         // 选择文件
         selectFile(event){
-            // 显示进度条
-            this.progressShow();
-
             // 获取上传文件列表
             const fileList = this.$refs.imgFile.files;
             if(fileList.length > 0){
@@ -57,6 +54,9 @@ export default {
         },
         // 上传文件
         uploadFile(file){
+            // 显示进度条
+            this.progressShow();
+            
             // 设置定时器累增进度条百分比
             let progress = setInterval(() => {
                 if(this.percentage == 90) clearInterval(progress);

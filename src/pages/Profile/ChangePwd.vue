@@ -24,7 +24,7 @@
 	import Validate from 'common/validate.js'
 	// Api方法
     import Api from 'api/profile.js'
-    // Veux
+    // Vuex
     import { mapGetters } from 'vuex'
 
 	export default {
