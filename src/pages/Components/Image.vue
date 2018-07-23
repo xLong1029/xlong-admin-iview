@@ -74,6 +74,41 @@
                 </Form>
             </div>
         </div>
+        <!-- 图片裁剪组件 -->
+        <h2 class="m-title">图片裁剪</h2>
+        <div class="m-content">
+            <div class="m-compo-part">
+                <ImageCropper :preview="imgCropAttr.preview" :size-hint="imgCropAttr.sizeHint" :file-size="imgCropAttr.fileSize"></ImageCropper>
+                <div class="m-desc">
+                    <p>组件包含属性：</p>
+                    <p>1. preview，是否可预览。Boolean类型，默认值为false，不可预览</p>
+                    <p>2. sizeHint，是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
+                    <p>3. fileSize，设置最大图片文件大小，单位KB。Number类型，默认值为150</p>
+                </div>
+            </div>
+            <div class="m-test-part">
+                <p class="g-mb10">组件属性值测试：</p>
+                <!-- 功能表单 -->
+                <Form ref="imgCropAttr" :model="imgCropAttr" :rules="uploadValid" :label-width="75" style="width:400px;">
+                    <Form-item label="preview：" prop="setPreview">
+                        <RadioGroup v-model="imgCropAttr.setPreview">
+                            <Radio label="true">true</Radio>
+                            <Radio label="false">false</Radio>
+                        </RadioGroup>
+                    </Form-item>
+                    <Form-item label="sizeHint：" prop="setSizeHint">
+                        <Input v-model="imgCropAttr.setSizeHint" placeholder="请输入尺寸建议，例如：100*100px"></Input>
+                    </Form-item>
+                    <Form-item label="fileSize：" prop="setFileSize">
+                        <Input v-model="imgCropAttr.setFileSize" placeholder="请输入限制最大文件大小，例如：1024"></Input>
+                    </Form-item>
+                    <Form-item>
+                        <Button type="primary" style="margin-top:2px" @click="uploadAttrTest('imgCropAttr', 3)">测试</Button>
+                        <Button type="ghost" style="margin-top:2px" @click="clearForm('imgCropAttr', 3)">重置</Button>
+                    </Form-item>
+                </Form>
+            </div>
+        </div>
         <!-- 图片展示组件 -->
         <h2 class="m-title">图片展示（可多图展示）</h2>
         <div class="m-content">
@@ -114,11 +149,21 @@
 	import SingleImage from 'components/Image/UploadImage/SingleImage'
     import MultipleImage from 'components/Image/UploadImage/MultipleImage'
     import ShowImage from 'components/Image/ShowImage'
+    import ImageCropper from 'components/Image/ImageCropper'
 
     export default {
-        components:{ SingleImage, MultipleImage, ShowImage },
+        components:{ SingleImage, MultipleImage, ShowImage, ImageCropper },
         data() {
             return {
+                /* 图片裁剪 */
+                imgCropAttr:{
+                    preview: true,
+                    setPreview: 'true',
+                    sizeHint: '',
+                    setSizeHint: '',
+                    fileSize: 150,
+                    setFileSize: ''
+                },
                 /* 单图片上传 */
                 sUploadAttr:{
                     preview: true,
@@ -201,16 +246,20 @@
             uploadAttrTest(form, type){
                 switch(type){
                     case 1:
-                        console.log(this.mUploadAttr.setPreview);
                         this.sUploadAttr.preview = this.sUploadAttr.setPreview == 'true' ? true : false;
                         this.sUploadAttr.sizeHint = this.sUploadAttr.setSizeHint;
-                        this.sUploadAttr.fileSize = Number(this.sUploadAttr.setFileSize);
+                        this.sUploadAttr.fileSize = Number(this.sUploadAttr.setFileSize) == 0 ? 150 : Number(this.sUploadAttr.setFileSize);
                         break;
                     case 2:
                         this.mUploadAttr.preview = this.mUploadAttr.setPreview == 'true' ? true : false;
                         this.mUploadAttr.sizeHint = this.mUploadAttr.setSizeHint;
-                        this.mUploadAttr.fileSize = Number(this.mUploadAttr.setFileSize);
-                        this.mUploadAttr.maxNum = Number(this.mUploadAttr.setMaxNum);
+                        this.mUploadAttr.fileSize = Number(this.mUploadAttr.setFileSize) == 0 ? 150 : Number(this.mUploadAttr.setFileSize);
+                        this.mUploadAttr.maxNum = Number(this.mUploadAttr.setMaxNum) == 0 ? 5 : Number(this.mUploadAttr.setMaxNum);
+                        break;                    
+                    case 3:
+                        this.imgCropAttr.preview = this.imgCropAttr.setPreview == 'true' ? true : false;
+                        this.imgCropAttr.sizeHint = this.imgCropAttr.setSizeHint;
+                        this.imgCropAttr.fileSize = Number(this.imgCropAttr.setFileSize) == 0 ? 150 : Number(this.imgCropAttr.setFileSize);
                         break;
                     default: console.log('清空type传值出错');
                 } 
