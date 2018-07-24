@@ -19,7 +19,6 @@
         <template v-if="uploadStatus != 'finished'">
             <Progress v-if="showProgress" :percent="percentage" hide-info :stroke-width="3" style="width:340px;"></Progress>
         </template>
-        <br/>
         <!-- 图片格式提示 -->
         <span class="hint">
             * 图片格式要求：jpg、jpeg、png，
@@ -227,14 +226,18 @@
                     .then(res => {
                         let url = Common.UPLOAD_URL + res.data.hash;
                         this.getImageUrl = url;
+                        // 传给父组件url
+                        this.$emit('get-img-url', url);
+                        
                         // 停止加载和隐藏进度
                         this.progressHide();
                         this.percentage = 100;
-                        clearInterval(progress);
-                        this.$Notice.success({ title: '图片上传成功!' });
+                        clearInterval(progress);                        
 
                         this.showUploadBtn = false;
                         this.hideCropModel();
+
+                        this.$Notice.success({ title: '图片上传成功!' });
                     })
                     .catch(err => {
                         // 停止加载和隐藏进度条

@@ -117,6 +117,7 @@
                     this.getImageUrl = url;
                     // 传给父组件url
                     this.$emit('get-img-url', url);
+                    
                     // 停止加载和隐藏进度
                     this.progressHide();
                     this.percentage = 100;

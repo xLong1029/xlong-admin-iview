@@ -2,7 +2,7 @@
     <div class="g-content">
         <!--  加载判断 -->
         <Loading v-if="pageLoading"></Loading>
-        <Form  v-else ref="infoForm" :model="infoForm" :rules="validate" :label-width="110" style="width:600px">
+        <Form  v-else ref="infoForm" :model="infoForm" :rules="validate" :label-width="110" style="width:700px">
             <Form-item label="账号：">
                 <span>{{ infoForm.username }}</span>
             </Form-item>
@@ -14,7 +14,7 @@
             </Form-item>
             <Form-item label="头像：">
                 <!-- 组件-图片上传-单图片显示 -->
-                <SingleImage :src="infoForm.userface" @get-img-url="setFace"></SingleImage>
+                <ImageCropper :src="infoForm.userface" :preview="true" @get-img-url="setFace"></ImageCropper>
             </Form-item>                           
             <Form-item label="性别：" prop="gender">
                 <Radio-group v-model="infoForm.gender">
@@ -32,14 +32,14 @@
 <script>
     // 组件
     import Loading from 'components/Common/Loading'
-	import SingleImage from 'components/Image/UploadImage/SingleImage'
+	import ImageCropper from 'components/Image/ImageCropper'
 	// Api方法
     import Api from 'api/profile.js'
     // Vuex
     import { mapGetters } from 'vuex'
 
     export default {
-        components: {  Loading, SingleImage },
+        components: {  Loading, ImageCropper },
         computed: {
             ...mapGetters([ 'token' ])
         },
@@ -91,6 +91,7 @@
                                 this.$Message.success('资料修改成功！');
                                 // 更新用户信息
                                 this.$store.commit('SET_USER_NICKNAME', res.data.attributes.nickname);
+                                this.$store.commit('SET_USER_FACE', res.data.attributes.userface);
                             }
                             else this.$Message.error('资料修改失败！');
                         })
