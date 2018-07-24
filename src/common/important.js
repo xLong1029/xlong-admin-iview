@@ -83,3 +83,29 @@ export function Decrypt(value){
     }
     return correct;
 }
+// 数组深克隆
+export function CopyArr(arr){
+    return arr.map((e)=>{
+        if(typeof e === 'object'){
+            return Object.assign({},e)
+        }else{
+            return e
+        }
+    })
+}
+// 数组转字符串：arr 字符串，l 拼接符
+export function ArrToAtr(arr, l){
+    return arr.join(l);
+}
+// 字符串转数组：string 字符串，s 分隔符
+export function StrToArr(string, s){
+    return string.split(s);
+}
+
+// 删除数组指定某个元素
+Array.prototype.remove = function(val) {
+    var index = this.indexOf(val);
+    if (index > -1) {
+        this.splice(index, 1);
+    }
+};

@@ -8,8 +8,6 @@ const common = {
 			name: '首页',
 			path: '/Home'
 		}],
-		// 获取单图片显示路径
-		// getImageUrl: '',
 		// 获取多图片显示路径
 		getImageUrlArr: [],
 		// 输入框的值
@@ -21,7 +19,6 @@ const common = {
 	getters: {
 			sidebarSpan: state => state.sidebarSpan,
 			breadcrumb: state => state.breadcrumb,
-			// getImageUrl: state => state.getImageUrl,
 			getImageUrlArr: state => state.getImageUrlArr,
 			inputValue: state => state.inputValue,
 			companyName: state => state.companyName,
@@ -34,9 +31,6 @@ const common = {
 	    SET_BREADCRUMB: (state, breadcrumb) => {
 	      state.breadcrumb = breadcrumb;
 		},
-		// SET_IMAGE_URL: (state, getImageUrl) => {
-		//   state.getImageUrl = getImageUrl;
-		// },
 		SET_IMAGE_URL_ARR: (state, getImageUrlArr) => {
 		  state.getImageUrlArr = getImageUrlArr;
 		},

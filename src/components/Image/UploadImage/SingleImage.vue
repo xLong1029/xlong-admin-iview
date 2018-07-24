@@ -48,7 +48,7 @@
         mixins: [ UploadImg ],
         // 获取父级传值
         props: {
-            // 图片Url
+            // 图片路径
             src:{
                 type: String,
                 default: ''

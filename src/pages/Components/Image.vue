@@ -4,13 +4,13 @@
         <h2 class="m-title">单图片上传</h2>
         <div class="m-content">
             <div class="m-compo-part">
-                <SingleImage :preview="sUploadAttr.preview" :size-hint="sUploadAttr.sizeHint" :file-size="sUploadAttr.fileSize"></SingleImage>
-                <SingleImage :preview="sUploadAttr.preview" :size-hint="sUploadAttr.sizeHint" :file-size="sUploadAttr.fileSize"></SingleImage>
+                <SingleImage :src="sUploadAttr.src" :preview="sUploadAttr.preview" :size-hint="sUploadAttr.sizeHint" :file-size="sUploadAttr.fileSize"></SingleImage>
                 <div class="m-desc">
                     <p>组件包含属性：</p>
-                    <p>1. preview，是否可预览。Boolean类型，默认值为false，不可预览</p>
-                    <p>2. sizeHint，是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
-                    <p>3. fileSize，设置最大图片文件大小，单位KB。Number类型，默认值为150</p>
+                    <p>1. src，显示的图片路径。String类型，默认值为''，不显示</p>
+                    <p>2. preview，是否可预览。Boolean类型，默认值为false，不可预览</p>
+                    <p>3. sizeHint，是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
+                    <p>4. fileSize，设置最大图片文件大小，单位kb。Number类型，默认值为150</p>
                 </div>
             </div>
             <div class="m-test-part">
@@ -22,6 +22,9 @@
                             <Radio label="true">true</Radio>
                             <Radio label="false">false</Radio>
                         </RadioGroup>
+                    </Form-item>
+                    <Form-item label="src：" prop="setSrc">
+                        <Input v-model="sUploadAttr.setSrc" placeholder="请输入显示图片路径，例如：https://file.iviewui.com/dist/87ead0a68423c0844ddd159f0cde42b3.jpg"></Input>
                     </Form-item>
                     <Form-item label="sizeHint：" prop="setSizeHint">
                         <Input v-model="sUploadAttr.setSizeHint" placeholder="请输入尺寸建议，例如：100*100px"></Input>
@@ -45,7 +48,7 @@
                     <p>组件包含属性：</p>
                     <p>1. preview，是否可预览。Boolean类型，默认值为false，不可预览</p>
                     <p>2. sizeHint，是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
-                    <p>3. fileSize，设置最大图片文件大小，单位KB。Number类型，默认值为150</p>
+                    <p>3. fileSize，设置最大图片文件大小，单位kb。Number类型，默认值为150</p>
                     <p>4. maxNum，设置最大上传个数。Number类型，默认值为5</p>
                 </div>
             </div>
@@ -79,29 +82,61 @@
         <h2 class="m-title">图片裁剪</h2>
         <div class="m-content">
             <div class="m-compo-part">
-                <ImageCropper :preview="imgCropAttr.preview" :size-hint="imgCropAttr.sizeHint" :file-size="imgCropAttr.fileSize"></ImageCropper>
+                <ImageCropper
+                    :src="imgCropAttr.src"
+                    :preview="imgCropAttr.preview"
+                    :size-hint="imgCropAttr.sizeHint"
+                    :file-size="imgCropAttr.fileSize"
+                    :auto-crop-width="imgCropAttr.autoCropWidth"
+                    :auto-crop-height="imgCropAttr.autoCropHeight"
+                    :fixed="imgCropAttr.fixed"
+                    :fixed-number="imgCropAttr.fixedNumber"
+                ></ImageCropper>
                 <div class="m-desc">
                     <p>组件包含属性：</p>
-                    <p>1. preview，是否可预览。Boolean类型，默认值为false，不可预览</p>
-                    <p>2. sizeHint，是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
-                    <p>3. fileSize，设置最大图片文件大小，单位KB。Number类型，默认值为150</p>
+                    <p>1. src，显示的图片路径。String类型，默认值为''，不显示</p>
+                    <p>2. preview，是否可预览。Boolean类型，默认值为false，不可预览</p>
+                    <p>3. sizeHint，是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
+                    <p>4. fileSize，设置最大图片文件大小，单位kb。Number类型，默认值为150</p>
+                    <p>5. autoCropWidth，设置裁剪宽度，单位px。Number类型，默认值为100</p>
+                    <p>6. autoCropHeight，设置裁剪高度，单位px。Number类型，默认值为100</p>
+                    <p>7. fixed，是否限制裁剪高宽比例。Boolean类型，默认值为false，不限制</p>                 
+                    <p>8. fixedNumber，设置裁剪高宽比例，只有限制高宽比例时才有用。Array类型，默认值为[4, 3]，即比例为4：3</p>
                 </div>
             </div>
             <div class="m-test-part">
                 <p class="g-mb10">组件属性值测试：</p>
                 <!-- 功能表单 -->
-                <Form ref="imgCropAttr" :model="imgCropAttr" :rules="uploadValid" :label-width="75" style="width:400px;">
+                <Form ref="imgCropAttr" :model="imgCropAttr" :rules="uploadValid" :label-width="110" style="width:400px;">
                     <Form-item label="preview：" prop="setPreview">
                         <RadioGroup v-model="imgCropAttr.setPreview">
                             <Radio label="true">true</Radio>
                             <Radio label="false">false</Radio>
                         </RadioGroup>
                     </Form-item>
+                    <Form-item label="src：" prop="setSrc">
+                        <Input v-model="imgCropAttr.setSrc" placeholder="请输入显示图片路径，例如：https://file.iviewui.com/dist/87ead0a68423c0844ddd159f0cde42b3.jpg"></Input>
+                    </Form-item>
                     <Form-item label="sizeHint：" prop="setSizeHint">
                         <Input v-model="imgCropAttr.setSizeHint" placeholder="请输入尺寸建议，例如：100*100px"></Input>
                     </Form-item>
                     <Form-item label="fileSize：" prop="setFileSize">
                         <Input v-model="imgCropAttr.setFileSize" placeholder="请输入限制最大文件大小，例如：1024"></Input>
+                    </Form-item>
+                    <Form-item label="autoCropWidth：" prop="setAutoCropWidth">
+                        <Input v-model="imgCropAttr.setAutoCropWidth" placeholder="请输入裁剪宽度，例如：200"></Input>
+                    </Form-item>
+                    <Form-item label="autoCropHeight：" prop="setAutoCropHeight">
+                        <Input v-model="imgCropAttr.setAutoCropHeight" placeholder="请输入裁剪高度，例如：200"></Input>
+                    </Form-item>
+                    <Form-item label="fixed：" prop="setFixed">
+                        <RadioGroup v-model="imgCropAttr.setFixed">
+                            <Radio label="true">true</Radio>
+                            <Radio label="false">false</Radio>
+                        </RadioGroup>
+                    </Form-item>
+                    <Form-item label="fixedNumber：" prop="setFixedNumber">
+                        <Input v-model="imgCropAttr.setFixedNumber" placeholder="请输入高宽比例以冒号隔开，例如 4:3"></Input>
                     </Form-item>
                     <Form-item>
                         <Button type="primary" style="margin-top:2px" @click="uploadAttrTest('imgCropAttr', 3)">测试</Button>
@@ -152,21 +187,35 @@
     import ShowImage from 'components/Image/ShowImage'
     import ImageCropper from 'components/Image/ImageCropper'
 
+    import { StrToArr } from 'common/important.js'
+
     export default {
         components:{ SingleImage, MultipleImage, ShowImage, ImageCropper },
         data() {
             return {
                 /* 图片裁剪 */
                 imgCropAttr:{
+                    src: '',
+                    setSrc: '',
                     preview: true,
                     setPreview: 'true',
                     sizeHint: '',
                     setSizeHint: '',
                     fileSize: 150,
-                    setFileSize: ''
+                    setFileSize: '',
+                    autoCropWidth: 100,
+                    setAutoCropWidth: '',
+                    autoCropHeight: 100,
+                    setAutoCropHeight: '',
+                    fixed: false,
+                    setFixed: 'true',
+                    fixedNumber: [4, 3],
+                    setFixedNumber: ''
                 },
                 /* 单图片上传 */
                 sUploadAttr:{
+                    src: '',
+                    setSrc: '',
                     preview: true,
                     setPreview: 'true',
                     sizeHint: '',
@@ -186,9 +235,12 @@
                     setMaxNum: ''
                 },
                 uploadValid:{
+                    setSrc: [{ pattern: /^[\S]+$/, message: '请不要输入空字符', trigger: 'blur' }],
                     setSizeHint: [{ pattern: /^[\S]+$/, message: '请不要输入空字符', trigger: 'blur' }],
                     setFileSize: [{ pattern: /^[\d]+$/, message: '请输入纯数字', trigger: 'blur' }],
                     setMaxNum: [{ pattern: /^[\d]+$/, message: '请输入纯数字', trigger: 'blur' }],
+                    setAutoCropWidth: [{ pattern: /^[\d]+$/, message: '请输入纯数字', trigger: 'blur' }],
+                    setAutoCropHeight: [{ pattern: /^[\d]+$/, message: '请输入纯数字', trigger: 'blur' }],
                 },
                 /* 图片展示 */
                 // 显示查看图片
@@ -217,7 +269,6 @@
                 { name: 'Image图片操作', path: '/Components/Image' }
             ]);
             // 初始化图片显示链接
-            this.$store.commit('SET_IMAGE_URL', '');
             this.$store.commit('SET_IMAGE_URL_ARR', '');
         },
         methods:{
@@ -247,6 +298,7 @@
             uploadAttrTest(form, type){
                 switch(type){
                     case 1:
+                        this.sUploadAttr.src = this.sUploadAttr.setSrc;
                         this.sUploadAttr.preview = this.sUploadAttr.setPreview == 'true' ? true : false;
                         this.sUploadAttr.sizeHint = this.sUploadAttr.setSizeHint;
                         this.sUploadAttr.fileSize = Number(this.sUploadAttr.setFileSize) == 0 ? 150 : Number(this.sUploadAttr.setFileSize);
@@ -258,9 +310,15 @@
                         this.mUploadAttr.maxNum = Number(this.mUploadAttr.setMaxNum) == 0 ? 5 : Number(this.mUploadAttr.setMaxNum);
                         break;                    
                     case 3:
+                        this.imgCropAttr.src = this.imgCropAttr.setSrc;
                         this.imgCropAttr.preview = this.imgCropAttr.setPreview == 'true' ? true : false;
                         this.imgCropAttr.sizeHint = this.imgCropAttr.setSizeHint;
                         this.imgCropAttr.fileSize = Number(this.imgCropAttr.setFileSize) == 0 ? 150 : Number(this.imgCropAttr.setFileSize);
+                        this.imgCropAttr.autoCropWidth = Number(this.imgCropAttr.setAutoCropWidth) == 0 ? 100 : Number(this.imgCropAttr.setAutoCropWidth);
+                        this.imgCropAttr.autoCropHeight = Number(this.imgCropAttr.setAutoCropHeight) == 0 ? 100 : Number(this.imgCropAttr.setAutoCropHeight);
+                        this.imgCropAttr.fixed = this.imgCropAttr.setFixed == 'true' ? true : false;
+                        // 中文：换成英文: ，再将字符串转成数组
+                        this.imgCropAttr.fixedNumber = StrToArr(this.imgCropAttr.setFixedNumber.replace(/：/g, ":"), ':');
                         break;
                     default: console.log('清空type传值出错');
                 } 
@@ -284,6 +342,10 @@
                         this.imgCropAttr.preview = true;
                         this.imgCropAttr.sizeHint = '';
                         this.imgCropAttr.fileSize = 150;
+                        this.imgCropAttr.autoCropWidth = 100;
+                        this.imgCropAttr.autoCropHeight = 100;
+                        this.imgCropAttr.fixed = false;
+                        this.imgCropAttr.fixedNumber = [4, 3];
                         break;
                     case 4:
                         break;

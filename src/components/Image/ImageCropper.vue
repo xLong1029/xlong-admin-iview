@@ -41,10 +41,10 @@
                     :info="true"
                     :canScale="option.canScale"
                     :autoCrop="option.autoCrop"
-                    :autoCropWidth="option.autoCropWidth"
-                    :autoCropHeight="option.autoCropHeight"
-                    :fixed="option.fixed"
-                    :fixedNumber="option.fixedNumber"
+                    :autoCropWidth="autoCropWidth"
+                    :autoCropHeight="autoCropHeight"
+                    :fixed="fixed"
+                    :fixedNumber="fixedNumber"
                     @realTime="realTime"
                 ></vueCropper>
             </div>
@@ -66,10 +66,12 @@
             <!-- 图片格式提示 -->
             <div style="margin-top:10px">
                 <span class="hint">
-                    * 图片格式要求：jpg、jpeg、png，文件大小为
+                    * 图片格式要求：jpg、jpeg、png，
+                    <span v-if="sizeHint">建议尺寸： {{ sizeHint }}，</span>
+                    文件大小为
                     <span v-if="fileSize < 1024">{{ fileSize }}kb</span>
                     <span v-else>{{ Math.floor(fileSize/1024) }}M</span>
-                    以内。
+                    以内。            
                 </span>
             </div>
             <!-- 底部按钮 -->
@@ -121,7 +123,27 @@
             fileSize:{
               type: Number,
               default: 150
-            }
+            },
+            // 固定裁剪宽度
+            autoCropWidth:{
+                type: Number,
+                default: 100
+            },
+            // 固定裁剪高度
+            autoCropHeight:{
+                type: Number,
+                default: 100
+            },
+            // 是否限制高宽比例
+            fixed:{
+                type: Boolean,
+                default: false
+            },
+            // 高宽比例值
+            fixedNumber: {
+                type: Array,
+                default: () => [4, 3]
+            },
         },
         data () {
             return {
@@ -146,13 +168,7 @@
                     size: 1,
                     outputType: 'jpg',
                     canScale: false,
-                    autoCrop: true,
-                    // 只有自动截图开启 宽度高度才生效
-                    autoCropWidth: 400,
-                    autoCropHeight: 250,
-                    // 开启宽度和高度比例
-                    fixed: true,
-                    fixedNumber: [4, 3]
+                    autoCrop: true
                 },
                 // 实时图片预览
                 previews: {},
@@ -164,11 +180,14 @@
         },
         watch: {
 			src(val) {
-				this.getImageUrl = val;
+                if(val){
+                    this.showUploadBtn = false;
+                    this.getImageUrl = this.src;
+                }
 			}
         },
         created() {
-            if(this.src !== ''){
+            if(this.src){
                 this.showUploadBtn = false;
                 this.getImageUrl = this.src;
             }
