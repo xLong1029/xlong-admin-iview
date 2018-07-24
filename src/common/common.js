@@ -107,11 +107,6 @@ export default {
         //控制不要一直跳动
         event.currentTarget.onerror = null;
     },
-    // 初始化图片存储
-    InitPicStore: (_this) => {
-        _this.$store.commit('SET_IMAGE_URL', '');
-        _this.$store.commit('SET_IMAGE_URL_ARR', []);
-    },
     // 初始化输入框存储
     InitInputStore: (_this) => {
         _this.$store.commit('SET_COMPANY_NAME', '');

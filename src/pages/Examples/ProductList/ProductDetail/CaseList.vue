@@ -55,7 +55,7 @@
                     </Form-item>
                     <Form-item label="案例图片：" prop="img">
                         <!-- 组件-图片上传-单图片显示 -->
-                        <SingleImage :preview="true"></SingleImage>
+                        <SingleImage :src="paramsForm.img" :preview="true" @get-img-url="setCaseImg"></SingleImage>
                     </Form-item>
                     <Form-item label="品牌名称：" prop="brand">
                         <Input v-model="paramsForm.brand" placeholder="请输入案例品牌名称"></Input>
@@ -78,8 +78,6 @@
     import Common from 'common/common.js'
     // Api方法
     import Api from 'api/product_list.js'
-    // Vuex
-    import { mapGetters } from 'vuex'
     // 轮播图样式
     import 'swiper/dist/css/swiper.css'
     
@@ -94,7 +92,6 @@
             },
         },
         computed:{
-            ...mapGetters(['getImageUrl']),
 			// 获取当前swiper实例对象
 			swiper(){
 				return this.$refs.caseList.swiper;
@@ -142,8 +139,6 @@
             }
         },
         created() {
-            // 初始化图片上传
-            Common.InitPicStore(this);
             // 获取案例列表
 			this.getCaseList(this.productId);
         },
@@ -201,7 +196,7 @@
                 this.operateType = 2;
                 this.paramsForm.title = this.caseList[this.caseIndex].title;
                 this.paramsForm.brand = this.caseList[this.caseIndex].brand;
-                this.$store.commit('SET_IMAGE_URL', this.caseList[this.caseIndex].img);
+                this.paramsForm.img = this.caseList[this.caseIndex].img;
                 this.openModel();
             },
             // 新增案例
@@ -209,7 +204,7 @@
                 this.operateType = 1;
                 this.paramsForm.title = '';
                 this.paramsForm.brand = '';
-                this.$store.commit('SET_IMAGE_URL', '');
+                this.paramsForm.img = '';
                 this.openModel();
             },
             // 删除案例
@@ -242,8 +237,6 @@
                 // 表单验证
                 this.$refs[name].validate((valid)=>{
                     if(valid){
-                        // 设置图片路径
-                        this.paramsForm.img = this.getImageUrl;
                         // 获取当前时间,格式化
                         this.paramsForm.updateTime = Common.FormatDate(new Date());
                         // 操作
@@ -276,6 +269,10 @@
                     }
                     else this.$Message.error('提交失败！填写有误');
                 })
+            },
+            // 设置案例图片
+            setCaseImg(url){
+                this.paramsForm.img = url;
             },
             // 无法显示图片
             notFoundPic(event){
@@ -321,9 +318,7 @@
         }
         .item-info{
             float: left;
-        }
-
-        img{
+            max-width: 800px;
             border: 1px solid #eee;
             border-radius: 4px; 
         }

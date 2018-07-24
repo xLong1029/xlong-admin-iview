@@ -33,7 +33,7 @@
                         </Form-item>
                         <Form-item label="头像：" style="margin-bottom:16px;">
                             <!-- 组件-图片上传-单图片显示 -->
-                            <SingleImage :preview="true" size-hint="100*100px"></SingleImage>
+                            <SingleImage :src="infoForm.face" :preview="true" size-hint="100*100px" @get-img-url="setFace"></SingleImage>
                         </Form-item>
                         <Form-item label="出生日期：" prop="birthdate">
                             <Date-picker v-model="infoForm.birthdate" type="date" placeholder="请选择时间" style="width:100%"></Date-picker>
@@ -111,7 +111,7 @@
         components: { Loading, CompanyName, SingleImage },
         mixins: [ CitySelect, EmailComplete ],
         computed: {
-            ...mapGetters(['companyName', 'getImageUrl' ])
+            ...mapGetters(['companyName' ])
         },
         data() {
             return {
@@ -223,8 +223,7 @@
             }
         },
         created() {
-            // 初始化图片和输入框
-            Common.InitPicStore(this);
+            // 初始化输入框
             Common.InitInputStore(this);
             // 获取本地“职位”列表
             this.jobList = JsonData.job;    
@@ -261,7 +260,6 @@
                         // 页面加载
                         this.pageLoading = true;
 
-                        this.infoForm.face = this.getImageUrl;
                         this.infoForm.companyName = this.companyName;
 
                         // 格式化出生日期和工作时间
@@ -319,9 +317,7 @@
                         // 设置省市值
                         this.provinceValue = [this.infoForm.province, this.infoForm.city, this.infoForm.area];
                         // 设置企业名称
-						this.$store.commit('SET_INPUT_VALUE', result.companyName);                  
-                        // 更新用户头像
-                        this.$store.commit('SET_IMAGE_URL', this.infoForm.face);
+						this.$store.commit('SET_INPUT_VALUE', result.companyName);
                         // 设置工作时间
                         if(this.infoForm.isGraduate){
                             this.disabledWT = true;
@@ -354,6 +350,11 @@
                 if(value != '')
                     value = new Date(value).toLocaleDateString();
                 return value;
+            },
+            // 获取并设置头像
+            setFace(url){
+                console.log(url);
+                this.infoForm.face = url;
             }
         }
     }

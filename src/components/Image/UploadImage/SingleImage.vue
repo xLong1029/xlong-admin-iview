@@ -42,14 +42,17 @@
     import UploadImg from 'mixins/upload_img.js'
     // axios
     import axios from 'axios'
-    // Vuex
-    import { mapGetters } from 'vuex'
 
     export default {
         name: 'singleImage',
         mixins: [ UploadImg ],
         // 获取父级传值
         props: {
+            // 图片Url
+            src:{
+                type: String,
+                default: ''
+            },
             // 是否可预览
             preview:{
                 type: Boolean,
@@ -66,12 +69,6 @@
               default: 150
             }
         },
-        computed: {
-            ...mapGetters([
-                // 获取图片显示路径
-                'getImageUrl',
-            ])
-        },
         data () {
             return {
                 // 上传加载
@@ -84,9 +81,65 @@
                 uploadStatus: '',
                 // 是否显示进度条
                 showProgress: false,
+                // 获取图片显示路径
+                getImageUrl: ''
             }
         },
-        methods: {}
+        watch: {
+			src(val) {
+				this.getImageUrl = val;
+			}
+        },
+        created() {
+            this.getImageUrl = this.src;
+        },
+        methods: {
+            // 上传文件
+            uploadFile(file){
+                this.progressShow();
+
+                // 设置定时器累增进度条百分比
+                let progress = setInterval(() => {
+                    if(this.percentage == 90) clearInterval(progress);
+                    this.percentage += 10;
+                },100);
+
+                // 创建formData对象
+                let params = new FormData();
+                // 这里的token是七牛上传token，如需使用请换上你自己的七牛token
+                params.append('token', Common.UPLOAD_TOKEN);
+                params.append('file', file);
+                
+                // 七牛存储空间测试时请选择华东，否则报错：incorrect region, please use up-z2.qiniu.com
+                axios.post('http://upload.qiniu.com/', params)
+                .then(res => {
+                    let url = Common.UPLOAD_URL + res.data.hash;
+                    this.getImageUrl = url;
+                    // 传给父组件url
+                    this.$emit('get-img-url', url);
+                    // 停止加载和隐藏进度
+                    this.progressHide();
+                    this.percentage = 100;
+                    clearInterval(progress);
+                    this.$Notice.success({ title: '图片上传成功!' });
+                })
+                .catch(err => {
+                    // 停止加载和隐藏进度条
+                    this.progressHide();                 
+                    clearInterval(progress);                
+                    this.$Notice.error({ title: '图片上传失败，请重试！' });
+                })
+
+                /* Bmob上传有跨域问题，不可用 */
+                // var this_file = new Bmob.File(fileName, file);     
+                // this_file.save().then(function(obj) {
+                //     alert(obj.url());
+                // }, function(error) {
+                //     console.log(error);
+                // });
+                /* Bmob上传有跨域问题，不可用 */
+            },
+        }
     }
 </script>
 

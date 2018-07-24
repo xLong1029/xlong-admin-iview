@@ -5,6 +5,7 @@
         <div class="m-content">
             <div class="m-compo-part">
                 <SingleImage :preview="sUploadAttr.preview" :size-hint="sUploadAttr.sizeHint" :file-size="sUploadAttr.fileSize"></SingleImage>
+                <SingleImage :preview="sUploadAttr.preview" :size-hint="sUploadAttr.sizeHint" :file-size="sUploadAttr.fileSize"></SingleImage>
                 <div class="m-desc">
                     <p>组件包含属性：</p>
                     <p>1. preview，是否可预览。Boolean类型，默认值为false，不可预览</p>

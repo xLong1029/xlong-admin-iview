@@ -52,50 +52,6 @@ export default {
             }
             else console.log('获取不到文件列表');
         },
-        // 上传文件
-        uploadFile(file){
-            console.log(file);
-            this.progressShow();
-
-            // 设置定时器累增进度条百分比
-            let progress = setInterval(() => {
-                if(this.percentage == 90) clearInterval(progress);
-                this.percentage += 10;
-            },100);
-
-            // 创建formData对象
-            let params = new FormData();
-            // 这里的token是七牛上传token，如需使用请换上你自己的七牛token
-            params.append('token', Common.UPLOAD_TOKEN);
-            params.append('file', file);
-            
-            // 七牛存储空间测试时请选择华东，否则报错：incorrect region, please use up-z2.qiniu.com
-            axios.post('http://upload.qiniu.com/', params)
-            .then(res => {
-                let url = Common.UPLOAD_URL + res.data.hash;
-                this.$store.commit('SET_IMAGE_URL', url);
-                // 停止加载和隐藏进度
-                this.progressHide();
-                this.percentage = 100;
-                clearInterval(progress);
-                this.$Notice.success({ title: '图片上传成功!' });
-            })
-            .catch(err => {
-                // 停止加载和隐藏进度条
-                this.progressHide();                 
-                clearInterval(progress);                
-                this.$Notice.error({ title: '图片上传失败，请重试！' });
-            })
-
-            /* Bmob上传有跨域问题，不可用 */
-            // var this_file = new Bmob.File(fileName, file);     
-            // this_file.save().then(function(obj) {
-            //     alert(obj.url());
-            // }, function(error) {
-            //     console.log(error);
-            // });
-            /* Bmob上传有跨域问题，不可用 */
-        },
         // 显示进度条
         progressShow(){
             this.loading = true;
@@ -111,7 +67,7 @@ export default {
         },
         // 无法显示图片
         notFoundPic(event){
-            Common.SetDefaultPic(event, 2);
+            Common.SetDefaultPic(event, 1);
         },
 	}
 }

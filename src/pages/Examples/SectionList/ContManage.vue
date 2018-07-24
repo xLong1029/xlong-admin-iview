@@ -78,7 +78,7 @@
                     </Form-item>
                     <Form-item label="封面图片：">
                         <!-- 组件-图片上传-单图片显示 -->
-                        <SingleImage :preview="false"></SingleImage>
+                        <SingleImage :src="paramsForm.img" :preview="false" @get-img-url="setCover"></SingleImage>
                     </Form-item>
                     <Form-item label="跳转链接：">
                         <Input v-model="paramsForm.url"></Input>
@@ -226,9 +226,7 @@
                 { name: '板块列表', path: '/Examples/SectionList' },
                 { name: '内容管理', path: '' }
             ]);
-            this.parentId = GetUrlQuery('id'); 
-            // 初始化图片上传
-            Common.InitPicStore(this);
+            this.parentId = GetUrlQuery('id');
             // 获取内容列表
             this.getTableList();
             // 初始化表格内容
@@ -340,6 +338,7 @@
             // 保存数据
             saveThis(index){
                 this.editId = this.listData[index].id;
+                this.paramsForm.parentId = this.parentId; 
                 this.paramsForm.title = this.listData[index].title;
                 this.paramsForm.img = this.listData[index].img;
                 this.paramsForm.url = this.listData[index].url;
@@ -365,8 +364,7 @@
                 // 表单验证
                 this.$refs[name].validate((valid)=>{
                     if(valid){
-                        // 设置图片路径
-                        this.paramsForm.img = this.getImageUrl;
+                        
                         // 新增数据
                         this.addData();
                         // 延迟关闭
@@ -376,6 +374,10 @@
                     }
                     else this.$Message.error('提交失败！填写有误');
                 })
+            },
+            // 设置封面图片
+            setCover(url){
+                this.paramsForm.img = url;
             },
             // 无法显示图片
             notFoundPic(event){

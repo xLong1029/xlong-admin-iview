@@ -102,6 +102,11 @@
         components: { vueCropper },
         // 获取父级传值
         props: {
+            // 图片Url
+            src:{
+                type: String,
+                default: ''
+            },
             // 是否可预览
             preview:{
                 type: Boolean,
@@ -155,6 +160,17 @@
                 cropImgUrl: '',
                 // 获取图片显示路径
                 getImageUrl: ''
+            }
+        },
+        watch: {
+			src(val) {
+				this.getImageUrl = val;
+			}
+        },
+        created() {
+            if(this.src !== ''){
+                this.showUploadBtn = false;
+                this.getImageUrl = this.src;
             }
         },
         methods: {
