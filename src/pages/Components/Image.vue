@@ -130,7 +130,7 @@
                         <Input v-model="addUrlPart.url" style="width:460px" placeholder="请输入需要展示的图片链接"></Input>
                     </Form-item>
                     <Button class="fl g-mr10" type="primary" style="margin-top:2px" @click="addShowImgUrl('addUrlPart')">新增</Button>
-                    <Button class="fl" type="ghost" style="margin-top:2px" @click="clearForm('addUrlPart', 3)">重置</Button>
+                    <Button class="fl" type="ghost" style="margin-top:2px" @click="clearForm('addUrlPart', 4)">重置</Button>
                     <div class="clearfix"></div>
                 </Form>
                 <!-- 图片链接展示 -->
@@ -280,6 +280,11 @@
                         this.mUploadAttr.maxNum = 5;
                         break;
                     case 3:
+                        this.imgCropAttr.preview = true;
+                        this.imgCropAttr.sizeHint = '';
+                        this.imgCropAttr.fileSize = 150;
+                        break;
+                    case 4:
                         break;
                     default: console.log('清空type传值出错');
                 }                

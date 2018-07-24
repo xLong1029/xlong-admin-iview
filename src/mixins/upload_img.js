@@ -54,9 +54,9 @@ export default {
         },
         // 上传文件
         uploadFile(file){
-            // 显示进度条
+            console.log(file);
             this.progressShow();
-            
+
             // 设置定时器累增进度条百分比
             let progress = setInterval(() => {
                 if(this.percentage == 90) clearInterval(progress);
