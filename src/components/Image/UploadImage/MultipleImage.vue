@@ -43,14 +43,17 @@
     import UploadImg from 'mixins/upload_img.js'
     // axios
     import axios from 'axios'
-    // Vuex
-    import { mapGetters } from 'vuex'
 
     export default {
         name: 'multipleImage',
         mixins: [ UploadImg ],
         // 获取父级传值
         props: {
+            // 默认图片显示路径
+            imgList:{
+                type: Array,
+                default: () => []
+            },
             // 是否可预览
             preview:{
                 type: Boolean,
@@ -72,14 +75,15 @@
                 default: 5
             }
         },
-        computed: {
-            ...mapGetters([
-                // 获取图片显示路径
-                'getImageUrlArr',
-            ])
+        watch: {
+			imgList(val) {
+				this.getImageUrlArr = val;
+			}
         },
         data () {
             return {
+                // 获取图片显示路径
+                getImageUrlArr: [],
                 // 上传加载
                 loading: false,
                 // 显示图片URL
@@ -106,8 +110,10 @@
             removeImage(img, index){
                 // 移除对应索引位置的图片
                 this.urlArr.splice(index, 1);
+                // 传给父组件url
+                this.$emit('get-img-list', this.urlArr);
                 // 更新多图片显示路径
-                this.$store.commit('SET_IMAGE_URL_ARR', this.urlArr);
+                // this.$store.commit('SET_IMAGE_URL_ARR', this.urlArr);
             },
             // 上传文件
             uploadFile(file){
@@ -140,8 +146,10 @@
                 .then(res => {
                     let url = Common.UPLOAD_URL + res.data.hash;
                     this.urlArr.push(url);
+                    // 传给父组件url
+                    this.$emit('get-img-list', this.urlArr);
                     // 更新多图片显示路径
-                    this.$store.commit('SET_IMAGE_URL_ARR', this.urlArr);
+                    // this.$store.commit('SET_IMAGE_URL_ARR', this.urlArr);
                     // 停止加载和隐藏进度
                     this.progressHide();
                     this.percentage = 100;

@@ -7,15 +7,12 @@ const common = {
 		breadcrumb: [{
 			name: '首页',
 			path: '/Home'
-		}],
-		// 获取多图片显示路径
-		getImageUrlArr: [],
+		}]
 	},
 	// 计算属性
 	getters: {
 		sidebarSpan: state => state.sidebarSpan,
-		breadcrumb: state => state.breadcrumb,
-		getImageUrlArr: state => state.getImageUrlArr,
+		breadcrumb: state => state.breadcrumb
 	},
 	// 用来处理数据的函数，只能同步操作
 	mutations: {
@@ -24,10 +21,7 @@ const common = {
 	    },
 	    SET_BREADCRUMB: (state, breadcrumb) => {
 	      state.breadcrumb = breadcrumb;
-		},
-		SET_IMAGE_URL_ARR: (state, getImageUrlArr) => {
-		  state.getImageUrlArr = getImageUrlArr;
-		},
+		}
 	},
 }
 

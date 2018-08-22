@@ -43,7 +43,7 @@
         <h2 class="m-title">多图片上传</h2>
         <div class="m-content">
             <div class="m-compo-part">
-                <MultipleImage :preview="mUploadAttr.preview" :size-hint="mUploadAttr.sizeHint" :file-size="mUploadAttr.fileSize" :max-num="mUploadAttr.maxNum"></MultipleImage>
+                <MultipleImage :img-list="mUploadAttr.imgList" :preview="mUploadAttr.preview" :size-hint="mUploadAttr.sizeHint" :file-size="mUploadAttr.fileSize" :max-num="mUploadAttr.maxNum" @get-img-list="setImgList"></MultipleImage>
                 <div class="m-desc">
                     <p>组件包含属性：</p>
                     <p>1. preview，是否可预览。Boolean类型，默认值为false，不可预览</p>
@@ -223,8 +223,12 @@
                     fileSize: 150,
                     setFileSize: ''
                 },
+                a:{
+                    imgList: []
+                },
                 /* 多图片上传 */
                 mUploadAttr: {
+                    imgList: [],
                     preview: true,
                     setPreview: 'true',
                     sizeHint: '',
@@ -351,6 +355,10 @@
                         break;
                     default: console.log('清空type传值出错');
                 }                
+            },
+            // 获取多图片上传路径
+            setImgList(value){
+                this.mUploadAttr.imgList = value;
             }
         }
     }
