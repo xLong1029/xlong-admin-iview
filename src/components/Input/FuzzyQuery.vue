@@ -30,10 +30,17 @@
 <script>
     // Json数据
     import JsonData from 'mock/data.json'
-    // import { mapState } from 'vuex'
         
     export default {
         name: 'fuzzyQuery',
+        // 获取父级传值
+        props: {
+            // 绑定值
+            model:{
+                type: String,
+                default: ''
+            },
+        },
         computed: {
             // 旧版本方法
             // ...mapState({
@@ -44,11 +51,12 @@
             value: {
                 // getter  
                 get: function() {
-                    return this.$store.state.common.companyName
+                    console.log(this.model);
+                    return this.model;
                 },  
                 // setter  
-                set: function(newValue) {
-                    this.$store.state.common.value = newValue;
+                set: function(val) {
+                    this.$emit('on-change', val);
                 }
             } 
         },
@@ -120,7 +128,9 @@
                 // 开始查询
                 if(this.startInput){
                     // 更新输入框的值
-                    this.$store.commit('SET_COMPANY_NAME', text);
+                    // this.$store.commit('SET_COMPANY_NAME', text);  // 原来是用store存值的，现在不用了
+                    this.$emit('on-change', text);
+
                     this.state = -1;
                     this.getSelect = false;
                     console.log('get search word:' + text);
@@ -140,7 +150,9 @@
                 // 当前选项索引
                 this.selectIndex = index;
                 // 更新输入框的值
-                this.$store.commit('SET_COMPANY_NAME', text);
+                // this.$store.commit('SET_COMPANY_NAME', text);  // 原来是用store存值的，现在不用了
+                this.$emit('on-change', text);
+
                 // 隐藏下拉框
                 this.showList = false;
                 this.getSelect = true;

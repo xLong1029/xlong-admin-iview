@@ -54,7 +54,7 @@
                         // Icon的type属性
                         icon: 'ios-keypad',
                         // Submenu显示文本
-                        text: '组件',
+                        text: '自定义组件',
                         // menu-item 参数
                         menuItem: [
                             {

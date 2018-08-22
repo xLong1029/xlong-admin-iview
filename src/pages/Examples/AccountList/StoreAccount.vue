@@ -49,7 +49,7 @@
                     <Col span="12">
                         <Form-item label="企业名称：">
                             <!-- 组件-匹配企业名称 -->
-                            <CompanyName type="1"></CompanyName>
+                            <CompanyName :model="infoForm.companyName" @on-change='changeCompanyName'></CompanyName>
                         </Form-item>                        
                         <Form-item label="专业领域：" prop="profession">
                             <CheckboxGroup v-model="professionValue" @on-change="checkProfess">
@@ -104,15 +104,10 @@
     // Json数据
     import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'
-    // Vuex
-    import { mapGetters } from 'vuex'
     
     export default {
         components: { Loading, CompanyName, SingleImage },
         mixins: [ CitySelect, EmailComplete ],
-        computed: {
-            ...mapGetters(['companyName' ])
-        },
         data() {
             return {
                 // 加载页面
@@ -223,8 +218,6 @@
             }
         },
         created() {
-            // 初始化输入框
-            Common.InitInputStore(this);
             // 获取本地“职位”列表
             this.jobList = JsonData.job;    
             // 获取本地“专业领域”列表
@@ -259,8 +252,6 @@
                     if (valid) {
                         // 页面加载
                         this.pageLoading = true;
-
-                        this.infoForm.companyName = this.companyName;
 
                         // 格式化出生日期和工作时间
                         this.infoForm.birthdate = this.dateFormat(this.infoForm.birthdate);
@@ -355,6 +346,11 @@
             setFace(url){
                 console.log(url);
                 this.infoForm.face = url;
+            },
+            // 改变企业名称
+            changeCompanyName(value){
+                this.infoForm.companyName = value;
+                console.log(value);
             }
         }
     }

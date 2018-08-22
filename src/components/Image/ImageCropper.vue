@@ -7,7 +7,7 @@
             <div v-if="preview" class="upload-mask">
                 <Icon type="eye" @click.native="viewImage" style="margin-right:15px;"></Icon>
                 <Icon type="edit" @click.native="uploadClick"></Icon>
-            </div>
+            </div>            
         </div>
         <div class="clearfix"></div>
         <!-- 上传按钮 -->
@@ -15,10 +15,12 @@
             <Icon type="camera" size="20"></Icon>
             <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
         </div>
+        <div class="clearfix"></div>
         <!-- 上传进度条  -->
         <template v-if="uploadStatus != 'finished'">
             <Progress v-if="showProgress" :percent="percentage" hide-info :stroke-width="3" style="width:340px;"></Progress>
         </template>
+        <br/>
         <!-- 图片格式提示 -->
         <span class="hint">
             * 图片格式要求：jpg、jpeg、png，
@@ -404,5 +406,9 @@
         button{
             margin-right: 10px;
         }
+    }
+
+    .upload-show{
+        margin-bottom: 0;
     }
 </style>

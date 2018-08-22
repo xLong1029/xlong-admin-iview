@@ -17,11 +17,11 @@ const common = {
 	},
 	// 计算属性
 	getters: {
-			sidebarSpan: state => state.sidebarSpan,
-			breadcrumb: state => state.breadcrumb,
-			getImageUrlArr: state => state.getImageUrlArr,
-			inputValue: state => state.inputValue,
-			companyName: state => state.companyName,
+		sidebarSpan: state => state.sidebarSpan,
+		breadcrumb: state => state.breadcrumb,
+		getImageUrlArr: state => state.getImageUrlArr,
+		inputValue: state => state.inputValue,
+		companyName: state => state.companyName,
 	},
 	// 用来处理数据的函数，只能同步操作
 	mutations: {
