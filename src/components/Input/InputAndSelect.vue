@@ -5,7 +5,7 @@
             ref="inputBox"
             placeholder="请输入快递公司"
             class="input-select ivu-input"
-            v-model="inputValue"
+            v-model="value"
             @click="toggleDropDownList"
             @blur="hideDropDownList"
         />
@@ -30,18 +30,35 @@
     import JsonData from 'mock/data.json'
     export default {
         name: 'inputAndSelect',
-        // 获取父组件传值direction，top：向上显示列表，down：向下显示列表
+        // 获取父组件传值
         props: {
-            // 设置默认值
+            // 绑定值
+            model:{
+                type: String,
+                default: ''
+            },
+            // 列表显示方向，top：向上显示列表，down：向下显示列表
             direction:{
                 type: String,
                 default: 'down'
-            }, 
+            },
+        },
+        computed: {
+            // vue最近更新了版本，要求必须在计算属性里加上setter，否则报错[Vue warn]: Computed property "value" was assigned to but it has no setter.
+            // 旧版本不用
+            value: {
+                // getter  
+                get: function() {
+                    return this.model;
+                },  
+                // setter  
+                set: function(val) {
+                    this.$emit('on-change', val);
+                }
+            } 
         },
         data () {
             return {
-                // 输入框的值
-                inputValue: '',
                 // 当前选项索引
                 // -404：表示无匹配数据
                 selectIndex: -404,
@@ -72,9 +89,9 @@
             // 选择下拉选项
             selectDropDownItem(item, index){
                 // 获取选项值
-                this.inputValue = item.label;
+                // this.value = item.label;
                 // 更新输入框存储的值
-                this.$store.commit('SET_INPUT_VALUE', this.inputValue);
+                this.$emit('on-change', item.label);
                 // 当前选项索引
                 this.selectIndex = index;
                 // 隐藏下拉框
@@ -127,12 +144,12 @@
                 if(!this.checkValue()) this.showList = false;
                 this.$refs.inputAndSelect.setAttribute('class', 'f-input-and-select');
                 // 更新输入框存储的值
-                this.$store.commit('SET_INPUT_VALUE', this.inputValue);
+                this.$emit('on-change', this.value);
                 
             },
             // 检测输入数据是否与选项相等
             checkValue(){
-                if(this.selectIndex != -404 && this.inputValue != this.optionList[this.selectIndex].label){
+                if(this.selectIndex != -404 && this.value != this.optionList[this.selectIndex].label){
                     this.selectIndex = -404;
                     return false;
                 }

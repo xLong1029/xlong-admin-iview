@@ -107,11 +107,6 @@ export default {
         //控制不要一直跳动
         event.currentTarget.onerror = null;
     },
-    // 初始化输入框存储
-    InitInputStore: (_this) => {
-        _this.$store.commit('SET_COMPANY_NAME', '');
-        _this.$store.commit('SET_INPUT_VALUE', '');
-    },
     // 启动全屏
     LaunchFullScreen: (element) => {
         if(element.requestFullscreen) element.requestFullscreen();

@@ -42,16 +42,11 @@
             },
         },
         computed: {
-            // 旧版本方法
-            // ...mapState({
-            //     value: state => state.common.companyName,
-            // }),
             // vue最近更新了版本，要求必须在计算属性里加上setter，否则报错[Vue warn]: Computed property "value" was assigned to but it has no setter.
             // 旧版本不用
             value: {
                 // getter  
                 get: function() {
-                    console.log(this.model);
                     return this.model;
                 },  
                 // setter  

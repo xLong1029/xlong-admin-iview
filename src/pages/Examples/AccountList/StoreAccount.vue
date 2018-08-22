@@ -49,7 +49,7 @@
                     <Col span="12">
                         <Form-item label="企业名称：">
                             <!-- 组件-匹配企业名称 -->
-                            <CompanyName :model="infoForm.companyName" @on-change='changeCompanyName'></CompanyName>
+                            <CompanyName :model="infoForm.companyName" @on-change='getCompanyName'></CompanyName>
                         </Form-item>                        
                         <Form-item label="专业领域：" prop="profession">
                             <CheckboxGroup v-model="professionValue" @on-change="checkProfess">
@@ -347,8 +347,8 @@
                 console.log(url);
                 this.infoForm.face = url;
             },
-            // 改变企业名称
-            changeCompanyName(value){
+            // 获取企业名称改变值
+            getCompanyName(value){
                 this.infoForm.companyName = value;
                 console.log(value);
             }
