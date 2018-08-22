@@ -2,7 +2,7 @@
 
 > a management system for testing only
 
-需配置到服务器上才可访问
+需配置到服务器上才可正常访问
 
 ## 项目说明
 该项目为单页应用测试项目，请勿商用。
