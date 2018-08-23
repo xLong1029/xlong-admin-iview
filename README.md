@@ -25,6 +25,10 @@ Bmob的图片上传SDK有跨域问题，所以改用七牛云存储，需要配�
 
 ![Image text](static/images/screen-3.gif)
 
+* 图片裁剪功能
+
+![Image text](static/images/screen-7.gif)
+
 * 自定义侧边栏功能
 
 ![Image text](static/images/screen-4.gif)
