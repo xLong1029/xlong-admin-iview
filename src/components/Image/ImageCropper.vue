@@ -148,16 +148,8 @@
         },
         data () {
             return {
-                // 是否显示弹窗
-                showModal: false,
                 // 是否显示上传按钮
                 showUploadBtn: true,
-                // 可接受的图片上传格式
-                format: ['image/jpg', 'image/jpeg', 'image/png'],
-                // 上传状态，上传成功完成为finished
-                uploadStatus: '',
-                // 是否显示进度条
-                showProgress: false,
                 // 裁剪图片弹窗
                 cropImgModel: {
                     title: '裁剪图片',

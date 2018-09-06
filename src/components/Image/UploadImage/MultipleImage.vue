@@ -84,18 +84,6 @@
             return {
                 // 获取图片显示路径
                 getImageUrlArr: [],
-                // 上传加载
-                loading: false,
-                // 显示图片URL
-                showImgUrl: '',
-                // 显示对话框
-                showModal: false,
-                // 可接受的图片上传格式
-                format: ['image/jpg', 'image/jpeg', 'image/png'],
-                // 上传状态，上传成功完成为finished
-                uploadStatus: '',
-                // 是否显示进度条
-                showProgress: false,
                 // 保存url的数组
                 urlArr: [],
             }

@@ -71,16 +71,6 @@
         },
         data () {
             return {
-                // 上传加载
-                loading: false,
-                // 是否显示弹窗
-                showModal: false,
-                // 可接受的图片上传格式
-                format: ['image/jpg', 'image/jpeg', 'image/png'],
-                // 上传状态，上传成功完成为finished
-                uploadStatus: '',
-                // 是否显示进度条
-                showProgress: false,
                 // 获取图片显示路径
                 getImageUrl: ''
             }
