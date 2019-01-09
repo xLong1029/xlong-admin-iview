@@ -1,6 +1,23 @@
 import Common from 'common/common.js'
 
 export default {
+    // 通用设置
+    common: (h, params, _this, funName, btnName, btnType, marginR) => h('Button', {
+        props: {
+            type: btnType,
+            size: 'small'
+        },
+        style: {
+            minWidth: '64px',
+            marginRight: marginR,
+        },
+        on: {
+            // 点击跳转到详情页
+            click: () => {
+                _this[funName](params);
+            }
+        }
+    }, btnName),
     // 查看详情
     gotoDetail: (h, params, _this , btnName, routeName, marginR) => h('Button', {
         props: {
