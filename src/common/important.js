@@ -85,13 +85,8 @@ export function Decrypt(value){
 }
 // 数组深克隆
 export function CopyArr(arr){
-    return arr.map((e)=>{
-        if(typeof e === 'object'){
-            return Object.assign({},e)
-        }else{
-            return e
-        }
-    })
+    let copy = JSON.stringify(arr);
+    return JSON.parse(copy);
 }
 // 数组转字符串：arr 字符串，l 拼接符
 export function ArrToAtr(arr, l){
