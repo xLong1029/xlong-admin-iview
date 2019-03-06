@@ -112,7 +112,7 @@
                     for(let j = 0 ; j < submenu[i].menuItem.length; j ++){
                         // 获取Submenu的下Menu-item的name
                         let activeName = submenu[i].menuItem[j].name;
-                        if(window.location.href.indexOf(activeName) != -1){
+                        if(this.$route.name == activeName){
                             this.openNames = [submenu[i].name];
                             this.activeName = activeName;
                             stop = true;

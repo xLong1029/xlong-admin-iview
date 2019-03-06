@@ -86,7 +86,7 @@
                         for(let j = 0 ; j < menu[i].submenu.length; j ++){
                             // 获取二级菜单路由name        			
                             activeName = menu[i].submenu[j].name;
-                            if(window.location.href.indexOf(activeName) != -1){                            
+                            if(this.$route.name == activeName){                            
                                 this.nowActive = activeName;                            
                                 // 激活当前菜单
                                 this.setActive(i, j);
@@ -103,7 +103,7 @@
                     else{
                         // 获取一级菜单路由name
                         activeName = menu[i].name;
-                        if(window.location.href.indexOf(activeName) != -1){                            
+                        if(this.$route.name == activeName){                            
                             this.nowActive = activeName;                            
                             // 激活当前菜单
                             this.setActive(i, 0);
