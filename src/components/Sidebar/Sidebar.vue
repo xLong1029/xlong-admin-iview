@@ -1,27 +1,29 @@
 <template>
     <ul class="m-xl-menu-list">
-        <li v-for="(menu, i) in MenuList" :key="i" :class="['xl-menu-item', menu.submenu.length > 0 ? 'xl-menu-submenu' : '', activeName == menu.name ? 'xl-menu-active' : '']">
+        <li v-for="(menu, i) in menuList" :key="i" :class="['xl-menu-item', menu.submenu ? 'xl-menu-submenu' : '', activeName == menu.name ? 'xl-menu-active' : '']">
+            <!-- 一级菜单列表-含二级菜单 -->
+            <div v-if="menu.submenu">
+                <div class="xl-menu-submenu-title" @click="selectMenu(i)">
+                    <Icon :type="menu.icon"></Icon>
+                    <span class="xl-menu-submenu-title__text">{{ menu.text }}</span>
+                    <Icon class="xl-menu-submenu-title-icon" type="ios-arrow-down"></Icon>
+                </div>
+                <!-- 二级子菜单列表 -->
+                <ul class="m-xl-submenu-list">
+                    <li v-for="(item, index) in menu.submenu" :key="index" class="xl-submenu-item">
+                        <div class="xl-submenu-title" @click="selectSubmenu(i, index)">
+                            <router-link :to="{ name: item.name }" >{{ item.text }}</router-link>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <!-- 一级菜单列表-无二级菜单 -->
-            <div v-if="menu.submenu.length <= 0" class="xl-menu-title" @click="selectMenu(i)">
+            <div v-else class="xl-menu-title" @click="selectMenu(i)">
                 <router-link :to="{ name: menu.name }" >
                     <Icon :type="menu.icon"></Icon>
-                    {{ menu.text }}
+                    <span class="xl-menu-title__text">{{ menu.text }}</span>
                 </router-link>
             </div>
-            <!-- 一级菜单列表-含二级菜单 -->
-            <div v-else class="xl-menu-submenu-title" @click="selectMenu(i)">
-                <Icon :type="menu.icon"></Icon>
-                {{ menu.text }}
-                <Icon class="xl-menu-submenu-title-icon" v-if="menu.submenu.length > 0" type="ios-arrow-down"></Icon>
-            </div>
-            <!-- 二级子菜单列表 -->
-            <ul v-if="menu.submenu.length > 0" class="m-xl-submenu-list">
-                <li v-for="(item, index) in menu.submenu" :key="index" class="xl-submenu-item">
-                    <div class="xl-submenu-title" @click="selectSubmenu(i, index)">
-                        <router-link :to="{ name: item.name }" >{{ item.text }}</router-link>
-                    </div>
-                </li>
-            </ul>
         </li>
     </ul>
 </template>
@@ -36,7 +38,7 @@
             type: String,
             default: ''
         },
-        MenuList:{
+        menuList:{
             type: Array,
             // 警告提示数组/对象默认值应当以一个函数返回 Object/Array must use a factory function to return the default value.
             default: function(){
@@ -75,11 +77,11 @@
         setSideBar(){
             let stop = false;
             let activeName = '';
-            const menu = this.MenuList;
+            const menu = this.menuList;
             // 遍历menu
             for(let i = 0 ; i < menu.length ; i ++){
                 if(!stop){
-                    if(menu[i].submenu.length > 0){
+                    if(menu[i].submenu){
                         // 遍历menu下的menu-item
                         for(let j = 0 ; j < menu[i].submenu.length; j ++){
                             // 获取二级菜单路由name        			
@@ -124,7 +126,7 @@
             this.activeMenu(item);
 
             let child = item.find('.m-xl-submenu-list');
-            if(child.length > 0){
+            if(child){
                 let activeItem = child.find('.xl-submenu-title').eq(subIndex);
                 if(activeItem.hasClass('xl-submenu-active')) return;
                 child.css('display','block');
@@ -142,7 +144,7 @@
             let item = $('.xl-menu-item').eq(index);
             let child = item.find('.m-xl-submenu-list');
             // 判断是否有子菜单
-            if(child.length > 0){
+            if(child){
                 if(item.hasClass('xl-menu-active')){
                     item.removeClass('xl-menu-active');
                     child.slideUp(250);

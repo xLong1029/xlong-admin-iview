@@ -5,7 +5,7 @@
         <div class="m-content">
             <Row class="m-sidebar-cont">
                 <Col span="4">
-                    <Sidebar :active-name="activeName" :menu-list="MenuList"></Sidebar>
+                    <Sidebar :active-name="activeName" :menu-list="menuList"></Sidebar>
                 </Col>
                 <Col span="20">
                     <router-view></router-view>
@@ -16,7 +16,7 @@
                 <p>&nbsp;</p>
                 <p>组件包含属性：</p>
                 <p>1. activeName，第一次加载激活的一级菜单对应路由name。String类型，默认值为"Home"</p>
-                <p>2. MenuList，菜单列表数据。Array类型，默认值对应路由为"Home"。数据格式如下：</p>
+                <p>2. menuList，菜单列表数据。Array类型，默认值对应路由为"Home"。数据格式如下：</p>
                 <pre>
                 [
                     {
@@ -54,12 +54,11 @@
                 // 第一次加载激活的一级菜单对应路由name
                 activeName: 'PageOne',
                 // 菜单列表
-                MenuList: [
+                menuList: [
                     {
                         name: 'PageOne',
                         icon: 'navicon-round',
-                        text: '一级菜单-1',
-                        submenu: []
+                        text: '一级菜单-1'
                     },
                     {
                         name: 'TestTwo',

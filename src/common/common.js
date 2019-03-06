@@ -14,7 +14,7 @@ export default {
     // 获取七牛云上传Token，参数分别为：AccessKey，SecretKey，bucketName
     // 这里仅作测试使用，实际项目使用时请换上你自己的AccessKey，SecretKey和bucketName
     UPLOAD_TOKEN: genUpToken('d4N11KEZxF2QFo9is4DFKGXRFfdyhFuAbNRYqzP0', 'WL8EjjlXTovSJ2WTMxZLiat_gO936zBxKaHMA4lv', 'imagestore'),
-    // 上传文件显示的测试地址
+    // 上传文件显示的测试域名，测试地域名已回收，请改用你的自定义域名
     UPLOAD_URL: 'http://ovw49042e.bkt.clouddn.com/',
 
     /* 通用正则表达式 */
