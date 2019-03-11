@@ -145,7 +145,6 @@
             let child = item.find('.m-xl-submenu-list');
             // 判断是否有子菜单
             if(child.length){
-                console.log(child);
                 if(item.hasClass('xl-menu-active')){
                     item.removeClass('xl-menu-active');
                     child.slideUp(250);
