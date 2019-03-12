@@ -107,8 +107,8 @@ export default {
         let query = new Bmob.Query(DataTable);
         return new Promise((resolve, reject) => {
             query.get(objectId, {
-                success: (res) => resolve({ code: 200, data: res }),
-                error: (err) => reject(err)
+                success: res => resolve({ code: 200, data: res }),
+                error: err => reject(err)
             });
         });
     },
@@ -122,7 +122,7 @@ export default {
             // 添加数据，第一个入口参数是Json数据
             obj.save(params, {
                 success: res => resolve({ code: 200, data: res }),
-                error: (res, err) => reject(err)
+                error: err => reject(err)
             });
         });
     },
@@ -133,7 +133,7 @@ export default {
         // 获取对象并删除
         return new Promise((resolve, reject) => { 
             query.get(objectId, {
-                success: (obj) => {
+                success: obj => {
                     if(obj == undefined){
                         resolve({ code: 404, msg: '无该id数据可获取！' });
                         return false;
@@ -143,7 +143,7 @@ export default {
                         error: (res, err) => resolve(err)
                     });
                 },
-                error: (obj, err) => console.log('无法通过该objectId获取数据')
+                error: () => console.log('无法通过该objectId获取数据')
             });
         });
     },
@@ -154,7 +154,7 @@ export default {
         // 获取对象并修改
         return new Promise((resolve, reject) => { 
             query.get(objectId, {
-                success: (obj) => {
+                success: obj => {
                     if(obj == undefined){
                         resolve({ code: 404, msg: '无该id数据可获取！' });
                         return false;
@@ -165,7 +165,7 @@ export default {
                         err: err => reject(err)
                     });
                 },
-                error: (obj, err) => console.log('无法通过该objectId获取数据')
+                error: () => console.log('无法通过该objectId获取数据')
             });
         });
     },
@@ -181,13 +181,13 @@ export default {
             // 遍历删除
             for(var objectId of objectIds){
                 query.get(objectId, {
-                    success: (obj) => {
+                    success: obj => {
                         obj.destroy({
                             success: (res) => { succObj.push(res); },
                             error: (res, err) => { failObj.push(err); fail = true; }
                         });
                     },
-                    error: (obj, err) => console.log('获取对象失败')
+                    error: () => console.log('获取对象失败')
                 });
             }
             // 延迟判断
@@ -209,14 +209,14 @@ export default {
             // 遍历删除
             for(var objectId of objectIds){
                 query.get(objectId, {
-                    success: (obj) => {
+                    success: obj => {
                         // 设置并保存数据
                         obj.save(params, {
                             success: (res) => { succObj.push(res); },
                             error: (res, err) => { failObj.push(err); fail = true; }
                         });
                     },
-                    error: (obj, err) => console.log('获取对象失败')
+                    error: () => console.log('获取对象失败')
                 });
             }
             // 延迟判断
