@@ -77,7 +77,9 @@ export default {
 		},
 		// 获取筛选列表
 		getFilterList(){
-			if(this.queryForm.eTime == '') this.queryForm.eTime = (new Date()).toLocaleDateString();
+			if(this.queryForm.sTime != '' && this.queryForm.eTime == ''){
+				this.queryForm.eTime = (new Date()).toLocaleDateString();
+			}
 			this.apiGetFilter()
 			.then(res => {
 			    this.pageLoading = false;
