@@ -2,33 +2,35 @@
     <div class="g-content">
         <!--  加载判断 -->
         <Loading v-if="pageLoading"></Loading>
-        <Form ref="infoForm" :model="infoForm" :rules="validate" :label-width="100">
-            <Form-item label="文章标题：" prop="title">
-                <Input v-model="infoForm.title" placeholder="请输入文章标题"></Input>
-            </Form-item>
-            <Form-item label="文章标签：" prop="tags">
-                <Select v-model="infoForm.tags" multiple placeholder="请选择文章标签(可多选)">
-                    <Option v-for="item in tagList" :value="item.name" :key="item.id">{{ item.name }}</Option>
-                </Select>
-            </Form-item>
-            <Form-item label="文章内容：" prop="content">
-                <quill-editor
-                    class="instruction-editor"
-                    v-model="infoForm.content"
-                    ref="myQuillEditor"
-                    :options="editorOption"
-                    @ready="onEditorReady($event)"
-                >
-                </quill-editor>
-            </Form-item>
-            <!-- 操作按钮 -->
-            <div class="m-operation">
-                <Button v-if="pageType == 'edit'" class="fr" type="primary" @click="submit('infoForm')">确认修改</Button>
-                <Button v-else class="fr" type="primary" @click="submit('infoForm')">确认新增</Button>
-                <Button class="fr" type="ghost" @click="$router.go(-1)">返回</Button>
-                <div class="clearfix"></div>
-            </div>
-        </Form>
+        <div v-else>
+            <Form ref="infoForm" :model="infoForm" :rules="validate" :label-width="100">
+                <Form-item label="文章标题：" prop="title">
+                    <Input v-model="infoForm.title" placeholder="请输入文章标题"></Input>
+                </Form-item>
+                <Form-item label="文章标签：" prop="tags">
+                    <Select v-model="infoForm.tags" multiple placeholder="请选择文章标签(可多选)">
+                        <Option v-for="item in tagList" :value="item.name" :key="item.id">{{ item.name }}</Option>
+                    </Select>
+                </Form-item>
+                <Form-item label="文章内容：" prop="content">
+                    <quill-editor
+                        class="instruction-editor"
+                        v-model="infoForm.content"
+                        ref="myQuillEditor"
+                        :options="editorOption"
+                        @ready="onEditorReady($event)"
+                    >
+                    </quill-editor>
+                </Form-item>
+                <!-- 操作按钮 -->
+                <div class="m-operation">
+                    <Button v-if="pageType == 'edit'" class="fr" type="primary" @click="submit('infoForm')">确认修改</Button>
+                    <Button v-else class="fr" type="primary" @click="submit('infoForm')">确认新增</Button>
+                    <Button class="fr" type="ghost" @click="$router.go(-1)">返回</Button>
+                    <div class="clearfix"></div>
+                </div>
+            </Form>
+        </div>
     </div>
 </template>
 
