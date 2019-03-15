@@ -4,7 +4,7 @@
         <Loading v-if="pageLoading"></Loading>
         <Form ref="infoForm" :model="infoForm" :rules="validate" :label-width="100">
             <Form-item label="文章标题：" prop="title">
-                <Input v-model="infoForm.title" placeholder="请输入产品名称"></Input>
+                <Input v-model="infoForm.title" placeholder="请输入文章标题"></Input>
             </Form-item>
             <Form-item label="文章标签：" prop="tags">
                 <Select v-model="infoForm.tags" multiple placeholder="请选择文章标签(可多选)">
@@ -184,12 +184,6 @@
 
 <style lang="less">
     @import "../../../assets/less/color";
-    .m-product-info{
-        background: #f5f5f5;
-        border-radius: 4px;
-        padding: 20px;
-    }
-
     .m-operation {
         button, a {
             min-width: 80px;
