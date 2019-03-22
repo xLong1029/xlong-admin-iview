@@ -343,7 +343,7 @@
                 this.paramsForm.img = this.listData[index].img;
                 this.paramsForm.url = this.listData[index].url;
                 // 编辑数据
-                this.EditData();
+                this.editData();
             },
             // 打开弹窗
             openModel(){

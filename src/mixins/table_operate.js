@@ -43,7 +43,7 @@ export default {
             }).catch(err => this.$Message.error('新增失败！'))
         },
         // 编辑数据
-        EditData(){
+        editData(){
             this.apiEdit().then(res => {
                 this.pageLoading = false;
                 if(res.code == 200){

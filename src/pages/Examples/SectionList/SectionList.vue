@@ -265,7 +265,7 @@
                         this.paramsForm.type = parseInt(this.paramsForm.type);
                         // 操作
                         if(type == 1) this.addData();
-                        else if(type == 2) this.EditData();
+                        else if(type == 2) this.editData();
                         // 延迟关闭
                         setTimeout(() => {
                             this.closeModal(name);
