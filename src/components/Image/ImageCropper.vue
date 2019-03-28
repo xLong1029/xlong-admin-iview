@@ -3,9 +3,9 @@
         <!-- 图片显示 -->
         <div v-if="getImageUrl != ''" class="upload-show">
             <div class="upload-img-wrap"><img class="upload-image" :src="getImageUrl" alt="图片加载失败" @error="notFoundPic"/></div>
-            <!-- 可预览遮罩 -->
-            <div v-if="preview" class="upload-mask">
-                <Icon type="eye" @click.native="viewImage" style="margin-right:15px;"></Icon>
+            <!-- 遮罩 -->
+            <div class="upload-mask">
+                <Icon v-if="preview" type="eye" @click.native="viewImage" style="margin-right:15px;"></Icon>
                 <Icon type="edit" @click.native="uploadClick"></Icon>
             </div>            
         </div>
