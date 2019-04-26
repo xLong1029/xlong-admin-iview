@@ -13,12 +13,10 @@ export default {
     // token: 用户token参数
     GetUserInfo: (token) => {
         let query = BmobServer.GetQuery('UserInfo');
-        query.equalTo('token', token);
+        query.equalTo('token', '==', token);
+
         return new Promise((resolve, reject) => {
-			query.first({
-                success: res => resolve({ code: 200, data: res }),
-                error: err => reject(err)
-            });
+            query.find().then(res => resolve({ code: 200, data: res[0] })).catch(err => reject(err));
 		});
     },
     // 修改个人资料

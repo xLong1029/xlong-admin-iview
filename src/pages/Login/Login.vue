@@ -80,11 +80,12 @@
                     if (valid) {
 						Api.Login(this.loginForm)
 						.then(res => {
+							console.log(res);
 							if(res.code == 200){
 								const result = res.data;
 								// token存cookie
-								SetCookie('xl_admin_t', result.attributes.token);
-								this.$store.commit('SET_USER_TOKEN', result.attributes.token);
+								SetCookie('xl_admin_t', result.token);
+								this.$store.commit('SET_USER_TOKEN', result.token);
 								// 判断是否记住密码
 								if (this.remeberPwd) {
 									// 本地存储用户名和密码

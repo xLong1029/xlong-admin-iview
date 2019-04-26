@@ -14,16 +14,13 @@ export default {
     },
     // 获取查询数据对象
     GetQuery: (tableName) => {
-        // 创建Bmob.Object子类
-        let DataTable = Bmob.Object.extend(tableName);
         // 创建查询对象，入口参数是对象类的实例
-        let query = new Bmob.Query(DataTable);
+        const query = Bmob.Query(tableName);
         return query;
     },
     // 根据分页查询数据
     PageQuery: (tableName, pageNo, pageSize) => {
-        let DataTable = Bmob.Object.extend(tableName);
-        let query = new Bmob.Query(DataTable);
+        let query = Bmob.Query(tableName);
         return new Promise((resolve, reject) => {
             query.find({
                 success: obj => {
@@ -103,8 +100,7 @@ export default {
     },
     // 获取一行数据
     GetOne: (tableName, objectId) => {
-        let DataTable = Bmob.Object.extend(tableName);
-        let query = new Bmob.Query(DataTable);
+        let query = Bmob.Query(tableName);
         return new Promise((resolve, reject) => {
             query.get(objectId, {
                 success: res => resolve({ code: 200, data: res }),
@@ -128,8 +124,7 @@ export default {
     },
     // 删除一行数据
     DelOne: (tableName, objectId) => {
-        let DataTable = Bmob.Object.extend(tableName);
-        let query = new Bmob.Query(DataTable);
+        let query = Bmob.Query(tableName);
         // 获取对象并删除
         return new Promise((resolve, reject) => { 
             query.get(objectId, {
@@ -149,8 +144,7 @@ export default {
     },
     // 修改一行数据
     EditOne: (tableName, objectId, params) => {
-        let DataTable = Bmob.Object.extend(tableName);
-        let query = new Bmob.Query(DataTable);
+        let query = Bmob.Query(tableName);
         // 获取对象并修改
         return new Promise((resolve, reject) => { 
             query.get(objectId, {
@@ -171,8 +165,7 @@ export default {
     },
     // 批量删除数据
     DelMore: (tableName, objectIds) => {
-        let DataTable = Bmob.Object.extend(tableName);
-        let query = new Bmob.Query(DataTable);
+        let query = Bmob.Query(tableName);
         // 删除成功或失败的对象集合
         let failObj = [], succObj = [];
         // 是否删除失败
@@ -199,8 +192,7 @@ export default {
     },
     // 批量修改数据
     EditMore: (tableName, objectIds, params) => {
-        let DataTable = Bmob.Object.extend(tableName);
-        let query = new Bmob.Query(DataTable);
+        let query = Bmob.Query(tableName);
         // 删除成功或失败的对象集合
         let failObj = [], succObj = [];
         // 是否删除失败

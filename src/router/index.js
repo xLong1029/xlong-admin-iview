@@ -98,9 +98,9 @@ const RouterMap = [
             // 文章列表-文章详情
             { path: '/Examples/StoreArticle', name: 'StoreArticle', component: StoreArticle },
             // 消息列表页面
-            { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },            
+            { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },
             // 404
-            { path: '/404', name: '404', component: Err404 },
+			{ path: '*', name: 'Err404', component: Err404 }
         ]
     }
 ]

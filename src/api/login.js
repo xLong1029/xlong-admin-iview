@@ -11,28 +11,18 @@ export default {
     // 登录
     // params: 参数对象
     Login : (params) => {
-        let query = BmobServer.GetQuery('Login');
-        // 两条查询语句一起写，就相当于AND查询
-        query.equalTo('username', params.username);
-        query.equalTo('password', params.password);
         return new Promise((resolve, reject) => {
-            // 仅获取一行数据
-			query.first({
-                success: res => resolve({ code: 200, data: res }),
-                error: err => reject(err)
-            });
+            Bmob.User.login(params.username, params.password).then(res => resolve({ code: 200, data: res })).catch(err => reject(err));
 		});
     },
     // 获取用户信息
     // token: 用户token参数
     GetUserInfo: (token) => {
         let query = BmobServer.GetQuery('UserInfo');
-        query.equalTo('token', token);
+        query.equalTo('token', '==', token);
+
         return new Promise((resolve, reject) => {
-			query.first({
-                success: res => resolve({ code: 200, data: res }),
-                error: err => reject(err)
-            });
+            query.find().then(res => resolve({ code: 200, data: res[0] })).catch(err => reject(err));
 		});
     }
 }

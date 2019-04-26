@@ -1,6 +1,23 @@
 import Api from 'api/login.js'
-import LoginCheck from 'common/login_check.js'
-import { GetCookie } from 'common/important'
+import { GetCookie, DelCookie } from 'common/important'
+
+// 设置账户信息
+function setAccount(_commit, info){
+	// 设置用户信息
+	_commit('SET_USER_FACE', info.userface);
+	_commit('SET_USER_NICKNAME', info.nickname);
+	_commit('SET_USER_ID', info.id);
+}
+
+// 清空账户信息
+function clearAccount(_commit){
+	// 清除token
+	DelCookie('xl_admin_t');
+	_commit('SET_USER_TOKEN', '');
+	_commit('SET_USER_FACE', '');
+	_commit('SET_USER_NICKNAME', '');
+	_commit('SET_USER_ID', '');
+}
 
 // 用户信息
 const user = {
@@ -40,19 +57,19 @@ const user = {
 	// 异步操作
 	actions: {
 			// Token验证
-			CheckToken ({ commit , state }) {
+			CheckToken ({ commit }) {
 					Api.GetUserInfo(GetCookie('xl_admin_t'))
 					.then(res => {
 							// 登录成功
-							if(res.code == 200) LoginCheck.setAccount(commit, res.data);
+							if(res.code == 200) setAccount(commit, res.data);
 							// 登录失败
-							else LoginCheck.clearAccount(commit);
+							else clearAccount(commit);
 					})
-					.catch(err => LoginCheck.clearAccount(commit))
+					.catch(() => clearAccount(commit))
 			},
 			// 登出
-			LogOut ({ commit, state }) {
-					LoginCheck.clearAccount(commit);           
+			LogOut ({ commit }) {
+					clearAccount(commit);           
 			},
 	}
 }

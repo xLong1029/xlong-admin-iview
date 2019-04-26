@@ -20,7 +20,8 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bomb 开发的单页面客户端�
 2. V2.0版本
 
     富文本编辑器改用Tinymce；
-    图片裁剪组件，裁剪后改用实时预览方式
+    图片裁剪组件，裁剪后改用实时预览方式；
+    Bomb改用依赖包引入方式
 
 ## 项目说明
 
@@ -100,6 +101,7 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bomb 开发的单页面客户端�
 │  │  |   Main.vue // 主框架
 │  │  |
 │  │  ├─Components // 组件展示相关页面
+│  │  ├─Error // 错误页面
 │  │  ├─Examplese // 操作示例相关页面
 │  │  ├─Home // 管理后台主页
 │  │  ├─Login // 登录相关页面

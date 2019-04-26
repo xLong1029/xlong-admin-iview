@@ -107,7 +107,7 @@
                     // 获取到数据
                     if(res.code == 200){
                         this.pageLoading = false;					
-                        this.infoForm = res.data.attributes;
+                        this.infoForm = res.data;
                     }
                     else this.$Message.error('无该用户数据!');
                 })
