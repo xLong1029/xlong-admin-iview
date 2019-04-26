@@ -161,18 +161,18 @@
             // 获取文章详情
             getDetail(){
                 this.pageLoading = false;
-                // Api.GetArtcDetail(this.articleId)
-                // .then(res => {                    
-                //     // 取消页面加载
-                //     this.pageLoading = false;
-                //     const result = res.data.attributes;                    
-                //     if(res.code == 200){
-                //         // 设置数据
-                //         this.infoForm = result;
-                //     }
-                //     else this.$Message.warning(res.msg);
-                // })
-                // .catch(err => console.log(err))
+                Api.GetArtcDetail(this.articleId)
+                .then(res => {                    
+                    // 取消页面加载
+                    this.pageLoading = false;
+                    const result = res.data.attributes;                    
+                    if(res.code == 200){
+                        // 设置数据
+                        this.infoForm = result;
+                    }
+                    else this.$Message.warning(res.msg);
+                })
+                .catch(err => console.log(err))
             },
             // 编辑器初始化
             onEditorReady(editor) {
