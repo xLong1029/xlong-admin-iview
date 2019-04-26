@@ -14,13 +14,10 @@ import './theme/index.less'
 import BmobServer from './bmob/bmob-server'
 // 获取cookie
 import { GetCookie } from './common/important'
-// 富文本编辑器
-import VueQuillEditor from 'vue-quill-editor'
 // 轮播图
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 
 Vue.use(iView)
-Vue.use(VueQuillEditor)
 Vue.use(VueAwesomeSwiper)
 Vue.config.productionTip = false
 

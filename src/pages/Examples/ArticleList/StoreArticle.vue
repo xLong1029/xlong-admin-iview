@@ -13,14 +13,8 @@
                     </Select>
                 </Form-item>
                 <Form-item label="文章内容：" prop="content">
-                    <quill-editor
-                        class="instruction-editor"
-                        v-model="infoForm.content"
-                        ref="myQuillEditor"
-                        :options="editorOption"
-                        @ready="onEditorReady($event)"
-                    >
-                    </quill-editor>
+                    <!-- 组件-富文本编辑器 -->
+                    <Tinymce v-model="infoForm.content" height="500" />
                 </Form-item>
                 <!-- 操作按钮 -->
                 <div class="m-operation">
@@ -37,22 +31,16 @@
 <script>
     // 组件
     import Loading from 'components/Common/Loading'
+    //导入富文本组件
+	import Tinymce from 'components/Common/Tinymce'
     // 通用JS
     import { GetUrlQuery } from 'common/important.js'
     // Api方法
     import Api from 'api/article_list.js'
     // Json数据
     import JsonData from 'mock/data.json'
-    // Vue-quill-editor
-    import Quill from 'quill'
-    // QullEditor图片上传配置
-    import { ImageImport } from 'qullEditor/ImageImport.js'
-    import { ImageResize } from 'qullEditor/ImageResize.js'
-    Quill.register('modules/imageImport', ImageImport)
-    Quill.register('modules/imageResize', ImageResize)
-    
     export default {
-        components: { Loading },
+        components: { Loading, Tinymce },
         data() {
             return {
                 // 加载页面
@@ -161,25 +149,18 @@
             // 获取文章详情
             getDetail(){
                 this.pageLoading = false;
-                // Api.GetArtcDetail(this.articleId)
-                // .then(res => {                    
-                //     // 取消页面加载
-                //     this.pageLoading = false;
-                //     const result = res.data.attributes;                    
-                //     if(res.code == 200){
-                //         // 设置数据
-                //         this.infoForm = result;
-                //     }
-                //     else this.$Message.warning(res.msg);
-                // })
-                // .catch(err => console.log(err))
-            },
-            // 编辑器初始化
-            onEditorReady(editor) {
-            },
-            // 编辑器内容改变
-            onEditorChange({ editor, html, text }) {
-                this.content = html
+                Api.GetArtcDetail(this.articleId)
+                .then(res => {                    
+                    // 取消页面加载
+                    this.pageLoading = false;
+                    const result = res.data.attributes;                    
+                    if(res.code == 200){
+                        // 设置数据
+                        this.infoForm = result;
+                    }
+                    else this.$Message.warning(res.msg);
+                })
+                .catch(err => console.log(err))
             }
         }
     }

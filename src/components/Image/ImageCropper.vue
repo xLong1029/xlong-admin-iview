@@ -51,8 +51,10 @@
             </div>
             <!-- 裁剪预览区域 -->
             <div class="img-preview-area">
-                <div class="preview">
-                    <img v-if="cropImgUrl" :src="cropImgUrl" alt="图片加载失败" @error="notFoundPic">
+                <div class="preview" :style="previewStyle"> 
+                    <div v-if="previews" :style="previews.div">
+                        <img :src="previews.url" :style="previews.img">
+                    </div>
                     <span v-else>裁剪预览区域</span>
                 </div>
             </div>
@@ -62,7 +64,7 @@
                 <Button type="primary" @click="changeScale(1)"><Icon type="plus"></Icon></Button>
                 <Button type="primary" @click="changeScale(-1)"><Icon type="minus"></Icon></Button>
                 <Button type="primary" @click="rotateRight"><Icon type="refresh"></Icon></Button>
-                <Button type="primary" @click="previewImg('blob')">预览</Button>
+                <!-- <Button type="primary" @click="previewImg('blob')">预览</Button> -->
             </div>
             <!-- 图片格式提示 -->
             <div style="margin-top:10px">
@@ -148,8 +150,6 @@
         },
         data () {
             return {
-                // 是否显示上传按钮
-                showUploadBtn: true,
                 // 裁剪图片弹窗
                 cropImgModel: {
                     title: '裁剪图片',
@@ -165,6 +165,8 @@
                 },
                 // 实时图片预览
                 previews: {},
+                // 预览样式
+                previewStyle: {},
                 // 裁剪图片url
                 cropImgUrl: '',
                 // 获取图片显示路径
@@ -234,10 +236,7 @@
                         this.$Notice.success({ title: '图片上传成功!' });
                     })
                     .catch(err => {
-                        // 停止加载和隐藏进度条
-                        this.progressHide();                 
-                        clearInterval(progress);
-                        this.$Notice.error({ title: '图片上传失败，请重试！' });
+                        this.errorTip(progress);
                         this.hideCropModel();
                     })
 				})
@@ -311,6 +310,14 @@
             // 实时预览函数
             realTime (data) {
                 this.previews = data;
+                // 设置预览样式，缩放显示
+                this.previewStyle = {
+                    width: data.w + "px",
+                    height: data.h + "px",
+                    overflow: "hidden",
+                    margin: "0 auto",
+                    zoom: 0.6
+                };
             },
             // 图片预览
             previewImg (type) {
@@ -347,25 +354,6 @@
 
 <style lang="less" scoped>
     @import "../../assets/less/upload_img";
-
-    .upload-btn{
-        width: 90px;
-        height: 90px;
-        line-height: 90px;
-        background: #fff;
-        border: 1px dashed #d7dde4;
-        border-radius: 4px;
-        text-align: center;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-        -webkit-transition: border-color .2s ease;
-        transition: border-color .2s ease;
-
-        &:hover{
-            border: 1px dashed #00c5a3;
-        }
-    }
 
     .img-cropper-area{
         width: 500px;

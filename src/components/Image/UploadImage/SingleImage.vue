@@ -5,13 +5,19 @@
             <div class="upload-img-wrap"><img class="upload-image" :src="getImageUrl" alt="图片加载失败" @error="notFoundPic"/></div>
             <!-- 遮罩 -->
             <div v-if="preview" class="upload-mask">
-                <Icon type="eye" @click.native="viewImage"></Icon>
+                <Icon v-if="preview" type="eye" @click.native="viewImage" style="margin-right:15px;"></Icon>
+                <Icon type="edit" @click.native="uploadClick"></Icon>
             </div>
         </div>
         <!-- 上传按钮 -->
-        <div>
+        <!-- <div>
             <Button type="ghost" :loading="loading" icon="ios-cloud-upload-outline" @click="uploadClick">上传图片</Button>
             <span class="size-hint" v-if="sizeHint">（图片尺寸： {{ sizeHint }}）</span>
+            <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
+        </div> -->
+        <!-- 上传按钮 -->
+        <div v-show="showUploadBtn" class="upload-btn" @click="uploadClick">
+            <Icon type="camera" size="20"></Icon>
             <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
         </div>
         <!-- 上传进度条  -->
@@ -112,14 +118,11 @@
                     this.progressHide();
                     this.percentage = 100;
                     clearInterval(progress);
+
+                    this.showUploadBtn = false;                    
                     this.$Notice.success({ title: '图片上传成功!' });
                 })
-                .catch(err => {
-                    // 停止加载和隐藏进度条
-                    this.progressHide();                 
-                    clearInterval(progress);                
-                    this.$Notice.error({ title: '图片上传失败，请重试！' });
-                })
+                .catch(err => this.errorTip(progress))
 
                 /* Bmob上传有跨域问题，不可用 */
                 // var this_file = new Bmob.File(fileName, file);     

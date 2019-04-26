@@ -8,14 +8,8 @@
                     <Input v-model="infoForm.productName" placeholder="请输入产品名称"></Input>
                 </Form-item>
                 <Form-item label="产品说明：" prop="productDesc">
-                    <quill-editor
-                        class="instruction-editor"
-                        v-model="infoForm.productDesc"
-                        ref="myQuillEditor"
-                        :options="editorOption"
-                        @ready="onEditorReady($event)"
-                    >
-                    </quill-editor>
+                    <!-- 组件-富文本编辑器 -->
+                    <Tinymce v-model="infoForm.productDesc" height="500" />
                 </Form-item>
                 <!-- 操作按钮 -->
                 <div class="m-operation">
@@ -30,18 +24,13 @@
 <script>
     // 组件
     import Loading from 'components/Common/Loading'
+    //导入富文本组件
+	import Tinymce from 'components/Common/Tinymce'
     // Api方法
     import Api from 'api/product_list.js'
-    // Vue-quill-editor
-    import Quill from 'quill'
-    // QullEditor图片上传配置
-    import { ImageImport } from 'qullEditor/ImageImport.js'
-    import { ImageResize } from 'qullEditor/ImageResize.js'
-    Quill.register('modules/imageImport', ImageImport)
-    Quill.register('modules/imageResize', ImageResize)
     
     export default {
-        components: { Loading },
+        components: { Loading, Tinymce },
         // 获取父级传值productId
         props: {
             // 设置默认值
@@ -80,13 +69,6 @@
             this.getDetail();
         },
         methods: {
-            // 编辑器初始化
-            onEditorReady(editor) {
-            },
-            // 编辑器内容改变
-            onEditorChange({ editor, html, text }) {
-                this.content = html
-            },
             // 获取产品详情
             getDetail(){
                 Api.GetProdInfo(this.productId)

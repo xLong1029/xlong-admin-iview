@@ -14,11 +14,13 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bomb 开发的单页面客户端�
 
 1. V1.0版本
 
-    文件存储七牛云，富文本编辑器使用Vue-quill-editor
+    文件存储使用七牛云；
+    富文本编辑器使用 Vue-quill-editor
 
 2. V2.0版本
 
-    富文本编辑器改用Tinymce，优化单图片、多图片、图片裁剪等上传组件
+    富文本编辑器改用Tinymce；
+    图片裁剪组件，裁剪后改用实时预览方式
 
 ## 项目说明
 
@@ -27,11 +29,11 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bomb 开发的单页面客户端�
 - **后端**：Bomb
 
 #### 2. 项目用到技术、框架与插件
-[Node.js](https://github.com/nodejs)    
 [Vue.js](https://github.com/vuejs)  
 [webpack](https://github.com/webpack)  
 [iView](https://github.com/iview/iview) 
 [Tinymce](https://github.com/tinymce/tinymce)  
+[vue-awesome-swiper](https://github.com/surmon-china/vue-awesome-swiper) 
 
 ## 部分项目运行截图
 * 登录界面

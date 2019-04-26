@@ -10,9 +10,8 @@
             </div>
         </div>
         <!-- 上传按钮 -->
-        <div>
-            <Button type="ghost" :loading="loading" icon="ios-cloud-upload-outline" @click="uploadClick">上传图片</Button>
-            <span class="size-hint" v-if="sizeHint">（图片尺寸： {{ sizeHint }}）</span>
+        <div v-show="showUploadBtn" class="upload-btn" @click="uploadClick">
+            <Icon type="camera" size="20"></Icon>
             <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
         </div>
         <!-- 上传进度条  -->
@@ -144,12 +143,7 @@
                     clearInterval(progress);
                     this.$Notice.success({ title: '图片上传成功!' });
                 })
-                .catch(err => {
-                    // 停止加载和隐藏进度条
-                    this.progressHide();                 
-                    clearInterval(progress);
-                    this.$Notice.error({ title: '图片上传失败，请重试！' });
-                })
+                .catch(err => this.errorTip(progress))
             }
         }
     }

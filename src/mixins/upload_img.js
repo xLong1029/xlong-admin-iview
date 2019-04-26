@@ -27,7 +27,9 @@ export default {
             // 上传进度
             percentage: 0,
             // 显示图片的地址
-            showImgUrl: ''
+            showImgUrl: '',
+            // 是否显示上传按钮
+            showUploadBtn: true
         }
     },
     created(){},
@@ -83,5 +85,12 @@ export default {
         notFoundPic(event){
             Common.SetDefaultPic(event, 1);
         },
+        // 错误提示
+        errorTip(progress){
+            // 停止加载和隐藏进度条
+            this.progressHide();                 
+            clearInterval(progress);
+            this.$Notice.error({ title: '图片上传失败，请重试！' });
+        }
 	}
 }
