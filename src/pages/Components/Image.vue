@@ -249,8 +249,6 @@
                 /* 图片展示 */
                 // 显示查看图片
                 imgUrlArr: ['https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1569462993,172008204&fm=5'],
-                // 显示图片的地址
-                showImgUrl: '',
                 // 显示新增图片框
                 addFunDisplay: false,
                 // 图片链接
@@ -272,8 +270,6 @@
                 { name: '首页', path: '/Home' },
                 { name: 'Image图片操作', path: '/Components/Image' }
             ]);
-            // 初始化图片显示链接
-            this.$store.commit('SET_IMAGE_URL_ARR', '');
         },
         methods:{
             // 新增图片展示Url

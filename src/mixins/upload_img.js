@@ -25,7 +25,9 @@ export default {
             // 显示遮罩
             showMask: false,
             // 上传进度
-            percentage: 0
+            percentage: 0,
+            // 显示图片的地址
+            showImgUrl: ''
         }
     },
     created(){},
