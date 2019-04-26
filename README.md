@@ -130,10 +130,21 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bomb 开发的单页面客户端�
 └─build // 项目构建(webpack)相关代码
 ```
 
-* 作者联系方式	
-	
+## 本地运行
+1. 安装前台依赖
+> npm install
+2. 运行前台项目
+> npm run dev
+3. 访问地址：http://localhost:6060
+
+## 项目打包
+> npm run build
+
+## 作者联系方式
+
 QQ：381612175
-	
+TEL: 18376686974
+
 github：https://github.com/xLong1029/
 
 站酷主页：http://xlong.zcool.com.cn/
