@@ -109,13 +109,9 @@
         components: { Loading },
         mixins: [ EmailComplete, TableQuery, TableOperate, Page ],
         computed: {
-            // 获取所有列表
-            apiGetAll(){
-                return () => Api.GetAccList(this.page.pageNo, this.page.pageSize);
-            },
-            // 获取筛选列表
-            apiGetFilter(){
-                return () => Api.FilterAccList(this.queryForm, this.page.pageNo, this.page.pageSize);
+            // 获取列表
+            apiGetList(){
+                return () => Api.GetAccList(this.queryForm, this.page.pageNo, this.page.pageSize);
             },
             // 删除操作接口
             apiDelete(){
@@ -259,23 +255,23 @@
             this.provinceList = JsonCity;
         },
         methods: {
-            // 获取表格列表
-            getTableList(query){
-                this.pageLoading = true;
-                // 设置是否查询状态
-                if(query){
-                    this.isQuery = true;
-                    this.getFilterList();
-                }
-                else{
-                    this.isQuery = false;
-                    this.getAllList();
-                }
-            },
             // 设置列表数据
             setListData(result){
                 if(result.length > 0){
-                    this.listData = result;
+                    this.listData = result.map(item => {
+                        return {
+                            id: item.objectId,
+                            realname: item.realname,
+                            gender: item.gender,
+                            mobile: item.mobile,
+                            email: item.email,
+                            job: item.job,
+                            province: item.province,
+                            createTime: item.createdAt,
+                            enabledState: item.enabledState,
+                            
+                        }
+                    });
                 }
                 else this.listData = [];
             },

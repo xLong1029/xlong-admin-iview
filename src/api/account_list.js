@@ -9,25 +9,23 @@ import BmobServer from 'bmob/bmob-server.js'
 
 export default {
     // 获取所有账户列表
-    // pageNo：当前第一页, pageSize：每页显示几条数据
-    GetAccList: (pageNo, pageSize) => {
-        return new Promise((resolve, reject) => {
-            BmobServer.PageQuery('Account', pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
-        });
-    },
-    // 筛选账户列表
-    // params: 筛选参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
-    FilterAccList: (params, pageNo, pageSize) => {
+    // params：查询参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
+    GetAccList: (params, pageNo, pageSize) => {
         let query = BmobServer.GetQuery('Account');
-        // 查询语句
-        if(params.id != '') query.equalTo('objectId', '==', params.id);
-        if(params.mobile != '') query.equalTo('mobile', '==', params.mobile);
-        if(params.email != '') query.equalTo('email', '==', params.email);
-        if(params.job != '') query.equalTo('job', '==', params.job);
-        if(params.province != '') query.equalTo('province', '==', params.province);
-        if(params.enabledState != '') query.equalTo('enabledState', '==', parseInt(params.enabledState));
+
+        if(params && Object.keys(params).length){
+            // 筛选查询
+            if(params.id) query.equalTo('objectId', '==', params.id);
+            if(params.mobile) query.equalTo('mobile', '==', params.mobile);
+            if(params.email) query.equalTo('email', '==', params.email);
+            if(params.job) query.equalTo('job', '==', params.job);
+            if(params.province) query.equalTo('province', '==', params.province);
+            if(params.enabledState) query.equalTo('enabledState', '==', parseInt(params.enabledState));
+            if(params.sTime) query.equalTo('createdAt', '>=', params.sTime);
+            if(params.eTime) query.equalTo('createdAt', '<=', params.eTime );
+        }
         return new Promise((resolve, reject) => {
-            BmobServer.DateFilterQuery(query, params, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
+            BmobServer.GetListData(query, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err));
         });
     },
     // 新增账户

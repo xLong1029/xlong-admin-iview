@@ -4,7 +4,7 @@
  * 日期 : 2017-8-31
  * 版本 : version 1.0
  */
-import Common from 'common/common.js'
+import moment from'moment';
 
 export default {
 	data() {
@@ -75,26 +75,17 @@ export default {
 			this.$refs[form].resetFields();
 			this.getTableList();
 		},
-		// 获取筛选列表
-		getFilterList(){
-			if(this.queryForm.sTime != '' && this.queryForm.eTime == ''){
-				this.queryForm.eTime = (new Date()).toLocaleDateString();
-			}
-			this.apiGetFilter()
-			.then(res => {
-			    this.pageLoading = false;
-			    if(res.code == 200){
-			        // 设置数据
-					this.setListData(res.data);
-					// 设置页码
-					this.setPage(res.page);
-			    }
-			    else this.$Message.error('获取数据失败!');
-			})
-			.catch(err => console.log(err))
-		},
 		// 获取表格列表
 		getTableList(query){
+			// 格式化查询日期
+			if(this.queryForm.sTime && this.queryForm.sTime != ''){
+				this.queryForm.sTime = moment(this.queryForm.sTime).format('YYYY-MM-DD HH:mm:ss')
+			}
+			if(this.queryForm.eTime && this.queryForm.eTime != ''){
+				// 获取到当天最后一秒
+				this.queryForm.eTime = moment(this.queryForm.eTime).format('YYYY-MM-DD') + ' 23:59:59';
+			}
+
 			this.pageLoading = true;
 			// 是否查询状态
 			this.isQuery = query ? true : false;

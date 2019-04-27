@@ -22,7 +22,7 @@ export default {
 				// 当前页码
 				pageNo: 1,
 				// 每页显示记录数
-				pageSize: 5,
+				pageSize: 10,
 				// 每条条数切换的配置
 				pageSizeOpts: [10, 20, 30, 40]
 			},

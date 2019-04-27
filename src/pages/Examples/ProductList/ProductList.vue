@@ -97,10 +97,6 @@
             apiGetList(){
                 return () => Api.GetProdList(this.queryForm, this.page.pageNo, this.page.pageSize);
             },
-            // 获取筛选列表
-            // apiGetFilter(){
-            //     return () => Api.FilterProdList(this.queryForm, this.page.pageNo, this.page.pageSize);
-            // },
             // 新增操作接口
             apiAdd(){
                 return () => Api.AddProduct(this.paramsForm);
@@ -170,6 +166,11 @@
                         }
                     },
                     {
+                        title: '创建时间',
+                        key: 'createTime',
+                        align: 'center'
+                    },
+                    {
                         title: '更新时间',
                         key: 'updateTime',
                         align: 'center'
@@ -208,6 +209,7 @@
                             id: item.objectId,
                             productName: item.productName,
                             dataFrom: item.dataFrom,
+                            createTime: item.createdAt,
                             updateTime: item.updatedAt
                         }
                     });

@@ -9,20 +9,16 @@ import BmobServer from 'bmob/bmob-server.js'
 
 export default {
     // 获取文章列表
-    // pageNo：当前第一页, pageSize：每页显示几条数据
-    GetArtcList: (pageNo, pageSize) => {
-        return new Promise((resolve, reject) => {
-            BmobServer.PageQuery('Article', pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
-        });
-    },
-    // 筛选文章列表
-    // params: 筛选参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
-    FilterArtcList: (params, pageNo, pageSize) => {
+    // params：查询参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
+    GetArtcList: (params, pageNo, pageSize) => {
         let query = BmobServer.GetQuery('Article');
-        // 查询语句
-        if(params.id != '') query.equalTo('objectId', params.id);
+        if(params && Object.keys(params).length){
+            if(params.id) query.equalTo('objectId', '==', params.id);
+            if(params.sTime) query.equalTo('createdAt', '>=', params.sTime);
+            if(params.eTime) query.equalTo('createdAt', '<=', params.eTime );
+        }
         return new Promise((resolve, reject) => {
-            BmobServer.DateFilterQuery(query, params, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
+            BmobServer.GetListData(query, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err));
         });
     },
     // 删除文章

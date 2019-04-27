@@ -9,16 +9,14 @@ import BmobServer from 'bmob/bmob-server.js'
 
 export default {
     // 获取产品列表
-    // pageNo：当前第一页, pageSize：每页显示几条数据
+    // params：查询参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
     GetProdList: (params, pageNo, pageSize) => {
         let query = BmobServer.GetQuery('Product');
         if(params && Object.keys(params).length){
             // 筛选查询
-            if(params.id != '') query.equalTo('objectId', '==', params.id);
-            if(params.productName != '') query.equalTo('productName', '==', params.productName);
-            if(params.dataFrom != '') query.equalTo('dataFrom', '==', parseInt(params.dataFrom));
-            // if(params.sTime != '') query.equalTo('createdAt', '>=', params.sTime );
-            // if(params.eTime != '') query.equalTo('createdAt', '<=', params.eTime );
+            if(params.id) query.equalTo('objectId', '==', params.id);
+            if(params.productName) query.equalTo('productName', '==', params.productName);
+            if(params.dataFrom) query.equalTo('dataFrom', '==', parseInt(params.dataFrom));
         }
         return new Promise((resolve, reject) => {
             BmobServer.GetListData(query, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err));

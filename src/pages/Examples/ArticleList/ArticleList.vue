@@ -73,13 +73,9 @@
         components: { Loading },
         mixins: [ TableQuery, TableOperate, Page ],
         computed: {
-            // 获取所有列表
-            apiGetAll(){
-                return () => Api.GetArtcList(this.page.pageNo, this.page.pageSize);
-            },
-            // 获取筛选列表
-            apiGetFilter(){
-                return () => Api.FilterArtcList(this.queryForm, this.page.pageNo, this.page.pageSize);
+            // 获取列表
+            apiGetList(){
+                return () => Api.GetArtcList(this.queryForm, this.page.pageNo, this.page.pageSize);
             },
             // 删除操作接口
             apiDelete(){
@@ -143,12 +139,12 @@
                     },
                     {
                         title: '创建时间',
-                        key: 'CreatedTime',
+                        key: 'createdTime',
                         align: 'center'
                     },
                     {
                         title: '更新时间',
-                        key: 'UpdateTime',
+                        key: 'updateTime',
                         align: 'center'
                     },
                     {
@@ -177,30 +173,17 @@
             this.getTableList();
         },
         methods: {
-            // 获取表格列表
-            getTableList(query){
-                this.pageLoading = true;
-                // 设置是否查询状态
-                if(query){
-                    this.isQuery = true;
-                    this.getFilterList();
-                }
-                else{
-                    this.isQuery = false;
-                    this.getAllList();
-                }
-            },
             // 设置列表数据
             setListData(result){
                 if(result.length > 0){
                     this.listData = result.map(item => {
                         return {
-                            id: item.id,
-                            title: item.attributes.title,
-                            dataFrom: item.attributes.dataFrom,
-                            tags: item.attributes.tags,
-                            CreatedTime: item.createdAt,
-                            UpdateTime: item.updatedAt
+                            id: item.objectId,
+                            title: item.title,
+                            dataFrom: item.dataFrom,
+                            tags: item.tags,
+                            createdTime: item.createdAt,
+                            updateTime: item.updatedAt
                         }
                     });
                 }
