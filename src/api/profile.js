@@ -6,7 +6,6 @@
  * 版本 : version 1.0
  */
 import BmobServer from 'bmob/bmob-server.js'
-import { GetParams } from 'common/important.js'
 
 export default {
     // 获取用户信息
@@ -23,16 +22,8 @@ export default {
     // 修改个人资料
     // params: 修改的参数对象，id: 对象id
     EditProfile: (params, id) => {
-        let query = BmobServer.GetQuery('_User');
-
-        query.set('id', id);
-        query.set('nickName', params.nickName);
-        query.set('realName', params.realName);
-        query.set('userFace', params.userFace);
-        query.set('gender', params.gender);
-
         return new Promise((resolve, reject) => {
-            query.save().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
+            BmobServer.EditOne('_User', id, params).then(res => resolve(res)).catch(err => reject(err))
         });
     },
     // 修改密码

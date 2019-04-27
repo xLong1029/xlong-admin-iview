@@ -1,8 +1,8 @@
 /*
  * 功能 : 封装一些重要函数
  * 作者 : 罗永梅（381612175@qq.com）
- * 日期 : 2017-8-31
- * 版本 : version 1.0
+ * 日期 : 2019-4-27
+ * 版本 : version 1.1
  */
 // 设置cookie
 export function SetCookie(cname, cvalue, exdays){
@@ -55,11 +55,11 @@ export function GetUrlQuery(name, thisUrl){
 }
 // 获取参数值
 export function GetParams(params){
-    let obj = { key : [], value: [] };
-    for(let i in params){
-        obj.key.push(i);
-        obj.value.push(params[i]);
-    }
+    return { key: Object.keys(params), value: Object.values(params)};
+}
+// 删除对象指定属性
+export function ObjOmit (obj, uselessKeys){
+    uselessKeys.forEach(key =>  delete obj[key]);
     return obj;
 }
 // 加密（简单模拟）

@@ -5,6 +5,7 @@
  * 版本 : version 1.0
  */
 import Common from 'common/common.js'
+import { GetParams, ObjOmit } from 'common/important.js'
 
 export default {
     // 初始化
@@ -102,21 +103,17 @@ export default {
     GetOne: (tableName, objectId) => {
         let query = Bmob.Query(tableName);
         return new Promise((resolve, reject) => {
-            query.get(objectId, {
-                success: res => resolve({ code: 200, data: res }),
-                error: err => reject(err)
-            });
+            query.get(objectId).then(res => resolve({ code: 200, data: res })).catch(err => reject(err));
         });
     },
     // 添加一行数据
     AddOne: (tableName, params) => {
-        // 创建Bmob.Object子类
-        let DataTable = Bmob.Object.extend(tableName);
-        // 创建类
-        let obj = new DataTable;
+        let query = Bmob.Query(tableName);
+        let p = GetParams(params);
+        console.log(p);
         return new Promise((resolve, reject) => {
             // 添加数据，第一个入口参数是Json数据
-            obj.save(params, {
+            query.save(params, {
                 success: res => resolve({ code: 200, data: res }),
                 error: err => reject(err)
             });
@@ -145,22 +142,17 @@ export default {
     // 修改一行数据
     EditOne: (tableName, objectId, params) => {
         let query = Bmob.Query(tableName);
+        // 删除参数中的objectId值
+        ObjOmit(params, ['objectId', 'createdAt', 'updatedAt']);
         // 获取对象并修改
-        return new Promise((resolve, reject) => { 
-            query.get(objectId, {
-                success: obj => {
-                    if(obj == undefined){
-                        resolve({ code: 404, msg: '无该id数据可获取！' });
-                        return false;
-                    }
-                    // 设置并保存数据
-                    obj.save(params, {
-                        success: res => resolve({ code: 200, data: res }),
-                        err: err => reject(err)
-                    });
-                },
-                error: () => console.log('无法通过该objectId获取数据')
-            });
+        return new Promise((resolve, reject) => {
+            query.get(objectId).then(res => {
+                // 循环执行set操作
+                for(let i in params){
+                    res.set(i, params[i]);
+                }
+                res.save().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
+            }).catch(() => console.log('无法通过该objectId获取数据'))
         });
     },
     // 批量删除数据

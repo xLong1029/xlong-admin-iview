@@ -275,19 +275,7 @@
             // 设置列表数据
             setListData(result){
                 if(result.length > 0){
-                    this.listData = result.map(item => {
-                        return {
-                            id: item.id,
-                            realname: item.attributes.realname,
-                            gender: item.attributes.gender,
-                            mobile: item.attributes.mobile,
-                            email: item.attributes.email,
-                            job: item.attributes.job,
-                            province: item.attributes.province,
-                            createTime: item.createdAt,
-                            enabledState: item.attributes.enabledState,
-                        }
-                    });
+                    this.listData = result;
                 }
                 else this.listData = [];
             },
