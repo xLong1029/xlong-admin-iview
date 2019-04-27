@@ -12,7 +12,7 @@ export default {
     // pageNo：当前第一页, pageSize：每页显示几条数据
     GetProdList: (params, pageNo, pageSize) => {
         let query = BmobServer.GetQuery('Product');
-        if(params){
+        if(params && Object.keys(params).length){
             // 筛选查询
             if(params.id != '') query.equalTo('objectId', '==', params.id);
             if(params.productName != '') query.equalTo('productName', '==', params.productName);
@@ -21,21 +21,9 @@ export default {
             // if(params.eTime != '') query.equalTo('createdAt', '<=', params.eTime );
         }
         return new Promise((resolve, reject) => {
-            BmobServer.GetData(query, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
+            BmobServer.GetListData(query, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err));
         });
     },
-    // 筛选产品列表
-    // params: 筛选参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
-    // FilterProdList: (params, pageNo, pageSize) => {
-    //     let query = BmobServer.GetQuery('Product');
-    //     // 查询语句
-    //     if(params.id != '') query.equalTo('objectId', '==', params.id);
-    //     if(params.productName != '') query.equalTo('productName', '==', params.productName);
-    //     if(params.dataFrom != '') query.equalTo('dataFrom', '==', parseInt(params.dataFrom));
-    //     return new Promise((resolve, reject) => {
-    //         BmobServer.FilterQuery(query, params, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
-    //     });
-    // },
     // 新增产品
     // params: 新增的参数对象
     AddProduct: (params) => {

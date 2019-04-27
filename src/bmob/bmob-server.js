@@ -18,61 +18,33 @@ export default {
         // 创建查询对象，入口参数是对象类的实例
         return Bmob.Query(tableName);
     },
-    // 获取数据
-    GetData: (query, pageNo, pageSize) => {
+    // 获取列表数据
+    GetListData: (query, pageNo, pageSize) => {
         return new Promise((resolve, reject) => {
             if(pageNo && pageSize){
-                query.find().then(obj => {
-                    let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
+                // 统计满足query的结果集记录条数
+                query.count().then(res => {
+                    // console.log(`共有${res}条记录`);
+                    let page = {
+                        page: pageNo,
+                        size: pageSize,
+                        count: res,
+                        pages: Math.ceil(res.length / pageSize)
+                    };
+
+                    // 对createdAt字段降序排列
+                    query.order("-createdAt");
                     // 返回数据条数，默认返回10条数据
                     query.limit(pageSize);
                     // 跳过前面几条数据开始
                     query.skip((pageNo - 1) * pageSize);
+
                     query.find().then(res => resolve({ code: 200, data: res, page })).catch(err => reject(err));
-                }).catch(err => reject(err));
+                });
             }
             else{
                 query.find().then(res => resolve({ code: 200, data: res })).catch(err => reject(err));
             }
-        });
-    },
-    // 根据分页查询数据
-    PageQuery: (tableName, pageNo, pageSize) => {
-        let query = Bmob.Query(tableName);
-        return new Promise((resolve, reject) => {
-            query.find({
-                success: obj => {
-                    let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
-                    // 返回数据条数，默认返回10条数据
-                    query.limit(pageSize);
-                    // 跳过前面几条数据开始
-                    query.skip((pageNo - 1) * pageSize);
-                    query.find({
-                        success: res => resolve({ code: 200, data: res, page }),
-                        error: err => reject(err)
-                    });
-                },
-                error: err => reject(err)
-            });
-        });
-    },
-    // 筛选数据
-    FilterQuery: (query, params, pageNo, pageSize) => {
-        return new Promise((resolve, reject) => {
-            query.find({
-                success: obj => {
-                    let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
-                    // 返回数据条数，默认返回10条数据
-                    query.limit(pageSize);
-                    // 跳过前面几条数据开始
-                    query.skip((pageNo - 1) * pageSize);
-                    query.find({
-                        success: res => resolve({ code: 200, data: res, page }),
-                        error: err => reject(err)
-                    });
-                },
-                error: err => reject(err)
-            });
         });
     },
     // 根据日期筛选数据

@@ -93,8 +93,12 @@ export default {
 			})
 			.catch(err => console.log(err))
 		},
-		// 获取列表
-		getList(){
+		// 获取表格列表
+		getTableList(query){
+			this.pageLoading = true;
+			// 是否查询状态
+			this.isQuery = query ? true : false;
+			
 			this.apiGetList().then(res => {
 				this.pageLoading = false;
 				if(res.code == 200){

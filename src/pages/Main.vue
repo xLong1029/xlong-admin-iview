@@ -12,9 +12,9 @@
             <transition name="fade" mode="out-in">
             	<router-view></router-view>
 	        </transition>
-	        <!-- 项目版权 -->
+            <!-- 项目版权 -->
             <div class="copyright">
-                2017-2022 &copy; XLONG JIALIDUN
+                2019-2022 &copy; XLONG JIALIDUN
             </div>
         </div>
     </div>
@@ -42,6 +42,7 @@
     .layout-left{
         height: 100%;
         width: 200px;
+        z-index: 10;
         position:absolute;
         left:0;
         background: #4d5256;
@@ -75,8 +76,7 @@
     }
 
     .g-content{
-        margin-top:-10px;
-        margin: 15px;
+        margin: 15px 15px 0;
         background: #fff;
         border-radius: 4px;
         padding: 15px;
@@ -88,9 +88,14 @@
     }
     
     .copyright{
-        position: relative;
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        text-indent: 200px;
+        margin-left: -200px;
         text-align: center;
-        padding: 10px 15px;
+        height: 40px;
+        line-height: 40px;
         color: #9ea7b4;
         background: #eee;
     }

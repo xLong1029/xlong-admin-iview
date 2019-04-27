@@ -194,19 +194,12 @@
             // 设置面包屑路径
             this.$store.commit('SET_BREADCRUMB', [
                 { name: '首页', path: '/Home' },
-                { name: '版块列表', path: '' }
+                { name: '产品列表', path: '' }
             ]);
             // 获取板块列表
             this.getTableList();
         },
         methods: {
-            // 获取表格列表
-            getTableList(query){
-                this.pageLoading = true;
-                // 是否查询状态
-                this.isQuery = query ? true : false;
-                this.getList();
-            },
             // 设置列表数据
             setListData(result){
                 if(result.length > 0){
