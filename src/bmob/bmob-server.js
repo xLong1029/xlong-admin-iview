@@ -111,20 +111,10 @@ export default {
     DelOne: (tableName, objectId) => {
         let query = Bmob.Query(tableName);
         // 获取对象并删除
-        return new Promise((resolve, reject) => { 
-            query.get(objectId, {
-                success: obj => {
-                    if(obj == undefined){
-                        resolve({ code: 404, msg: '无该id数据可获取！' });
-                        return false;
-                    }
-                    obj.destroy({
-                        success: (res) => resolve({ code: 200, data: res }),
-                        error: (res, err) => resolve(err)
-                    });
-                },
-                error: () => console.log('无法通过该objectId获取数据')
-            });
+        return new Promise((resolve, reject) => {
+            query.get(objectId).then(res => {
+                res.destroy().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
+            }).catch(() => console.log('无法通过该objectId获取数据'))
         });
     },
     // 修改一行数据
@@ -140,62 +130,33 @@ export default {
                     res.set(i, params[i]);
                 }
                 res.save().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
-            }).catch(() => console.log('无法通过该objectId获取数据'))
+            }).catch(() => resolve({ code: 404, msg: '对象不存在！' }))
         });
     },
     // 批量删除数据
     DelMore: (tableName, objectIds) => {
-        let query = Bmob.Query(tableName);
-        // 删除成功或失败的对象集合
-        let failObj = [], succObj = [];
-        // 是否删除失败
-        let fail = false;
+        let query = Bmob.Query(tableName);        
+        query.containedIn('objectId', objectIds);
+        // 获取对象并删除
         return new Promise((resolve, reject) => {
-            // 遍历删除
-            for(var objectId of objectIds){
-                query.get(objectId, {
-                    success: obj => {
-                        obj.destroy({
-                            success: (res) => { succObj.push(res); },
-                            error: (res, err) => { failObj.push(err); fail = true; }
-                        });
-                    },
-                    error: () => console.log('获取对象失败')
-                });
-            }
-            // 延迟判断
-            setTimeout(() => {
-                if(!fail) resolve({ code: 200, data: succObj })
-                else resolve({ code: 0, data: failObj })
-            }, 1000);
+            query.find().then(todos => {
+                todos.destroyAll().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
+            }).catch(() => resolve({ code: 404, msg: '对象不存在！' }))
         });
     },
     // 批量修改数据
     EditMore: (tableName, objectIds, params) => {
-        let query = Bmob.Query(tableName);
-        // 删除成功或失败的对象集合
-        let failObj = [], succObj = [];
-        // 是否删除失败
-        let fail = false;
+        let query = Bmob.Query(tableName);        
+        query.containedIn('objectId', objectIds);
+        // 获取对象并修改
         return new Promise((resolve, reject) => {
-            // 遍历删除
-            for(var objectId of objectIds){
-                query.get(objectId, {
-                    success: obj => {
-                        // 设置并保存数据
-                        obj.save(params, {
-                            success: (res) => { succObj.push(res); },
-                            error: (res, err) => { failObj.push(err); fail = true; }
-                        });
-                    },
-                    error: () => console.log('获取对象失败')
-                });
-            }
-            // 延迟判断
-            setTimeout(() => {
-                if(!fail) resolve({ code: 200, data: succObj })
-                else resolve({ code: 0, data: failObj })
-            }, 1000);
+            query.find().then(todos => {
+                // 循环执行set操作
+                for(let i in params){
+                    todos.set(i, params[i]);
+                }
+                todos.saveAll().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
+            }).catch(() => resolve({ code: 404, msg: '对象不存在！' }))
         });
-    },
+    }
 }
