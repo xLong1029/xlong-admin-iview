@@ -6,15 +6,15 @@
             <Form-item label="账号：">
                 <span>{{ infoForm.username }}</span>
             </Form-item>
-            <Form-item label="用户昵称：" prop="nickname">
-                <Input v-model="infoForm.nickname" placeholder="请输入您的真实姓名" style="width:220px"></Input>
+            <Form-item label="用户昵称：" prop="nickName">
+                <Input v-model="infoForm.nickName" placeholder="请输入您的真实姓名" style="width:220px" />
             </Form-item>
             <Form-item label="真实姓名：">
-                <Input v-model="infoForm.realname" placeholder="请输入您的真实姓名" style="width:220px"></Input>
+                <Input v-model="infoForm.realName" placeholder="请输入您的真实姓名" style="width:220px" />
             </Form-item>
             <Form-item label="头像：">
                 <!-- 组件-图片上传-单图片显示 -->
-                <ImageCropper :src="infoForm.userface" :preview="true" @get-img-url="setFace"></ImageCropper>
+                <ImageCropper :src="infoForm.userFace" :preview="true" @get-img-url="setFace"></ImageCropper>
             </Form-item>                           
             <Form-item label="性别：" prop="gender">
                 <Radio-group v-model="infoForm.gender">
@@ -52,17 +52,17 @@
                     // 用户名(账号)
                     username: '',
                     // 用户昵称
-                    nickname: '',
+                    nickName: '',
                     // 真实姓名
-                    realname: '',
+                    realName: '',
                     // 头像图片地址
-                    userface: require('@/assets/images/default-face.jpg'),
+                    userFace: require('@/assets/images/default-face.jpg'),
                     // 性别
                     gender: '男',
                 },
 				// 验证规则
                 validate: {
-                    nickname: [{ required: true, message: '昵称不能为空', trigger: 'blur' }],
+                    nickName: [{ required: true, message: '昵称不能为空', trigger: 'blur' }],
                     gender: [{ required: true, message: '请选择性别', trigger: 'change' }],
                 }
 			}
@@ -84,14 +84,14 @@
                         // 页面加载
                         this.pageLoading = true;
 
-                        Api.EditProfile(this.infoForm, { username : this.infoForm.username})
+                        Api.EditProfile(this.infoForm, this.infoForm.objectId)
                         .then(res => {
                             this.pageLoading = false;
                             if(res.code == 200){
                                 this.$Message.success('资料修改成功！');
                                 // 更新用户信息
-                                this.$store.commit('SET_USER_NICKNAME', res.data.attributes.nickname);
-                                this.$store.commit('SET_USER_FACE', res.data.attributes.userface);
+                                this.$store.commit('SET_USER_NICKNAME', this.infoForm.nickName);
+                                this.$store.commit('SET_USER_FACE', this.infoForm.userFace);
                             }
                             else this.$Message.error('资料修改失败！');
                         })
@@ -115,7 +115,7 @@
             },
             // 设置头像
             setFace(url){
-                this.infoForm.userface = url;
+                this.infoForm.userFace = url;
             }
         }
 	}

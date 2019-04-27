@@ -3,15 +3,14 @@ import { GetCookie, DelCookie } from 'common/important'
 
 // 设置账户信息
 function setAccount(_commit, info){
-	// 设置用户信息
-	_commit('SET_USER_FACE', info.userface);
-	_commit('SET_USER_NICKNAME', info.nickname);
+	let face = info.userFace ? info.userFace : null;
+	_commit('SET_USER_FACE', face);
+	_commit('SET_USER_NICKNAME', info.nickName);
 	_commit('SET_USER_ID', info.id);
 }
 
 // 清空账户信息
 function clearAccount(_commit){
-	// 清除token
 	DelCookie('xl_admin_t');
 	_commit('SET_USER_TOKEN', '');
 	_commit('SET_USER_FACE', '');

@@ -12,58 +12,48 @@ export default {
     // 获取用户信息
     // token: 用户token参数
     GetUserInfo: (token) => {
-        let query = BmobServer.GetQuery('UserInfo');
+        let query = BmobServer.GetQuery('_User');
         query.equalTo('token', '==', token);
 
         return new Promise((resolve, reject) => {
-            query.find().then(res => resolve({ code: 200, data: res[0] })).catch(err => reject(err));
+            query.find().then(res => resolve({ code: 200, data: res[0] }))
+            .catch(err => reject(err));
 		});
     },
     // 修改个人资料
-    // params: 修改的参数对象, key：查询的唯一键
-    EditProfile: (params, key) => {
-        let query = BmobServer.GetQuery('UserInfo');
-        // 获取键值对
-        let p = GetParams(key);
-        // 根据唯一键查询对象
-        query.equalTo(p.key[0], p.value[0]);
-        return new Promise((resolve, reject) => { 
-            query.first({
-                success: (obj) => {
-                    // 修改数据
-                    obj.save(params, {
-                        success: res => resolve({ code: 200, data: res }),
-                        err: err => reject(err)
-                    });
-                },
-                error: err => console.log('无法通过该键值对获取数据')
-            });
+    // params: 修改的参数对象，id: 对象id
+    EditProfile: (params, id) => {
+        let query = BmobServer.GetQuery('_User');
+
+        query.set('id', id);
+        query.set('nickName', params.nickName);
+        query.set('realName', params.realName);
+        query.set('userFace', params.userFace);
+        query.set('gender', params.gender);
+
+        return new Promise((resolve, reject) => {
+            query.save().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
         });
     },
     // 修改密码
-    // params: 修改的参数对象, key：查询的唯一键
-    ChangePwd: (params, key) => {
-        let query = BmobServer.GetQuery('Login');
-        // 获取键值对
-        let p = GetParams(key);
+    // params: 修改的参数对象，token: token值
+    ChangePwd: (params, token) => {
+        let query = BmobServer.GetQuery('_User');
         // 根据唯一键查询对象
-        query.equalTo(p.key[0], p.value[0]);
-        query.equalTo('password', params.oldPassword);        
+        query.equalTo('token', '==', token);
+        query.equalTo('password', '==', params.oldPassword);
+
         return new Promise((resolve, reject) => {
-            query.first({
-                success: (obj) => {
-                    if(obj == undefined){
-                        resolve({ code: 404, msg: '旧密码不正确！请重试' });
-                        return false;
-                    }
-                    // 修改数据
-                    obj.save({ password: params.newPassword }, {
-                        success: res => resolve({ code: 200, data: res }),
-                        err: err => reject(err)
-                    });                    
-                },
-                error: err => reject(err)
-            });
+            query.find().then(res => {
+                if(res.length){
+                    // 只能批量修改
+                    res.set('password', params.newPassword);
+                    res.saveAll().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err));
+                }
+                else{
+                    resolve({ code: 404, msg: '旧密码不正确！' });
+                }
+            }).catch(err => reject(err));
         });
     }
 }

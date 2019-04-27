@@ -80,7 +80,6 @@
                     if (valid) {
 						Api.Login(this.loginForm)
 						.then(res => {
-							console.log(res);
 							if(res.code == 200){
 								const result = res.data;
 								// token存cookie

@@ -80,8 +80,13 @@
             submit(form){
                 this.$refs[form].validate((valid) => {
                     if (valid) {
+                        if(this.editForm.oldPassword == this.editForm.newPassword){
+                            this.$Message.error('旧密码和新密码不能相同！');
+                            return false;
+                        }
+
                         // 修改密码 Api
-                        Api.ChangePwd(this.editForm, { token : this.token})
+                        Api.ChangePwd(this.editForm, this.token)
                         .then(res => {
                             if(res.code == 200){                                                            
                                 // 登出 action方法

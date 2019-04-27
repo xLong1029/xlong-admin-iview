@@ -18,7 +18,7 @@ export default {
     // 获取用户信息
     // token: 用户token参数
     GetUserInfo: (token) => {
-        let query = BmobServer.GetQuery('UserInfo');
+        let query = BmobServer.GetQuery('_User');
         query.equalTo('token', '==', token);
 
         return new Promise((resolve, reject) => {
