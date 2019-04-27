@@ -93,14 +93,14 @@
         components: { Loading },
         mixins: [ TableQuery, TableOperate, Page ],
         computed: {
-            // 获取所有列表
-            apiGetAll(){
-                return () => Api.GetProdList(this.page.pageNo, this.page.pageSize);
+            // 获取列表
+            apiGetList(){
+                return () => Api.GetProdList(this.queryForm, this.page.pageNo, this.page.pageSize);
             },
             // 获取筛选列表
-            apiGetFilter(){
-                return () => Api.FilterProdList(this.queryForm, this.page.pageNo, this.page.pageSize);
-            },
+            // apiGetFilter(){
+            //     return () => Api.FilterProdList(this.queryForm, this.page.pageNo, this.page.pageSize);
+            // },
             // 新增操作接口
             apiAdd(){
                 return () => Api.AddProduct(this.paramsForm);
@@ -171,7 +171,7 @@
                     },
                     {
                         title: '更新时间',
-                        key: 'UpdateTime',
+                        key: 'updateTime',
                         align: 'center'
                     },
                     {
@@ -203,25 +203,19 @@
             // 获取表格列表
             getTableList(query){
                 this.pageLoading = true;
-                // 设置是否查询状态
-                if(query){
-                    this.isQuery = true;
-                    this.getFilterList();
-                }
-                else{
-                    this.isQuery = false;
-                    this.getAllList();
-                }
+                // 是否查询状态
+                this.isQuery = query ? true : false;
+                this.getList();
             },
             // 设置列表数据
             setListData(result){
                 if(result.length > 0){
                     this.listData = result.map(item => {
                         return {
-                            id: item.id,
-                            productName: item.attributes.productName,
-                            dataFrom: item.attributes.dataFrom,
-                            UpdateTime: item.updatedAt
+                            id: item.objectId,
+                            productName: item.productName,
+                            dataFrom: item.dataFrom,
+                            updateTime: item.updatedAt
                         }
                     });
                 }

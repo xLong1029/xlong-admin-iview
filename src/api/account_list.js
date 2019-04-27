@@ -20,12 +20,12 @@ export default {
     FilterAccList: (params, pageNo, pageSize) => {
         let query = BmobServer.GetQuery('Account');
         // 查询语句
-        if(params.id != '') query.equalTo('objectId', params.id);
-        if(params.mobile != '') query.equalTo('mobile', params.mobile);
-        if(params.email != '') query.equalTo('email', params.email);
-        if(params.job != '') query.equalTo('job', params.job);
-        if(params.province != '') query.equalTo('province', params.province);
-        if(params.enabledState != '') query.equalTo('enabledState', parseInt(params.enabledState));
+        if(params.id != '') query.equalTo('objectId', '==', params.id);
+        if(params.mobile != '') query.equalTo('mobile', '==', params.mobile);
+        if(params.email != '') query.equalTo('email', '==', params.email);
+        if(params.job != '') query.equalTo('job', '==', params.job);
+        if(params.province != '') query.equalTo('province', '==', params.province);
+        if(params.enabledState != '') query.equalTo('enabledState', '==', parseInt(params.enabledState));
         return new Promise((resolve, reject) => {
             BmobServer.DateFilterQuery(query, params, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err))
         });

@@ -16,8 +16,25 @@ export default {
     // 获取查询数据对象
     GetQuery: (tableName) => {
         // 创建查询对象，入口参数是对象类的实例
-        const query = Bmob.Query(tableName);
-        return query;
+        return Bmob.Query(tableName);
+    },
+    // 获取数据
+    GetData: (query, pageNo, pageSize) => {
+        return new Promise((resolve, reject) => {
+            if(pageNo && pageSize){
+                query.find().then(obj => {
+                    let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
+                    // 返回数据条数，默认返回10条数据
+                    query.limit(pageSize);
+                    // 跳过前面几条数据开始
+                    query.skip((pageNo - 1) * pageSize);
+                    query.find().then(res => resolve({ code: 200, data: res, page })).catch(err => reject(err));
+                }).catch(err => reject(err));
+            }
+            else{
+                query.find().then(res => resolve({ code: 200, data: res })).catch(err => reject(err));
+            }
+        });
     },
     // 根据分页查询数据
     PageQuery: (tableName, pageNo, pageSize) => {
@@ -59,46 +76,47 @@ export default {
         });
     },
     // 根据日期筛选数据
-    DateFilterQuery: (query, params, pageNo, pageSize) => {
-        return new Promise((resolve, reject) => {
-            query.find({
-                success: obj => {                 
-                    /* 筛选指定日期内的数据 */
-                    if(params.sTime != '' && params.eTime != ''){
-                        let result = [];
-                        for(let item of obj){
-                            let startDate = (new Date(params.sTime)).toLocaleDateString();
-                            // bmob的问题，结束日期当天获取不到，只能获取到结束日期的前一天，所以此处需要多加一天
-                            let endDate = new Date(params.eTime);
-                            endDate = endDate.getFullYear() + '/' + (endDate.getMonth() + 1) + '/' + (endDate.getDate() + 1);
-                            // 比较日期大小，若第一个值小于第二个值则返回true
-                            let start = Common.CompareDate(startDate, item.createdAt),
-                                end = Common.CompareDate(item.createdAt, endDate);
-                            // 满足条件则保留数据
-                            if(start && end) result.push(item);
-                        }
-                        let page = { count: result.length, pages: Math.ceil(result.length / pageSize) };
-                        // 截取部分数据
-                        result = result.splice((pageNo - 1)* pageSize, pageNo* pageSize);                        
-                        resolve({ code: 200, data: result, page });
-                    }
-                    /* 筛选指定日期内的数据 */
-                    else{
-                        let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
-                        // 返回数据条数，默认返回10条数据
-                        query.limit(pageSize);
-                        // 跳过前面几条数据开始
-                        query.skip((pageNo - 1) * pageSize);
-                        query.find({
-                            success: res => resolve({ code: 200, data: res, page }),
-                            error: err => reject(err)
-                        });
-                    }
-                },
-                error: err => reject(err)
-            });
-        });
-    },
+    // DateFilterQuery: (query, params, pageNo, pageSize) => {
+    //     return new Promise((resolve, reject) => {
+    //         query.find({
+    //             success: obj => {                 
+    //                 /* 筛选指定日期内的数据 */
+    //                 if(params.sTime != '' && params.eTime != ''){
+    //                     let result = [];
+
+    //                     let startDate = (new Date(params.sTime)).toLocaleDateString();
+    //                     // bmob的问题，结束日期当天获取不到，只能获取到结束日期的前一天，所以此处需要多加一天
+    //                     let endDate = new Date(params.eTime);
+    //                     endDate = endDate.getFullYear() + '/' + (endDate.getMonth() + 1) + '/' + (endDate.getDate() + 1);
+    //                     for(let item of obj){
+    //                         // 比较日期大小，若第一个值小于第二个值则返回true
+    //                         let start = Common.CompareDate(startDate, item.createdAt),
+    //                             end = Common.CompareDate(item.createdAt, endDate);
+    //                         // 满足条件则保留数据
+    //                         if(start && end) result.push(item);
+    //                     }
+    //                     let page = { count: result.length, pages: Math.ceil(result.length / pageSize) };
+    //                     // 截取部分数据
+    //                     result = result.splice((pageNo - 1)* pageSize, pageNo* pageSize);                        
+    //                     resolve({ code: 200, data: result, page });
+    //                 }
+    //                 /* 筛选指定日期内的数据 */
+    //                 else{
+    //                     let page = { count: obj.length, pages: Math.ceil(obj.length / pageSize) };
+    //                     // 返回数据条数，默认返回10条数据
+    //                     query.limit(pageSize);
+    //                     // 跳过前面几条数据开始
+    //                     query.skip((pageNo - 1) * pageSize);
+    //                     query.find({
+    //                         success: res => resolve({ code: 200, data: res, page }),
+    //                         error: err => reject(err)
+    //                     });
+    //                 }
+    //             },
+    //             error: err => reject(err)
+    //         });
+    //     });
+    // },
     // 获取一行数据
     GetOne: (tableName, objectId) => {
         let query = Bmob.Query(tableName);

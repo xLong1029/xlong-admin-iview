@@ -93,9 +93,9 @@ export default {
 			})
 			.catch(err => console.log(err))
 		},
-		// 获取所有列表
-		getAllList(){
-			this.apiGetAll().then(res => {
+		// 获取列表
+		getList(){
+			this.apiGetList().then(res => {
 				this.pageLoading = false;
 				if(res.code == 200){
 					// 设置数据
@@ -107,5 +107,9 @@ export default {
 			})
 			.catch(err => console.log(err))
 		},
+		// 设置列表数据
+		setListData(result){
+			this.listData = result.length > 0 ? result : [];
+		}
 	}
 }
