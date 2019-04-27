@@ -5,7 +5,7 @@
  * 版本 : version 1.0
  */
 import Common from 'common/common.js'
-import { GetParams, ObjOmit } from 'common/important.js'
+import { ObjOmit } from 'common/important.js'
 
 export default {
     // 初始化
@@ -109,14 +109,12 @@ export default {
     // 添加一行数据
     AddOne: (tableName, params) => {
         let query = Bmob.Query(tableName);
-        let p = GetParams(params);
-        console.log(p);
         return new Promise((resolve, reject) => {
-            // 添加数据，第一个入口参数是Json数据
-            query.save(params, {
-                success: res => resolve({ code: 200, data: res }),
-                error: err => reject(err)
-            });
+            // 循环执行set操作
+            for(let i in params){
+                query.set(i, params[i]);
+            }
+            query.save().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
         });
     },
     // 删除一行数据
