@@ -1,8 +1,8 @@
 /*
  * 功能 : 封装bmob的增删改查数据方法。
  * 作者 : 罗永梅（381612175@qq.com）
- * 日期 : 2017-8-31
- * 版本 : version 1.0
+ * 日期 : 2019-4-29
+ * 版本 : version 2.0
  */
 import Common from 'common/common.js'
 import { ObjOmit } from 'common/important.js'

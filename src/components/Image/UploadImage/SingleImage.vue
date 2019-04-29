@@ -77,11 +77,21 @@
         },
         watch: {
 			src(val) {
-				this.getImageUrl = val;
+                if(val){
+                    this.showUploadBtn = false;
+                    this.getImageUrl = val;
+                }
+                else{
+                    this.showUploadBtn = true;
+                    this.getImageUrl = '';
+                }
 			}
         },
         created() {
-            this.getImageUrl = this.src;
+            if(this.src){
+                this.showUploadBtn = false;
+                this.getImageUrl = this.src;
+            }
         },
         methods: {
             // 上传文件

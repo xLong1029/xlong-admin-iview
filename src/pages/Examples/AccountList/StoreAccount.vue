@@ -29,7 +29,7 @@
                     </Col>
                     <Col span="12">
                         <Form-item v-if="pageType == 'edit'" label="创建时间：">
-                            <span>{{ createdAt }}</span>
+                            <span>{{ infoForm.createdAt }}</span>
                         </Form-item>
                         <Form-item label="头像：" style="margin-bottom:16px;">
                             <!-- 组件-图片上传-单图片显示 -->
@@ -49,7 +49,7 @@
                     <Col span="12">
                         <Form-item label="企业名称：">
                             <!-- 组件-匹配企业名称 -->
-                            <CompanyName :model="infoForm.companyName" @on-change='getCompanyName'></CompanyName>
+                            <CompanyName :model="infoForm.companyName" @on-change="getCompanyName"></CompanyName>
                         </Form-item>                        
                         <Form-item label="专业领域：" prop="profession">
                             <CheckboxGroup v-model="professionValue" @on-change="checkProfess">
@@ -111,7 +111,7 @@
         data() {
             return {
                 // 加载页面
-                pageLoading: true,
+                pageLoading: false,
                 // 页面描述
                 pageType: 'add',
                 // 职位列表
@@ -128,8 +128,6 @@
                 workTimePH: '请选择时间',
                 // 用户编号
                 userId: '',
-                // 创建时间
-                createdAt: '',
                 // 表单信息
                 infoForm: {                    
                     // 真实姓名
@@ -237,7 +235,6 @@
                 this.pageType = 'edit';
             }
             else{
-                this.pageLoading = false;
                 this.$store.commit('SET_BREADCRUMB', [
                     { name: '首页', path: '/Home' },
                     { name: '账户列表', path: '/Examples/AccountList' },
@@ -296,19 +293,20 @@
             },
             // 获取账户详情
             getDetail(){
+                this.pageLoading = true;
+
                 Api.GetAccInfo(this.userId)
-                .then(res => {                    
+                .then(res => {      
                     // 取消页面加载
                     this.pageLoading = false;
-                    const result = res.data.attributes;                    
+                    const result = res.data;                    
                     if(res.code == 200){
                         // 设置数据
                         this.infoForm = result;
-                        this.createdAt = res.data.createdAt;
                         // 设置省市值
                         this.provinceValue = [this.infoForm.province, this.infoForm.city, this.infoForm.area];
-                        // 设置企业名称
-						this.$store.commit('SET_INPUT_VALUE', result.companyName);
+                        // // 设置企业名称
+						// this.$store.commit('SET_INPUT_VALUE', result.companyName);
                         // 设置工作时间
                         if(this.infoForm.isGraduate){
                             this.disabledWT = true;

@@ -43,22 +43,10 @@
                 default: 'down'
             },
         },
-        computed: {
-            // vue最近更新了版本，要求必须在计算属性里加上setter，否则报错[Vue warn]: Computed property "value" was assigned to but it has no setter.
-            // 旧版本不用
-            value: {
-                // getter  
-                get: function() {
-                    return this.model;
-                },  
-                // setter  
-                set: function(val) {
-                    this.$emit('on-change', val);
-                }
-            } 
-        },
         data () {
             return {
+                // 选择值
+                value: '',
                 // 当前选项索引
                 // -404：表示无匹配数据
                 selectIndex: -404,
@@ -69,6 +57,14 @@
                 // 选项列表
                 optionList: [],
             }
+        },
+        watch: {
+            model(val) {
+                this.value = val;
+            } 
+        },
+        created() {
+            this.value = this.model;
         },
         created(){
             // 获取json数据

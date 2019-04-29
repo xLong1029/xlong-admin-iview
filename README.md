@@ -32,7 +32,7 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bomb 开发的单页面客户端�
 #### 2. 项目用到技术、框架与插件
 [Vue.js](https://github.com/vuejs)  
 [webpack](https://github.com/webpack)  
-[iView](https://github.com/iview/iview) 
+[iView](https://github.com/iview/iview)  
 [Tinymce](https://github.com/tinymce/tinymce)  
 [vue-awesome-swiper](https://github.com/surmon-china/vue-awesome-swiper) 
 

@@ -77,6 +77,10 @@ export default {
 		},
 		// 获取表格列表
 		getTableList(query){
+			this.pageLoading = true;
+			// 是否查询状态
+			this.isQuery = query ? true : false;
+
 			// 格式化查询日期
 			if(this.queryForm.sTime && this.queryForm.sTime != ''){
 				this.queryForm.sTime = moment(this.queryForm.sTime).format('YYYY-MM-DD HH:mm:ss')
@@ -85,13 +89,10 @@ export default {
 				// 获取到当天最后一秒
 				this.queryForm.eTime = moment(this.queryForm.eTime).format('YYYY-MM-DD') + ' 23:59:59';
 			}
-
-			this.pageLoading = true;
-			// 是否查询状态
-			this.isQuery = query ? true : false;
 			
 			this.apiGetList().then(res => {
 				this.pageLoading = false;
+				
 				if(res.code == 200){
 					// 设置数据
 					this.setListData(res.data);

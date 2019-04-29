@@ -31,7 +31,6 @@ export default {
         // 新增数据
         addData(){
             this.apiAdd().then(res => {
-                this.pageLoading = false;
                 if(res.code == 200){
                     this.$Message.success('新增成功!');
                     // 更新列表
@@ -45,7 +44,6 @@ export default {
         // 编辑数据
         editData(){
             this.apiEdit().then(res => {
-                this.pageLoading = false;
                 if(res.code == 200){
                     this.$Message.success('编辑成功!');
                     // 更新列表
@@ -67,12 +65,8 @@ export default {
                     return h('p', {}, '是否确认删除？');
                 },
                 // 确定
-                onOk: () => {
-                    // 延迟
-                    setTimeout(() => this.pageLoading = true, 500);
-                    
+                onOk: () => {              
                     this.apiDelete().then(res => {
-                        this.pageLoading = false;
                         if(res.code == 200){
                             this.$Message.success('删除成功!');
                             // 判断是否为最后一页的唯一项被删除
@@ -92,15 +86,11 @@ export default {
         },
         // 启用和禁用
         enableOrDisable(type){
-            // 延迟
-            setTimeout(() => this.pageLoading = true, 500);
-
             // 如果需要操作的状态为启用
             if(type === 1){
                 // 启用用户
                 this.apiEnable()
                 .then(res => {
-                    this.pageLoading = false;
                     if(res.code == 200){
                         this.$Message.success('启用成功!');
                         // 更新列表
@@ -115,7 +105,6 @@ export default {
             else if(type === -1){                                
                 // 禁用用户
                 this.apiDisable().then(res => {
-                    this.pageLoading = false;
                     if(res.code == 200){
                         this.$Message.success('禁用成功!');
                         // 更新列表

@@ -41,22 +41,10 @@
                 default: ''
             },
         },
-        computed: {
-            // vue最近更新了版本，要求必须在计算属性里加上setter，否则报错[Vue warn]: Computed property "value" was assigned to but it has no setter.
-            // 旧版本不用
-            value: {
-                // getter  
-                get: function() {
-                    return this.model;
-                },  
-                // setter  
-                set: function(val) {
-                    this.$emit('on-change', val);
-                }
-            } 
-        },
         data () {
             return {
+                // 输入值
+                value: '',
                 // 是否开始输入
                 startInput: false,
                 // 是否加载
@@ -80,6 +68,14 @@
                 // 搜索显示的列表条数
                 optMaxSize: 10,
             }
+        },
+        watch: {
+            model(val) {
+                this.value = val;
+            } 
+        },
+        created() {
+            this.value = this.model;
         },
         methods: {
             // 模糊查询

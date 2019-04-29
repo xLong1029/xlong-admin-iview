@@ -2,7 +2,7 @@
  * 功能 : 封装一些重要函数
  * 作者 : 罗永梅（381612175@qq.com）
  * 日期 : 2019-4-27
- * 版本 : version 1.1
+ * 版本 : version 2.0
  */
 // 设置cookie
 export function SetCookie(cname, cvalue, exdays){
