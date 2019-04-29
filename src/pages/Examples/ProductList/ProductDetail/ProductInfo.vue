@@ -42,7 +42,7 @@
         data() {
             return {
                 // 加载页面
-                pageLoading: true,
+                pageLoading: false,
                 // 富文本编辑器配置
                 editorOption:{
                     placeholder: '内容',
@@ -71,11 +71,12 @@
         methods: {
             // 获取产品详情
             getDetail(){
+                this.pageLoading = true;
                 Api.GetProdInfo(this.productId)
                 .then(res => {                    
                     // 取消页面加载
                     this.pageLoading = false;
-                    const result = res.data.attributes;                    
+                    const result = res.data;                    
                     if(res.code == 200){
                         // 设置数据
                         this.infoForm = result;

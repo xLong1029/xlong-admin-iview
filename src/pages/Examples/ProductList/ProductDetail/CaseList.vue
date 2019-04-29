@@ -200,7 +200,11 @@
                 this.openModel();
             },
             // 新增案例
-            addCase(){                
+            addCase(){
+                if(this.caseList.length >= 5){
+                    this.$Message.warning('最多只能添加5个案例！');
+                    return false;
+                }       
                 this.operateType = 1;
                 this.paramsForm.title = '';
                 this.paramsForm.brand = '';
@@ -319,7 +323,7 @@
         .item-info{
             float: left;
             max-width: 800px;
-            border: 1px solid #eee;
+            // border: 1px solid #eee;
             border-radius: 4px; 
         }
     }

@@ -60,76 +60,52 @@ export default {
     // 获取案例列表
     // id：查询的objectId
     GetCaseList: (id) => {
-        let query = BmobServer.GetQuery('Product');
-        return new Promise((resolve, reject) => { 
-            query.get(id, {
-                success: (obj) => resolve({ code: 200, data: obj.attributes.caseList }),
-                error: (obj, err) => reject(err)
-            });
+        return new Promise((resolve, reject) => {
+            BmobServer.GetOne('Product', id).then(res => resolve({ code: 200, data: res.data.caseList })).catch(err => reject(err))
         });
     },
     // 新增案例
     // params: 新增的参数对象, id：查询的objectId
     AddCase: (params, id) => {
         let query = BmobServer.GetQuery('Product');
-        return new Promise((resolve, reject) => { 
-            query.get(id, {
-                success: (obj) => {
-                    if(obj == undefined){
-                        resolve({ code: 404, msg: '无该id数据可获取！' });
-                        return false;
-                    }
-                    obj.addUnique('caseList', params);
-                    // 设置并保存数据
-                    obj.save(null, {
-                        success: res => resolve({ code: 200, data: res }),
-                        err: err => reject(err)
-                    });
-                },
-                error: (obj, err) => reject(err)
-            });
+        return new Promise((resolve, reject) => {
+            query.get(id).then(res => {
+                let caseList = res.caseList ? res.caseList : [];
+                caseList.push(params);
+
+                res.set('caseList',caseList);
+                res.save().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
+            }).catch(() => resolve({ code: 404, msg: '对象不存在！' }))
         });
     },
     // 编辑案例
     // params: 修改的参数对象, id：查询的objectId, index: 案例数组对应索引
     EditCase: (params, id, index) => {
         let query = BmobServer.GetQuery('Product');
-        return new Promise((resolve, reject) => { 
-            query.get(id, {
-                success: (obj) => {
-                    if(obj == undefined){
-                        resolve({ code: 404, msg: '无该id数据可获取！' });
-                        return false;
-                    }
-                    let arr = obj.attributes.caseList;
-                    // 删除当前对象并插入一项
-                    arr.splice(index, 1, params);
-                    // 修改数据
-                    BmobServer.EditOne('Product', id, { caseList : arr }).then(res => resolve(res)).catch(err => reject(err))
-                },
-                error: (obj, err) => reject(err)
-            });
+        return new Promise((resolve, reject) => {
+            query.get(id).then(res => {
+                let caseList = res.caseList ? res.caseList : [];
+                // 删除当前对象并在当前位置插入一项
+                caseList.splice(index, 1, params);
+                
+                res.set('caseList',caseList);
+                res.save().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
+            }).catch(() => resolve({ code: 404, msg: '对象不存在！' }))
         });
     },
     // 删除案例
     // id：查询的objectId, index: 案例数组对应索引
     DelCase: (id, index) => {
         let query = BmobServer.GetQuery('Product');
-        return new Promise((resolve, reject) => { 
-            query.get(id, {
-                success: (obj) => {
-                    if(obj == undefined){
-                        resolve({ code: 404, msg: '无该id数据可获取！' });
-                        return false;
-                    }
-                    let arr = obj.attributes.caseList;
-                    // 删除当前对象
-                    arr.splice(index, 1);
-                    // 修改数据
-                    BmobServer.EditOne('Product', id, { caseList : arr }).then(res => resolve(res)).catch(err => reject(err))
-                },
-                error: (obj, err) => reject(err)
-            });
+        return new Promise((resolve, reject) => {
+            query.get(id).then(res => {
+                let caseList = res.caseList ? res.caseList : [];
+                // 删除当前对象
+                caseList.splice(index, 1);
+                
+                res.set('caseList',caseList);
+                res.save().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
+            }).catch(() => resolve({ code: 404, msg: '对象不存在！' }))
         });
     }
 }

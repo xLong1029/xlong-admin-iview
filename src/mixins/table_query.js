@@ -81,13 +81,16 @@ export default {
 			// 是否查询状态
 			this.isQuery = query ? true : false;
 
-			// 格式化查询日期
-			if(this.queryForm.sTime && this.queryForm.sTime != ''){
-				this.queryForm.sTime = moment(this.queryForm.sTime).format('YYYY-MM-DD HH:mm:ss')
-			}
-			if(this.queryForm.eTime && this.queryForm.eTime != ''){
-				// 获取到当天最后一秒
-				this.queryForm.eTime = moment(this.queryForm.eTime).format('YYYY-MM-DD') + ' 23:59:59';
+			// 是否可查询数据
+			if(this.queryForm){
+				// 格式化查询日期
+				if(this.queryForm.sTime && this.queryForm.sTime != ''){
+					this.queryForm.sTime = moment(this.queryForm.sTime).format('YYYY-MM-DD HH:mm:ss')
+				}
+				if(this.queryForm.eTime && this.queryForm.eTime != ''){
+					// 获取到当天最后一秒
+					this.queryForm.eTime = moment(this.queryForm.eTime).format('YYYY-MM-DD') + ' 23:59:59';
+				}
 			}
 			
 			this.apiGetList().then(res => {

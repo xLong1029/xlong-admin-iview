@@ -125,7 +125,7 @@
                 // 参数表单
                 paramsForm: {
                     title: '',
-                    type: ''
+                    type: 1
                 },
                 // 需要编辑的对象id
                 editId: '',

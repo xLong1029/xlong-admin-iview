@@ -24,7 +24,6 @@ export default {
     // 删除文章
     // ids：需要删除的对象的objectId
     DeleteArtc: (ids) => {
-        console.log(ids);
         return new Promise((resolve, reject) => {
             BmobServer.DelMore('Article', ids).then(res => resolve(res)).catch(err => reject(err))
         });

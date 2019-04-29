@@ -6,62 +6,66 @@
             <Button class="operation-btn" type="warning" :disabled="selectList.length == 0" @click="deleteData">删除</Button>
             <Button class="operation-btn" type="ghost" @click="$router.go(-1)">返回</Button>
         </div>
-        <!-- 内容列表 -->
-        <table ref="contTable" class="m-table" width="100%" cellpadding="0" cellspacing="0">
-            <!-- 表头名称 -->
-            <th v-for="(item, index) in title" :key="index" :align="item.align" :style="{ 'width' : item.width + 'px'}">
-                <Checkbox v-if="item.type == 'CheckBox'" v-model="checkAll" @on-change="selectAll(checkAll)"></Checkbox>
-                <span v-else>{{ item.title }}</span>
-            </th>
-            <!-- 表格内容 -->
-            <tr v-for="(item, index) in listData" :key="index">
-                <td v-for="(th, i) in title" :key="i" :align="th.align">
-                    <!-- 勾选框 -->
-                    <Checkbox v-if="th.type == 'CheckBox'" v-model="item.isCheck" @on-change="selectRow(index, item.isCheck)"></Checkbox>
-                    <!-- 显示文本 -->
-                    <span v-if="th.type == 'Text'">{{ item[th.key] }}</span>
-                    <!-- 输入框 -->
-                    <Input v-if="th.type == 'Input'" v-model="item[th.key]"></Input>
-                    <!-- 图片上传 -->
-                    <div v-if="th.type == 'UploadImg'">
-                        <div class="upload-img">
-                            <img class="show-img" :src="item[th.key]" alt="图片加载失败" @error="notFoundPic"/>
+        <!--  加载判断 -->
+        <Loading v-if="pageLoading"></Loading>
+        <div v-else>
+            <!-- 内容列表 -->
+            <table ref="contTable" class="m-table" width="100%" cellpadding="0" cellspacing="0">
+                <!-- 表头名称 -->
+                <th v-for="(item, index) in title" :key="index" :align="item.align" :style="{ 'width' : item.width + 'px'}">
+                    <Checkbox v-if="item.type == 'CheckBox'" v-model="checkAll" @on-change="selectAll(checkAll)"></Checkbox>
+                    <span v-else>{{ item.title }}</span>
+                </th>
+                <!-- 表格内容 -->
+                <tr v-for="(item, index) in listData" :key="index">
+                    <td v-for="(th, i) in title" :key="i" :align="th.align">
+                        <!-- 勾选框 -->
+                        <Checkbox v-if="th.type == 'CheckBox'" v-model="item.isCheck" @on-change="selectRow(index, item.isCheck)"></Checkbox>
+                        <!-- 显示文本 -->
+                        <span v-if="th.type == 'Text'">{{ item[th.key] }}</span>
+                        <!-- 输入框 -->
+                        <Input v-if="th.type == 'Input'" v-model="item[th.key]"></Input>
+                        <!-- 图片上传 -->
+                        <div v-if="th.type == 'UploadImg'">
+                            <div class="upload-img">
+                                <img class="show-img" :src="item[th.key]" alt="图片加载失败" @error="notFoundPic"/>
+                            </div>
+                            <div class="upload-btn">
+                                <Button type="ghost" :disabled="item[th.key] == ''" icon="ios-eye-outline" @click="viewImage(index)">查看图片</Button>
+                                <Button type="ghost" icon="ios-cloud-upload-outline" @click="uploadClick(index)" style="margin-left:10px">上传图片</Button>                            
+                            </div>
                         </div>
-                        <div class="upload-btn">
-                            <Button type="ghost" :disabled="item[th.key] == ''" icon="ios-eye-outline" @click="viewImage(index)">查看图片</Button>
-                            <Button type="ghost" icon="ios-cloud-upload-outline" @click="uploadClick(index)" style="margin-left:10px">上传图片</Button>                            
+                        <!-- 操作按钮 -->
+                        <div v-if="th.type == 'Button'">
+                            <Button
+                                :key="index"
+                                :type="th.button.type"
+                                :size="th.button.size"
+                                :style="{ 'min-width' : th.button.minWidth + 'px' }"
+                                @click="saveThis(index)"
+                            >
+                            {{ th.button.text }}
+                            </Button>
                         </div>
-                    </div>
-                    <!-- 操作按钮 -->
-                    <div v-if="th.type == 'Button'">
-                        <Button
-                            :key="index"
-                            :type="th.button.type"
-                            :size="th.button.size"
-                            :style="{ 'min-width' : th.button.minWidth + 'px' }"
-                            @click="saveThis(index)"
-                        >
-                        {{ th.button.text }}
-                        </Button>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <!-- 分页 -->
-        <Page
-            class-name="m-page"
-            show-elevator
-            show-sizer
-            show-total
-            :total="page.dataCount"
-            :page-size="page.pageSize"
-            :current="page.pageNo"
-            :page-size-opts="page.pageSizeOpts"
-            @on-change="changePage"
-            @on-page-size-change="changePageSize"
-        >
-        </Page>
-        <div class="clearfix"></div>
+                    </td>
+                </tr>
+            </table>
+            <!-- 分页 -->
+            <Page
+                class-name="m-page"
+                show-elevator
+                show-sizer
+                show-total
+                :total="page.dataCount"
+                :page-size="page.pageSize"
+                :current="page.pageNo"
+                :page-size-opts="page.pageSizeOpts"
+                @on-change="changePage"
+                @on-page-size-change="changePageSize"
+            >
+            </Page>
+            <div class="clearfix"></div>
+        </div>
         <!-- 隐藏的上传按钮 -->
         <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
         <!-- 查看图片 -->
@@ -96,6 +100,8 @@
 <script>
     // 组件
     import SingleImage from 'components/Image/UploadImage/SingleImage'
+    // 组件
+    import Loading from 'components/Common/Loading'
     // 通用JS
     import Common from 'common/common.js'
     import { GetUrlQuery } from 'common/important.js'
@@ -113,12 +119,12 @@
     import axios from 'axios'
       
     export default {
-        components: { SingleImage },
+        components: { SingleImage, Loading },
         mixins: [ TableQuery, TableOperate, Page ],
         computed: {
             ...mapGetters([ 'getImageUrl' ]),
             // 获取所有列表
-            apiGetAll(){
+            apiGetList(){
                 return () => Api.GetContList(this.parentId, this.page.pageNo, this.page.pageSize);
             },
             // 新增操作接口
@@ -136,6 +142,8 @@
         },
         data(){
             return{
+                // 加载页面
+                pageLoading: false,
                 //选中所有项
                 checkAll: false,
                 // 显示查看图片
@@ -317,19 +325,15 @@
                     this.$Notice.error({ title: '图片上传失败，请重试！' });
                 })
             },
-            // 获取表格列表
-            getTableList(query){
-                this.getAllList();
-            },
             // 设置列表数据
             setListData(result){
                 if(result.length > 0){
                     this.listData = result.map(item => {
                         return {
-                            id: item.id,
-                            title: item.attributes.title,
-                            img: item.attributes.img,
-                            url: item.attributes.url,
+                            id: item.objectId,
+                            title: item.title,
+                            img: item.img,
+                            url: item.url,
                         }
                     });
                 }

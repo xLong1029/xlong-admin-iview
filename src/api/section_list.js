@@ -47,9 +47,9 @@ export default {
     GetContList: (parentId, pageNo, pageSize) => {
         let query = BmobServer.GetQuery('SectionCont');
         // 查询语句
-        query.equalTo('parentId', parentId);
+        query.equalTo('parentId', '==', parentId);
         return new Promise((resolve, reject) => {
-            BmobServer.FilterQuery(query, {}, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err));
+            BmobServer.GetListData(query, pageNo, pageSize).then(res => resolve(res)).catch(err => reject(err));
         });
     },
     // 新增内容
@@ -69,6 +69,7 @@ export default {
     // 编辑内容
     // params: 修改的参数对象, id：查询的objectId
     EditContent: (params, id) => {
+        console.log(params);
         return new Promise((resolve, reject) => {
             BmobServer.EditOne('SectionCont', id, params).then(res => resolve(res)).catch(err => reject(err));
         });

@@ -31,10 +31,10 @@ export default {
     // 新增账户
     // params: 新增的参数对象
     AddAccount: (params) => {
+        let query = BmobServer.GetQuery('Account');
         // 默认启用
         params.enabledState = 1;
         return new Promise((resolve, reject) => {
-            let query = BmobServer.GetQuery('Account');
             query.equalTo('mobile', '==', params.mobile);
             BmobServer.FindOneData(query).then(res => {
                 if(res.data) resolve({ code: 404, msg: '手机号已存在！' });

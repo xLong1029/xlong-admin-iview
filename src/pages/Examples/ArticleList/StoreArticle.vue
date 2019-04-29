@@ -44,7 +44,7 @@
         data() {
             return {
                 // 加载页面
-                pageLoading: true,
+                pageLoading: false,
                 // 页面描述
                 pageType: 'add',
                 // 标签列表
@@ -128,9 +128,8 @@
                             .catch(err => this.$Message.warning(err.message))
                         }
                         else{
-                            console.log(this.infoForm);
                             // 修改文章
-                            Api.EditArticle(this.infoForm, this.userId)
+                            Api.EditArticle(this.infoForm, this.articleId)
                             .then(res => {
                                 // 取消页面加载
                                 this.pageLoading = false;
@@ -148,12 +147,12 @@
             },
             // 获取文章详情
             getDetail(){
-                this.pageLoading = false;
+                this.pageLoading = true;
                 Api.GetArtcDetail(this.articleId)
                 .then(res => {                    
                     // 取消页面加载
                     this.pageLoading = false;
-                    const result = res.data.attributes;                    
+                    const result = res.data;                    
                     if(res.code == 200){
                         // 设置数据
                         this.infoForm = result;
