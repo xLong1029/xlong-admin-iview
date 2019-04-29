@@ -142,7 +142,7 @@
                         else{
                             console.log(this.infoForm);
                             // 修改文章
-                            Api.EditArticle(this.infoForm, this.userId)
+                            Api.EditArticle(this.infoForm, this.articleId)
                             .then(res => {
                                 // 取消页面加载
                                 this.pageLoading = false;
