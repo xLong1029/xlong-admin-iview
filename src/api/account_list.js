@@ -34,7 +34,20 @@ export default {
         // 默认启用
         params.enabledState = 1;
         return new Promise((resolve, reject) => {
-            BmobServer.AddOne('Account', params).then(res => resolve(res)).catch(err => reject(err))
+            let query = BmobServer.GetQuery('Account');
+            query.equalTo('mobile', '==', params.mobile);
+            BmobServer.FindOneData(query).then(res => {
+                if(res.data) resolve({ code: 404, msg: '手机号已存在！' });
+                else{
+                    query.equalTo('email', '==', params.email);
+                    BmobServer.FindOneData(query).then(res => {
+                        if(res.data) resolve({ code: 404, msg: '邮箱已存在！' });
+                        else{
+                            BmobServer.AddOne('Account', params).then(res => resolve(res)).catch(err => reject(err))
+                        }
+                    }).catch(err => reject(err));
+                }
+            }).catch(err => reject(err));
         });
     },
     // 获取账户信息

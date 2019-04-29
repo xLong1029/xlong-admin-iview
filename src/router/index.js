@@ -99,10 +99,10 @@ const RouterMap = [
             { path: '/Examples/StoreArticle', name: 'StoreArticle', component: StoreArticle },
             // 消息列表页面
             { path: '/Examples/MessageList', name: 'MessageList', component: MessageList },
-            // 404
-			{ path: '*', name: 'Err404', component: Err404 }
         ]
-    }
+    },
+    // 404
+	{ path: '*', name: 'Err404', component: Err404 }
 ]
 
 export default new Router({

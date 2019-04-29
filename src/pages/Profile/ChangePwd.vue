@@ -97,7 +97,7 @@
                                 })
                                 .catch(err => console.log(err))
                             }
-                            else if(res.code == 404) this.$Message.error(res.msg); 
+                            else if(res.code == 404) this.$Message.warning(res.msg); 
                             else this.$Message.error('密码修改失败！');
                         })
                         .catch(err => console.log(err));

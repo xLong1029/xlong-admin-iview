@@ -47,6 +47,12 @@ export default {
             }
         });
     },
+    // 查找一行数据
+    FindOneData:(query) => {
+        return new Promise((resolve, reject) => {
+            query.find().then(res => resolve({ code: 200, data: res[0] })).catch(err => reject(err));
+        });
+    },
     // 获取一行数据
     GetOne: (tableName, objectId) => {
         let query = Bmob.Query(tableName);

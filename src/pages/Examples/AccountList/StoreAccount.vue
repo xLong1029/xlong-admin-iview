@@ -269,6 +269,7 @@
                                         }
                                     }); 
                                 }
+                                else if(res.code == 404) this.$Message.warning(res.msg);
                                 else console.log(res);
                             })
                             .catch(err => this.$Message.warning(err.message))
@@ -283,7 +284,8 @@
                                     this.getDetail();
                                     this.$Message.success('账户修改成功!');
                                 }
-                                else this.$Message.warning(res.msg);
+                                else if(res.code == 404) this.$Message.warning(res.msg);
+                                else console.log(res);
                             })
                             .catch(err => console.log(err))
                         }
@@ -317,7 +319,7 @@
                         if(str != '')this.professionValue = this.infoForm.profession.split(",");
                         else this.professionValue = [];
                     }
-                    else this.$Message.warning(res.msg);
+                    else this.$Message.error('无该用户数据!');
                 })
                 .catch(err => console.log(err))
             },           
