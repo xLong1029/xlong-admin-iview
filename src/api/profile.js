@@ -12,7 +12,7 @@ export default {
     // 获取用户信息
     // token: 用户token参数
     GetUserInfo: (token) => {
-        let query = BmobServer.GetQuery('UserInfo');
+        let query = BmobServer.GetQuery('_User');
         query.equalTo('token', token);
         return new Promise((resolve, reject) => {
 			query.first({
@@ -24,7 +24,7 @@ export default {
     // 修改个人资料
     // params: 修改的参数对象, key：查询的唯一键
     EditProfile: (params, key) => {
-        let query = BmobServer.GetQuery('UserInfo');
+        let query = BmobServer.GetQuery('_User');
         // 获取键值对
         let p = GetParams(key);
         // 根据唯一键查询对象
@@ -45,7 +45,7 @@ export default {
     // 修改密码
     // params: 修改的参数对象, key：查询的唯一键
     ChangePwd: (params, key) => {
-        let query = BmobServer.GetQuery('Login');
+        let query = BmobServer.GetQuery('_User');
         // 获取键值对
         let p = GetParams(key);
         // 根据唯一键查询对象

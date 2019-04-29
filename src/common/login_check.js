@@ -10,8 +10,8 @@ export default {
 	// 设置账户信息
 	setAccount: (_commit, info) => {
 		// 设置用户信息
-		_commit('SET_USER_FACE', info.attributes.userface);
-		_commit('SET_USER_NICKNAME', info.attributes.nickname);
+		_commit('SET_USER_FACE', info.attributes.userFace);
+		_commit('SET_USER_NICKNAME', info.attributes.nickName);
 		_commit('SET_USER_ID', info.id);
 	},
 	// 清空账户信息

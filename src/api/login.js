@@ -11,7 +11,7 @@ export default {
     // 登录
     // params: 参数对象
     Login : (params) => {
-        let query = BmobServer.GetQuery('Login');
+        let query = BmobServer.GetQuery('_User');
         // 两条查询语句一起写，就相当于AND查询
         query.equalTo('username', params.username);
         query.equalTo('password', params.password);
@@ -26,7 +26,7 @@ export default {
     // 获取用户信息
     // token: 用户token参数
     GetUserInfo: (token) => {
-        let query = BmobServer.GetQuery('UserInfo');
+        let query = BmobServer.GetQuery('_User');
         query.equalTo('token', token);
         return new Promise((resolve, reject) => {
 			query.first({

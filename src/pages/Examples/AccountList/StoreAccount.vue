@@ -307,8 +307,6 @@
                         this.createdAt = res.data.createdAt;
                         // 设置省市值
                         this.provinceValue = [this.infoForm.province, this.infoForm.city, this.infoForm.area];
-                        // 设置企业名称
-						this.$store.commit('SET_INPUT_VALUE', result.companyName);
                         // 设置工作时间
                         if(this.infoForm.isGraduate){
                             this.disabledWT = true;
