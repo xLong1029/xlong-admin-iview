@@ -15,7 +15,10 @@ export default {
         query.equalTo('token', '==', token);
 
         return new Promise((resolve, reject) => {
-            query.find().then(res => resolve({ code: 200, data: res[0] }))
+            query.find().then(res => {
+                console.log(res);
+                resolve({ code: 200, data: res[0] })
+            })
             .catch(err => reject(err));
 		});
     },

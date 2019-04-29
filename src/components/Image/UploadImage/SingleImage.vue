@@ -98,48 +98,12 @@
             uploadFile(file){
                 this.progressShow();
 
-                // 设置定时器累增进度条百分比
-                let progress = setInterval(() => {
-                    if(this.percentage == 90) clearInterval(progress);
-                    this.percentage += 10;
-                },100);
-
-                console.log(file);
-                const fileName = file.name;
-
-                /* Bmob上传有跨域问题，不可用 */
-                var this_file = new Bmob.File(fileName, file);
-                console.log(this_file);  
-                this_file.save().then(function(obj) {
-                    alert(obj.url());
-                }, function(error) {
-                    console.log(error);
-                });
-                /* Bmob上传有跨域问题，不可用 */
-
-                // // 创建formData对象
-                // let params = new FormData();
-                // // 这里的token是七牛上传token，如需使用请换上你自己的七牛token
-                // params.append('token', Common.UPLOAD_TOKEN);
-                // params.append('file', file);
-                
-                // // 七牛存储空间测试时请选择华东，否则报错：incorrect region, please use up-z2.qiniu.com
-                // axios.post('http://upload.qiniu.com/', params)
-                // .then(res => {
-                //     let url = Common.UPLOAD_URL + res.data.hash;
-                //     this.getImageUrl = url;
-                //     // 传给父组件url
-                //     this.$emit('get-img-url', url);
-                    
-                //     // 停止加载和隐藏进度
-                //     this.progressHide();
-                //     this.percentage = 100;
-                //     clearInterval(progress);
-
-                //     this.showUploadBtn = false;                    
-                //     this.$Notice.success({ title: '图片上传成功!' });
-                // })
-                // .catch(err => this.errorTip(progress))
+                var thisFile = Bmob.File(file.name, file);
+                this.uploadToBomb(thisFile).then(res => {
+                    this.getImageUrl = res[0].url;
+                    // 传给父组件url
+                    this.$emit('get-img-url', this.getImageUrl);
+                }).catch(err => console.log(err));
             },
         }
     }

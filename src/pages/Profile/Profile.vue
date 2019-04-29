@@ -46,7 +46,7 @@
 		data(){
 			return {
                 // 加载页面
-				pageLoading: true,
+				pageLoading: false,
 				// 表单信息
                 infoForm: {
                     // 用户名(账号)
@@ -81,17 +81,11 @@
             submit(form) {
                 this.$refs[form].validate((valid) => {
                     if (valid) {
-                        // 页面加载
-                        this.pageLoading = true;
-
                         Api.EditProfile(this.infoForm, this.infoForm.objectId)
                         .then(res => {
-                            this.pageLoading = false;
                             if(res.code == 200){
+                                this.getProfile();
                                 this.$Message.success('资料修改成功！');
-                                // 更新用户信息
-                                this.$store.commit('SET_USER_NICKNAME', this.infoForm.nickName);
-                                this.$store.commit('SET_USER_FACE', this.infoForm.userFace);
                             }
                             else this.$Message.error('资料修改失败！');
                         })
@@ -102,12 +96,16 @@
             },
             // 获取个人资料
             getProfile(){
+                this.pageLoading= true;
                 Api.GetUserInfo(this.token)
                 .then(res => {
                     // 获取到数据
                     if(res.code == 200){
                         this.pageLoading = false;					
                         this.infoForm = res.data;
+                        // 更新用户信息
+                        this.$store.commit('SET_USER_NICKNAME', this.infoForm.nickName);
+                        this.$store.commit('SET_USER_FACE', this.infoForm.userFace);
                     }
                     else this.$Message.error('无该用户数据!');
                 })
@@ -115,6 +113,7 @@
             },
             // 设置头像
             setFace(url){
+                console.log(url);
                 this.infoForm.userFace = url;
             }
         }

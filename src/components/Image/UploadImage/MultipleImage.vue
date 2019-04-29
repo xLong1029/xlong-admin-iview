@@ -10,7 +10,7 @@
             </div>
         </div>
         <!-- 上传按钮 -->
-        <div v-show="showUploadBtn" class="upload-btn" @click="uploadClick">
+        <div class="upload-btn" @click="uploadClick">
             <Icon type="camera" size="20"></Icon>
             <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
         </div>
@@ -116,34 +116,13 @@
                     return check;
                 }
 
-                // 设置定时器累增进度条百分比
-                let progress = setInterval(() => {
-                    if(this.percentage == 90) clearInterval(progress);
-                    this.percentage += 10;
-                },100);
-
-                // 创建formData对象
-                let params = new FormData();
-                // 这里的token是七牛上传token，如需使用请换上你自己的七牛token
-                params.append('token', Common.UPLOAD_TOKEN);
-                params.append('file', file);
-                
-                // 上传请求
-                axios.post('http://upload.qiniu.com/', params)
-                .then(res => {
-                    let url = Common.UPLOAD_URL + res.data.hash;
-                    this.urlArr.push(url);
+                var thisFile = Bmob.File(file.name, file);
+                this.uploadToBomb(thisFile).then(res => {
+                    this.getImageUrl = res[0].url;
+                    this.urlArr.push(res[0].url);
                     // 传给父组件url
                     this.$emit('get-img-list', this.urlArr);
-                    // 更新多图片显示路径
-                    // this.$store.commit('SET_IMAGE_URL_ARR', this.urlArr);
-                    // 停止加载和隐藏进度
-                    this.progressHide();
-                    this.percentage = 100;
-                    clearInterval(progress);
-                    this.$Notice.success({ title: '图片上传成功!' });
-                })
-                .catch(err => this.errorTip(progress))
+                }).catch(err => console.log(err));
             }
         }
     }

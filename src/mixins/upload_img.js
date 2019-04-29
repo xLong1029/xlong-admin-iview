@@ -43,6 +43,31 @@ export default {
             // 触发上传按钮点击事件
             this.$refs.imgFile.click();
         },
+        // 上传至Bomb
+        uploadToBomb(file){
+            // 设置定时器累增进度条百分比
+            let progress = setInterval(() => {
+                if(this.percentage == 90) clearInterval(progress);
+                this.percentage += 10;
+            },100);
+            
+            return new Promise((resolve, reject) => {
+                file.save().then((res) => {                    
+                    // 停止加载和隐藏进度
+                    this.progressHide();
+                    this.percentage = 100;
+                    clearInterval(progress);
+    
+                    this.showUploadBtn = false;                    
+                    this.$Notice.success({ title: '图片上传成功!' });
+
+                    resolve(res);
+                }, (err) =>  {
+                    this.errorTip(progress);
+                    reject(err);
+                });
+            });
+        },
         // 选择文件
         selectFile(event){
             // 获取上传文件列表

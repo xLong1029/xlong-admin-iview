@@ -3,12 +3,12 @@
        <Form ref="loginForm" :model="loginForm" :rules="validate" class="login-form">
        		<h3 class="form-title"><img :src="logo"/></h3>
 	        <Form-item prop="username">
-	            <Input v-model="loginForm.username" placeholder="请输入手机号码">
+	            <Input v-model="loginForm.username" placeholder="请输入手机号码" @keyup.enter.native="submit('loginForm')">
 	            	<Icon type="ios-person-outline" slot="prepend"></Icon>
 	            </Input>
 	        </Form-item>
 	        <Form-item prop="password">
-	            <Input type="password" v-model="loginForm.password" placeholder="请输入密码">
+	            <Input type="password" v-model="loginForm.password" placeholder="请输入密码" @keyup.enter.native="submit('loginForm')">
 	            	<Icon type="ios-locked-outline" slot="prepend"></Icon>
 	            </Input>
 	        </Form-item>
