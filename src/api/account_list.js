@@ -31,6 +31,8 @@ export default {
     // 新增账户
     // params: 新增的参数对象
     AddAccount: (params) => {
+        // 默认启用
+        params.enabledState = 1;
         return new Promise((resolve, reject) => {
             BmobServer.AddOne('Account', params).then(res => resolve(res)).catch(err => reject(err))
         });
