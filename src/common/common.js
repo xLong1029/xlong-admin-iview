@@ -4,18 +4,12 @@
  * 日期 : 2017-8-31
  * 版本 : version 1.0
  */
-import { genUpToken } from 'qiniu/qiniu_token.js'
 
 export default {
     /* 配置信息 */
     // bmob 应用密钥
     APPLICATION_ID: '07ffab130cdf11f91381f18779fcf697',
     REST_API_KEY: '653887187daf660941971acf257cccc1',
-    // 获取七牛云上传Token，参数分别为：AccessKey，SecretKey，bucketName
-    // 这里仅作测试使用，实际项目使用时请换上你自己的AccessKey，SecretKey和bucketName
-    UPLOAD_TOKEN: genUpToken('d4N11KEZxF2QFo9is4DFKGXRFfdyhFuAbNRYqzP0', 'WL8EjjlXTovSJ2WTMxZLiat_gO936zBxKaHMA4lv', 'imagestore'),
-    // 上传文件显示的测试域名，测试地域名已回收，请改用你的自定义域名
-    UPLOAD_URL: 'http://ovw49042e.bkt.clouddn.com/',
 
     /* 通用正则表达式 */
     // 企业单位名称
