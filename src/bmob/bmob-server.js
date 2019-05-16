@@ -99,7 +99,8 @@ export default {
     },
     // 批量删除数据
     DelMore: (tableName, objectIds) => {
-        let query = Bmob.Query(tableName);        
+        let query = Bmob.Query(tableName);
+        // 查询某一字段值在某一集合中的记录    
         query.containedIn('objectId', objectIds);
         // 获取对象并删除
         return new Promise((resolve, reject) => {
