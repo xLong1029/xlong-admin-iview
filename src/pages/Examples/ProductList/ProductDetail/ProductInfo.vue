@@ -43,16 +43,6 @@
             return {
                 // 加载页面
                 pageLoading: false,
-                // 富文本编辑器配置
-                editorOption:{
-                    placeholder: '内容',
-                    modules:{
-                        imageImport: true,
-                        imageResize: {
-                            displaySize: true
-                        }
-                    }
-                },
                 // 表单信息
                 infoForm: {
                     productName: '',
