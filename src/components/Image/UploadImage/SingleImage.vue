@@ -40,8 +40,6 @@
     import Common from 'common/common.js'
     // 图片上传设置
     import UploadImg from 'mixins/upload_img.js'
-    // axios
-    import axios from 'axios'
 
     export default {
         name: 'singleImage',

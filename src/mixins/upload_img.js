@@ -69,7 +69,7 @@ export default {
             });
         },
         // 选择文件
-        selectFile(event){
+        selectFile(){
             // 获取上传文件列表
             const fileList = this.$refs.imgFile.files;
             if(fileList.length > 0){

@@ -1,18 +1,8 @@
 <template>
   <div class="m-tinymce">
 	<textarea :id="id"></textarea>
-	<!-- 图片上传进度 -->
-	<!-- <Upload
-		ref="upload"
-		action="/api/WebsiteCms/StorageService/Img/Upload"
-		:on-success="handleSuccess"
-		:on-error="handleError"
-		:on-format-error="handleFormatError"
-		:format="['jpg','jpeg','png']"
-		style="visible: hidden"
-	>
-		<div ref="uploadBtn"></div>
-	</Upload> -->
+	<!-- 图片上传 -->
+	<input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
   </div>
 </template>
 
@@ -48,7 +38,9 @@ export default {
 		return {
 			id: "tinymce__" + Date.now(),
 			// 获取上图片节点
-			imgUrlId: ""
+			imgUrlId: "",
+			// 可接受的图片上传格式
+            format: ['image/jpg', 'image/jpeg', 'image/png'],
 		};
 	},
 	props: ["value", "width", "height", "menubar", "toolbar", "placeholder"],
@@ -77,16 +69,16 @@ export default {
 			placeholder: this.placeholder || '',
 			placeholder_attrs: { style: {position: 'absolute', top:'5px', left:0, color: '#bbbec8', padding: '1%', width:'98%', overflow: 'hidden', 'white-space': 'pre-wrap'} },
 			// 工具栏设置
-			toolbar: this.toolbar || "insertfile undo redo | styleselect | fontsizeselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image link | code | preview fullscreen ",
+			toolbar: this.toolbar || "insertfile undo redo | styleselect | fontsizeselect | bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image link | code | preview fullscreen ",
 			// 上传设置
 			file_browser_callback: (field_name, url, type, win) => {
 				if (type == "file") {
 					this.$Message.warning('功能暂未开放');
 				}
 				if (type == "image") {
-					this.$Message.warning('功能暂未开放');
-					// this.$refs.uploadBtn.click();
-					// this.imgUrlId = field_name;
+					// this.$Message.warning('功能暂未开放');
+					this.$refs.imgFile.click();
+					this.imgUrlId = field_name;
 				}
 			},
 			//TinyMCE 会将所有的 font 元素转换成 span 元素
@@ -124,15 +116,38 @@ export default {
 		});
 	},
 	methods: {
-		//结束时的处理
-		handleOver() {
-			this.$refs.upload.clearFiles();
-		},
-		//图片上传成功
-		handleSuccess(res, file) {
-			if (res.code == 200) {
+		// 选择文件
+        selectFile(event){
+            // 获取上传文件列表
+            const fileList = this.$refs.imgFile.files;
+            if(fileList.length > 0){
+                let fileName = fileList[0].name;
+                // 将文件大小字节转成kb
+                let fileSize = Math.floor(fileList[0].size / 1024);
+
+                let maxSize = 2048;
+                let overHint = maxSize + 'kb';
+                // 控制文件大小在2M内
+                if(fileSize > maxSize){
+                    if(maxSize > 1024) overHint = Math.floor(maxSize/1024) + 'M';
+                    this.$Notice.warning({
+                        title: '超出文件大小限制',
+                        desc: '文件 ' + fileName + ' 太大，不能超过 ' + overHint
+                    });
+                    this.progressHide();
+                    return false;
+                }
+                this.uploadFile(fileList[0]);
+            }
+            else console.log('获取不到文件列表');
+        },
+		// 上传文件
+		uploadFile(file){
+			var thisFile = Bmob.File(file.name, file);
+            
+			thisFile.save().then(res => {
 				let inputImgUrl = document.getElementById(this.imgUrlId);
-				inputImgUrl.value = res.data.url;
+				inputImgUrl.value = res[0].url;
 				//触发change事件
 				if (document.createEventObject) {
 					// IE浏览器支持fireEvent方法
@@ -144,23 +159,12 @@ export default {
 					let evt = document.createEvent("HTMLEvents");
 					evt.initEvent("change", true, true);
 					inputImgUrl.dispatchEvent(evt);
-				}
+				}            
 				this.$Notice.success({ title: '图片上传成功!' });
-			}
-			else  this.$Notice.error(res.msg);
-			this.handleOver();
-		},
-		//错误
-		handleError(error, file) {
-			this.$Message.error("网络错误");
-			this.handleOver();
-		},
-		handleFormatError(file) {
-			this.$Notice.error({
-				title: "格式不正确",
-				desc: "文件" + file.name + "格式不正确，请上传 jpg 或 png 格式的图片。"
+			}, err =>  {
+				this.$Notice.error({ title: '图片上传失败!' });
+				console.log(err);
 			});
-			this.handleOver();
 		}
 	},
 	beforeDestroy() {
