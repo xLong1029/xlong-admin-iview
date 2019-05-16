@@ -163,20 +163,4 @@
             margin-left: 10px;
         }
     }
-    
-    .instruction-editor{
-        background: #fff;
-        .ql-toolbar{
-            border-radius: 4px 4px 0 0;
-            border: 1px solid @table_border_color;
-        }
-        .ql-container{
-            min-height: 500px;
-            border-radius: 0 0 4px 4px;
-            border: 1px solid #eee;
-            .ql-editor{
-                padding-bottom: 20px;
-            }
-        }
-    }
 </style>
