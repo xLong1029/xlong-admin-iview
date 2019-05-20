@@ -117,7 +117,7 @@
             apiDelete(){
                 return () => Api.DeleteAcc(this.selectList);
             },
-            // 启用和禁用操作接口
+            // 启用操作接口
             apiEnable(){
                 return () => Api.EnableAcc({ enabledState: 1 }, this.selectList);
             },

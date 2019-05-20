@@ -80,7 +80,7 @@
             // 删除操作接口
             apiDelete(){
                 return () => Api.DeleteArtc(this.selectList);
-            },
+            }
         },
         data() {
             return {
