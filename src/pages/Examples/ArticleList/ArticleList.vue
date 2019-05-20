@@ -30,7 +30,7 @@
             <Table
                 class="m-table-list"
                 border
-                :columns="userList"
+                :columns="tableList"
                 :data="listData"
                 @on-selection-change="setSelectList"
             ></Table>
@@ -111,7 +111,7 @@
                     }]
                 },
                 // 板块列表
-                userList:[
+                tableList:[
                     {
                         title: '全选',
                         type: 'selection',
