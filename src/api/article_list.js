@@ -9,7 +9,7 @@ import BmobServer from 'bmob/bmob-server.js'
 
 export default {
     // 获取文章列表
-    // params：查询参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
+    // params：查询参数对象, pageNo：当前页码, pageSize：每页显示几条数据
     GetArtcList: (params, pageNo, pageSize) => {
         let query = BmobServer.GetQuery('Article');
         if(params && Object.keys(params).length){

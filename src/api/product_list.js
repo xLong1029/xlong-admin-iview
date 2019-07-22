@@ -9,7 +9,7 @@ import BmobServer from 'bmob/bmob-server.js'
 
 export default {
     // 获取产品列表
-    // params：查询参数对象, pageNo：当前第一页, pageSize：每页显示几条数据
+    // params：查询参数对象, pageNo：当前页码, pageSize：每页显示几条数据
     GetProdList: (params, pageNo, pageSize) => {
         let query = BmobServer.GetQuery('Product');
         if(params && Object.keys(params).length){
@@ -87,7 +87,7 @@ export default {
                 let caseList = res.caseList ? res.caseList : [];
                 // 删除当前对象并在当前位置插入一项
                 caseList.splice(index, 1, params);
-                
+
                 res.set('caseList',caseList);
                 res.save().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
             }).catch(() => resolve({ code: 404, msg: '对象不存在！' }))
@@ -102,7 +102,7 @@ export default {
                 let caseList = res.caseList ? res.caseList : [];
                 // 删除当前对象
                 caseList.splice(index, 1);
-                
+
                 res.set('caseList',caseList);
                 res.save().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
             }).catch(() => resolve({ code: 404, msg: '对象不存在！' }))
