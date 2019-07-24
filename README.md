@@ -14,14 +14,14 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bomb 开发的单页面客户端�
 
 1. V1.0版本
 
-    文件存储使用七牛云（由于测试域名被收回的原因，上传功能保留，但无法获取上传成功后的URL）；
+    文件存储使用七牛云（由于测试域名被收回的原因，上传功能保留，但无法获取上传成功后的URL）；<br/>
     富文本编辑器使用 Vue-quill-editor
 
 2. V2.0版本
 
-    富文本编辑器改用Tinymce；
-    图片裁剪组件，裁剪后改用实时预览方式；
-    Bomb改用依赖包引入方式；
+    富文本编辑器改用Tinymce；<br/>
+    图片裁剪组件，裁剪后改用实时预览方式；<br/>
+    Bomb改用依赖包引入方式；<br/>
     文件存储使用Bomb存储，已解决跨域问题 ( 温馨提示：于2019-7-19发现这个接口返回的url地址有出错了， 提示"invisible domain"，但上传功能是完好的，只是无法显示图片)
 
 ## 项目说明
@@ -31,11 +31,11 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bomb 开发的单页面客户端�
 - **后端**：Bomb
 
 #### 2. 项目用到技术、框架与插件
-[Vue.js](https://github.com/vuejs)  
-[webpack](https://github.com/webpack)  
-[iView](https://github.com/iview/iview)  
-[Tinymce](https://github.com/tinymce/tinymce)  
-[vue-awesome-swiper](https://github.com/surmon-china/vue-awesome-swiper)
+[Vue.js](https://github.com/vuejs)<br/>
+[webpack](https://github.com/webpack)<br/>
+[iView](https://github.com/iview/iview)<br/>
+[Tinymce](https://github.com/tinymce/tinymce)<br/>
+[vue-awesome-swiper](https://github.com/surmon-china/vue-awesome-swiper)<br/>
 
 ## 部分项目运行截图
 * 登录界面
