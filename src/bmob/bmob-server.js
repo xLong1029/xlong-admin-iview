@@ -1,8 +1,8 @@
 /*
  * 功能 : 封装bmob的增删改查数据方法。
  * 作者 : 罗永梅（381612175@qq.com）
- * 日期 : 2019-4-29
- * 版本 : version 2.0
+ * 日期 : 2019-7-24
+ * 版本 : version 2.1
  */
 import Common from 'common/common.js'
 import { ObjOmit } from 'common/important.js'
@@ -47,6 +47,15 @@ export default {
             }
         });
     },
+    // 查找所有数据
+    FindAllData: (query) => {
+      return new Promise((resolve, reject) => {
+        query
+          .find()
+          .then(res => resolve({ code: 200, data: res }))
+          .catch(err => reject(err));
+      });
+    },
     // 查找一行数据
     FindOneData:(query) => {
         return new Promise((resolve, reject) => {
@@ -66,7 +75,9 @@ export default {
         return new Promise((resolve, reject) => {
             // 循环执行set操作
             for(let i in params){
-                query.set(i, params[i]);
+              // 对参数进行空处理
+              params[i] = params[i] == null ? '' : params[i];
+              query.set(i, params[i]);
             }
             query.save().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
         });
@@ -91,7 +102,9 @@ export default {
             query.get(objectId).then(res => {
                 // 循环执行set操作
                 for(let i in params){
-                    res.set(i, params[i]);
+                  // 对参数进行空处理
+                  params[i] = params[i] == null ? '' : params[i];
+                  res.set(i, params[i]);
                 }
                 res.save().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
             }).catch(() => resolve({ code: 404, msg: '对象不存在！' }))
@@ -100,7 +113,7 @@ export default {
     // 批量删除数据
     DelMore: (tableName, objectIds) => {
         let query = Bmob.Query(tableName);
-        // 查询某一字段值在某一集合中的记录    
+        // 查询某一字段值在某一集合中的记录
         query.containedIn('objectId', objectIds);
         // 获取对象并删除
         return new Promise((resolve, reject) => {
@@ -111,14 +124,16 @@ export default {
     },
     // 批量修改数据
     EditMore: (tableName, objectIds, params) => {
-        let query = Bmob.Query(tableName);        
+        let query = Bmob.Query(tableName);
         query.containedIn('objectId', objectIds);
         // 获取对象并修改
         return new Promise((resolve, reject) => {
             query.find().then(todos => {
                 // 循环执行set操作
                 for(let i in params){
-                    todos.set(i, params[i]);
+                  // 对参数进行空处理
+                  params[i] = params[i] == null ? '' : params[i];
+                  todos.set(i, params[i]);
                 }
                 todos.saveAll().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
             }).catch(() => resolve({ code: 404, msg: '对象不存在！' }))

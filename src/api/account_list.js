@@ -63,12 +63,14 @@ export default {
       let query = BmobServer.GetQuery('Account');
       return new Promise((resolve, reject) => {
           query.equalTo('mobile', '==', params.mobile);
-          BmobServer.FindOneData(query).then(res => {
-              if(res.data) resolve({ code: 404, msg: '手机号已存在！' });
+          query.equalTo('objectId', '!=', id);
+          BmobServer.FindAllData(query).then(res => {
+              if(res.data && res.data.length) resolve({ code: 404, msg: '手机号已存在！' });
               else{
                   query.equalTo('email', '==', params.email);
-                  BmobServer.FindOneData(query).then(res => {
-                      if(res.data) resolve({ code: 404, msg: '邮箱已存在！' });
+                  query.equalTo('objectId', '!=', id);
+                  BmobServer.FindAllData(query).then(res => {
+                      if(res.data && res.data.length) resolve({ code: 404, msg: '邮箱已存在！' });
                       else{
                         BmobServer.EditOne('Account', id, params).then(res => resolve(res)).catch(err => reject(err))
                       }
