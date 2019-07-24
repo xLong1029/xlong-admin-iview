@@ -60,9 +60,22 @@ export default {
     // 修改账户信息
     // params: 修改的参数对象, id：查询的objectId
     EditAccount: (params, id) => {
-        return new Promise((resolve, reject) => {
-            BmobServer.EditOne('Account', id, params).then(res => resolve(res)).catch(err => reject(err))
-        });
+      let query = BmobServer.GetQuery('Account');
+      return new Promise((resolve, reject) => {
+          query.equalTo('mobile', '==', params.mobile);
+          BmobServer.FindOneData(query).then(res => {
+              if(res.data) resolve({ code: 404, msg: '手机号已存在！' });
+              else{
+                  query.equalTo('email', '==', params.email);
+                  BmobServer.FindOneData(query).then(res => {
+                      if(res.data) resolve({ code: 404, msg: '邮箱已存在！' });
+                      else{
+                        BmobServer.EditOne('Account', id, params).then(res => resolve(res)).catch(err => reject(err))
+                      }
+                  }).catch(err => reject(err));
+              }
+          }).catch(err => reject(err));
+      });
     },
     // 删除账户
     // ids：需要删除的对象的objectId
