@@ -14,7 +14,7 @@ export default {
         let query = BmobServer.GetQuery('_User');
         query.equalTo('token', '==', token);
         // 只返回select的字段值
-        query.select('username', 'userFace', 'nickName', 'realName', 'nickName', 'gender');
+        query.select('username', 'userFace', 'nickName', 'realName', 'gender');
         return new Promise((resolve, reject) => {
             query.find().then(res => {
                 resolve({ code: 200, data: res[0] })
