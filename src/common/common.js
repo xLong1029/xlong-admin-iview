@@ -28,7 +28,7 @@ export default {
     regCompanyName: /^[\u4E00-\u9FA5a-zA-Z]((?![·\.\(\)（）]{2,4})([\u4E00-\u9FA5a-zA-Z·\.\(\)（）])){0,98}[\u4E00-\u9FA5]$/,
     // 手机号正则表达式
     regMobile: /^1(3|4|5|7|8)\d{9}$/,
-    // 手机号正则表达式
+    // 密码正则表达式
     regPassword: /^[\w]{6,12}$/,
     // 网站地址正则表达式
     regWebsite: /^[\u4E00-\u9FA5A\w\-_]+(\.[\u4E00-\u9FA5A\w\-_]+)+([\u4E00-\u9FA5A\w\-\.,@?^=%&amp;:/~\+#]*[\u4E00-\u9FA5A\w\-\@?^=%&amp;/~\+#])?/,
@@ -59,7 +59,7 @@ export default {
     // type：1 最近一周，2 最近一个月，3 最近三个月
     SetDate: (type) => {
         const end = new Date();
-        const start = new Date();        
+        const start = new Date();
         switch(type){
             case 1: {
                 start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
@@ -81,14 +81,14 @@ export default {
         if(!date) return;
         if(typeof date =='string' && date.indexOf('-') != -1) return date;
         else{
-            let year = date.getFullYear(); 
-            let month = date.getMonth() + 1; 
-            let day = date.getDate(); 
-            let hour = date.getHours() > 9 ? date.getHours() : '0' + date.getHours(); 
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let day = date.getDate();
+            let hour = date.getHours() > 9 ? date.getHours() : '0' + date.getHours();
             let minute = date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes();
-            let second = date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds(); 
-            return year + "-" + month + "-" + day + ' ' + hour + ':' + minute + ':' + second; 
-        }        
+            let second = date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds();
+            return year + "-" + month + "-" + day + ' ' + hour + ':' + minute + ':' + second;
+        }
     },
     // 设置默认图片
     // type：1 显示默认头像，2 显示暂无图片
