@@ -2,7 +2,7 @@
 
 ## 介绍
 
-xlong-admin-vue 是一套基于 Vue + Webpack +Bomb 开发的单页面客户端渲染管理后台系统示例。
+xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端渲染管理后台系统示例。
 
 *仅作学习参考，请勿商用
 
@@ -21,14 +21,14 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bomb 开发的单页面客户端�
 
     富文本编辑器改用Tinymce；<br/>
     图片裁剪组件，裁剪后改用实时预览方式；<br/>
-    Bomb改用依赖包引入方式；<br/>
-    文件存储使用Bomb存储，已解决跨域问题 ( 温馨提示：于2019-7-19发现这个接口返回的url地址有出错了， 提示"invisible domain"，但上传功能是完好的，只是无法显示图片)
+    Bmob改用依赖包引入方式；<br/>
+    文件存储使用Bmob存储，已解决跨域问题 ( 温馨提示：于2019-7-19发现这个接口返回的url地址有出错了， 提示"invisible domain"，但上传功能是完好的，只是无法显示图片)
 
 ## 项目说明
 
 #### 1. 前后端分离开发模式
 - **前端**：Vue + Webpack+ iView
-- **后端**：Bomb
+- **后端**：Bmob
 
 #### 2. 项目用到技术、框架与插件
 [Vue.js](https://github.com/vuejs)<br/>
@@ -123,7 +123,7 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bomb 开发的单页面客户端�
 │  │    validate.js // 封装一些iView表单验证方法
 │  │
 │  ├─bmob
-│  │    bmob-server.js // 封装bomb请求函数
+│  │    bmob-server.js // 封装Bmob请求函数
 │  │
 │  └─router
 │       index.js // 路由配置
