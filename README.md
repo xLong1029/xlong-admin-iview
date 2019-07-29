@@ -9,6 +9,7 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 ## 项目展示
 
 > DEMO地址：https://xlong1029.github.io/xlong-admin-vue/#/Login
+<<<<<<< HEAD
 
 ## 项目迭代
 
@@ -157,3 +158,5 @@ github：https://github.com/xLong1029/
 UI中国：http://i.ui.cn/ucenter/358591.html
 
 * 此项目做学习Vuejs测试使用，有什么问题可联系我讨论
+=======
+>>>>>>> gh-pages
