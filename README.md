@@ -8,7 +8,7 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 
 ## 项目展示
 
-> DEMO地址：https://xlong1029.github.io/xlong-admin-angular/#/login
+> DEMO地址：https://xlong1029.github.io/xlong-admin-vue/#/Login
 
 ## 项目迭代
 
