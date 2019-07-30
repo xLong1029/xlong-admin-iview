@@ -39,7 +39,7 @@
     // 通用JS
     import Common from 'common/common.js'
     // 图片上传设置
-    import UploadImg from 'mixins/upload_img.js'
+    import { UploadImg } from 'mixins'
 
     export default {
         name: 'multipleImage',
@@ -110,7 +110,7 @@
                         desc: '最多只能上传' + this.maxNum + '张图片'
                     });
                     // 停止加载和隐藏进度条
-                    this.progressHide(); 
+                    this.progressHide();
                     return check;
                 }
 

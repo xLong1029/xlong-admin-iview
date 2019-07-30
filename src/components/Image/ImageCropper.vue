@@ -7,7 +7,7 @@
             <div class="upload-mask">
                 <Icon v-if="preview" type="eye" @click.native="viewImage" style="margin-right:15px;"></Icon>
                 <Icon type="edit" @click.native="uploadClick"></Icon>
-            </div>            
+            </div>
         </div>
         <div class="clearfix"></div>
         <!-- 上传按钮 -->
@@ -28,7 +28,7 @@
             文件大小为
             <span v-if="fileSize < 1024">{{ fileSize }}kb</span>
             <span v-else>{{ Math.floor(fileSize/1024) }}M</span>
-            以内。            
+            以内。
         </span>
         <!-- 裁剪图片弹窗 -->
         <Modal :title="cropImgModel.title" class="m-cropper-img" v-model="cropImgModel.show" width="900" @on-cancel="hideCropModel">
@@ -51,7 +51,7 @@
             </div>
             <!-- 裁剪预览区域 -->
             <div class="img-preview-area">
-                <div class="preview" :style="previewStyle"> 
+                <div class="preview" :style="previewStyle">
                     <div v-if="previews" :style="previews.div">
                         <img :src="previews.url" :style="previews.img">
                     </div>
@@ -74,7 +74,7 @@
                     文件大小为
                     <span v-if="fileSize < 1024">{{ fileSize }}kb</span>
                     <span v-else>{{ Math.floor(fileSize/1024) }}M</span>
-                    以内。            
+                    以内。
                 </span>
             </div>
             <!-- 底部按钮 -->
@@ -97,7 +97,7 @@
     // 通用JS
     import Common from 'common/common.js'
     // 图片上传设置
-    import UploadImg from 'mixins/upload_img.js'
+    import { UploadImg } from 'mixins'
 
     export default {
         name: 'imgCropper',
@@ -192,7 +192,7 @@
                 this.$refs.imgFile.click();
             },
             // 确认裁剪
-            comfirCropper(){                
+            comfirCropper(){
                 this.progressShow();
 
                 // 设置定时器累增进度条百分比
@@ -223,7 +223,7 @@
             // 取消上传
             hideCropModel(){
                 this.cropImgModel.show = false;
-                this.$refs.cropper.clearCrop(); 
+                this.$refs.cropper.clearCrop();
                 this.option.img = '';
                 this.cropImgUrl = '';
             },
@@ -237,7 +237,7 @@
                     // 将文件大小字节转成kb
                     let fileSize = Math.floor(fileList[0].size / 1024);
 
-                    let maxSize = this.fileSize;                
+                    let maxSize = this.fileSize;
                     let overHint = maxSize + 'kb';
                     // 控制文件大小
                     if(fileSize > maxSize){
@@ -251,7 +251,7 @@
                     }
 
                     // 显示裁剪弹窗
-                    this.cropImgModel.show = true;                    
+                    this.cropImgModel.show = true;
 
                     let file = fileList[0];
                     // FileReader API ：获取图片的base64 代码 并预览
@@ -301,7 +301,7 @@
             // 图片预览
             previewImg (type) {
                 // 本页打开
-                if (type === 'blob') {                    
+                if (type === 'blob') {
                     this.$refs.cropper.getCropBlob((data) => {
                         this.cropImgUrl = window.URL.createObjectURL(data);
                     })
@@ -315,7 +315,7 @@
                 // 别的页面打开
                 // let test = window.open('about:blank');
 			    // test.document.body.innerHTML = '图片生成中..';
-                // if (type === 'blob') {                    
+                // if (type === 'blob') {
                 //     this.$refs.cropper.getCropBlob((data) => {
                 //         test = window.open('');
                 //         test.location.href = window.URL.createObjectURL(data);

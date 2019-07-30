@@ -53,7 +53,7 @@
         </div>
         <!--  加载判断 -->
         <Loading v-if="pageLoading"></Loading>
-        <div v-else>            
+        <div v-else>
             <!-- 用户列表 -->
             <Table
                 :row-class-name="rowClassName"
@@ -95,15 +95,15 @@
     import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'
     // 邮箱自动填充
-    import EmailComplete from 'mixins/email_complete.js'
+    import { EmailComplete } from 'mixins'
     // 表格设置
     import tableSetting from 'common/table_setting.js'
     // 表格查询
-    import TableQuery from 'mixins/table_query.js'
+    import { TableQuery } from 'mixins'
     // 表格操作
-    import TableOperate from 'mixins/table_operate.js'
+    import { TableOperate } from 'mixins'
     // 页码设置
-    import Page from 'mixins/page.js'
+    import { Page } from 'mixins'
 
     export default {
         components: { Loading },
@@ -233,7 +233,7 @@
                         render: (h, params) => {
                             return h('div', [
                                 tableSetting.gotoDetail(h, params, this, '查看详情', 'StoreAccount'),
-                            ]);                          
+                            ]);
                         }
                     }
                 ],
@@ -269,7 +269,7 @@
                             province: item.province,
                             createTime: item.createdAt,
                             enabledState: item.enabledState,
-                            
+
                         }
                     });
                 }

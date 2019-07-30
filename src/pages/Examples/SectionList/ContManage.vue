@@ -32,7 +32,7 @@
                             </div>
                             <div class="upload-btn">
                                 <Button type="ghost" :disabled="item[th.key] == ''" icon="ios-eye-outline" @click="viewImage(index)">查看图片</Button>
-                                <Button type="ghost" icon="ios-cloud-upload-outline" @click="uploadClick(index)" style="margin-left:10px">上传图片</Button>                            
+                                <Button type="ghost" icon="ios-cloud-upload-outline" @click="uploadClick(index)" style="margin-left:10px">上传图片</Button>
                             </div>
                         </div>
                         <!-- 操作按钮 -->
@@ -108,16 +108,16 @@
     // Api方法
     import Api from '@/api/section_list.js'
     // 表格查询
-    import TableQuery from 'mixins/table_query.js'
+    import { TableQuery } from 'mixins'
     // 表格操作
-    import TableOperate from 'mixins/table_operate.js'
+    import { TableOperate } from 'mixins'
     // 页码设置
-    import Page from 'mixins/page.js'
+    import { Page } from 'mixins'
     // Vuex
     import { mapGetters } from 'vuex'
     // axios
     import axios from 'axios'
-      
+
     export default {
         components: { SingleImage, Loading },
         mixins: [ TableQuery, TableOperate, Page ],
@@ -243,7 +243,7 @@
         methods: {
             // 全选
             selectAll(check){
-                this.listData.forEach(item => {                    
+                this.listData.forEach(item => {
                     if(check){
                         item.isCheck = true;
                         // 设置选项列表
@@ -262,7 +262,7 @@
                     this.selectList.push(this.listData[index].id);
                 }
                 else{
-                    this.selectList.forEach((item, i) => {           
+                    this.selectList.forEach((item, i) => {
                         if(item == this.listData[index].id) this.selectList.splice(i,1);
                     })
                 }
@@ -313,7 +313,7 @@
                 // 这里的token是七牛上传token，如需使用请换上你自己的七牛token
                 params.append('token', Common.UPLOAD_TOKEN);
                 params.append('file', file);
-                
+
                 // 七牛存储空间测试时请选择华东，否则报错：incorrect region, please use up-z2.qiniu.com
                 axios.post('http://upload.qiniu.com/', params, { emulateJSON: true})
                 .then(res => {
@@ -321,7 +321,7 @@
                     this.listData[this.rowIndex].img = Common.UPLOAD_URL + res.data.hash;
                     this.$Notice.success({ title: '图片上传成功！' });
                 })
-                .catch(err => {              
+                .catch(err => {
                     this.$Notice.error({ title: '图片上传失败，请重试！' });
                 })
             },
@@ -342,7 +342,7 @@
             // 保存数据
             saveThis(index){
                 this.editId = this.listData[index].id;
-                this.paramsForm.parentId = this.parentId; 
+                this.paramsForm.parentId = this.parentId;
                 this.paramsForm.title = this.listData[index].title;
                 this.paramsForm.img = this.listData[index].img;
                 this.paramsForm.url = this.listData[index].url;
@@ -355,7 +355,7 @@
                 this.paramsForm.title = '';
                 this.paramsForm.img = '';
                 this.paramsForm.url = '';
-                this.paramsForm.parentId = this.parentId;                
+                this.paramsForm.parentId = this.parentId;
             },
             // 关闭弹窗
             closeModal(name){
@@ -368,13 +368,13 @@
                 // 表单验证
                 this.$refs[name].validate((valid)=>{
                     if(valid){
-                        
+
                         // 新增数据
                         this.addData();
                         // 延迟关闭
                         setTimeout(() => {
                             this.closeModal(name);
-                        }, 500);                  
+                        }, 500);
                     }
                     else this.$Message.error('提交失败！填写有误');
                 })
@@ -421,6 +421,6 @@
             margin-bottom: 10px;
             border-radius: 4px;
             border: 1px solid rgb(228, 229, 231);
-        }   
+        }
     }
 </style>
