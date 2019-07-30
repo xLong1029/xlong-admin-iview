@@ -47,7 +47,7 @@
 							<Icon class="fr" type="android-close" @click.native="closeModal"></Icon>
 						</h2>
 						<!-- 聊天消息 -->
-						<div class="chat-content">							
+						<div class="chat-content">
 							<ul v-for="(item, index) in message" :key="index">
 								<!-- 用户消息 -->
 								<li v-if="item.tag == 1" class="msg-left">
@@ -61,7 +61,7 @@
 									</div>
 								</li>
 								<!-- 管理员消息 -->
-								<li v-else class="msg-right">								
+								<li v-else class="msg-right">
 									<img class="msg-face" :src="admin.face" alt="图片加载失败" @error="notFoundPic"/>
 									<div class="msg-content">
 										<span class="msg-time">{{ item.time }}</span>
@@ -76,11 +76,11 @@
 						<!-- 消息发送框 -->
 						<div class="chat-textarea">
 							<div class="fl textarea"><Input type="textarea" v-model="msgContent" placeholder="可以输入内容，点击发送试试"></Input></div>
-							<Button class="fr" type="info" style="width:80px;height:52px" @click="sendMsg">发送</Button>							
+							<Button class="fr" type="info" style="width:80px;height:52px" @click="sendMsg">发送</Button>
 						</div>
-					</div>                    
+					</div>
 				</div>
-				<div class="clearfix"></div>				
+				<div class="clearfix"></div>
 				<!-- 分页 -->
 				<Page
 					style="margin-top:20px;"
@@ -104,7 +104,7 @@
     // Json数据
 	import JsonData from 'mock/data.json'
 	// 页码设置
-    import Page from 'mixins/page.js'
+    import { Page } from 'mixins'
 
 	export default {
 		mixins: [ Page ],
@@ -272,7 +272,7 @@
 			text-align: left;
 			float: left;
 			height: 20px;
-			max-width:550px; 
+			max-width:550px;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
@@ -283,7 +283,7 @@
 		float: right;
 		width: 50%;
 		border: 1px solid @td_border_color;
-		border-radius:4px; 
+		border-radius:4px;
 		height: 100%;
 	}
 
@@ -310,7 +310,7 @@
 			height: 40px;
 			border-radius: 20px;
 			border: 1px solid #eee;
-			margin-top: 12px; 
+			margin-top: 12px;
 		}
 		.msg-time{
 			color: #888;
@@ -326,10 +326,10 @@
 		.msg-arrow{
 			position: absolute;
 			top: 5px;
-			width:0; 
-			height:0; 
+			width:0;
+			height:0;
 			border-top: 5px solid transparent;
-			border-bottom: 5px solid transparent;  
+			border-bottom: 5px solid transparent;
 		}
 
 		.msg-left, .msg-right{
@@ -344,10 +344,10 @@
 				float: left;
 				width: 90%;
 				margin-left: 10px;
-			}			
+			}
 			.msg-arrow{
 				left: -5px;
-				border-right: 5px solid #f5f5f5;				
+				border-right: 5px solid #f5f5f5;
 			}
 			.msg-bg{
 				background: #f5f5f5;

@@ -39,7 +39,7 @@
     // 通用JS
     import Common from 'common/common.js'
     // 图片上传设置
-    import UploadImg from 'mixins/upload_img.js'
+    import { UploadImg } from 'mixins'
 
     export default {
         name: 'singleImage',

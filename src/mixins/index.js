@@ -1,0 +1,6 @@
+export { default as CitySelect } from './city_select'
+export { default as EmailComplete } from './email_complete'
+export { default as Page } from './page'
+export { default as TableOperate } from './table_operate'
+export { default as TableQuery } from './table_query'
+export { default as UploadImg } from './upload_img'

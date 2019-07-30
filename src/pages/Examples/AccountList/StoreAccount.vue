@@ -50,7 +50,7 @@
                         <Form-item label="企业名称：">
                             <!-- 组件-匹配企业名称 -->
                             <CompanyName :model="infoForm.companyName" @on-change="getCompanyName"></CompanyName>
-                        </Form-item>                        
+                        </Form-item>
                         <Form-item label="专业领域：" prop="profession">
                             <CheckboxGroup v-model="professionValue" @on-change="checkProfess">
                                 <Checkbox v-for="(item, index) in professionList" :key="index" :label="item.name"></Checkbox>
@@ -69,7 +69,7 @@
                         <Form-item label="参加工作时间：" prop="workTime">
                             <Date-picker v-model="infoForm.workTime" type="month" :placeholder="workTimePH" :disabled="disabledWT" style="width:85%;margin-right:10px"></Date-picker>
                             <Checkbox v-model="infoForm.isGraduate">尚未毕业</Checkbox>
-                        </Form-item>                        
+                        </Form-item>
                     </Col>
                 </Row>
             </div>
@@ -98,13 +98,13 @@
     // Api方法
     import Api from 'api/account_list.js'
     // 城市联动选择
-    import CitySelect from 'mixins/city_select.js'
+    import { CitySelect } from 'mixins'
     // 邮箱自动填充
-    import EmailComplete from 'mixins/email_complete.js'
+    import { EmailComplete } from 'mixins'
     // Json数据
     import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'
-    
+
     export default {
         components: { Loading, CompanyName, SingleImage },
         mixins: [ CitySelect, EmailComplete ],
@@ -129,7 +129,7 @@
                 // 用户编号
                 userId: '',
                 // 表单信息
-                infoForm: {                    
+                infoForm: {
                     // 真实姓名
                     realname: '',
                     // 头像
@@ -217,10 +217,10 @@
         },
         created() {
             // 获取本地“职位”列表
-            this.jobList = JsonData.job;    
+            this.jobList = JsonData.job;
             // 获取本地“专业领域”列表
             this.professionList = JsonData.profession;
-            let id = GetUrlQuery('id');          
+            let id = GetUrlQuery('id');
             // 判断是否是编辑页
             if(id){
                 // 获取用户编号
@@ -253,7 +253,7 @@
                         // 格式化出生日期和工作时间
                         this.infoForm.birthdate = this.dateFormat(this.infoForm.birthdate);
                         this.infoForm.workTime = this.dateFormat(this.infoForm.workTime);
-                        
+
                         if(this.pageType == 'add'){
                             // 新增用户
                             Api.AddAccount(this.infoForm)
@@ -267,7 +267,7 @@
                                             // 跳转到列表页
                                             this.$router.push({ name: 'AccountList' });
                                         }
-                                    }); 
+                                    });
                                 }
                                 else if(res.code == 404) this.$Message.warning(res.msg);
                                 else console.log(res);
@@ -291,17 +291,17 @@
                         }
                     }
                     else this.$Message.error('提交失败！填写有误');
-                })    
+                })
             },
             // 获取账户详情
             getDetail(){
                 this.pageLoading = true;
 
                 Api.GetAccInfo(this.userId)
-                .then(res => {      
+                .then(res => {
                     // 取消页面加载
                     this.pageLoading = false;
-                    const result = res.data;                    
+                    const result = res.data;
                     if(res.code == 200){
                         // 设置数据
                         this.infoForm = result;
@@ -322,15 +322,15 @@
                     else this.$Message.error('无该用户数据!');
                 })
                 .catch(err => console.log(err))
-            },           
+            },
             // 获取出生日期
             getBirthDate(date) {
                 console.log('get birth date:' + date);
                 this.infoForm.birthdate = date;
             },
             // 专业领域选值
-            checkProfess(checkedData){                
-                let str = '';              
+            checkProfess(checkedData){
+                let str = '';
                 for(let i = 0 ; i < checkedData.length ; i++){
                     str += checkedData[i] + ','
                 }
@@ -356,7 +356,7 @@
     }
 </script>
 
-<style lang="less" scoped>    
+<style lang="less" scoped>
     .m-operation {
         button, a {
             min-width: 80px;
