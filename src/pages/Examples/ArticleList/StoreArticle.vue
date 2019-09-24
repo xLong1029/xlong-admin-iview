@@ -20,7 +20,7 @@
                 <div class="m-operation">
                     <Button v-if="pageType == 'edit'" class="fr" type="primary" @click="submit('infoForm')">确认修改</Button>
                     <Button v-else class="fr" type="primary" @click="submit('infoForm')">确认新增</Button>
-                    <Button class="fr" type="ghost" @click="$router.go(-1)">返回</Button>
+                    <Button class="fr" type="default" @click="$router.go(-1)">返回</Button>
                     <div class="clearfix"></div>
                 </div>
             </Form>
@@ -97,7 +97,7 @@
                     if (valid) {
                         // 页面加载
                         this.pageLoading = true;
-                        
+
                         if(this.pageType == 'add'){
                             // 新增文章
                             Api.AddArticle(this.infoForm)
@@ -111,7 +111,7 @@
                                             // 跳转到列表页
                                             this.$router.push({ name: 'ArticleList' });
                                         }
-                                    }); 
+                                    });
                                 }
                                 else console.log(res);
                             })
@@ -133,16 +133,16 @@
                         }
                     }
                     else this.$Message.error('提交失败！填写有误');
-                })    
+                })
             },
             // 获取文章详情
             getDetail(){
                 this.pageLoading = true;
                 Api.GetArtcDetail(this.articleId)
-                .then(res => {                    
+                .then(res => {
                     // 取消页面加载
                     this.pageLoading = false;
-                    const result = res.data;                    
+                    const result = res.data;
                     if(res.code == 200){
                         // 设置数据
                         this.infoForm = result;

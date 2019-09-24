@@ -34,7 +34,7 @@
                     </Form-item>
                     <Form-item>
                         <Button type="primary" style="margin-top:2px" @click="uploadAttrTest('sUploadAttr', 1)">测试</Button>
-                        <Button type="ghost" style="margin-top:2px" @click="clearForm('sUploadAttr', 1)">重置</Button>
+                        <Button type="default" style="margin-top:2px" @click="clearForm('sUploadAttr', 1)">重置</Button>
                     </Form-item>
                 </Form>
             </div>
@@ -73,7 +73,7 @@
                     </Form-item>
                     <Form-item>
                         <Button type="primary" style="margin-top:2px" @click="uploadAttrTest('mUploadAttr', 2)">测试</Button>
-                        <Button type="ghost" style="margin-top:2px" @click="clearForm('mUploadAttr', 2)">重置</Button>
+                        <Button type="default" style="margin-top:2px" @click="clearForm('mUploadAttr', 2)">重置</Button>
                     </Form-item>
                 </Form>
             </div>
@@ -100,7 +100,7 @@
                     <p>4. fileSize，设置最大图片文件大小，单位kb。Number类型，默认值为150</p>
                     <p>5. autoCropWidth，设置裁剪宽度，单位px。Number类型，默认值为100</p>
                     <p>6. autoCropHeight，设置裁剪高度，单位px。Number类型，默认值为100</p>
-                    <p>7. fixed，是否限制裁剪高宽比例。Boolean类型，默认值为false，不限制</p>                 
+                    <p>7. fixed，是否限制裁剪高宽比例。Boolean类型，默认值为false，不限制</p>
                     <p>8. fixedNumber，设置裁剪高宽比例，只有限制高宽比例时才有用。Array类型，默认值为[4, 3]，即比例为4：3</p>
                 </div>
             </div>
@@ -140,7 +140,7 @@
                     </Form-item>
                     <Form-item>
                         <Button type="primary" style="margin-top:2px" @click="uploadAttrTest('imgCropAttr', 3)">测试</Button>
-                        <Button type="ghost" style="margin-top:2px" @click="clearForm('imgCropAttr', 3)">重置</Button>
+                        <Button type="default" style="margin-top:2px" @click="clearForm('imgCropAttr', 3)">重置</Button>
                     </Form-item>
                 </Form>
             </div>
@@ -166,7 +166,7 @@
                         <Input v-model="addUrlPart.url" style="width:460px" placeholder="请输入需要展示的图片链接"></Input>
                     </Form-item>
                     <Button class="fl g-mr10" type="primary" style="margin-top:2px" @click="addShowImgUrl('addUrlPart')">新增</Button>
-                    <Button class="fl" type="ghost" style="margin-top:2px" @click="clearForm('addUrlPart', 4)">重置</Button>
+                    <Button class="fl" type="default" style="margin-top:2px" @click="clearForm('addUrlPart', 4)">重置</Button>
                     <div class="clearfix"></div>
                 </Form>
                 <!-- 图片链接展示 -->
@@ -280,7 +280,7 @@
                             this.imgUrlArr = [this.addUrlPart.url];
                         else
                             this.imgUrlArr.push(this.addUrlPart.url);
-                        
+
                         this.$Message.success('新增成功！请查看功能是否正确');
                     }
                     else this.$Message.error('提交失败！填写有误');
@@ -308,7 +308,7 @@
                         this.mUploadAttr.sizeHint = this.mUploadAttr.setSizeHint;
                         this.mUploadAttr.fileSize = Number(this.mUploadAttr.setFileSize) == 0 ? 150 : Number(this.mUploadAttr.setFileSize);
                         this.mUploadAttr.maxNum = Number(this.mUploadAttr.setMaxNum) == 0 ? 5 : Number(this.mUploadAttr.setMaxNum);
-                        break;                    
+                        break;
                     case 3:
                         this.imgCropAttr.src = this.imgCropAttr.setSrc;
                         this.imgCropAttr.preview = this.imgCropAttr.setPreview == 'true' ? true : false;
@@ -321,7 +321,7 @@
                         this.imgCropAttr.fixedNumber = StrToArr(this.imgCropAttr.setFixedNumber.replace(/：/g, ":"), ':');
                         break;
                     default: console.log('清空type传值出错');
-                } 
+                }
             },
             // 清空表单
             clearForm(form, type){
@@ -350,7 +350,7 @@
                     case 4:
                         break;
                     default: console.log('清空type传值出错');
-                }                
+                }
             },
             // 获取多图片上传路径
             setImgList(value){

@@ -4,7 +4,7 @@
         <div class="m-operation">
             <Button class="operation-btn" type="primary" @click="openModel">新增</Button>
             <Button class="operation-btn" type="warning" :disabled="selectList.length == 0" @click="deleteData">删除</Button>
-            <Button class="operation-btn" type="ghost" @click="$router.go(-1)">返回</Button>
+            <Button class="operation-btn" type="default" @click="$router.go(-1)">返回</Button>
         </div>
         <!--  加载判断 -->
         <Loading v-if="pageLoading"></Loading>
@@ -31,8 +31,8 @@
                                 <img class="show-img" :src="item[th.key]" alt="图片加载失败" @error="notFoundPic"/>
                             </div>
                             <div class="upload-btn">
-                                <Button type="ghost" :disabled="item[th.key] == ''" icon="ios-eye-outline" @click="viewImage(index)">查看图片</Button>
-                                <Button type="ghost" icon="ios-cloud-upload-outline" @click="uploadClick(index)" style="margin-left:10px">上传图片</Button>
+                                <Button type="default" :disabled="item[th.key] == ''" icon="ios-eye-outline" @click="viewImage(index)">查看图片</Button>
+                                <Button type="default" icon="ios-cloud-upload-outline" @click="uploadClick(index)" style="margin-left:10px">上传图片</Button>
                             </div>
                         </div>
                         <!-- 操作按钮 -->

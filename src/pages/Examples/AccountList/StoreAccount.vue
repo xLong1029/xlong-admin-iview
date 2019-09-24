@@ -77,7 +77,7 @@
             <div class="m-operation">
                 <Button v-if="pageType == 'edit'" class="fr" type="primary" @click="submit('infoForm')">确认修改</Button>
                 <Button v-else class="fr" type="primary" @click="submit('infoForm')">确认新增</Button>
-                <Button class="fr" type="ghost" @click="$router.go(-1)">返回</Button>
+                <Button class="fr" type="default" @click="$router.go(-1)">返回</Button>
                 <div class="clearfix"></div>
             </div>
         </Form>

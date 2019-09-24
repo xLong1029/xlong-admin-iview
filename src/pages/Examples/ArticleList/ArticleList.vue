@@ -13,7 +13,7 @@
                 </Form-item>
                 <Form-item class="fl">
                     <Button class="query-button" type="primary" @click="query('queryForm', 'valid')">查询</Button>
-                    <Button class="query-button" type="ghost" @click="resetQuery('queryForm')">重置</Button>
+                    <Button class="query-button" type="default" @click="resetQuery('queryForm')">重置</Button>
                 </Form-item>
             </Form>
         </div>

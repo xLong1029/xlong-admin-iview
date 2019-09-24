@@ -24,6 +24,11 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
     Bmob改用依赖包引入方式；<br/>
     文件存储使用Bmob存储，已解决跨域问题 ( 温馨提示：于2019-7-19发现这个接口返回的url地址有出错了， 提示"invisible domain"，Bmob的问题，只是无法显示图片，但上传功能是完好的 )
 
+3. V3.0版本
+
+    更新iView至3.x版本
+    修复BUG：由于更新iView版本导致Button和Icon无法显示的问题；<br/>
+
 ## 项目说明
 
 #### 1. 前后端分离开发模式

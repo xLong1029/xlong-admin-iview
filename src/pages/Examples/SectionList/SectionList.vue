@@ -18,7 +18,7 @@
                 </Form-item>
                 <Form-item class="fl">
                     <Button class="query-button" type="primary" @click="query('queryForm', '')">查询</Button>
-                    <Button class="query-button" type="ghost" @click="resetQuery('queryForm')">重置</Button>
+                    <Button class="query-button" type="default" @click="resetQuery('queryForm')">重置</Button>
                 </Form-item>
             </Form>
         </div>
@@ -67,8 +67,8 @@
                     </Form-item>
                     <Form-item label="版块分类：" prop="type">
                         <Radio-group v-model="paramsForm.type">
-                            <Radio label="1">行业分类</Radio>
-                            <Radio label="2">地区分类</Radio>
+                            <Radio :label="1">行业分类</Radio>
+                            <Radio :label="2">地区分类</Radio>
                         </Radio-group>
                     </Form-item>
                 </Form>
@@ -235,6 +235,7 @@
             },
             // 打开弹窗
             openModel(params){
+              console.log(typeof(params.type));
                 this.showModal = true;
                 this.paramsForm.title = params.title;
                 this.paramsForm.type = params.type;

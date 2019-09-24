@@ -22,8 +22,8 @@
                             <img class="show-img" :src="item[th.key]" alt="图片加载失败" @error="notFoundPic"/>
                         </div>
                         <div class="upload-btn">
-                            <Button type="ghost" :disabled="item[th.key] == ''" :loading="loading" icon="ios-eye-outline" @click="uploadClick">查看图片</Button>
-                            <Button type="ghost" :loading="loading" icon="ios-cloud-upload-outline" @click="uploadClick" style="margin-left:10px">上传图片</Button>
+                            <Button type="default" :disabled="item[th.key] == ''" :loading="loading" icon="ios-eye-outline" @click="uploadClick">查看图片</Button>
+                            <Button type="default" :loading="loading" icon="ios-cloud-upload-outline" @click="uploadClick" style="margin-left:10px">上传图片</Button>
                             <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
                         </div>
                     </div>
@@ -132,13 +132,13 @@
                 // 这里的token是七牛上传token，如需使用请换上你自己的七牛token
                 params.append('token', Common.UPLOAD_TOKEN);
                 params.append('file', file);
-                
+
                 // 七牛存储空间测试时请选择华东，否则报错：incorrect region, please use up-z2.qiniu.com
                 axios.post('http://upload.qiniu.com/', params, { emulateJSON: true})
                 .then(res => {
                     let url = Common.UPLOAD_URL + res.data.hash;
                 })
-                .catch(err => {              
+                .catch(err => {
                     this.$Notice.error({ title: '图片上传失败，请重试！' });
                 })
             },
@@ -179,7 +179,7 @@
             margin-bottom: 10px;
             border-radius: 4px;
             border: 1px solid rgb(228, 229, 231);
-        }   
+        }
     }
 </style>
 

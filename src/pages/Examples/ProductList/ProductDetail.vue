@@ -8,7 +8,7 @@
                 <div class="tabs-cont"><CaseList :product-id="productId"></CaseList></div>
             </TabPane>
         </Tabs>
-        <Button class="u-btn-goback fr" type="ghost" @click="$router.go(-1)">返回</Button>
+        <Button class="u-btn-goback fr" type="default" @click="$router.go(-1)">返回</Button>
     </div>
 </template>
 
@@ -18,7 +18,7 @@
     import CaseList from 'pages/Examples/ProductList/ProductDetail/CaseList'
     // 通用JS
     import { GetUrlQuery } from 'common/important.js'
-    
+
     export default {
         components: { ProductInfo, CaseList },
         data() {
