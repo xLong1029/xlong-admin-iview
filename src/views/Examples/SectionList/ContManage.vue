@@ -117,8 +117,6 @@
     import { mapGetters } from 'vuex'
     // 图片上传设置
     import { UploadImg } from 'mixins'
-    // axios
-    import axios from 'axios'
 
     export default {
         components: { SingleImage, Loading },
