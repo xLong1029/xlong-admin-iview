@@ -1,24 +1,18 @@
 <template>
- 	<Menu ref="menu" mode="horizontal" class="menu-top">
+ 	<Menu mode="horizontal" class="menu-top">
         <!-- 收缩侧边栏按钮 -->
-	    <Button type="text" @click="changeSideBar">
-	        <Icon type="navicon" size="32"></Icon>
-	    </Button>
+        <Button type="text" icon="md-menu" class="button-icon" @click="changeSideBar"></Button>
         <!-- 退出全屏 -->
-        <Button v-if="setFull" type="text" class="fr" @click="fullExit">
-            <Icon type="arrow-shrink" size="30"></Icon>
-        </Button>
+        <Button v-if="setFull" type="text" icon="md-contract" class="fr button-icon" @click="fullExit"></Button>
         <!-- 全屏 -->
-        <Button v-else type="text" class="fr" @click="fullScreen">
-            <Icon type="arrow-expand" size="30"></Icon>
-        </Button>
+        <Button v-else type="text" icon="md-expand" class="fr button-icon" @click="fullScreen"></Button>
         <!-- 账户信息 -->
         <div class="account fr">
             <span>Hi，欢迎您，</span>
             <Submenu name="1" style="z-index:10">
                 <template slot="title">
-                    <img class="account-face" :src="userFace" @error="notFoundPic"/>
-                    <strong>{{ nickName }}</strong>
+                    <img class="account-face" :src="user.face" @error="notFoundPic"/>
+                    <strong>{{ user.nickName }}</strong>
                 </template>
                 <Menu-item name="personalProfile" class="dropdown-item"><router-link :to="{ name: 'Profile'}">个人资料</router-link></Menu-item>
                 <Menu-item name="changePassword" class="dropdown-item"><router-link :to="{ name: 'ChangePwd'}">修改密码</router-link></Menu-item>
@@ -34,7 +28,7 @@
 
 	export default {
 		computed: {
-            ...mapGetters([ 'sidebarSpan', 'userFace', 'nickName' ]),
+            ...mapGetters([ 'sidebarSpan', 'user' ]),
         },
         data() {
             return{
@@ -75,41 +69,51 @@
 	}
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 	.menu-top{
-        background: #fff;
-    }
-    .account{
-        span, strong{
-            float: left;
-            margin-right: 10px;
-        }
+      background: #fff;
+  }
+  .account{
+      span, strong{
+          float: left;
+          margin-right: 10px;
+      }
 
-        .ivu-select-dropdown{
-            .ivu-menu-item.dropdown-item{
-                padding: 0;
-            }
-            a{
-                padding: 10px 26px 12px 20px;
-                display: block;
-                color: #495060;
-            }
-            .ivu-menu-item-selected:hover, .ivu-menu-item-active:hover{
-                a{
-                     color: #495060;
-                }
-            }
-        }
+      .ivu-select-dropdown{
+          .ivu-menu-item.dropdown-item{
+              padding: 0;
+          }
+          a{
+              padding: 10px 26px 12px 20px;
+              display: block;
+              color: #495060;
+          }
+          .ivu-menu-item-selected:hover, .ivu-menu-item-active:hover{
+              a{
+                    color: #495060;
+              }
+          }
+      }
+  }
+  .account-face{
+      float: left;
+      margin-top: 5px;
+      margin-right: 15px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #eee;
+      border-radius: 20px;
+      -webkit-border-radius: 20px;
+      -o-border-radius: 20px;
+  }
+
+  .button-icon{
+    &:focus{
+      box-shadow:none;
     }
-    .account-face{
-        float: left;
-        margin-top: 5px;
-        margin-right: 15px;
-        width: 40px;
-        height: 40px;
-        border: 1px solid #eee;
-        border-radius: 20px;
-        -webkit-border-radius: 20px;
-        -o-border-radius: 20px;
-    }  
+
+    .ivu-icon{
+      font-size: 24px;
+    }
+  }
 </style>

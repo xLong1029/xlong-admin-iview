@@ -13,4 +13,7 @@
 
 <style lang="less" scoped>
     @import "../../../assets/less/page_desc";
+    .g-content{
+      padding-bottom: 0;
+    }
 </style>

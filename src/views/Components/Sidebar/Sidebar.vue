@@ -15,8 +15,9 @@
                 <p class="m-hint">*由于在实际项目开发过程中，发现iView里自带的Menu 导航菜单用作侧边栏时，2个不同父级的页面相互跳转，会导致侧边栏无法准确定位对应菜单并且高亮显示，所以我便重写了一个自定义侧边栏组件。</p>
                 <p>&nbsp;</p>
                 <p>组件包含属性：</p>
-                <p>1. activeName，第一次加载激活的一级菜单对应路由name。String类型，默认值为"Home"</p>
-                <p>2. menuList，菜单列表数据。Array类型，默认值对应路由为"Home"。数据格式如下：</p>
+                <p>1. spanWidth，侧边栏跨距大小，-1表示无跨距，正值表示跨距大小。Number类型，默认值为-1</p>
+                <p>2. activeName，第一次加载激活的一级菜单对应路由name。String类型，默认值为"Home"</p>
+                <p>3. menuList，菜单列表数据。Array类型，默认值对应路由为"Home"。数据格式如下：</p>
                 <pre>
                 [
                     {
@@ -26,6 +27,8 @@
                         icon: 'navicon-round',
                         <font color="#00c5a3">// menu-title显示文本</font>
                         text: '账户管理',
+                        <font color="#00c5a3">// 是否为标题菜单，标题菜单则不显示Icon，只在spanWidth有值且侧边栏跨距小于spanWidth才显示</font>
+                        isTitle: false,
                         <font color="#00c5a3">// submenu列表</font>
                         submenu: [
                             {
@@ -38,7 +41,7 @@
                     },
                 ]
                 </pre>
-            </div> 
+            </div>
         </div>
     </div>
 </template>
@@ -52,11 +55,11 @@
         data () {
             return {
                 // 第一次加载激活的一级菜单对应路由name
-                activeName: 'PageOne',
+                activeName: 'PageA',
                 // 菜单列表
                 menuList: [
                     {
-                        name: 'PageOne',
+                        name: 'PageA',
                         icon: 'navicon-round',
                         text: '一级菜单-1'
                     },
@@ -66,13 +69,13 @@
                         text: '一级菜单-2',
                         submenu: [
                             {
-                                name: 'PageTwo',
+                                name: 'PageB',
                                 text: '二级菜单-2.1'
                             },
                             {
-                                name: 'PageThree',
+                                name: 'PageC',
                                 text: '二级菜单-2.2'
-                            },
+                            }
                         ]
                     },
                     {
@@ -81,7 +84,7 @@
                         text: '一级菜单-3',
                         submenu: [
                             {
-                                name: 'PageFour',
+                                name: 'PageD',
                                 text: '二级菜单-3.1'
                             }
                         ]

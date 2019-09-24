@@ -24,7 +24,27 @@ router.beforeEach((to, from, next) => {
 		if(to.name === 'Login') next({ name : 'Main'});
 		else{
 			// token验证
-			store.dispatch('CheckToken').then(() => next()).catch(() => next({ name : 'Login'}))
+      // store.dispatch('CheckToken').then(() => next()).catch(() => next({ name : 'Login'}))
+
+      store.dispatch('CheckToken').then(() => {
+        const role = store.getters.user.role;
+        console.log(`Get role's value, and the user's role is ${role}.`);
+
+        next();
+				// // 生成侧边栏菜单
+				// store.dispatch('SetSidebarMenu', role);
+				// // 是否有路由元信息
+				// if(to.meta && to.meta.roles){
+				// 	if(to.meta.roles.indexOf(role) !== -1) next();
+				// 	else next({ name : 'Err404'})
+				// }
+				// else next();
+
+			}).catch(err => {
+				// 提示'用户验证信息失效，请重新登录'
+				alert(err.msg);
+				next({ name : 'Login'});
+			});
 		}
 	}
 	// 没有token则全部重定向到登录页

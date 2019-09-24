@@ -5,7 +5,7 @@
             <div class="upload-img-wrap"><img class="upload-image" :src="item" alt="图片加载失败" @error="notFoundPic"/></div>
             <!-- 遮罩 -->
             <div class="upload-mask">
-                <Icon v-if="preview" type="md-eye" style="margin-right:10px;" @click.native="viewImage(item)"></Icon>
+                <Icon v-if="preview" type="md-eye" class="g-mr10" @click.native="viewImage(item)"></Icon>
                 <Icon type="md-trash" @click.native="removeImage('upload-img-'+index, index)"></Icon>
             </div>
         </div>

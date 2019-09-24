@@ -15,7 +15,7 @@
             <Form-item label="头像：">
                 <!-- 组件-图片上传-单图片显示 -->
                 <ImageCropper :src="infoForm.userFace" :preview="true" @get-img-url="setFace"></ImageCropper>
-            </Form-item>                           
+            </Form-item>
             <Form-item label="性别：" prop="gender">
                 <Radio-group v-model="infoForm.gender">
                     <Radio label="男">男</Radio>
@@ -101,11 +101,16 @@
                 .then(res => {
                     // 获取到数据
                     if(res.code == 200){
-                        this.pageLoading = false;					
+                      console.log( res);
+                        this.pageLoading = false;
                         this.infoForm = res.data;
                         // 更新用户信息
-                        this.$store.commit('SET_USER_NICKNAME', this.infoForm.nickName);
-                        this.$store.commit('SET_USER_FACE', this.infoForm.userFace);
+                        this.$store.commit('SET_USER', {
+                          face: this.infoForm.userFace,
+                          nickName: this.infoForm.nickName,
+                          role: this.infoForm.role,
+                          id: this.infoForm.objectId
+                        });
                     }
                     else this.$Message.error('无该用户数据!');
                 })
