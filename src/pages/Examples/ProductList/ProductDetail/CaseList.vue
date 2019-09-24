@@ -36,7 +36,7 @@
                     <span class="item-label">更新时间：</span><span class="item-info">{{ caseInfo.updateTime }}</span>
                 </div>
                 <!-- 操作按钮 -->
-                <div class="m-operation">                    
+                <div class="m-operation">
                     <Button class="fr" type="primary" @click="editCase">编辑</Button>
                     <Button class="fr" type="primary" @click="deleteCase">删除</Button>
                     <div class="clearfix"></div>
@@ -80,7 +80,7 @@
     import Api from 'api/product_list.js'
     // 轮播图样式
     import 'swiper/dist/css/swiper.css'
-    
+
     export default {
         components: { Loading, SingleImage },
         // 获取父级传值productId
@@ -161,13 +161,13 @@
                 .then(res => {
                     if(res.code == 200){
                         const result = res.data;
-                        // 设置案例列表                        
+                        // 设置案例列表
                         if(res.data == undefined) this.caseList = [];
                         else{
                             this.caseList = res.data;
                             // 获取第一个案例内容
 	    				    this.showThisCase(this.caseIndex);
-                        }                        
+                        }
                     }
                     else console.log(res);
                 })
@@ -192,7 +192,7 @@
                 this.showModal = true;
             },
             // 编辑案例
-            editCase(){                
+            editCase(){
                 this.operateType = 2;
                 this.paramsForm.title = this.caseList[this.caseIndex].title;
                 this.paramsForm.brand = this.caseList[this.caseIndex].brand;
@@ -204,7 +204,7 @@
                 if(this.caseList.length >= 5){
                     this.$Message.warning('最多只能添加5个案例！');
                     return false;
-                }       
+                }
                 this.operateType = 1;
                 this.paramsForm.title = '';
                 this.paramsForm.brand = '';
@@ -223,9 +223,14 @@
                     },
                     // 确定
                     onOk: () => {
+                        let lastIndex = this.caseList.length - 1;
                         Api.DelCase(this.productId, this.caseIndex)
                         .then(res => {
                             if(res.code == 200){
+                                // 如果删除的是最后一个案例
+                                if (this.caseIndex == lastIndex) {
+                                  this.caseIndex--;
+                                }
                                 this.$Message.success('删除成功!');
                                 // 重新获取案例列表
                                 this.getCaseList(this.productId);
@@ -305,7 +310,7 @@
     .case-cont{
         margin-top: 30px;
     }
-    
+
     .case-cont-item{
         margin-bottom:20px;
         &::after{
@@ -324,13 +329,13 @@
             float: left;
             max-width: 800px;
             // border: 1px solid #eee;
-            border-radius: 4px; 
+            border-radius: 4px;
         }
     }
-    
+
     .swiper-container {
         width: 100%;
-        height:230px;        
+        height:230px;
         background: #f5f5f5;
     }
 
@@ -366,7 +371,7 @@
 	    	overflow:hidden;
 	    	text-overflow:ellipsis;
         }
-        
+
         .u-add-btn{
             height:100%;
             line-height:228px;

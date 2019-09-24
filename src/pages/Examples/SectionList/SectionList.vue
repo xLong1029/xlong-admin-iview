@@ -67,8 +67,8 @@
                     </Form-item>
                     <Form-item label="版块分类：" prop="type">
                         <Radio-group v-model="paramsForm.type">
-                            <Radio label="1">行业分类</Radio>
-                            <Radio label="2">地区分类</Radio>
+                            <Radio :label="1">行业分类</Radio>
+                            <Radio :label="2">地区分类</Radio>
                         </Radio-group>
                     </Form-item>
                 </Form>
@@ -177,7 +177,7 @@
                         width: '200',
                         align: 'center',
                         render: (h, params) => {
-                            return h('div', [                                
+                            return h('div', [
                                 h('Button', {
                                     props: {
                                         type: 'primary',
@@ -196,7 +196,7 @@
                                     }
                                 }, '编辑'),
                                 tableSetting.gotoDetail(h, params, this, '内容管理', 'ContManage'),
-                            ]);                          
+                            ]);
                         }
                     }
                 ],
