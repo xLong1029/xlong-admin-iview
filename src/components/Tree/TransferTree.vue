@@ -125,20 +125,20 @@
             },
             // 上传文件
             uploadFile(file){
-                // 创建formData对象
-                let params = new FormData();
-                // 这里的token是七牛上传token，如需使用请换上你自己的七牛token
-                params.append('token', Common.UPLOAD_TOKEN);
-                params.append('file', file);
+                // // 创建formData对象
+                // let params = new FormData();
+                // // 这里的token是七牛上传token，如需使用请换上你自己的七牛token
+                // params.append('token', Common.UPLOAD_TOKEN);
+                // params.append('file', file);
 
-                // 七牛存储空间测试时请选择华东，否则报错：incorrect region, please use up-z2.qiniu.com
-                axios.post('http://upload.qiniu.com/', params, { emulateJSON: true})
-                .then(res => {
-                    let url = Common.UPLOAD_URL + res.data.hash;
-                })
-                .catch(err => {
-                    this.$Notice.error({ title: '图片上传失败，请重试！' });
-                })
+                // // 七牛存储空间测试时请选择华东，否则报错：incorrect region, please use up-z2.qiniu.com
+                // axios.post('http://upload.qiniu.com/', params, { emulateJSON: true})
+                // .then(res => {
+                //     let url = Common.UPLOAD_URL + res.data.hash;
+                // })
+                // .catch(err => {
+                //     this.$Notice.error({ title: '图片上传失败，请重试！' });
+                // })
             },
             // 无法显示图片
             notFoundPic(event){
