@@ -5,7 +5,6 @@
  * 版本 : version 1.0
  */
 import Common from 'common/common.js'
-import axios from 'axios'
 
 export default {
 	data() {
@@ -50,19 +49,19 @@ export default {
                 if(this.percentage == 90) clearInterval(progress);
                 this.percentage += 10;
             },100);
-            
+
             return new Promise((resolve, reject) => {
-                file.save().then((res) => {                    
+                file.save().then(res => {
                     // 停止加载和隐藏进度
                     this.progressHide();
                     this.percentage = 100;
                     clearInterval(progress);
-    
-                    this.showUploadBtn = false;                    
+
+                    this.showUploadBtn = false;
                     this.$Notice.success({ title: '图片上传成功!' });
 
                     resolve(res);
-                }, (err) =>  {
+                }, err =>  {
                     this.errorTip(progress);
                     reject(err);
                 });
@@ -77,7 +76,7 @@ export default {
                 // 将文件大小字节转成kb
                 let fileSize = Math.floor(fileList[0].size / 1024);
 
-                let maxSize = this.fileSize;                
+                let maxSize = this.fileSize;
                 let overHint = maxSize + 'kb';
                 // 控制文件大小
                 if(fileSize > maxSize){
@@ -113,7 +112,7 @@ export default {
         // 错误提示
         errorTip(progress){
             // 停止加载和隐藏进度条
-            this.progressHide();                 
+            this.progressHide();
             clearInterval(progress);
             this.$Notice.error({ title: '图片上传失败，请重试！' });
         }

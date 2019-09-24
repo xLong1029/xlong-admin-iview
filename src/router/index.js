@@ -4,48 +4,48 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 // 登录
-import Login from 'pages/Login/Login'
+import Login from 'views/Login/Login'
 
 // 管理后台主页
-import Main from 'pages/Main'
-import Home from 'pages/Home/Home'
+import Main from 'views/Main'
+import Home from 'views/Home/Home'
 
 // 个人资料
-import Profile from 'pages/Profile/Profile'
-import ChangePwd from 'pages/Profile/ChangePwd'
+import Profile from 'views/Profile/Profile'
+import ChangePwd from 'views/Profile/ChangePwd'
 
 // 组件相关页面
-import Image from 'pages/Components/Image'
-import Input from 'pages/Components/Input'
+import Image from 'views/Components/Image'
+import Input from 'views/Components/Input'
 
-import Sidebar from 'pages/Components/Sidebar/Sidebar'
-import PageOne from 'pages/Components/Sidebar/PageOne'
-import PageTwo from 'pages/Components/Sidebar/PageTwo'
-import PageThree from 'pages/Components/Sidebar/PageThree'
-import PageFour from 'pages/Components/Sidebar/PageFour'
+import Sidebar from 'views/Components/Sidebar/Sidebar'
+import PageOne from 'views/Components/Sidebar/PageOne'
+import PageTwo from 'views/Components/Sidebar/PageTwo'
+import PageThree from 'views/Components/Sidebar/PageThree'
+import PageFour from 'views/Components/Sidebar/PageFour'
 
 // 示例相关页面
-import AccountList from 'pages/Examples/AccountList/AccountList'
-import StoreAccount from 'pages/Examples/AccountList/StoreAccount'
+import AccountList from 'views/Examples/AccountList/AccountList'
+import StoreAccount from 'views/Examples/AccountList/StoreAccount'
 
-import SectionList from 'pages/Examples/SectionList/SectionList'
-import ContManage from 'pages/Examples/SectionList/ContManage'
+import SectionList from 'views/Examples/SectionList/SectionList'
+import ContManage from 'views/Examples/SectionList/ContManage'
 
-import ProductList from 'pages/Examples/ProductList/ProductList'
-import ProductDetail from 'pages/Examples/ProductList/ProductDetail'
+import ProductList from 'views/Examples/ProductList/ProductList'
+import ProductDetail from 'views/Examples/ProductList/ProductDetail'
 
-import ArticleList from 'pages/Examples/ArticleList/ArticleList'
-import StoreArticle from 'pages/Examples/ArticleList/StoreArticle'
+import ArticleList from 'views/Examples/ArticleList/ArticleList'
+import StoreArticle from 'views/Examples/ArticleList/StoreArticle'
 
-import MessageList from 'pages/Examples/MessageList/MessageList'
+import MessageList from 'views/Examples/MessageList/MessageList'
 
 
 // 错误页面
-import Err404 from 'pages/Error/Err404'
+import Err404 from 'views/Error/Err404'
 
 const RouterMap = [
     // 后台登录
-    { path: '/Login', name: 'Login', component: Login }, 
+    { path: '/Login', name: 'Login', component: Login },
     // 后台管理页
     {
       path: '/',
@@ -65,7 +65,7 @@ const RouterMap = [
             // Input输入框页面
             { path: '/Components/Input', name: 'Input', component: Input },
             // 侧边栏演示页面
-            {   
+            {
                 path: '/Components/Sidebar',
                 name: 'Sidebar',
                 component: Sidebar,

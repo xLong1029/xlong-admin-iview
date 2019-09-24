@@ -26,8 +26,8 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 
 3. V3.0版本
 
-    更新iView至3.x版本
-    修复BUG：由于更新iView版本导致Button和Icon无法显示的问题；<br/>
+    更新iView至3.x版本；<br/>
+    优化项目结构；<br/>
 
 ## 项目说明
 
@@ -103,7 +103,7 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 │  │  ├─Sidebar // 侧边栏相关组件
 │  │  └─Table // 表格相关组件
 │  │
-│  ├─pages // 页面组件
+│  ├─views // 视图
 │  │  │   Main.vue // 主框架
 │  │  │
 │  │  ├─Components // 组件展示相关页面
