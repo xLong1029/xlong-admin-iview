@@ -5,7 +5,7 @@
         <div v-else>
             <Form ref="infoForm" :model="infoForm" :rules="validate" :label-width="100">
                 <Form-item label="文章标题：" prop="title">
-                    <Input v-model="infoForm.title" placeholder="请输入文章标题"></Input>
+                    <Input v-model="infoForm.title" placeholder="请输入文章标题" />
                 </Form-item>
                 <Form-item label="文章标签：" prop="tags">
                     <Select v-model="infoForm.tags" multiple placeholder="请选择文章标签(可多选)">

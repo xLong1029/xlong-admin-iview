@@ -4,10 +4,10 @@
         <div class="m-query-form fr">
             <Form ref="queryForm" :model="queryForm">
                 <Form-item class="query-item">
-                    <Input v-model="queryForm.id" placeholder="版块编号"></Input>
+                    <Input v-model="queryForm.id" placeholder="版块编号" />
                 </Form-item>
                 <Form-item class="query-item">
-                    <Input v-model="queryForm.title" placeholder="版块标题"></Input>
+                    <Input v-model="queryForm.title" placeholder="版块标题" />
                 </Form-item>
                 <Form-item class="query-item">
                     <Select v-model="queryForm.type" placeholder="版块类型">
@@ -63,7 +63,7 @@
             <div>
                 <Form ref="paramsForm" :model="paramsForm" :rules="validate" :label-width="100">
                     <Form-item label="版块标题：" prop="title">
-                        <Input v-model="paramsForm.title"></Input>
+                        <Input v-model="paramsForm.title" />
                     </Form-item>
                     <Form-item label="版块分类：" prop="type">
                         <Radio-group v-model="paramsForm.type">

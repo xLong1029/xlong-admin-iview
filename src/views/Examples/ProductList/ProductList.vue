@@ -4,10 +4,10 @@
         <div class="m-query-form fr">
             <Form ref="queryForm" :model="queryForm">
                 <Form-item class="query-item">
-                    <Input v-model="queryForm.id" placeholder="产品编号"></Input>
+                    <Input v-model="queryForm.id" placeholder="产品编号" />
                 </Form-item>
                 <Form-item class="query-item">
-                    <Input v-model="queryForm.productName" placeholder="产品名称"></Input>
+                    <Input v-model="queryForm.productName" placeholder="产品名称" />
                 </Form-item>
                 <Form-item class="query-item">
                     <Select v-model="queryForm.dataFrom" placeholder="数据来源">
@@ -63,7 +63,7 @@
             <div>
                 <Form ref="paramsForm" :model="paramsForm" :rules="validate" :label-width="100">
                     <Form-item label="产品名称：" prop="productName">
-                        <Input v-model="paramsForm.productName"></Input>
+                        <Input v-model="paramsForm.productName" />
                     </Form-item>
                 </Form>
             </div>

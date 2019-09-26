@@ -4,10 +4,10 @@
         <div class="m-query-form">
             <Form ref="queryForm" :model="queryForm" :rules="validate">
                 <Form-item class="query-item">
-                    <Input v-model="queryForm.id" placeholder="用户编号"></Input>
+                    <Input v-model="queryForm.id" placeholder="用户编号" />
                 </Form-item>
                 <Form-item prop="mobile" class="query-item">
-                    <Input v-model="queryForm.mobile" placeholder="手机号码"></Input>
+                    <Input v-model="queryForm.mobile" placeholder="手机号码" />
                 </Form-item>
                 <Form-item prop="email" class="query-item">
                     <AutoComplete v-model="queryForm.email" :data="emailList" @on-search="selectEmail" @on-select="setEmail" placeholder="邮箱"></AutoComplete>

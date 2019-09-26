@@ -75,7 +75,7 @@
 						</div>
 						<!-- 消息发送框 -->
 						<div class="chat-textarea">
-							<div class="fl textarea"><Input type="textarea" v-model="msgContent" placeholder="可以输入内容，点击发送试试"></Input></div>
+							<div class="fl textarea"><Input type="textarea" v-model="msgContent" placeholder="可以输入内容，点击发送试试" /></div>
 							<Button class="fr" type="info" style="width:80px;height:52px" @click="sendMsg">发送</Button>
 						</div>
 					</div>

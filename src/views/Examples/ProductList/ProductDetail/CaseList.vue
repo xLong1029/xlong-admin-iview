@@ -58,14 +58,14 @@
       <div>
         <Form ref="paramsForm" :model="paramsForm" :rules="validate" :label-width="100">
           <Form-item label="案例标题：" prop="title">
-            <Input v-model="paramsForm.title" placeholder="请输入案例标题"></Input>
+            <Input v-model="paramsForm.title" placeholder="请输入案例标题" />
           </Form-item>
           <Form-item label="案例图片：" prop="img">
             <!-- 组件-图片上传-单图片显示 -->
             <SingleImage :src="paramsForm.img" :preview="true" @get-img-url="setCaseImg"></SingleImage>
           </Form-item>
           <Form-item label="品牌名称：" prop="brand">
-            <Input v-model="paramsForm.brand" placeholder="请输入案例品牌名称"></Input>
+            <Input v-model="paramsForm.brand" placeholder="请输入案例品牌名称" />
           </Form-item>
         </Form>
       </div>

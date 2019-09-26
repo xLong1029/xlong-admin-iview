@@ -3,13 +3,13 @@
         <div style="width:500px;">
             <Form ref="editForm" :model="editForm" :rules="validate" :label-width="100">
                 <Form-item prop="oldPassword" label="旧密码：">
-                    <Input type="password" v-model="editForm.oldPassword" placeholder="请输入旧密码"></Input>
+                    <Input type="password" v-model="editForm.oldPassword" placeholder="请输入旧密码" />
                 </Form-item>
                 <Form-item prop="newPassword" label="新密码：">
-                    <Input type="password" v-model="editForm.newPassword" placeholder="请输入新密码"></Input>
+                    <Input type="password" v-model="editForm.newPassword" placeholder="请输入新密码" />
                 </Form-item>
                 <Form-item prop="passwdCheck" label="确认密码：">
-                    <Input type="password" v-model="editForm.passwdCheck" placeholder="请输入确认密码"></Input>
+                    <Input type="password" v-model="editForm.passwdCheck" placeholder="请输入确认密码" />
                 </Form-item>
                 <Form-item>
                     <Button type="primary" @click="submit('editForm')">确认修改</Button>
@@ -88,7 +88,7 @@
                         // 修改密码 Api
                         Api.ChangePwd(this.editForm, this.token)
                         .then(res => {
-                            if(res.code == 200){                                                            
+                            if(res.code == 200){
                                 // 登出 action方法
                                 this.$store.dispatch('LogOut')
                                 .then(res => {
@@ -97,7 +97,7 @@
                                 })
                                 .catch(err => console.log(err))
                             }
-                            else if(res.code == 404) this.$Message.warning(res.msg); 
+                            else if(res.code == 404) this.$Message.warning(res.msg);
                             else this.$Message.error('密码修改失败！');
                         })
                         .catch(err => console.log(err));

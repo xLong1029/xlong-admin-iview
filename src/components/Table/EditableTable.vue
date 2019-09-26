@@ -15,7 +15,7 @@
                     <!-- 显示文本 -->
                     <span v-if="th.type == 'Text'">{{ item[th.key] }}</span>
                     <!-- 输入框 -->
-                    <Input v-if="th.type == 'Input'" v-model="item[th.key]"></Input>
+                    <Input v-if="th.type == 'Input'" v-model="item[th.key]" />
                     <!-- 图片上传 -->
                     <div v-if="th.type == 'UploadImg'">
                         <div class="upload-img">

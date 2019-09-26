@@ -4,7 +4,7 @@
         <div class="m-query-form fr">
             <Form ref="queryForm" :model="queryForm" :rules="validate">
                 <Form-item class="query-item">
-                    <Input v-model="queryForm.id" placeholder="文章编号"></Input>
+                    <Input v-model="queryForm.id" placeholder="文章编号" />
                 </Form-item>
                 <Form-item class="fl" prop="date">
                     <Date-picker class="query-item" type="date" v-model="queryForm.sTime" placement="bottom-end" placeholder="创建日期-起始" @on-change="getStartDate"></Date-picker>

@@ -24,7 +24,7 @@
                         <!-- 显示文本 -->
                         <span v-if="th.type == 'Text'">{{ item[th.key] }}</span>
                         <!-- 输入框 -->
-                        <Input v-if="th.type == 'Input'" v-model="item[th.key]"></Input>
+                        <Input v-if="th.type == 'Input'" v-model="item[th.key]" />
                         <!-- 图片上传 -->
                         <div v-if="th.type == 'UploadImg'">
                             <div class="upload-img">
@@ -78,14 +78,14 @@
             <div>
                 <Form ref="paramsForm" :model="paramsForm" :rules="validate" :label-width="100">
                     <Form-item label="内容标题：" prop="title">
-                        <Input v-model="paramsForm.title"></Input>
+                        <Input v-model="paramsForm.title" />
                     </Form-item>
                     <Form-item label="封面图片：">
                         <!-- 组件-图片上传-单图片显示 -->
                         <SingleImage :src="paramsForm.img" @get-img-url="setCover"></SingleImage>
                     </Form-item>
                     <Form-item label="跳转链接：">
-                        <Input v-model="paramsForm.url"></Input>
+                        <Input v-model="paramsForm.url" />
                     </Form-item>
                 </Form>
             </div>

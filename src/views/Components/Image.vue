@@ -24,13 +24,13 @@
                         </RadioGroup>
                     </Form-item>
                     <Form-item label="src：" prop="setSrc">
-                        <Input v-model="sUploadAttr.setSrc" placeholder="请输入显示图片路径，例如：https://file.iviewui.com/dist/87ead0a68423c0844ddd159f0cde42b3.jpg"></Input>
+                        <Input v-model="sUploadAttr.setSrc" placeholder="请输入显示图片路径，例如：https://file.iviewui.com/dist/87ead0a68423c0844ddd159f0cde42b3.jpg" />
                     </Form-item>
                     <Form-item label="sizeHint：" prop="setSizeHint">
-                        <Input v-model="sUploadAttr.setSizeHint" placeholder="请输入尺寸建议，例如：100*100px"></Input>
+                        <Input v-model="sUploadAttr.setSizeHint" placeholder="请输入尺寸建议，例如：100*100px" />
                     </Form-item>
                     <Form-item label="fileSize：" prop="setFileSize">
-                        <Input v-model="sUploadAttr.setFileSize" placeholder="请输入限制最大文件大小，例如：1024"></Input>
+                        <Input v-model="sUploadAttr.setFileSize" placeholder="请输入限制最大文件大小，例如：1024" />
                     </Form-item>
                     <Form-item>
                         <Button type="primary" style="margin-top:2px" @click="uploadAttrTest('sUploadAttr', 1)">测试</Button>
@@ -63,13 +63,13 @@
                         </RadioGroup>
                     </Form-item>
                     <Form-item label="sizeHint：" prop="setSizeHint">
-                        <Input v-model="mUploadAttr.setSizeHint" placeholder="请输入尺寸建议，例如：100*100px"></Input>
+                        <Input v-model="mUploadAttr.setSizeHint" placeholder="请输入尺寸建议，例如：100*100px" />
                     </Form-item>
                     <Form-item label="fileSize：" prop="setFileSize">
-                        <Input v-model="mUploadAttr.setFileSize" placeholder="请输入限制最大文件大小，例如：1024"></Input>
+                        <Input v-model="mUploadAttr.setFileSize" placeholder="请输入限制最大文件大小，例如：1024" />
                     </Form-item>
                     <Form-item label="fileSize：" prop="setMaxNum">
-                        <Input v-model="mUploadAttr.setMaxNum" placeholder="请输入限制上传最大个数，例如：3"></Input>
+                        <Input v-model="mUploadAttr.setMaxNum" placeholder="请输入限制上传最大个数，例如：3" />
                     </Form-item>
                     <Form-item>
                         <Button type="primary" style="margin-top:2px" @click="uploadAttrTest('mUploadAttr', 2)">测试</Button>
@@ -115,19 +115,19 @@
                         </RadioGroup>
                     </Form-item>
                     <Form-item label="src：" prop="setSrc">
-                        <Input v-model="imgCropAttr.setSrc" placeholder="请输入显示图片路径，例如：https://file.iviewui.com/dist/87ead0a68423c0844ddd159f0cde42b3.jpg"></Input>
+                        <Input v-model="imgCropAttr.setSrc" placeholder="请输入显示图片路径，例如：https://file.iviewui.com/dist/87ead0a68423c0844ddd159f0cde42b3.jpg" />
                     </Form-item>
                     <Form-item label="sizeHint：" prop="setSizeHint">
-                        <Input v-model="imgCropAttr.setSizeHint" placeholder="请输入尺寸建议，例如：100*100px"></Input>
+                        <Input v-model="imgCropAttr.setSizeHint" placeholder="请输入尺寸建议，例如：100*100px" />
                     </Form-item>
                     <Form-item label="fileSize：" prop="setFileSize">
-                        <Input v-model="imgCropAttr.setFileSize" placeholder="请输入限制最大文件大小，例如：1024"></Input>
+                        <Input v-model="imgCropAttr.setFileSize" placeholder="请输入限制最大文件大小，例如：1024" />
                     </Form-item>
                     <Form-item label="autoCropWidth：" prop="setAutoCropWidth">
-                        <Input v-model="imgCropAttr.setAutoCropWidth" placeholder="请输入裁剪宽度，例如：200"></Input>
+                        <Input v-model="imgCropAttr.setAutoCropWidth" placeholder="请输入裁剪宽度，例如：200" />
                     </Form-item>
                     <Form-item label="autoCropHeight：" prop="setAutoCropHeight">
-                        <Input v-model="imgCropAttr.setAutoCropHeight" placeholder="请输入裁剪高度，例如：200"></Input>
+                        <Input v-model="imgCropAttr.setAutoCropHeight" placeholder="请输入裁剪高度，例如：200" />
                     </Form-item>
                     <Form-item label="fixed：" prop="setFixed">
                         <RadioGroup v-model="imgCropAttr.setFixed">
@@ -136,7 +136,7 @@
                         </RadioGroup>
                     </Form-item>
                     <Form-item label="fixedNumber：" prop="setFixedNumber">
-                        <Input v-model="imgCropAttr.setFixedNumber" placeholder="请输入高宽比例以冒号隔开，例如 4:3"></Input>
+                        <Input v-model="imgCropAttr.setFixedNumber" placeholder="请输入高宽比例以冒号隔开，例如 4:3" />
                     </Form-item>
                     <Form-item>
                         <Button type="primary" style="margin-top:2px" @click="uploadAttrTest('imgCropAttr', 3)">测试</Button>
@@ -149,7 +149,8 @@
         <h2 class="m-title">图片展示（可多图展示）</h2>
         <div class="m-content">
             <div class="m-compo-part">
-                <ShowImage :image-url-arr="imgUrlArr"></ShowImage>
+                <ShowImage v-if="imgUrlArr.length" :image-url-arr="imgUrlArr"></ShowImage>
+                <div v-else>暂无图片，请在测试功能中添加链接查看效果</div>
                 <div class="m-desc">
                     <p>组件包含属性：</p>
                     <p>1. imageUrlArr，图片的URL地址集合。Array类型，默认值为[]空数组</p>
@@ -163,15 +164,15 @@
                 <!-- 功能表单 -->
                 <Form v-if="addFunDisplay" class="g-mt20" ref="addUrlPart" :model="addUrlPart" :rules="addValid" :label-width="100">
                     <Form-item class="fl g-mr10" label="新增URL：" prop="url">
-                        <Input v-model="addUrlPart.url" style="width:460px" placeholder="请输入需要展示的图片链接"></Input>
+                        <Input v-model="addUrlPart.url" style="width:460px" placeholder="请输入需要展示的图片链接" />
                     </Form-item>
                     <Button class="fl g-mr10" type="primary" style="margin-top:2px" @click="addShowImgUrl('addUrlPart')">新增</Button>
                     <Button class="fl" type="default" style="margin-top:2px" @click="clearForm('addUrlPart', 4)">重置</Button>
                     <div class="clearfix"></div>
                 </Form>
                 <!-- 图片链接展示 -->
-                <p :class="!addFunDisplay ? 'g-mt20' : ''">当前显示图片Url: </p>
-                <ul v-if="imgUrlArr.length > 0 && imgUrlArr[0] != ''" class="g-mt15">
+                <p v-if="imgUrlArr.length" :class="!addFunDisplay ? 'g-mt20' : ''">当前显示图片Url: </p>
+                <ul v-if="imgUrlArr.length && imgUrlArr[0] != ''" class="g-mt15">
                     <li class="g-mb10" v-for="(item, index) in imgUrlArr" :key="index"><a :href="item" target="_blank">{{ index + 1 }}. {{ item }}</a></li>
                 </ul>
                 <p v-else class="g-mt15" style="color:#aaa;">暂无图片链接</p>
@@ -276,10 +277,7 @@
             addShowImgUrl(form){
                 this.$refs[form].validate((valid) => {
                     if (valid) {
-                        if(this.imgUrlArr.length <= 1)
-                            this.imgUrlArr = [this.addUrlPart.url];
-                        else
-                            this.imgUrlArr.push(this.addUrlPart.url);
+                        this.imgUrlArr.push(this.addUrlPart.url);
 
                         this.$Message.success('新增成功！请查看功能是否正确');
                     }
@@ -292,7 +290,7 @@
             },
             // 清空图片链接
             clearImgUrl(){
-                this.imgUrlArr = [''];
+                this.imgUrlArr = [];
             },
             // 测试上传属性设置
             uploadAttrTest(form, type){

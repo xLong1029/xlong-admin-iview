@@ -5,7 +5,7 @@
         <div v-else>
             <Form ref="infoForm" :model="infoForm" :rules="validate" :label-width="100">
                 <Form-item label="产品名称：" prop="productName">
-                    <Input v-model="infoForm.productName" placeholder="请输入产品名称"></Input>
+                    <Input v-model="infoForm.productName" placeholder="请输入产品名称" />
                 </Form-item>
                 <Form-item label="产品说明：" prop="productDesc">
                     <!-- 组件-富文本编辑器 -->
@@ -28,7 +28,7 @@
 	import Tinymce from 'components/Common/Tinymce'
     // Api方法
     import Api from 'api/product_list.js'
-    
+
     export default {
         components: { Loading, Tinymce },
         // 获取父级传值productId
@@ -37,7 +37,7 @@
             productId:{
                 type: String,
                 default: '',
-            }, 
+            },
         },
         data() {
             return {
@@ -63,10 +63,10 @@
             getDetail(){
                 this.pageLoading = true;
                 Api.GetProdInfo(this.productId)
-                .then(res => {                    
+                .then(res => {
                     // 取消页面加载
                     this.pageLoading = false;
-                    const result = res.data;                    
+                    const result = res.data;
                     if(res.code == 200){
                         // 设置数据
                         this.infoForm = result;
@@ -96,7 +96,7 @@
                         .catch(err => console.log(err))
                     }
                     else this.$Message.error('提交失败！填写有误');
-                })    
+                })
             },
         }
     }

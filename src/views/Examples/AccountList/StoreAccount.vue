@@ -12,7 +12,7 @@
                             <span>{{ userId }}</span>
                         </Form-item>
                         <Form-item label="真实姓名：" prop="realname">
-                            <Input v-model="infoForm.realname" placeholder="请输入真实姓名"></Input>
+                            <Input v-model="infoForm.realname" placeholder="请输入真实姓名" />
                         </Form-item>
                         <Form-item label="性别：" prop="gender">
                             <Radio-group v-model="infoForm.gender">
@@ -21,7 +21,7 @@
                             </Radio-group>
                         </Form-item>
                         <Form-item label="手机号码：" prop="mobile">
-                            <Input v-model="infoForm.mobile" placeholder="请输入手机号码"></Input>
+                            <Input v-model="infoForm.mobile" placeholder="请输入手机号码" />
                         </Form-item>
                         <Form-item label="邮箱：" prop="email">
                             <AutoComplete v-model="infoForm.email" :data="emailList" @on-search="selectEmail" @on-select="setEmail" placeholder="请输入邮箱地址"></AutoComplete>
