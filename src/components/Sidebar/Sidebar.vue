@@ -5,7 +5,7 @@
       v-for="(menu, i) in menuList"
       class="xl-menu-item"
       :key="i"
-      :class="{'xl-submenu': menu.submenu, 'xl-menu-active': activeName == menu.name}"
+      :class="{'xl-submenu': menu.submenu, 'xl-menu-active': activeName == menu.name, 'xl-submenu-expand': !accordion}"
     >
       <!-- 一级菜单列表-含二级菜单 -->
       <template v-if="menu.submenu">
@@ -37,8 +37,7 @@
   </ul>
 </template>
 <script>
-  import $ from 'jquery'
-  import { SiblingsNode, HasClass, AddClass, RemoveClass } from 'utils'
+  import { SiblingsNode, HasClass, AddClass, RemoveClass, ToggleClass, SlideUp, SlideDown } from 'utils'
   // Vuex
   import { mapGetters } from 'vuex'
 
@@ -51,18 +50,23 @@
         }
     },
     // 获取父级传值
-    // activeName: 第一次加载激活的一级菜单对应路由name，Menu：菜单列表
     props: {
         // 侧边栏跨距大小，-1表示无跨距，正值表示跨距大小
         spanWidth: {
           type: Number,
           default: -1
         },
-        // 设置默认值
-        activeName:{
+        // 是否开启手风琴模式，开启后至多展开一个子菜单
+        accordion: {
+            type: Boolean,
+            default: false
+        },
+        // 第一次加载激活的一级菜单对应路由name
+        activeName: {
             type: String,
             default: ''
         },
+        // 菜单列表
         menuList:{
             type: Array,
             // 警告提示数组/对象默认值应当以一个函数返回 Object/Array must use a factory function to return the default value.
@@ -163,23 +167,23 @@
             if(submenuList){
                 let activeItem = submenuList.querySelectorAll('.xl-submenu-title')[subIndex];
                 if(HasClass(activeItem, 'xl-submenu-active')) return;
+
                 AddClass(activeItem, 'xl-submenu-active');
 
-                submenuList.style.display = 'block';
+                let submenuItems = submenuList.children;
+                SlideDown(submenuList, submenuItems[0].offsetHeight * submenuItems.length, 350);
 
-                siblings.forEach(e => this.removeActive(e));
+                siblings.forEach(e => this.inActiveMenu(e));
             }
             else{
                 siblings.forEach(e => {
-                  let submenuList = e.querySelector('m-xl-submenu-list');
-                  if(submenuList){
-                    submenuList.style.display = 'none';
+                  let submenuList = e.querySelector('.m-xl-submenu-list');
+                  if(submenuList && this.accordion){
+                    submenuList.style.height = 0;
                   }
 
-                  let submenuItem = e.querySelector('xl-submenu-title');
-                  if(submenuItem){
-                    RemoveClass(submenuItem, 'xl-submenu-active');
-                  }
+                  let submenuItems = e.querySelectorAll('.xl-submenu-title');
+                  this.inActiveSubmenu(e);
                 });
             }
         },
@@ -192,53 +196,64 @@
             let submenuList = menuItem.querySelector('.m-xl-submenu-list');
             // 判断是否有子菜单
             if(submenuList){
+                let submenuItems = submenuList.children;
+
+                if(!this.accordion){
+
+                  submenuList.offsetHeight > 0 ? SlideUp(submenuList, submenuItems[0].offsetHeight * submenuItems.length, 350) : SlideDown(submenuList, submenuItems[0].offsetHeight * submenuItems.length, 350);
+
+                  ToggleClass(menuItem, 'xl-submenu-expand');
+                  return;
+                }
+
                 if(HasClass(menuItem, 'xl-menu-active')){
                     RemoveClass(menuItem, 'xl-menu-active');
-                    submenuList.style.display = 'none';
-                    // submenuList.slideUp(250);
+                    submenuList.style.height = 0;
                 }
                 else{
                     this.activeMenu(menuItem);
-                    // submenuList.slideDown(250);
-                    submenuList.style.display = 'block';
 
-                    siblings.forEach(e => this.removeActive(e));
+                    SlideDown(submenuList, submenuItems[0].offsetHeight * submenuItems.length, 350);
+
+                    siblings.forEach(e => this.inActiveMenu(e));
                 }
             }
             else{
                 this.activeMenu(menuItem);
-                siblings.forEach(e => this.removeActive(e));
+                siblings.forEach(e => this.inActiveMenu(e));
             }
         },
         // 取消一级菜单的激活状态
-        removeActive(item){
-            RemoveClass(item, 'xl-menu-active');
+        inActiveMenu(menu){
+            RemoveClass(menu, 'xl-menu-active');
 
-            let submenuList = item.querySelector('.m-xl-submenu-list');
-            if(submenuList){
-              submenuList.style.display = 'none';
+            let submenuList = menu.querySelector('.m-xl-submenu-list');
+            if(submenuList && this.accordion){
+              submenuList.style.height = 0;
             }
 
-            // 当前激活的菜单不修改其二级菜单状态
+            // 若为当前激活的一级菜单不修改其二级菜单状态
             let activeMenuItem = this.$refs.menuItem[this.active.mIndex];
-            if(activeMenuItem == item) return;
+            if(activeMenuItem == menu) return;
 
-            let submenuItems = item.querySelectorAll('.xl-submenu-title');
-            if(submenuItems && submenuItems.length){
-              submenuItems.forEach(e => {
-                RemoveClass(e, 'xl-submenu-active');
-              });
-            }
+            let submenuItems = menu.querySelectorAll('.xl-submenu-title');
+            this.inActiveSubmenu(submenuItems);
         },
         // 激活当前一级菜单
-        activeMenu(item){
-            let siblings = SiblingsNode(item);
+        activeMenu(menu){
+            let siblings = SiblingsNode(menu);
             siblings.forEach(e => {
               RemoveClass(e, 'xl-menu-active');
             });
-            AddClass(item, 'xl-menu-active');
+            AddClass(menu, 'xl-menu-active');
+
+            let submenuList = menu.querySelector('.m-xl-submenu-list');
+            if(submenuList){
+              let submenuItems = submenuList.children;
+              SlideDown(submenuList, submenuItems[0].offsetHeight * submenuItems.length, 350);
+            }
         },
-        // 激活二级菜单
+        // 选中二级菜单并激活
         selectSubmenu(mIndex, subIndex){
           this.active.mIndex = mIndex;
           this.active.subIndex = subIndex;
@@ -248,12 +263,20 @@
 
           let siblings = SiblingsNode(menuItem);
           siblings.forEach(e => {
-            this.removeActive(e)
+            this.inActiveMenu(e)
           });
 
           let submenuItems = menuItem.querySelectorAll('.xl-submenu-title');
-          submenuItems.forEach(e => RemoveClass(e, 'xl-submenu-active'));
+          this.inActiveSubmenu(submenuItems);
+
           AddClass(submenuItems[subIndex], 'xl-submenu-active');
+        },
+        // 取消二级菜单的激活状态
+        inActiveSubmenu(submenuItems){
+          if(!submenuItems || !submenuItems.length) return;
+          submenuItems.forEach(e => {
+            RemoveClass(e, 'xl-submenu-active');
+          });
         }
     },
     watch:{
@@ -327,6 +350,13 @@
     }
   }
 }
+
+.xl-submenu-expand {
+  .xl-submenu-title__arrow {
+    transform: rotate(180deg);
+  }
+}
+
 .xl-submenu-title {
   display: block;
   // padding: 14px 24px;
@@ -344,11 +374,12 @@
 
 .m-xl-submenu-list {
   background: #3a3d44;
-  display: none;
   overflow: hidden;
-  transform: height 500ms;
-  -webkit-transform: height 500ms;
-  -o-transform: height 500ms;
+  // transition: height 0.35s;
+  // -o-transition: height 0.35s;
+  // -webkit-transition: height 0.35s;
+  // -ms-transition: height 0.35s;
+  // -moz-transition: height 0.35s;
 }
 .xl-submenu-item {
   a:hover {

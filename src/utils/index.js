@@ -170,8 +170,7 @@ export function HasClass(node, className) {
  * @param {*} className 类名
  */
 export function AddClass(node, className) {
-  var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
-  if (!node.className.match(reg)) {
+  if (!HasClass(node, className)) {
     node.className += ' ' + className;
   }
 }
@@ -215,6 +214,34 @@ export function SiblingsNode(node) {
     if (p[i] !== node) a.push(p[i]);
   }
   return a;
+}
+
+/**
+ * 让节点向上滑行
+ *
+ * @param {*} node 节点
+ * @param {*} height 原始高度
+ * @param {*} duration 持续时间，以毫秒计
+ */
+export function SlideUp(node, height, duration) {
+  // 解决slideUp闪现问题
+  node.setAttribute('style', `height: ${height}px`);
+  setTimeout(()=>{
+    const style = `height: 0; transition: height ${duration}ms; -o-transition: height ${duration}ms; -webkit-transition: height ${duration}ms; -ms-transition: height ${duration}ms; -moz-transition: height ${duration}ms;`;
+    node.setAttribute('style', style);
+  }, 0);
+}
+
+/**
+ * 让节点向下滑行
+ *
+ * @param {*} node 节点
+ * @param {*} height 高度
+ * @param {*} duration 持续时间，以毫秒计
+ */
+export function SlideDown(node, height, duration) {
+  const style = `height: ${height}px; transition: height ${duration}ms; -o-transition: height ${duration}ms; -webkit-transition: height ${duration}ms; -ms-transition: height ${duration}ms; -moz-transition: height ${duration}ms;`;
+  node.setAttribute('style', style);
 }
 
 /**

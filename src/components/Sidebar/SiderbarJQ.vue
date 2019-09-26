@@ -51,18 +51,18 @@
         }
     },
     // 获取父级传值
-    // activeName: 第一次加载激活的一级菜单对应路由name，Menu：菜单列表
     props: {
         // 侧边栏跨距大小，-1表示无跨距，正值表示跨距大小
         spanWidth: {
           type: Number,
           default: -1
         },
-        // 设置默认值
+        // 第一次加载激活的一级菜单对应路由name
         activeName:{
             type: String,
             default: ''
         },
+        // 菜单列表
         menuList:{
             type: Array,
             // 警告提示数组/对象默认值应当以一个函数返回 Object/Array must use a factory function to return the default value.

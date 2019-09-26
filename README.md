@@ -28,6 +28,7 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 
     更新iView至3.x版本；<br/>
     优化项目结构；<br/>
+    移除jQuery插件，侧边栏组件改用原生JS方法重写
 
 ## 项目说明
 
