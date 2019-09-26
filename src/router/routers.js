@@ -127,7 +127,7 @@ export default [
 				children:[
 					// 账户列表页面
           {
-            path: '/Examples/AccountManage/List',
+            path: '/Examples/AccountManage/AccountList',
             name: 'AccountManage',
             meta: {
               roles: ['admin'],
@@ -138,7 +138,7 @@ export default [
           },
           // 账户列表-新增/编辑
           {
-            path: '/Examples/AccountManage/Store',
+            path: '/Examples/AccountManage/StoreAccount',
             name: 'StoreAccount',
             meta: {
               roles: ['admin'],
@@ -148,7 +148,7 @@ export default [
           },
           // 板块列表页面
           {
-            path: '/Examples/SectionManage/List',
+            path: '/Examples/SectionManage/SectionList',
             name: 'SectionList',
             meta: {
               roles: ['admin', 'manage'],
@@ -165,7 +165,7 @@ export default [
           },
           // 产品列表页面
           {
-            path: '/Examples/ProductManage/List',
+            path: '/Examples/ProductManage/ProductList',
             name: 'ProductList',
             meta: {
               roles: ['admin', 'manage'],
@@ -175,7 +175,7 @@ export default [
           },
           // 产品列表-产品详情
           {
-            path: '/Examples/ProductManage/Detail',
+            path: '/Examples/ProductManage/ProductDetail',
             name: 'ProductDetail',
             meta: {
               roles: ['admin', 'manage']
@@ -185,7 +185,7 @@ export default [
           },
           // 文章列表页面
           {
-            path: '/Examples/ArticleManage/List',
+            path: '/Examples/ArticleManage/ArticleList',
             name: 'ArticleList',
             meta: {
               roles: ['admin', 'manage'],
@@ -195,7 +195,7 @@ export default [
           },
           // 文章列表-文章详情
           {
-            path: '/Examples/ArticleManage/Store',
+            path: '/Examples/ArticleManage/StoreArticle',
             name: 'StoreArticle',
             meta: {
               roles: ['admin', 'manage']
@@ -205,7 +205,7 @@ export default [
           },
           // 消息列表页面
           {
-            path: '/Examples/MessageManage/List',
+            path: '/Examples/MessageManage/MessageList',
             name: 'MessageList',
             meta: {
               roles: ['admin', 'manage', 'user'],

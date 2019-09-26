@@ -125,6 +125,8 @@
                     if(menu[i].children){
                         // 遍历menu下的menu-item
                         for(let j = 0 ; j < menu[i].children.length; j ++){
+
+                          console.log(this.$route, menu[i].children[j].name);
                             // 获取二级菜单路由name
                             activeName = menu[i].children[j].name;
                             if(window.location.href.indexOf(activeName) != -1){
@@ -195,6 +197,7 @@
         // 选中一级菜单
         selectMenu(index){
             let menuItem = this.$refs.menuItem[index];
+            this.active.mIndex = index;
 
             let siblings = SiblingsNode(menuItem);
 
@@ -378,6 +381,7 @@
 }
 
 .m-xl-submenu-list {
+  width: 100%;
   background: #3a3d44;
   overflow: hidden;
   // transition: height 0.35s;
@@ -393,7 +397,7 @@
 }
 .xl-submenu-title {
   a {
-    padding: 14px 0 14px 45px;
+    padding: 14px 10px 14px 45px;
     display: block;
     &:hover {
       color: #fff;

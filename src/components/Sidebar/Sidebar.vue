@@ -374,6 +374,7 @@
 }
 
 .m-xl-submenu-list {
+  width: 100%;
   background: #3a3d44;
   overflow: hidden;
   // transition: height 0.35s;
@@ -389,7 +390,7 @@
 }
 .xl-submenu-title {
   a {
-    padding: 14px 0 14px 45px;
+    padding: 14px 10px 14px 45px;
     display: block;
     &:hover {
       color: #fff;

@@ -227,7 +227,8 @@ export function SlideUp(node, height, duration) {
   // 解决slideUp闪现问题
   node.setAttribute('style', `height: ${height}px`);
   setTimeout(()=>{
-    const style = `height: 0; transition: height ${duration}ms; -o-transition: height ${duration}ms; -webkit-transition: height ${duration}ms; -ms-transition: height ${duration}ms; -moz-transition: height ${duration}ms;`;
+    const time = duration/1000;
+    const style = `height: 0; transition: height ${time}s; -o-transition: height ${time}s; -webkit-transition: height ${time}s; -ms-transition: height ${time}s; -moz-transition: height ${time}s;`;
     node.setAttribute('style', style);
   }, 0);
 }
@@ -240,7 +241,8 @@ export function SlideUp(node, height, duration) {
  * @param {*} duration 持续时间，以毫秒计
  */
 export function SlideDown(node, height, duration) {
-  const style = `height: ${height}px; transition: height ${duration}ms; -o-transition: height ${duration}ms; -webkit-transition: height ${duration}ms; -ms-transition: height ${duration}ms; -moz-transition: height ${duration}ms;`;
+  const time = duration/1000;
+  const style = `height: ${height}px; transition: height ${time}s; -o-transition: height ${time}s; -webkit-transition: height ${time}s; -ms-transition: height ${time}s; -moz-transition: height ${time}s;`;
   node.setAttribute('style', style);
 }
 

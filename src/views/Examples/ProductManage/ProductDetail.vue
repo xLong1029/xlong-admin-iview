@@ -31,7 +31,7 @@
             // 设置面包屑路径
             this.$store.commit('SET_BREADCRUMB', [
                 { name: '首页', path: '/Home' },
-                { name: '产品列表', path: '/Examples/ProductManage/List' },
+                { name: '产品列表', path: '/Examples/ProductManage/ProductList' },
                 { name: '产品详情', path: '' }
             ]);
             // 获取产品编号
