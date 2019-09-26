@@ -75,7 +75,7 @@ const user = {
 			LogOut ({ commit }) {
 				return new Promise(resolve => {
           clearAccount(commit);
-          resolve();
+          resolve(true);
         });
 			},
 	}

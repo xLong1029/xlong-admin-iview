@@ -74,7 +74,7 @@
                 this.articleId = id;
                 this.$store.commit('SET_BREADCRUMB', [
                     { name: '首页', path: '/Home' },
-                    { name: '文章列表', path: '/Examples/ArticleList' },
+                    { name: '文章列表', path: '/Examples/ArticleManage/List' },
                     { name: '文章详情', path: '' }
                 ]);
                 // 获取文章详情
@@ -85,7 +85,7 @@
                 this.pageLoading = false;
                 this.$store.commit('SET_BREADCRUMB', [
                     { name: '首页', path: '/Home' },
-                    { name: '文章列表', path: '/Examples/ArticleList' },
+                    { name: '文章列表', path: '/Examples/ArticleManage/List' },
                     { name: '新增文章', path: '' }
                 ]);
             }

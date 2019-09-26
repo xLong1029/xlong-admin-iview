@@ -2,7 +2,7 @@
   <div :class="['g-layout', sidebarSpan < 3 ? 'layout-mini' : '']">
     <div class="layout-left">
       <!-- 侧边栏 -->
-      <Sidebar :menu-list="menuList" :span-width="3" :accordion="true"></Sidebar>
+      <Sidebar :menu-list="sidebarMenu" :span-width="3" :accordion="true"></Sidebar>
     </div>
     <div class="layout-right">
       <!-- 顶部菜单 -->
@@ -20,7 +20,7 @@
 <script>
 // 组件
 import MenuTop from "components/Common/MenuTop";
-import Sidebar from "components/Sidebar/Sidebar";
+import Sidebar from "components/Common/Sidebar";
 import LocatePath from "components/Common/LocatePath";
 // Vuex
 import { mapGetters } from "vuex";
@@ -28,65 +28,64 @@ import { mapGetters } from "vuex";
 export default {
   components: { MenuTop, Sidebar, LocatePath },
   computed: {
-    ...mapGetters(["sidebarSpan", "breadcrumb"])
+    ...mapGetters(['sidebarSpan', 'sidebarMenu', 'breadcrumb' ])
   },
   data() {
     return {
-      logo: require('assets/images/icon-logo.png'),
-      menuList: [
-        {
-            name: 'Home',
-            icon: 'md-home',
-            text: 'XLONG家里蹲管理系统',
-            isTitle: true
-        },
-        {
-          name: "Componets",
-          icon: "ios-keypad",
-          text: "自定义组件",
-          submenu: [
-            {
-              name: "Image",
-              text: "Image图片操作"
-            },
-            {
-              name: "Input",
-              text: "Input输入框"
-            },
-            {
-              name: "Sidebar",
-              text: "侧边栏"
-            }
-          ]
-        },
-        {
-          name: "Examples",
-          icon: "ios-paper",
-          text: "布局示例",
-          submenu: [
-            {
-              name: "AccountList",
-              text: "账户列表"
-            },
-            {
-              name: "SectionList",
-              text: "版块列表"
-            },
-            {
-              name: "ProductList",
-              text: "产品列表"
-            },
-            {
-              name: "ArticleList",
-              text: "文章列表"
-            },
-            {
-              name: "MessageList",
-              text: "消息列表"
-            }
-          ]
-        }
-      ]
+      // menuList: [
+      //   {
+      //       name: 'Home',
+      //       icon: 'md-home',
+      //       text: 'XLONG家里蹲管理系统',
+      //       isTitle: true
+      //   },
+      //   {
+      //     name: "Componets",
+      //     icon: "ios-keypad",
+      //     text: "自定义组件",
+      //     submenu: [
+      //       {
+      //         name: "Image",
+      //         text: "Image图片操作"
+      //       },
+      //       {
+      //         name: "Input",
+      //         text: "Input输入框"
+      //       },
+      //       {
+      //         name: "Sidebar",
+      //         text: "侧边栏"
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     name: "Examples",
+      //     icon: "ios-paper",
+      //     text: "布局示例",
+      //     submenu: [
+      //       {
+      //         name: "AccountList",
+      //         text: "账户列表"
+      //       },
+      //       {
+      //         name: "SectionList",
+      //         text: "版块列表"
+      //       },
+      //       {
+      //         name: "ProductList",
+      //         text: "产品列表"
+      //       },
+      //       {
+      //         name: "ArticleList",
+      //         text: "文章列表"
+      //       },
+      //       {
+      //         name: "MessageList",
+      //         text: "消息列表"
+      //       }
+      //     ]
+      //   }
+      // ]
     };
   }
 };

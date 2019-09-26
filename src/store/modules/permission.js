@@ -1,4 +1,4 @@
-import routerMap from '@/router';
+import routerMap from '@/router/routers.js';
 import { CopyArr } from 'utils';
 
 // 判断用户身份是否有权限访问该路由
@@ -18,7 +18,7 @@ const permission = {
 		SetSidebarMenu ({ commit }, role) {
 			// 为了防止routerMap跟着改变，使用数组深克隆
 			let mainRouterMap = CopyArr(routerMap.find(v => v.name === 'Main'));
-
+      // console.log(1111, routerMap);
 			// 筛选出有权限的路由
 			let accessedRouters = mainRouterMap.children.filter(v => {
 				// 超级管理员拥有所有权限，无需筛选
@@ -50,8 +50,6 @@ const permission = {
 				}
 				return false;
       });
-
-      console.log(this.sidebarMenu);
 
 			commit('SET_SIDERBAR_MENU', sidebarMenu);
 		}

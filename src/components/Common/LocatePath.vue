@@ -2,7 +2,7 @@
 	<div class="g-breadcrumb">
 		<!-- 面包屑 -->
 		<Breadcrumb>
-		  <Breadcrumb-item v-for="(item, index) in breadcrumb" :key="index" :href="item.path">{{ item.name }}</Breadcrumb-item>
+		  <Breadcrumb-item v-for="(item, index) in breadcrumb" :key="index" :to="item.path">{{ item.name }}</Breadcrumb-item>
 		</Breadcrumb>
   </div>
 </template>

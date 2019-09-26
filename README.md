@@ -30,6 +30,7 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
     优化项目结构；<br/>
     移除jQuery插件，侧边栏组件改用原生JS方法重写；<br/>
     项目已添加自定义域名，解决上传文件提示"invisible domain"的问题；<br/>
+    添加40页面
 
 ## 项目说明
 
@@ -111,7 +112,7 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 │  │  ├─Home // 主页
 │  │  ├─Components // 组件展示相关
 │  │  ├─Error // 错误页面
-│  │  ├─Examplese // 操作示例相关
+│  │  ├─Examples // 操作示例相关
 │  │  ├─Passport // 通行验证，登录注册等
 │  │  └─Profile // 个人信息相关
 │  │

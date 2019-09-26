@@ -3,7 +3,7 @@
         <!-- 树形穿梭组件 -->
         <h2 class="m-title">树形穿梭组件</h2>
         <div class="m-content">
-            <div class="m-compo-part">
+            <!-- <div class="m-compo-part">
                 <FuzzyQuery :model="fuzzyQuery.value" @on-change='getFuzzyValue'></FuzzyQuery>
             </div>
             <div class="m-test-part">
@@ -21,7 +21,7 @@
                     <p>南宁云海风网络科技有限公司</p>
                     <p>南宁风生水传媒有限公司</p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>

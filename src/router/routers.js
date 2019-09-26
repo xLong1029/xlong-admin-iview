@@ -18,11 +18,11 @@ export default [
         path: '/Home',
         name: 'Home',
         meta: {
+          title: 'XLONG家里蹲管理系统',
           roles: ['admin', 'manage', 'user'],
           icon: 'md-home',
 					isTitle: true
 				},
-        hidden: true,
         component: () => import('views/Home/Home')
       },
       // 个人资料
@@ -44,7 +44,7 @@ export default [
 				path: '/Components',
 				name: 'Components',
 				meta: {
-					title: 'Components',
+          title: '自定义组件',
 					icon: 'ios-keypad'
 				},
 				component: () => import('views/Layout/SecondPane'),
@@ -53,18 +53,27 @@ export default [
           {
             path: '/Components/Image',
             name: 'Image',
+            meta: {
+              title: '图片上传',
+            },
             component: () => import('views/Components/Image')
           },
           // Input输入框页面
           {
             path: '/Components/Input',
             name: 'Input',
+            meta: {
+              title: 'Input输入框',
+            },
             component: () => import('views/Components/Input')
           },
           // 树形演示页面
           {
             path: '/Components/Tree',
             name: 'Tree',
+            meta: {
+              title: 'Tree树形相关',
+            },
             component: () => import('views/Components/Tree')
           },
           // 侧边栏演示页面
@@ -73,6 +82,9 @@ export default [
             name: 'Sidebar',
             component: () => import('views/Components/Sidebar/Sidebar'),
             redirect: '/Components/Sidebar/PageA',
+            meta: {
+              title: '侧边栏',
+            },
             children: [
               // 测试页面一
               {
@@ -107,95 +119,99 @@ export default [
 				path: '/Examples',
 				name: 'Examples',
 				meta: {
+          title: '布局示例',
           roles: ['admin', 'manage', 'user'],
-					title: 'Examples',
 					icon: 'ios-paper'
 				},
 				component: () => import('views/Layout/SecondPane'),
 				children:[
 					// 账户列表页面
           {
-            path: '/Examples/AccountList',
-            name: 'AccountList',
+            path: '/Examples/AccountManage/List',
+            name: 'AccountManage',
             meta: {
               roles: ['admin'],
-              title: 'Examples',
+              title: '账户管理',
               icon: 'ios-paper'
             },
-            component: () => import('views/Examples/AccountList/AccountList')
+            component: () => import('views/Examples/AccountManage/AccountList')
           },
           // 账户列表-新增/编辑
           {
-            path: '/Examples/AccountList/StoreAccount',
+            path: '/Examples/AccountManage/Store',
             name: 'StoreAccount',
             meta: {
               roles: ['admin'],
             },
             hidden: true,
-            component: () => import('views/Examples/AccountList/StoreAccount')
+            component: () => import('views/Examples/AccountManage/StoreAccount')
           },
           // 板块列表页面
           {
-            path: '/Examples/SectionList',
+            path: '/Examples/SectionManage/List',
             name: 'SectionList',
             meta: {
-              roles: ['admin', 'manage']
+              roles: ['admin', 'manage'],
+              title: '板块管理',
             },
-            component: () => import('views/Examples/SectionList/SectionList')
+            component: () => import('views/Examples/SectionManage/SectionList')
           },
           // 板块内容管理页面
           {
-            path: '/Examples/SectionList/ContManage',
+            path: '/Examples/SectionManage/ContManage',
             name: 'ContManage',
             hidden: true,
-            component: () => import('views/Examples/SectionList/ContManage')
+            component: () => import('views/Examples/SectionManage/ContManage')
           },
           // 产品列表页面
           {
-            path: '/Examples/ProductList',
+            path: '/Examples/ProductManage/List',
             name: 'ProductList',
             meta: {
-              roles: ['admin', 'manage']
+              roles: ['admin', 'manage'],
+              title: '产品管理',
             },
-            component: () => import('views/Examples/ProductList/ProductList')
+            component: () => import('views/Examples/ProductManage/ProductList')
           },
           // 产品列表-产品详情
           {
-            path: '/Examples/ProductList/ProductDetail',
+            path: '/Examples/ProductManage/Detail',
             name: 'ProductDetail',
             meta: {
               roles: ['admin', 'manage']
             },
             hidden: true,
-            component: () => import('views/Examples/ProductList/ProductDetail')
+            component: () => import('views/Examples/ProductManage/ProductDetail')
           },
           // 文章列表页面
           {
-            path: '/Examples/ArticleList',
+            path: '/Examples/ArticleManage/List',
             name: 'ArticleList',
             meta: {
-              roles: ['admin', 'manage']
+              roles: ['admin', 'manage'],
+              title: '文章管理',
             },
-            component: () => import('views/Examples/ArticleList/ArticleList')
+            component: () => import('views/Examples/ArticleManage/ArticleList')
           },
           // 文章列表-文章详情
           {
-            path: '/Examples/ArticleList/StoreArticle',
+            path: '/Examples/ArticleManage/Store',
             name: 'StoreArticle',
             meta: {
               roles: ['admin', 'manage']
             },
             hidden: true,
-            component: () => import('views/Examples/ArticleList/StoreArticle')
+            component: () => import('views/Examples/ArticleManage/StoreArticle')
           },
           // 消息列表页面
           {
-            path: '/Examples/MessageList',
+            path: '/Examples/MessageManage/List',
             name: 'MessageList',
             meta: {
-              roles: ['admin', 'manage', 'user']
+              roles: ['admin', 'manage', 'user'],
+              title: '消息列表',
             },
-            component: () => import('views/Examples/MessageList/MessageList')
+            component: () => import('views/Examples/MessageManage/MessageList')
           },
 				]
 			}

@@ -18,7 +18,9 @@
 	        <!-- <Form-item>
 	            <Button type="primary" long @click="">注册</Button>
 	        </Form-item> -->
-	        <div style="text-align:center">测试使用登录账号:18888888888 密码:666666</div>
+          <div style="text-align:center">普通用户登录账号: 18888888888 密码: 666666</div>
+          <div style="text-align:center">管理员登录账号: 13543501039 密码: 123456</div>
+          <div style="text-align:center">超级管理员登录账号: 18376686974 密码: 123456</div>
 	    </Form>
 	</div>
 </template>

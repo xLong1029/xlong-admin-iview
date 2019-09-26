@@ -184,7 +184,7 @@ export function AddClass(node, className) {
 export function RemoveClass(node, className) {
   if (HasClass(node, className)) {
       var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
-      node.className = node.className.replace(reg, '');
+      node.className = node.className.replace(reg, ' ');
   }
 }
 

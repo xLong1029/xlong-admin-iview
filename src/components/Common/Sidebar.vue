@@ -5,32 +5,32 @@
       v-for="(menu, i) in menuList"
       class="xl-menu-item"
       :key="i"
-      :class="{'xl-submenu': menu.submenu, 'xl-menu-active': activeName == menu.name, 'xl-submenu-expand': !accordion}"
+      :class="{'xl-submenu': menu.children, 'xl-menu-active': activeName == menu.name, 'xl-submenu-expand': !accordion}"
     >
       <!-- 一级菜单列表-含二级菜单 -->
-      <template v-if="menu.submenu">
+      <template v-if="menu.children">
         <div class="xl-menu-title" @click="selectMenu(i)">
-          <Icon v-show="!menu.isTitle" class="xl-submenu-title__icon" :type="menu.icon" :size="iconSize"></Icon>
-          <span class="xl-submenu-title__text sidebar-text">{{ menu.text }}</span>
+          <Icon v-show="!menu.meta.isTitle" class="xl-submenu-title__icon" :type="menu.meta.icon" :size="iconSize"></Icon>
+          <span class="xl-submenu-title__text sidebar-text">{{ menu.meta.title }}</span>
           <Icon class="xl-submenu-title__arrow" type="ios-arrow-down"></Icon>
         </div>
         <!-- 二级子菜单列表 -->
         <ul class="m-xl-submenu-list">
-          <li ref="submenuMenuItem" class="xl-submenu-item" v-for="(item, index) in menu.submenu" :key="index">
+          <li ref="submenuMenuItem" class="xl-submenu-item" v-for="(item, index) in menu.children" :key="index">
             <div class="xl-submenu-title" @click="selectSubmenu(i, index)">
-              <router-link :to="{ name: item.name }">{{ item.text }}</router-link>
+              <router-link :to="{ name: item.name }">{{ item.meta.title }}</router-link>
             </div>
           </li>
         </ul>
       </template>
       <!-- 一级菜单列表-无二级菜单 -->
-      <div v-else class="xl-menu-title" :class="{'title-menu': menu.isTitle }" @click="selectMenu(i)">
+      <div v-else class="xl-menu-title" :class="{'title-menu': menu.meta.isTitle }" @click="selectMenu(i)">
         <router-link :to="{ name: menu.name }">
           <!-- 不是标题才显示 -->
-          <Icon v-show="!menu.isTitle" class="xl-menu-title__icon" :type="menu.icon" :size="iconSize"></Icon>
+          <Icon v-show="!menu.meta.isTitle" class="xl-menu-title__icon" :type="menu.meta.icon" :size="iconSize"></Icon>
           <!-- 若是标题只在跨距变小时才显示 -->
-          <Icon v-show="menu.isTitle && sidebarSpan < spanWidth" class="xl-menu-title__icon" :type="menu.icon" :size="iconSize"></Icon>
-          <span class="xl-menu-title__text sidebar-text">{{ menu.text }}</span>
+          <Icon v-show="menu.meta.isTitle && sidebarSpan < spanWidth" class="xl-menu-title__icon" :type="menu.meta.icon" :size="iconSize"></Icon>
+          <span class="xl-menu-title__text sidebar-text">{{ menu.meta.title }}</span>
         </router-link>
       </div>
     </li>
@@ -42,8 +42,8 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    // js版本的侧边栏组件
-    name: 'sidebar',
+    // js版本的侧边栏组件，与路由配置相关联动
+    name: 'sidebar-router',
     computed: {
         ...mapGetters([ 'sidebarSpan' ]),
         iconSize () {
@@ -76,19 +76,23 @@
                     {
                         // menu-item对应的路由name
                         name: 'Home',
-                        // iView的Icon图标的type属性
-                        icon: 'navicon-round',
-                        // menu-title显示文本
-                        text: '一级菜单',
-                        // 是否为标题菜单，标题菜单则不显示Icon
-                        isTitle: false,
+                        meta:{
+                            // iView的Icon图标的type属性
+                            icon: 'navicon-round',
+                            // menu-title显示文本
+                            title: '一级菜单',
+                            // 是否为标题菜单，标题菜单则不显示Icon
+                          isTitle: false,
+                        },
                         // submenu列表
-                        submenu: [
+                        children: [
                             {
                                 // submenu-item对应的路由name
                                 name: 'Home',
-                                // submenu-title显示文本
-                                text: '二级菜单',
+                                meta:{
+                                    // submenu-title显示文本
+                                    title: '二级菜单',
+                                }
                             },
                         ]
                     }
@@ -118,11 +122,11 @@
             // 遍历menu
             for(let i = 0 ; i < menu.length ; i ++){
                 if(!stop){
-                    if(menu[i].submenu){
+                    if(menu[i].children){
                         // 遍历menu下的menu-item
-                        for(let j = 0 ; j < menu[i].submenu.length; j ++){
+                        for(let j = 0 ; j < menu[i].children.length; j ++){
                             // 获取二级菜单路由name
-                            activeName = menu[i].submenu[j].name;
+                            activeName = menu[i].children[j].name;
                             if(window.location.href.indexOf(activeName) != -1){
                                 this.active = { name: activeName, mIndex: i, subIndex: j };
                                 // 激活当前菜单
@@ -191,7 +195,6 @@
         // 选中一级菜单
         selectMenu(index){
             let menuItem = this.$refs.menuItem[index];
-            this.active.mIndex = index;
 
             let siblings = SiblingsNode(menuItem);
 
@@ -201,6 +204,7 @@
                 let submenuItems = submenuList.children;
 
                 if(!this.accordion){
+
                   submenuList.offsetHeight > 0 ? SlideUp(submenuList, submenuItems[0].offsetHeight * submenuItems.length, 350) : SlideDown(submenuList, submenuItems[0].offsetHeight * submenuItems.length, 350);
 
                   ToggleClass(menuItem, 'xl-submenu-expand');

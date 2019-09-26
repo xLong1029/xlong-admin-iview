@@ -1,6 +1,9 @@
 <template>
-  <div>
-    啊噢，页面飞走了
+  <div class="error-content">
+    <img :src="require('@/assets/images/404.jpg')"/>
+    <div>
+      <Button type="primary" @click="$router.go(-1)">返回上一页</Button>
+    </div>
   </div>
 </template>
 
@@ -9,5 +12,10 @@
 	}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+.error-content{
+  min-height: 100vh;
+  background: #f8f5ec;
+  text-align: center;
+}
 </style>
