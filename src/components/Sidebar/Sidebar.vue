@@ -42,6 +42,7 @@
   import { mapGetters } from 'vuex'
 
   export default {
+    // js版本的侧边栏组件
     name: 'sidebar',
     computed: {
         ...mapGetters([ 'sidebarSpan' ]),

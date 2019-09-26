@@ -73,7 +73,10 @@ const user = {
 			},
 			// 登出
 			LogOut ({ commit }) {
-					clearAccount(commit);
+				return new Promise(resolve => {
+          clearAccount(commit);
+          resolve();
+        });
 			},
 	}
 }
