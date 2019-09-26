@@ -5,7 +5,7 @@
  * 版本 : version 2.1
  */
 import Common from 'common/common.js'
-import { ObjOmit } from 'common/important.js'
+import { ObjOmit } from 'utils'
 
 export default {
     // 初始化

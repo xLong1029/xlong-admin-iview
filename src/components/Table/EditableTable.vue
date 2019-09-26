@@ -53,6 +53,7 @@
 <script>
     // 通用JS
     import Common from 'common/common.js'
+    import { SetDefaultPic } from 'utils'
 
     export default {
         name: 'editableTable',
@@ -142,7 +143,7 @@
             },
             // 无法显示图片
             notFoundPic(event){
-                Common.SetDefaultPic(event, 2);
+                SetDefaultPic(event, 2);
             },
         }
     }

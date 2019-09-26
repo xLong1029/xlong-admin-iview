@@ -4,7 +4,7 @@
  * 日期 : 2017-9-7
  * 版本 : version 1.0
  */
-import Common from 'common/common.js'
+import { SetDefaultPic } from 'utils'
 
 export default {
 	data() {
@@ -107,7 +107,7 @@ export default {
         },
         // 无法显示图片
         notFoundPic(event){
-            Common.SetDefaultPic(event, 1);
+            SetDefaultPic(event, 1);
         },
         // 错误提示
         errorTip(progress){

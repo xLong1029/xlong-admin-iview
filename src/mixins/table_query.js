@@ -5,6 +5,7 @@
  * 版本 : version 1.0
  */
 import moment from'moment';
+import { SetDate } from 'utils'
 
 export default {
 	data() {
@@ -16,15 +17,15 @@ export default {
 			// 	shortcuts: [
 			// 		{
 			// 			text: '最近一周',
-			// 			value () { return Common.SetDate(1); }
+			// 			value () { return SetDate(1); }
 			// 		},
 			// 		{
 			// 			text: '最近一个月',
-			// 			value () { return Common.SetDate(2); }
+			// 			value () { return SetDate(2); }
 			// 		},
 			// 		{
 			// 			text: '最近三个月',
-			// 			value () { return Common.SetDate(3); }
+			// 			value () { return SetDate(3); }
 			// 		}
 			// 	]
 			// },
@@ -56,7 +57,7 @@ export default {
 			if(getValid == 'valid'){
 				// 表单验证
 				this.$refs[form].validate((valid)=>{
-					// 传值true表示要筛选用户列表            
+					// 传值true表示要筛选用户列表
 					if (valid) this.getTableList(true);
 					else this.$Message.warning('查询失败！填写有误');
 				})
@@ -64,7 +65,7 @@ export default {
 			else this.getTableList(true);
 		},
 		// 删除查询对象属性（清空对象）
-		clearQuery(){		
+		clearQuery(){
 			for(let key in this.queryForm){
 				delete this.queryForm[key];
 			}
@@ -92,10 +93,10 @@ export default {
 					this.queryForm.eTime = moment(this.queryForm.eTime).format('YYYY-MM-DD') + ' 23:59:59';
 				}
 			}
-			
+
 			this.apiGetList().then(res => {
 				this.pageLoading = false;
-				
+
 				if(res.code == 200){
 					// 设置数据
 					this.setListData(res.data);

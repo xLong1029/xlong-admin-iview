@@ -5,14 +5,14 @@
       v-for="(menu, i) in menuList"
       class="xl-menu-item"
       :key="i"
-      :class="{'xl-submenu': menu.submenu, 'xl-menu-active': activeName == menu.name}"
+      :class="{'xl-menu-submenu': menu.submenu, 'xl-menu-active': activeName == menu.name}"
     >
       <!-- 一级菜单列表-含二级菜单 -->
-      <template v-if="menu.submenu">
-        <div class="xl-menu-title" @click="selectMenu(i)">
-          <Icon v-show="!menu.isTitle" class="xl-submenu-title__icon" :type="menu.icon" :size="iconSize"></Icon>
-          <span class="xl-submenu-title__text sidebar-text">{{ menu.text }}</span>
-          <Icon class="xl-submenu-title__arrow" type="ios-arrow-down"></Icon>
+      <div v-if="menu.submenu">
+        <div class="xl-menu-submenu-title" @click="selectMenu(i)">
+          <Icon v-show="!menu.isTitle" class="xl-menu-submenu-title__icon" :type="menu.icon" :size="iconSize"></Icon>
+          <span class="xl-menu-submenu-title__text sidebar-text">{{ menu.text }}</span>
+          <Icon class="xl-menu-submenu-title__arrow" type="ios-arrow-down"></Icon>
         </div>
         <!-- 二级子菜单列表 -->
         <ul class="m-xl-submenu-list">
@@ -22,9 +22,9 @@
             </div>
           </li>
         </ul>
-      </template>
+      </div>
       <!-- 一级菜单列表-无二级菜单 -->
-      <div v-else class="xl-menu-title" :class="{'title-menu': menu.isTitle }" @click="selectMenu(i)">
+      <div v-else class="xl-menu-title" @click="selectMenu(i)">
         <router-link :to="{ name: menu.name }">
           <!-- 不是标题才显示 -->
           <Icon v-show="!menu.isTitle" class="xl-menu-title__icon" :type="menu.icon" :size="iconSize"></Icon>
@@ -38,12 +38,12 @@
 </template>
 <script>
   import $ from 'jquery'
-  import { SiblingsNode, HasClass, AddClass, RemoveClass } from 'utils'
   // Vuex
   import { mapGetters } from 'vuex'
 
   export default {
-    name: 'sidebar',
+    // jq版本的侧边栏组件，已废弃不使用
+    name: 'SiderbarJQ',
     computed: {
         ...mapGetters([ 'sidebarSpan' ]),
         iconSize () {
@@ -93,12 +93,7 @@
     },
     data () {
         return {
-            // 保留激活状态
-            active: {
-              name: '',
-              mIndex: 0,
-              subIndex: 0,
-            },
+            nowActive: '',
         }
     },
     mounted(){
@@ -119,14 +114,14 @@
                             // 获取二级菜单路由name
                             activeName = menu[i].submenu[j].name;
                             if(window.location.href.indexOf(activeName) != -1){
-                                this.active = { name: activeName, mIndex: i, subIndex: j };
+                                this.nowActive = activeName;
                                 // 激活当前菜单
                                 this.setActive(i, j);
                                 stop = true;
                                 break;
                             }
                             else{
-                                this.active = { name: 'Home', mIndex: 0, subIndex: 0 };
+                                this.nowActive = 'Home';
                                 // 激活当前菜单
                                 this.setActive(0, 0);
                             }
@@ -136,14 +131,14 @@
                         // 获取一级菜单路由name
                         activeName = menu[i].name;
                         if(window.location.href.indexOf(activeName) != -1){
-                            this.active = { name: activeName, mIndex: i, subIndex: 0 };
+                            this.nowActive = activeName;
                             // 激活当前菜单
                             this.setActive(i, 0);
                             stop = true;
                             break;
                         }
                         else{
-                            this.active = { name: 'Home', mIndex: 0, subIndex: 0 };
+                            this.nowActive = 'Home';
                             // 激活当前菜单
                             this.setActive(0, 0);
                         }
@@ -154,106 +149,60 @@
         },
         // 激活当前菜单
         setActive(mIndex, subIndex){
-            let menuItem = this.$refs.menuItem[mIndex];
-            this.activeMenu(menuItem);
+            let item = $(this.$refs.menuItem[mIndex]);
+            this.activeMenu(item);
 
-            let siblings = SiblingsNode(menuItem);
-
-            let submenuList = menuItem.querySelector('.m-xl-submenu-list');
-            if(submenuList){
-                let activeItem = submenuList.querySelectorAll('.xl-submenu-title')[subIndex];
-                if(HasClass(activeItem, 'xl-submenu-active')) return;
-                AddClass(activeItem, 'xl-submenu-active');
-
-                submenuList.style.display = 'block';
-
-                siblings.forEach(e => this.removeActive(e));
+            let child = item.find('.m-xl-submenu-list');
+            if(child.length){
+                let activeItem = child.find('.xl-submenu-title').eq(subIndex);
+                if(activeItem.hasClass('xl-submenu-active')) return;
+                child.css('display','block');
+                activeItem.addClass('xl-submenu-active');
+                item.siblings().find('.m-xl-submenu-list').css('display','none');
+                item.siblings().find('.xl-submenu-title').removeClass('xl-submenu-active');
             }
             else{
-                siblings.forEach(e => {
-                  let submenuList = e.querySelector('m-xl-submenu-list');
-                  if(submenuList){
-                    submenuList.style.display = 'none';
-                  }
-
-                  let submenuItem = e.querySelector('xl-submenu-title');
-                  if(submenuItem){
-                    RemoveClass(submenuItem, 'xl-submenu-active');
-                  }
-                });
+                item.siblings().find('.m-xl-submenu-list').css('display','none');
+                item.siblings().find('.xl-submenu-title').removeClass('xl-submenu-active');
             }
         },
         // 选中一级菜单
         selectMenu(index){
-            let menuItem = this.$refs.menuItem[index];
-
-            let siblings = SiblingsNode(menuItem);
-
-            let submenuList = menuItem.querySelector('.m-xl-submenu-list');
+            let item = $(this.$refs.menuItem[index]);
+            let child = item.find('.m-xl-submenu-list');
             // 判断是否有子菜单
-            if(submenuList){
-                if(HasClass(menuItem, 'xl-menu-active')){
-                    RemoveClass(menuItem, 'xl-menu-active');
-                    submenuList.style.display = 'none';
-                    // submenuList.slideUp(250);
+            if(child.length){
+                if(item.hasClass('xl-menu-active')){
+                    item.removeClass('xl-menu-active');
+                    child.slideUp(250);
                 }
                 else{
-                    this.activeMenu(menuItem);
-                    // submenuList.slideDown(250);
-                    submenuList.style.display = 'block';
-
-                    siblings.forEach(e => this.removeActive(e));
+                    this.activeMenu(item);
+                    child.slideDown(250);
+                    this.removeActive(item.siblings());
                 }
             }
             else{
-                this.activeMenu(menuItem);
-                siblings.forEach(e => this.removeActive(e));
+                this.activeMenu(item);
+                this.removeActive(item.siblings());
             }
         },
         // 取消一级菜单的激活状态
         removeActive(item){
-            RemoveClass(item, 'xl-menu-active');
-
-            let submenuList = item.querySelector('.m-xl-submenu-list');
-            if(submenuList){
-              submenuList.style.display = 'none';
-            }
-
-            // 当前激活的菜单不修改其二级菜单状态
-            let activeMenuItem = this.$refs.menuItem[this.active.mIndex];
-            if(activeMenuItem == item) return;
-
-            let submenuItems = item.querySelectorAll('.xl-submenu-title');
-            if(submenuItems && submenuItems.length){
-              submenuItems.forEach(e => {
-                RemoveClass(e, 'xl-submenu-active');
-              });
-            }
+            item.find('.m-xl-submenu-list').slideUp(250);
+            item.find('.xl-submenu-title').removeClass('xl-submenu-active');
         },
         // 激活当前一级菜单
         activeMenu(item){
-            let siblings = SiblingsNode(item);
-            siblings.forEach(e => {
-              RemoveClass(e, 'xl-menu-active');
-            });
-            AddClass(item, 'xl-menu-active');
+            item.siblings().removeClass('xl-menu-active');
+            item.addClass('xl-menu-active');
         },
         // 激活二级菜单
         selectSubmenu(mIndex, subIndex){
-          this.active.mIndex = mIndex;
-          this.active.subIndex = subIndex;
-
-          let menuItem = this.$refs.menuItem[mIndex];
-          this.activeMenu(menuItem);
-
-          let siblings = SiblingsNode(menuItem);
-          siblings.forEach(e => {
-            this.removeActive(e)
-          });
-
-          let submenuItems = menuItem.querySelectorAll('.xl-submenu-title');
-          submenuItems.forEach(e => RemoveClass(e, 'xl-submenu-active'));
-          AddClass(submenuItems[subIndex], 'xl-submenu-active');
+            let parent = $(this.$refs.menuItem[mIndex]);
+            let item = parent.find('.xl-submenu-title');
+            item.removeClass('xl-submenu-active').eq(subIndex).addClass('xl-submenu-active');
+            parent.siblings().find('.xl-submenu-title').removeClass('xl-submenu-active');
         }
     },
     watch:{
@@ -282,7 +231,7 @@
   }
 }
 .xl-menu-item,
-.xl-submenu {
+.xl-menu-submenu {
   cursor: pointer;
   border-bottom: 1px solid #596065;
   &:last-child {
@@ -298,16 +247,13 @@
   }
 }
 
-.xl-menu-item:hover .xl-menu-title a {
+.xlmenu-item:hover .xl-menu-title a {
   color: #fff;
 }
 
-.xl-menu-title{
+.xl-menu-title a {
+  display: block;
   padding: 14px 24px;
-
-  a{
-    display: block;
-  }
 }
 .xl-menu-active {
   &.xl-menu-item {
@@ -316,20 +262,20 @@
       color: @base_color;
     }
   }
-  &.xl-submenu {
+  &.xl-menu-submenu {
     color: #fff;
     border-right: none;
     &.xl-submenu-active {
       color: #fff;
     }
-    .xl-submenu-title__arrow {
+    .xl-menu-submenu-title__arrow {
       transform: rotate(180deg);
     }
   }
 }
-.xl-submenu-title {
+.xl-menu-submenu-title {
   display: block;
-  // padding: 14px 24px;
+  padding: 14px 24px;
 
   &__arrow {
     float: right;
@@ -345,10 +291,6 @@
 .m-xl-submenu-list {
   background: #3a3d44;
   display: none;
-  overflow: hidden;
-  transform: height 500ms;
-  -webkit-transform: height 500ms;
-  -o-transform: height 500ms;
 }
 .xl-submenu-item {
   a:hover {
@@ -371,34 +313,27 @@
   }
 }
 
-.title-menu{
-  .xl-menu-title__icon,
-  .xl-menu-title__text{
-    color: @base_color;
-  }
-}
-
 // 侧边栏隐藏时
 .sidebar-hide-text{
   .sidebar-text{
     display: none;
   }
 
-  .xl-menu-title{
-    text-align: center;
-    padding: 14px 20px;
-  }
-
   .xl-submenu-title{
     text-align: center;
 
+    a{
+      padding: 14px 0;
+      font-size: 12px;
+    }
+  }
+
+  .xl-menu-submenu-title{
+    text-align: center;
+    padding: 14px 20px;
+
     &__arrow{
       float: inherit;
-    }
-
-    a{
-      padding: 14px 10px;
-      font-size: 12px;
     }
   }
 }

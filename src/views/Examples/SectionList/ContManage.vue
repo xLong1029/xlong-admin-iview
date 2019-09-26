@@ -104,7 +104,7 @@
     import Loading from 'components/Common/Loading'
     // 通用JS
     import Common from 'common/common.js'
-    import { GetUrlQuery } from 'common/important.js'
+    import { GetUrlQuery, SetDefaultPic } from 'utils'
     // Api方法
     import Api from '@/api/section_list.js'
     // 表格查询
@@ -376,7 +376,7 @@
             },
             // 无法显示图片
             notFoundPic(event){
-                Common.SetDefaultPic(event, 2);
+                SetDefaultPic(event, 2);
             },
         }
     }

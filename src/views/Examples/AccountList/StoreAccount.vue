@@ -92,7 +92,7 @@
     import SingleImage from 'components/Image/UploadImage/SingleImage'
     // 通用JS
     import Common from 'common/common.js'
-    import { GetUrlQuery } from 'common/important.js'
+    import { GetUrlQuery, CompareDate } from 'utils'
     // 验证方法
     import Validate from 'common/validate.js'
     // Api方法
@@ -204,7 +204,7 @@
                                 else{
                                     // 日期比较
                                     let nowDate = new Date();
-                                    const compare = Common.CompareDate(value, nowDate);
+                                    const compare = CompareDate(value, nowDate);
                                     if (!compare) return callback(new Error('工作时间不能大于当前日期'));
                                     else return callback();
                                 }

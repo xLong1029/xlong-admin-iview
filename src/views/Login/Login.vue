@@ -24,7 +24,7 @@
 </template>
 
 <script>
-	import { SetCookie, SetLocalS, GetLocalS, Encrypt, Decrypt } from 'common/important.js'
+	import { SetCookie, SetLocalS, GetLocalS, Encrypt, Decrypt } from 'utils'
 	// Api方法
 	import Api from 'api/login.js'
 

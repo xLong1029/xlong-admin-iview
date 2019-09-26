@@ -17,7 +17,7 @@
     import ProductInfo from 'views/Examples/ProductList/ProductDetail/ProductInfo'
     import CaseList from 'views/Examples/ProductList/ProductDetail/CaseList'
     // 通用JS
-    import { GetUrlQuery } from 'common/important.js'
+    import { GetUrlQuery } from 'utils'
 
     export default {
         components: { ProductInfo, CaseList },

@@ -24,6 +24,7 @@
 
 <script>
     import Common from 'common/common.js'
+    import { SetDefaultPic } from 'utils'
     import { mapGetters } from 'vuex'
 
 	export default {
@@ -45,12 +46,19 @@
             // 全屏显示
             fullScreen(){
                 this.setFull = true;
-                Common.LaunchFullScreen(document.documentElement);
+                let e = document.documentElement;
+
+                if(e.requestFullscreen) e.requestFullscreen();
+                else if(e.mozRequestFullScreen) e.mozRequestFullScreen();
+                else if(e.webkitRequestFullscreen) e.webkitRequestFullscreen();
+                else if(e.msRequestFullscreen) e.msRequestFullscreen();
             },
             // 退出全屏
             fullExit(){
                 this.setFull = false;
-                Common.ExitFullscreen();
+                if(document.exitFullscreen) document.exitFullscreen();
+                else if(document.mozCancelFullScreen) document.mozCancelFullScreen();
+                else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
             },
             // 登出
             logOut(){
@@ -63,7 +71,7 @@
             },
             // 无法显示图片
             notFoundPic:(event) => {
-                Common.SetDefaultPic(event, 1);
+                SetDefaultPic(event, 1);
             }
         }
 	}

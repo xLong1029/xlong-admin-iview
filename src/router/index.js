@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import routes from './routers'
 import store from '@/store'
 // 获取cookie
-import { GetCookie } from 'common/important'
+import { GetCookie } from 'utils'
 
 Vue.use(Router);
 

@@ -187,7 +187,7 @@
     import ShowImage from 'components/Image/ShowImage'
     import ImageCropper from 'components/Image/ImageCropper'
 
-    import { StrToArr } from 'common/important.js'
+    import { StrToArr } from 'utils'
 
     export default {
         components:{ SingleImage, MultipleImage, ShowImage, ImageCropper },

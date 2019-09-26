@@ -1,7 +1,5 @@
 import Api from 'api/login.js'
-import { GetCookie, DelCookie } from 'common/important'
-import { resolve } from 'url';
-import { rejects } from 'assert';
+import { GetCookie, DelCookie } from 'utils'
 
 // 设置账户信息
 function setAccount(_commit, info){

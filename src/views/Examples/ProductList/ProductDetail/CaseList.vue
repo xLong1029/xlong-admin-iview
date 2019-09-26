@@ -83,6 +83,7 @@ import Loading from "components/Common/Loading";
 import SingleImage from "components/Image/UploadImage/SingleImage";
 // 通用JS
 import Common from "common/common.js";
+import { FormatDate, SetDefaultPic } from "utils";
 // Api方法
 import Api from "api/product_list.js";
 // 轮播图样式
@@ -254,7 +255,7 @@ export default {
       this.$refs[name].validate(valid => {
         if (valid) {
           // 获取当前时间,格式化
-          this.paramsForm.updateTime = Common.FormatDate(new Date());
+          this.paramsForm.updateTime = FormatDate(new Date());
           // 操作
           if (type == 1) {
             Api.AddCase(this.paramsForm, this.productId)
@@ -288,7 +289,7 @@ export default {
     },
     // 无法显示图片
     notFoundPic(event) {
-      Common.SetDefaultPic(event, 2);
+      SetDefaultPic(event, 2);
     }
   }
 };

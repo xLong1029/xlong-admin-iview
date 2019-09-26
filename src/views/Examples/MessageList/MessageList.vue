@@ -99,12 +99,13 @@
 </template>
 
 <script>
-    // 通用JS
-    import Common from 'common/common.js'
-    // Json数据
+  // 通用JS
+  import Common from 'common/common.js'
+  import { SetDefaultPic } from 'utils'
+  // Json数据
 	import JsonData from 'mock/data.json'
 	// 页码设置
-    import { Page } from 'mixins'
+  import { Page } from 'mixins'
 
 	export default {
 		mixins: [ Page ],
@@ -222,7 +223,7 @@
 			},
 			// 无法显示图片
 			notFoundPic(event) {
-				Common.SetDefaultPic(event, 1);
+				SetDefaultPic(event, 1);
 			},
 		}
 	}

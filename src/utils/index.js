@@ -1,8 +1,8 @@
 /*
- * 功能 : 封装一些重要函数
+ * 功能 : 封装一些主要工具方法
  * 作者 : 罗永梅（381612175@qq.com）
- * 日期 : 2019-4-27
- * 版本 : version 2.0
+ * 日期 : 2019-9-25
+ * 版本 : version 3.0
  */
 
 /**
@@ -158,11 +158,10 @@ export function Decrypt(value) {
  * @param {*} node 节点
  * @param {*} className 类名
  */
-export function hasClass(node, className) {
+export function HasClass(node, className) {
   var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
   return node.className.match(reg);
 }
-
 
 /**
  * 给指定节点添加class类名
@@ -170,9 +169,10 @@ export function hasClass(node, className) {
  * @param {*} node 节点
  * @param {*} className 类名
  */
-export function addClass(node, className) {
-  if (!this.hasClass(node, className)) {
-    node.className += " " + className;
+export function AddClass(node, className) {
+  var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+  if (!node.className.match(reg)) {
+    node.className += ' ' + className;
   }
 }
 
@@ -182,10 +182,10 @@ export function addClass(node, className) {
  * @param {*} node 节点
  * @param {*} className 类名
  */
-export function removeClass(node, className) {
-  if (hasClass(node, className)) {
+export function RemoveClass(node, className) {
+  if (HasClass(node, className)) {
       var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
-      node.className = node.className.replace(reg, ' ');
+      node.className = node.className.replace(reg, '');
   }
 }
 
@@ -195,11 +195,11 @@ export function removeClass(node, className) {
  * @param {*} node 节点
  * @param {*} className 类名
  */
-export function toggleClass(node, className){
-  if(hasClass(node,className)){
-      removeClass(node, className);
+export function ToggleClass(node, className){
+  if(HasClass(node,className)){
+      RemoveClass(node, className);
   } else {
-      addClass(node, className);
+      AddClass(node, className);
   }
 }
 
@@ -208,7 +208,7 @@ export function toggleClass(node, className){
  *
  * @param {*} node 节点
  */
-export function siblingsNode(node) {
+export function SiblingsNode(node) {
   let a = [];
   let p = node.parentNode.children;
   for (let i = 0, pl = p.length; i < pl; i++) {
@@ -245,6 +245,84 @@ export function ArrToAtr(arr, l) {
  */
 export function StrToArr(string, s) {
   return string.split(s);
+}
+
+/**
+ * 比较日期大小
+ *
+ * @param {*} dateOne 第一个日期
+ * @param {*} dateTwo 第二个日期
+ */
+export function CompareDate (dateOne, dateTwo) {
+  // 字符串
+  if(typeof(dateOne) == 'string' && typeof(dateTwo) == 'string'){
+      return ((new Date(dateOne.replace(/-/g,"\/"))) <= (new Date(dateTwo.replace(/-/g,"\/"))));
+  }
+  // DATE对象
+  else if(typeof(dateOne) == 'object' && typeof(dateTwo) == 'object') return (dateOne <= dateTwo);
+  else {
+      console.log('日期比较格式不统一');
+      return false;
+  }
+}
+/**
+ * 日期设置--用于iView的DatePicker的daterange类型数据配置，和Vue版本冲突，Vue2.4版本以上不可用
+ *
+ * @param {*} type 1 最近一周，2 最近一个月，3 最近三个月
+ */
+export function SetDate(type) {
+  const end = new Date();
+  const start = new Date();
+  switch(type){
+      case 1: {
+          start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+          return [start, end];
+      }
+      case 2:{
+          start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+          return [start, end];
+      }
+      case 3:{
+          start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+          return [start, end];
+      }
+      default: console.log('get pic error'); return false;
+  }
+}
+
+/**
+ * 日期格式化
+ *
+ * @param {*} date 日期
+ */
+export function FormatDate(date) {
+  if(!date) return;
+  if(typeof date =='string' && date.indexOf('-') != -1) return date;
+  else{
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+      let hour = date.getHours() > 9 ? date.getHours() : '0' + date.getHours();
+      let minute = date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes();
+      let second = date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds();
+      return year + "-" + month + "-" + day + ' ' + hour + ':' + minute + ':' + second;
+  }
+}
+
+/**
+ * 设置默认图片
+ *
+ * @param {*} event 当前对象
+ * @param {*} type 1 显示默认头像，2 显示暂无图片
+ */
+export function SetDefaultPic (event, type) {
+  switch(type){
+      case 1: event.currentTarget.src = require('assets/images/default-face.jpg'); break;
+      case 2: event.currentTarget.src = require('assets/images/no-found-pic.jpg'); break;
+      default: console.log('get pic error'); return false;
+  }
+  //控制不要一直跳动
+  event.currentTarget.onerror = null;
 }
 
 // 删除数组指定某个元素
