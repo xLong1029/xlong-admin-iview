@@ -94,7 +94,7 @@ export default {
 <style lang="less">
 .g-layout {
   position: relative;
-  min-width: 1200px;
+  min-width: 1000px;
 }
 .layout-left {
   height: 100%;

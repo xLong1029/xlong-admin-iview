@@ -22,13 +22,14 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
     富文本编辑器改用Tinymce；<br/>
     图片裁剪组件，裁剪后改用实时预览方式；<br/>
     Bmob改用依赖包引入方式；<br/>
-    文件存储使用Bmob存储，已解决跨域问题 ( 温馨提示：于2019-7-19发现这个接口返回的url地址有出错了， 提示"invisible domain"，Bmob的问题，只是无法显示图片，但上传功能是完好的 )
+    文件存储使用Bmob存储，已解决跨域问题
 
 3. V3.0版本
 
     更新iView至3.x版本；<br/>
     优化项目结构；<br/>
-    移除jQuery插件，侧边栏组件改用原生JS方法重写
+    移除jQuery插件，侧边栏组件改用原生JS方法重写；<br/>
+    项目已添加自定义域名，解决上传文件提示"invisible domain"的问题；<br/>
 
 ## 项目说明
 
@@ -97,7 +98,7 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 │  │    data.json // 部分模拟数据
 │  │
 │  ├─components // 功能组件
-│  │  |
+│  │  │
 │  │  ├─Common // 通用组件
 │  │  ├─Image // 图片相关组件
 │  │  ├─Input // 信息输入相关组件
@@ -105,14 +106,14 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 │  │  └─Table // 表格相关组件
 │  │
 │  ├─views // 视图
-│  │  │   Main.vue // 主框架
 │  │  │
-│  │  ├─Components // 组件展示相关页面
+│  │  ├─Layout // 布局视图
+│  │  ├─Home // 主页
+│  │  ├─Components // 组件展示相关
 │  │  ├─Error // 错误页面
-│  │  ├─Examplese // 操作示例相关页面
-│  │  ├─Home // 管理后台主页
-│  │  ├─Login // 登录相关页面
-│  │  └─Profile // 个人信息相关页面
+│  │  ├─Examplese // 操作示例相关
+│  │  ├─Passport // 通行验证，登录注册等
+│  │  └─Profile // 个人信息相关
 │  │
 │  ├─mixins // 混合模块
 │  │    city_select.js // 城市联级选择

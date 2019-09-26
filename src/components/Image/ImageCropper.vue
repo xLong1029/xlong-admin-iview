@@ -61,9 +61,9 @@
             <div class="clearfix"></div>
             <!-- 操作区域 -->
             <div class="img-button-area">
-                <Button type="primary" @click="changeScale(1)"><Icon type="plus"></Icon></Button>
-                <Button type="primary" @click="changeScale(-1)"><Icon type="minus"></Icon></Button>
-                <Button type="primary" @click="rotateRight"><Icon type="refresh"></Icon></Button>
+                <Button type="primary" @click="changeScale(1)"><Icon type="md-add"></Icon></Button>
+                <Button type="primary" @click="changeScale(-1)"><Icon type="md-remove"></Icon></Button>
+                <Button type="primary" @click="rotateRight"><Icon type="md-refresh"></Icon></Button>
                 <!-- <Button type="primary" @click="previewImg('blob')">预览</Button> -->
             </div>
             <!-- 图片格式提示 -->
@@ -269,7 +269,9 @@
                         this.option.img = data;
 
                         // 设置高度显示图片裁剪区域
-                        $('.img-cropper-area').height('500px');
+                        let cropperArea = document.querySelector('.img-cropper-area');
+                        cropperArea.style.height = '500px';
+                        // $('.img-cropper-area').height('500px');
                     }
                     // 转化为base64
                     // reader.readAsDataURL(file);
