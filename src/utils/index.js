@@ -61,9 +61,8 @@ export function SetLocalS(key, value) {
  * localstorage获取本地缓存
  *
  * @param {*} key key名
- * @param {*} value 值
  */
-export function GetLocalS(key, value) {
+export function GetLocalS(key) {
   let res = localStorage.getItem(key);
   if (res && res != 'null') return res;
   else return false;

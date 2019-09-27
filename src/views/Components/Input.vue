@@ -5,6 +5,14 @@
         <div class="m-content">
             <div class="m-compo-part">
                 <FuzzyQuery :model="fuzzyQuery.value" @on-change='getFuzzyValue'></FuzzyQuery>
+                <div class="m-desc">
+                    <p>属性：</p>
+                    <P><span class="attr-text">model</span>：传入值，String类型，默认值为""</P>
+                </div>
+                <div class="m-desc">
+                    <p>事件：</p>
+                    <P><span class="attr-text">on-change</span>：数据改变时触发, 返回选择值</P>
+                </div>
             </div>
             <div class="m-test-part">
                 <p class="g-mb10">测试数据如下，可选择字段进行测试：</p>
@@ -19,8 +27,13 @@
             <div class="m-compo-part">
                 <InputAndSelect :model="inputAndSelect.value" :direction="inputAndSelect.direction" @on-change='getInputSelectVal'></InputAndSelect>
                 <div class="m-desc">
-                    <p>组件包含属性：</p>
-                    <P>direction。String类型, 可选值为 "top" 表示向上显示列表，"down" 表示向下显示列表。默认值为"down"</P>
+                    <p>属性：</p>
+                    <P><span class="attr-text">model</span>：传入值，String类型，默认值为""</P>
+                    <P><span class="attr-text">direction</span>：String类型, 可选值为 "top" 表示向上显示列表，"down" 表示向下显示列表。默认值为"down"</P>
+                </div>
+                <div class="m-desc">
+                    <p>事件：</p>
+                    <P><span class="attr-text">on-change</span>：数据改变时触发, 返回选择值</P>
                 </div>
             </div>
             <div class="m-test-part">

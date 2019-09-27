@@ -14,11 +14,11 @@
             <div class="m-desc">
                 <p class="m-hint">*由于在实际项目开发过程中，发现iView里自带的Menu 导航菜单用作侧边栏时，2个不同父级的页面相互跳转，会导致侧边栏无法准确定位对应菜单并且高亮显示，所以我便重写了一个自定义侧边栏组件。</p>
                 <p>&nbsp;</p>
-                <p>组件包含属性：</p>
-                <p>1. spanWidth，侧边栏跨距大小，-1表示无跨距，正值表示跨距大小。Number类型，默认值为-1</p>
-                <p>2. accordion，是否开启手风琴模式，开启后至多展开一个子菜单。Boolean类型，默认值为false</p>
-                <p>3. activeName，第一次加载激活的一级菜单对应路由name。String类型，默认值为"Home"</p>
-                <p>4. menuList，菜单列表数据。Array类型，默认值对应路由为"Home"。数据格式如下：</p>
+                <p>属性：</p>
+                <p><span class="attr-text">spanWidth</span>：侧边栏跨距大小，-1表示无跨距，正值表示跨距大小。Number类型，默认值为-1</p>
+                <p><span class="attr-text">accordion</span>：是否开启手风琴模式，开启后至多展开一个子菜单。Boolean类型，默认值为false</p>
+                <p><span class="attr-text">activeName</span>：第一次加载激活的一级菜单对应路由name。String类型，默认值为"Home"</p>
+                <p><span class="attr-text">menuList</span>：菜单列表数据。Array类型，默认值对应路由为"Home"。数据格式如下：</p>
                 <pre>
                 [
                     {

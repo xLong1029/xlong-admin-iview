@@ -65,7 +65,7 @@ export default [
             path: '/Components/Input',
             name: 'Input',
             meta: {
-              title: 'Input输入框',
+              title: 'Input 输入框',
               sidebarName: 'Input'
             },
             component: () => import('views/Components/Input')
@@ -75,7 +75,7 @@ export default [
             path: '/Components/Tree',
             name: 'Tree',
             meta: {
-              title: 'Tree树形相关',
+              title: '树形组件',
               sidebarName: 'Tree'
             },
             component: () => import('views/Components/Tree')

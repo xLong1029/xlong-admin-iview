@@ -6,11 +6,15 @@
             <div class="m-compo-part">
                 <SingleImage :src="sUploadAttr.src" :preview="sUploadAttr.preview" :size-hint="sUploadAttr.sizeHint" :file-size="sUploadAttr.fileSize"></SingleImage>
                 <div class="m-desc">
-                    <p>组件包含属性：</p>
-                    <p>1. src，显示的图片路径。String类型，默认值为''，不显示</p>
-                    <p>2. preview，是否可预览。Boolean类型，默认值为false，不可预览</p>
-                    <p>3. sizeHint，是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
-                    <p>4. fileSize，设置最大图片文件大小，单位kb。Number类型，默认值为150</p>
+                    <p>属性：</p>
+                    <p><span class="attr-text">src</span>：显示的图片路径。String类型，默认值为""，不显示</p>
+                    <p><span class="attr-text">preview</span>：是否可预览。Boolean类型，默认值为false，不可预览</p>
+                    <p><span class="attr-text">sizeHint</span>：是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
+                    <p><span class="attr-text">fileSize</span>：设置最大图片文件大小，单位kb。Number类型，默认值为150</p>
+                </div>
+                <div class="m-desc">
+                    <p>事件：</p>
+                    <p><span class="attr-text">get-img-url</span>：上传成功触发，返回图片URL</p>
                 </div>
             </div>
             <div class="m-test-part">
@@ -45,11 +49,15 @@
             <div class="m-compo-part">
                 <MultipleImage :img-list="mUploadAttr.imgList" :preview="mUploadAttr.preview" :size-hint="mUploadAttr.sizeHint" :file-size="mUploadAttr.fileSize" :max-num="mUploadAttr.maxNum" @get-img-list="setImgList"></MultipleImage>
                 <div class="m-desc">
-                    <p>组件包含属性：</p>
-                    <p>1. preview，是否可预览。Boolean类型，默认值为false，不可预览</p>
-                    <p>2. sizeHint，是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
-                    <p>3. fileSize，设置最大图片文件大小，单位kb。Number类型，默认值为150</p>
-                    <p>4. maxNum，设置最大上传个数。Number类型，默认值为5</p>
+                    <p>属性：</p>
+                    <p><span class="attr-text">preview</span>：是否可预览。Boolean类型，默认值为false，不可预览</p>
+                    <p><span class="attr-text">sizeHint</span>：是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
+                    <p><span class="attr-text">fileSize</span>：设置最大图片文件大小，单位kb。Number类型，默认值为150</p>
+                    <p><span class="attr-text">maxNum</span>：设置最大上传个数。Number类型，默认值为5</p>
+                </div>
+                <div class="m-desc">
+                    <p>事件：</p>
+                    <p><span class="attr-text">get-img-list</span>：上传成功触发，返回图片URL数组</p>
                 </div>
             </div>
             <div class="m-test-part">
@@ -93,15 +101,19 @@
                     :fixed-number="imgCropAttr.fixedNumber"
                 ></ImageCropper>
                 <div class="m-desc">
-                    <p>组件包含属性：</p>
-                    <p>1. src，显示的图片路径。String类型，默认值为''，不显示</p>
-                    <p>2. preview，是否可预览。Boolean类型，默认值为false，不可预览</p>
-                    <p>3. sizeHint，是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
-                    <p>4. fileSize，设置最大图片文件大小，单位kb。Number类型，默认值为150</p>
-                    <p>5. autoCropWidth，设置裁剪宽度，单位px。Number类型，默认值为100</p>
-                    <p>6. autoCropHeight，设置裁剪高度，单位px。Number类型，默认值为100</p>
-                    <p>7. fixed，是否限制裁剪高宽比例。Boolean类型，默认值为false，不限制</p>
-                    <p>8. fixedNumber，设置裁剪高宽比例，只有限制高宽比例时才有用。Array类型，默认值为[4, 3]，即比例为4：3</p>
+                    <p>属性：</p>
+                    <p><span class="attr-text">src</span>：显示的图片路径。String类型，默认值为""，不显示</p>
+                    <p><span class="attr-text">preview</span>：是否可预览。Boolean类型，默认值为false，不可预览</p>
+                    <p><span class="attr-text">sizeHint</span>：是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
+                    <p><span class="attr-text">fileSize</span>：设置最大图片文件大小，单位kb。Number类型，默认值为150</p>
+                    <p><span class="attr-text">autoCropWidth</span>：设置裁剪宽度，单位px。Number类型，默认值为100</p>
+                    <p><span class="attr-text">autoCropHeight</span>：设置裁剪高度，单位px。Number类型，默认值为100</p>
+                    <p><span class="attr-text">fixed</span>：是否限制裁剪高宽比例。Boolean类型，默认值为false，不限制</p>
+                    <p><span class="attr-text">fixedNumber</span>：设置裁剪高宽比例，只有限制高宽比例时才有用。Array类型，默认值为[4, 3]，即比例为4：3</p>
+                </div>
+                <div class="m-desc">
+                    <p>事件：</p>
+                    <p><span class="attr-text">get-img-url</span>：上传成功触发，返回图片URL</p>
                 </div>
             </div>
             <div class="m-test-part">
@@ -152,8 +164,8 @@
                 <ShowImage v-if="imgUrlArr.length" :image-url-arr="imgUrlArr"></ShowImage>
                 <div v-else>暂无图片，请在测试功能中添加链接查看效果</div>
                 <div class="m-desc">
-                    <p>组件包含属性：</p>
-                    <p>1. imageUrlArr，图片的URL地址集合。Array类型，默认值为[]空数组</p>
+                    <p>属性：</p>
+                    <p><span class="attr-text">imageUrlArr</span>：图片的URL地址集合。Array类型，默认值为空数组</p>
                 </div>
             </div>
             <div class="m-test-part m-show-img-block">
