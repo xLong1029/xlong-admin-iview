@@ -31,7 +31,7 @@
                         <font color="#00c5a3">// 是否为标题菜单，标题菜单则不显示Icon，只在spanWidth有值且侧边栏跨距小于spanWidth才显示</font>
                         isTitle: false,
                         <font color="#00c5a3">// submenu列表</font>
-                        submenu: [
+                        children: [
                             {
                                 <font color="#00c5a3">// submenu-item对应的路由name</font>
                                 name: 'AccountList',
@@ -68,7 +68,7 @@
                         name: 'TestTwo',
                         icon: 'navicon-round',
                         text: '一级菜单-2',
-                        submenu: [
+                        children: [
                             {
                                 name: 'PageB',
                                 text: '二级菜单-2.1'
@@ -83,7 +83,7 @@
                         name: 'TestThree',
                         icon: 'navicon-round',
                         text: '一级菜单-3',
-                        submenu: [
+                        children: [
                             {
                                 name: 'PageD',
                                 text: '二级菜单-3.1'

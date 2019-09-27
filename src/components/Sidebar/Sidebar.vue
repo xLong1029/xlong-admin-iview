@@ -5,10 +5,10 @@
       v-for="(menu, i) in menuList"
       class="xl-menu-item"
       :key="i"
-      :class="{'xl-submenu': menu.submenu, 'xl-menu-active': activeName == menu.name, 'xl-submenu-expand': !accordion}"
+      :class="{'xl-submenu': menu.children, 'xl-menu-active': activeName == menu.name, 'xl-submenu-expand': !accordion}"
     >
       <!-- 一级菜单列表-含二级菜单 -->
-      <template v-if="menu.submenu">
+      <template v-if="menu.children">
         <div class="xl-menu-title" @click="selectMenu(i)">
           <Icon v-show="!menu.isTitle" class="xl-submenu-title__icon" :type="menu.icon" :size="iconSize"></Icon>
           <span class="xl-submenu-title__text sidebar-text">{{ menu.text }}</span>
@@ -16,7 +16,7 @@
         </div>
         <!-- 二级子菜单列表 -->
         <ul class="m-xl-submenu-list">
-          <li ref="submenuMenuItem" class="xl-submenu-item" v-for="(item, index) in menu.submenu" :key="index">
+          <li ref="submenuMenuItem" class="xl-submenu-item" v-for="(item, index) in menu.children" :key="index">
             <div class="xl-submenu-title" @click="selectSubmenu(i, index)">
               <router-link :to="{ name: item.name }">{{ item.text }}</router-link>
             </div>
@@ -83,7 +83,7 @@
                         // 是否为标题菜单，标题菜单则不显示Icon
                         isTitle: false,
                         // submenu列表
-                        submenu: [
+                        children: [
                             {
                                 // submenu-item对应的路由name
                                 name: 'Home',
@@ -118,11 +118,11 @@
             // 遍历menu
             for(let i = 0 ; i < menu.length ; i ++){
                 if(!stop){
-                    if(menu[i].submenu){
+                    if(menu[i].children){
                         // 遍历menu下的menu-item
-                        for(let j = 0 ; j < menu[i].submenu.length; j ++){
+                        for(let j = 0 ; j < menu[i].children.length; j ++){
                             // 获取二级菜单路由name
-                            activeName = menu[i].submenu[j].name;
+                            activeName = menu[i].children[j].name;
                             if(window.location.href.indexOf(activeName) != -1){
                                 this.active = { name: activeName, mIndex: i, subIndex: j };
                                 // 激活当前菜单

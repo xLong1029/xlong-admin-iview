@@ -245,7 +245,7 @@
             // 设置面包屑路径
             this.$store.commit('SET_BREADCRUMB', [
                 { name: '首页', path: '/Home' },
-                { name: '账户列表', path: '/Examples/AccountManage/AccountList' }
+                { name: '账户列表', path: '/Examples/AccountManage/List' }
             ]);
             // 获取用户列表
             this.getTableList();

@@ -125,11 +125,9 @@
                     if(menu[i].children){
                         // 遍历menu下的menu-item
                         for(let j = 0 ; j < menu[i].children.length; j ++){
-
-                          console.log(this.$route, menu[i].children[j].name);
                             // 获取二级菜单路由name
                             activeName = menu[i].children[j].name;
-                            if(window.location.href.indexOf(activeName) != -1){
+                            if(this.$route.meta.sidebarName === activeName){
                                 this.active = { name: activeName, mIndex: i, subIndex: j };
                                 // 激活当前菜单
                                 this.setActive(i, j);
@@ -146,7 +144,7 @@
                     else{
                         // 获取一级菜单路由name
                         activeName = menu[i].name;
-                        if(window.location.href.indexOf(activeName) != -1){
+                        if(this.$route.meta.sidebarName === activeName){
                             this.active = { name: activeName, mIndex: i, subIndex: 0 };
                             // 激活当前菜单
                             this.setActive(i, 0);

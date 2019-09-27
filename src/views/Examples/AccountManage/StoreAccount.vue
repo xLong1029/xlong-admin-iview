@@ -227,7 +227,7 @@
                 this.userId = id;
                 this.$store.commit('SET_BREADCRUMB', [
                     { name: '首页', path: '/Home' },
-                    { name: '账户列表', path: '/Examples/AccountManage/AccountList' },
+                    { name: '账户列表', path: '/Examples/AccountManage/List' },
                     { name: '账户详情', path: '' }
                 ]);
                 // 获取账户详情
@@ -237,7 +237,7 @@
             else{
                 this.$store.commit('SET_BREADCRUMB', [
                     { name: '首页', path: '/Home' },
-                    { name: '账户列表', path: '/Examples/AccountManage/AccountList' },
+                    { name: '账户列表', path: '/Examples/AccountManage/List' },
                     { name: '新增账户', path: '' }
                 ]);
             }
