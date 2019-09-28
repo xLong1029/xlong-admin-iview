@@ -261,7 +261,7 @@ export function CopyArr(arr) {
  * @param {*} arr 数组
  * @param {*} l 拼接符
  */
-export function ArrToAtr(arr, l) {
+export function ArrToStr(arr, l) {
   return arr.join(l);
 }
 
