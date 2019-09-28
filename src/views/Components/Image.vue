@@ -37,8 +37,8 @@
                         <Input v-model="sUploadAttr.setFileSize" placeholder="请输入限制最大文件大小，例如：1024" />
                     </Form-item>
                     <Form-item>
-                        <Button type="primary" style="margin-top:2px" @click="uploadAttrTest('sUploadAttr', 1)">测试</Button>
-                        <Button type="default" style="margin-top:2px" @click="clearForm('sUploadAttr', 1)">重置</Button>
+                        <Button type="primary" class="g-mr10" @click="uploadAttrTest('sUploadAttr', 1)">测试</Button>
+                        <Button type="default" @click="clearForm('sUploadAttr', 1)">重置</Button>
                     </Form-item>
                 </Form>
             </div>
@@ -80,8 +80,8 @@
                         <Input v-model="mUploadAttr.setMaxNum" placeholder="请输入限制上传最大个数，例如：3" />
                     </Form-item>
                     <Form-item>
-                        <Button type="primary" style="margin-top:2px" @click="uploadAttrTest('mUploadAttr', 2)">测试</Button>
-                        <Button type="default" style="margin-top:2px" @click="clearForm('mUploadAttr', 2)">重置</Button>
+                        <Button type="primary" class="g-mr10" @click="uploadAttrTest('mUploadAttr', 2)">测试</Button>
+                        <Button type="default" @click="clearForm('mUploadAttr', 2)">重置</Button>
                     </Form-item>
                 </Form>
             </div>
@@ -151,8 +151,8 @@
                         <Input v-model="imgCropAttr.setFixedNumber" placeholder="请输入高宽比例以冒号隔开，例如 4:3" />
                     </Form-item>
                     <Form-item>
-                        <Button type="primary" style="margin-top:2px" @click="uploadAttrTest('imgCropAttr', 3)">测试</Button>
-                        <Button type="default" style="margin-top:2px" @click="clearForm('imgCropAttr', 3)">重置</Button>
+                        <Button type="primary" class="g-mr10" @click="uploadAttrTest('imgCropAttr', 3)">测试</Button>
+                        <Button type="default" @click="clearForm('imgCropAttr', 3)">重置</Button>
                     </Form-item>
                 </Form>
             </div>
@@ -178,8 +178,8 @@
                     <Form-item class="fl g-mr10" label="新增URL：" prop="url">
                         <Input v-model="addUrlPart.url" style="width:460px" placeholder="请输入需要展示的图片链接" />
                     </Form-item>
-                    <Button class="fl g-mr10" type="primary" style="margin-top:2px" @click="addShowImgUrl('addUrlPart')">新增</Button>
-                    <Button class="fl" type="default" style="margin-top:2px" @click="clearForm('addUrlPart', 4)">重置</Button>
+                    <Button class="fl g-mr10" type="primary" @click="addShowImgUrl('addUrlPart')">新增</Button>
+                    <Button class="fl" type="default" @click="clearForm('addUrlPart', 4)">重置</Button>
                     <div class="clearfix"></div>
                 </Form>
                 <!-- 图片链接展示 -->

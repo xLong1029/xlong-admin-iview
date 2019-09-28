@@ -68,7 +68,7 @@
                     this.$Message.success('已退出!');
                     this.$router.push({name: 'Login'});
                   }
-                });
+                }).catch(err => console.log(err));
             },
             // 无法显示图片
             notFoundPic:(event) => {

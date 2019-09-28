@@ -26,13 +26,10 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 
 3. V3.0版本
 
-    更新iView至3.x版本；<br/>
-    优化项目结构；<br/>
-    移除jQuery插件，侧边栏组件改用原生JS方法重写；<br/>
-    项目已添加自定义域名，解决上传文件提示"invisible domain"的问题；<br/>
-    添加40页面；<br/>
-    添加路由访问权限；<br/>
-    新增“可编辑表格”和“树形穿梭”组件
+    更新iView至3.x版本，并通过vue-cli3.0重构项目<br/>
+    移除:jQuery插件，侧边栏组件改用原生JS方法重写；<br/>
+    Bmob已添加自定义域名，解决上传文件提示"invisible domain"的问题；<br/>
+    添加:404页面、路由访问权限和“可编辑表格”和“树形筛选”组件<br/>
 
 ## 项目说明
 
@@ -52,40 +49,48 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 
 ![Image text](static/images/screen-1.gif)
 
-* 个人资料\修改密码
+* 个人资料
 
 ![Image text](static/images/screen-2.gif)
 
-* 图片上传功能
+* 树形筛选
 
 ![Image text](static/images/screen-3.gif)
 
-* 图片裁剪功能
-
-![Image text](static/images/screen-7.gif)
-
-* 自定义侧边栏功能
+* 可编辑表格
 
 ![Image text](static/images/screen-4.gif)
 
-* 账户管理功能
+* 图片上传
 
 ![Image text](static/images/screen-5.gif)
 
-* 版块管理功能
+* 账户管理功能
 
 ![Image text](static/images/screen-6.gif)
+
+* 版块管理功能
+
+![Image text](static/images/screen-7.gif)
 
 ## 目录结构
 
 ```
 │  .babelrc
+│  .browserslistrc // 浏览器可访问配置
 │  .editorconfig
 │  .postcssrc.js
 │  .gitignore
-│  index.html // 首页入口文件
+│  jest.config
 │  package.json
+│  babel.config.js // babel配置
+│  postcss.config.js // CSS转换配置
+│  vue.config.js // 配置文件
 │  README.md
+│
+├─pubilc
+│   favicon.ico // 图标
+│   index.html // 首页入口文件
 │
 ├─src
 │  │  main.js // 项目入口js
@@ -106,6 +111,7 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 │  │  ├─Image // 图片相关组件
 │  │  ├─Input // 信息输入相关组件
 │  │  ├─Sidebar // 侧边栏相关组件
+│  │  ├─Tree // 树形相关组件
 │  │  └─Table // 表格相关组件
 │  │
 │  ├─views // 视图
@@ -143,16 +149,14 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 │
 ├─static // 静态资源
 │
-├─config // 配置目录，包括端口号
-│
-└─build // 项目构建(webpack)相关代码
+└─btests // 单元测试文件
 ```
 
 ## 本地运行
 1. 安装前台依赖
 > npm install
 2. 运行前台项目
-> npm run dev
+> npm run serve
 3. 访问地址：http://localhost:6060
 
 ## 项目打包

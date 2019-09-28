@@ -14,7 +14,7 @@
             </Form-item>
             <Form-item label="头像：">
                 <!-- 组件-图片上传-单图片显示 -->
-                <ImageCropper :src="infoForm.userFace" :preview="true" @get-img-url="setFace"></ImageCropper>
+                <ImageCropper :src="infoForm.userFace" :preview="true" :fixed="true" :fixedNumber="[1,1]" @get-img-url="setFace"></ImageCropper>
             </Form-item>
             <Form-item label="性别：" prop="gender">
                 <Radio-group v-model="infoForm.gender">

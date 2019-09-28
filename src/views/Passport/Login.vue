@@ -80,7 +80,6 @@
 						.then(res => {
 							if(res.code == 200){
                 const result = res.data;
-                console.log(result);
 								// token存cookie
 								SetCookie('xl_admin_t', result.token);
 								this.$store.commit('SET_USER_TOKEN', result.token);

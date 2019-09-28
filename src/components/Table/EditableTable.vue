@@ -3,15 +3,15 @@
         <!-- 可编辑表格 -->
         <table ref="table" class="m-table" width="100%" cellpadding="0" cellspacing="0">
           <!-- 表头名称 -->
-          <th v-for="(item, index) in title" :key="index" :align="item.align" :style="{ 'width' : item.width + 'px'}">
+          <th v-for="(item, index) in title" :key="'th'+index" :align="item.align" :style="{ 'width' : item.width + 'px'}">
               <Checkbox v-if="item.type == 'CheckBox'" v-model="checkAll" @on-change="selectAll(checkAll)"></Checkbox>
               <span v-else>{{ item.title }}</span>
           </th>
           <!-- 表格内容 -->
           <template v-if="data.length">
             <!-- 已有行 -->
-            <tr v-for="(item, index) in data" :key="index">
-              <td v-for="(th, i) in title" :key="i" :align="th.align">
+            <tr v-for="(item, index) in data" :key="'tr'+index">
+              <td v-for="(th, i) in title" :key="'td'+i" :align="th.align">
                   <!-- 勾选框 -->
                   <Checkbox v-if="th.type == 'CheckBox'" v-model="item.isCheck" @on-change="selectRow(index, item.isCheck)"></Checkbox>
                   <!-- 显示文本 -->

@@ -322,9 +322,6 @@
     background: #45484e;
     color: #fff;
   }
-  &__icon {
-    margin-right: 8px;
-  }
 }
 
 .xl-menu-item:hover .xl-menu-title a {
@@ -375,6 +372,10 @@
     -webkit-transition: transform 0.2s ease-in-out;
     -ms-transition: transform 0.2s ease-in-out;
     -moz-transition: transform 0.2s ease-in-out;
+  }
+
+  &__icon {
+    margin-right: 8px;
   }
 }
 

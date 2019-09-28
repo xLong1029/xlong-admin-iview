@@ -153,6 +153,10 @@ export default {
     height: 100%;
     padding: 4px;
     overflow: auto;
+
+    /deep/ .ivu-tree-empty{
+      margin: 8px 0;
+    }
   }
 }
 </style>
