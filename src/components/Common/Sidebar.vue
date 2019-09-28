@@ -127,8 +127,6 @@
                         for(let j = 0 ; j < menu[i].children.length; j ++){
                             // 获取二级菜单路由name
                             activeName = menu[i].children[j].name;
-                            console.log(this.$route.meta, activeName);
-
                             if(this.$route.meta.sidebarName === activeName){
                                 this.active = { name: activeName, mIndex: i, subIndex: j };
                                 // 激活当前菜单
