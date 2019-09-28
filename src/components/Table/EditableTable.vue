@@ -48,7 +48,7 @@
           <tr v-else><td :colspan="title.length" align="center">{{ emptyText }}</td></tr>
       </table>
       <!-- 隐藏的上传按钮 -->
-      <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
+      <input ref="imgFile" type="file" :accept="imgFormat" hidden @change="selectFile"/>
       <!-- 查看图片 -->
       <Modal title="查看图片" v-model="showImgModal">
           <img :src="imgUrl" style="width: 100%" @error="notFoundPic"/>
@@ -87,6 +87,16 @@
             emptyText: {
               type: String,
               default: '暂无数据'
+            },
+            // 图片可上传的文件大小
+            imgMaxSize: {
+              type: Number,
+              default: 2048
+            },
+            // 图片可上传的文件格式
+            imgFormat: {
+              type: Array,
+              default: () => ['image/jpg', 'image/jpeg', 'image/png']
             }
         },
         data() {
@@ -101,14 +111,7 @@
                 imgUrl: '',
                 // 当前操作行索引
                 rowIndex: -1,
-                // 图片文件大小
-                maxSize: 2048,
-                // 可接受的图片上传格式
-                format: ['image/jpg', 'image/jpeg', 'image/png'],
             }
-        },
-        created() {
-
         },
         methods: {
             // 全选
@@ -154,13 +157,6 @@
             clearSelect(){
                 this.selectList = [];
             },
-            // 初始化表格内容
-            initData(data){
-                // 初始化，给data添加isCheck属性，默认值为false
-                if(data.length > 0){
-                    data.forEach(item => item.isCheck = false);
-                }
-            },
             // 查看图片
             viewImage(index){
               this.showImgModal = true;
@@ -180,7 +176,7 @@
                     let fileName = fileList[0].name;
                     let fileSize = Math.floor(fileList[0].size / 1024);
                     // 控制文件大小
-                    if(fileSize > this.maxSize){
+                    if(fileSize > this.imgMaxSize){
                         this.$Notice.warning({
                             title: '超出文件大小限制',
                             desc: '文件 ' + fileName + ' 太大，不能超过 ' + 2 + 'M。'
@@ -200,20 +196,6 @@
                     this.$Notice.success({ title: '图片上传成功!' });
                 }, err =>  this.$Notice.error({ title: '图片上传失败，请重试！' }));
             },
-            // 设置列表数据
-            setListData(result){
-                if(result.length > 0){
-                    this.data = result.map(item => {
-                        return {
-                            id: item.objectId,
-                            title: item.title,
-                            img: item.img,
-                            url: item.url,
-                        }
-                    });
-                }
-                else this.data = [];
-            },
             // 按钮操作
             buttonOperate(button, index){
               let row = this.data[index];
@@ -224,7 +206,6 @@
               }
               // 点击”删除“按钮触发，返回该行
               else if(button.click == 'delete'){
-
                 this.$emit('on-delete', row);
 
                 // 取消其选中效果

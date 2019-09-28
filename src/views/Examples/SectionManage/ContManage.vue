@@ -10,46 +10,13 @@
         <Loading v-if="pageLoading"></Loading>
         <div v-else>
             <!-- 内容列表 -->
-            <table ref="contTable" class="m-table" width="100%" cellpadding="0" cellspacing="0">
-                <!-- 表头名称 -->
-                <th v-for="(item, index) in title" :key="index" :align="item.align" :style="{ 'width' : item.width + 'px'}">
-                    <Checkbox v-if="item.type == 'CheckBox'" v-model="checkAll" @on-change="selectAll(checkAll)"></Checkbox>
-                    <span v-else>{{ item.title }}</span>
-                </th>
-                <!-- 表格内容 -->
-                <tr v-for="(item, index) in listData" :key="index">
-                    <td v-for="(th, i) in title" :key="i" :align="th.align">
-                        <!-- 勾选框 -->
-                        <Checkbox v-if="th.type == 'CheckBox'" v-model="item.isCheck" @on-change="selectRow(index, item.isCheck)"></Checkbox>
-                        <!-- 显示文本 -->
-                        <span v-if="th.type == 'Text'">{{ item[th.key] }}</span>
-                        <!-- 输入框 -->
-                        <Input v-if="th.type == 'Input'" v-model="item[th.key]" />
-                        <!-- 图片上传 -->
-                        <div v-if="th.type == 'UploadImg'">
-                            <div class="upload-img">
-                                <img class="show-img" :src="item[th.key]" alt="图片加载失败" @error="notFoundPic"/>
-                            </div>
-                            <div class="upload-btn">
-                                <Button type="default" :disabled="item[th.key] == ''" icon="ios-eye-outline" @click="viewImage(index)">查看图片</Button>
-                                <Button type="default" icon="ios-cloud-upload-outline" @click="uploadClick(index)" style="margin-left:10px">上传图片</Button>
-                            </div>
-                        </div>
-                        <!-- 操作按钮 -->
-                        <div v-if="th.type == 'Button'">
-                            <Button
-                                :key="index"
-                                :type="th.button.type"
-                                :size="th.button.size"
-                                :style="{ 'min-width' : th.button.minWidth + 'px' }"
-                                @click="saveThis(index)"
-                            >
-                            {{ th.button.text }}
-                            </Button>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+            <EditableTable
+              :title="title"
+              :data="listData"
+              @on-select="getSelectRowData"
+              @on-all-select="getSelectRowData"
+              @on-save="saveThis"
+            />
             <!-- 分页 -->
             <Page
                 class-name="m-page"
@@ -66,13 +33,6 @@
             </Page>
             <div class="clearfix"></div>
         </div>
-        <!-- 隐藏的上传按钮 -->
-        <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
-        <!-- 查看图片 -->
-        <Modal title="查看图片" v-model="showImgModal">
-            <img :src="imgUrl" style="width: 100%" @error="notFoundPic"/>
-            <div slot="footer"></div>
-        </Modal>
         <!-- 新增内容 -->
         <Modal title="新增内容" v-model="showAddModal" @on-cancel="closeModal('paramsForm')">
             <div>
@@ -100,7 +60,7 @@
 <script>
     // 组件
     import SingleImage from 'components/Image/UploadImage/SingleImage'
-    // 组件
+    import EditableTable from 'components/Table/EditableTable'
     import Loading from 'components/Common/Loading'
     // 通用JS
     import Common from 'common/common.js'
@@ -119,7 +79,7 @@
     import { UploadImg } from 'mixins'
 
     export default {
-        components: { SingleImage, Loading },
+        components: { SingleImage, EditableTable, Loading },
         mixins: [ TableQuery, TableOperate, Page, UploadImg ],
         computed: {
             ...mapGetters([ 'getImageUrl' ]),
@@ -146,16 +106,6 @@
                 pageLoading: false,
                 //选中所有项
                 checkAll: false,
-                // 显示查看图片
-                showImgModal: false,
-                // 显示图片Url
-                imgUrl: '',
-                // 当前操作行索引
-                rowIndex: -1,
-                // 图片文件大小
-                maxSize: 2048,
-                // 可接受的图片上传格式
-                format: ['image/jpg', 'image/jpeg', 'image/png'],
                 // 参数表单
                 paramsForm: {
                     title: '',
@@ -213,14 +163,16 @@
                         key: 'operate',
                         align: 'center',
                         type: 'Button',
-                        button: {
-                            type: 'primary',
-                            size: 'small',
-                            minWidth: '64',
-                            text: '保存',
-                            click: 'save'
-                        },
-                        width: '100',
+                        button: [
+                          {
+                            type: "primary",
+                            size: "small",
+                            minWidth: "64",
+                            text: "保存",
+                            click: "save"
+                          }
+                        ],
+                        width: '180',
                     },
                 ],
                 // 表格信息
@@ -241,32 +193,6 @@
             this.initData(this.listData);
         },
         methods: {
-            // 全选
-            selectAll(check){
-                this.listData.forEach(item => {
-                    if(check){
-                        item.isCheck = true;
-                        // 设置选项列表
-                        this.selectList.push(item.id);
-                    }
-                    else{
-                        item.isCheck = false;
-                        // 清空选项列表
-                        this.clearSelect();
-                    }
-                })
-            },
-            // 选中一行
-            selectRow(index, check){
-                if(check){
-                    this.selectList.push(this.listData[index].id);
-                }
-                else{
-                    this.selectList.forEach((item, i) => {
-                        if(item == this.listData[index].id) this.selectList.splice(i,1);
-                    })
-                }
-            },
             // 初始化表格内容
             initData(data){
                 // 初始化，给data添加isCheck属性，默认值为false
@@ -275,46 +201,6 @@
                         item.isCheck = false;
                     })
                 }
-            },
-            // 查看图片
-            viewImage(index){
-                this.showImgModal = true;
-                this.imgUrl = this.listData[index].img;
-            },
-            // 上传按钮点击事件
-            uploadClick(index){
-                // 触发上传按钮点击事件
-                this.$refs.imgFile.click();
-                this.rowIndex = index;
-            },
-            // 选择文件
-            selectFile(event){
-                // 获取上传文件列表
-                const fileList = this.$refs.imgFile.files;
-                if(fileList.length > 0){
-                    let fileName = fileList[0].name;
-                    let fileSize = Math.floor(fileList[0].size / 1024);
-                    // 控制文件大小
-                    if(fileSize > this.maxSize){
-                        this.$Notice.warning({
-                            title: '超出文件大小限制',
-                            desc: '文件 ' + fileName + ' 太大，不能超过 ' + 2 + 'M。'
-                        });
-                        return false;
-                    }
-                    this.uploadFile(fileList[0]);
-                }
-                else console.log('获取不到文件列表');
-            },
-            // 上传文件
-            uploadFile(file){
-                var thisFile = Bmob.File(file.name, file);
-                // Bomb图片上传
-                thisFile.save().then(res => {
-                    // 设置图片
-                    this.listData[this.rowIndex].img = res[0].url;
-                    this.$Notice.success({ title: '图片上传成功!' });
-                }, err =>  this.$Notice.error({ title: '图片上传失败，请重试！' }));
             },
             // 设置列表数据
             setListData(result){
@@ -331,12 +217,12 @@
                 else this.listData = [];
             },
             // 保存数据
-            saveThis(index){
-                this.editId = this.listData[index].id;
+            saveThis(row){
+                this.editId = row.id;
                 this.paramsForm.parentId = this.parentId;
-                this.paramsForm.title = this.listData[index].title;
-                this.paramsForm.img = this.listData[index].img;
-                this.paramsForm.url = this.listData[index].url;
+                this.paramsForm.title = row.title;
+                this.paramsForm.img = row.img;
+                this.paramsForm.url = row.url;
                 // 编辑数据
                 this.editData();
             },
@@ -373,6 +259,10 @@
             // 设置封面图片
             setCover(url){
                 this.paramsForm.img = url;
+            },
+            // 获取选中行数据
+            getSelectRowData(list){
+              list.forEach(e => this.selectList.push(e.id));
             },
             // 无法显示图片
             notFoundPic(event){

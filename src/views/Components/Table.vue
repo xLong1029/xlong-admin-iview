@@ -17,6 +17,8 @@
             <p><span class="attr-text">title</span>：表格表头名称。Array类型，默认值为空数组</p>
             <p><span class="attr-text">data</span>：表格数据。Array类型，默认值为空数组</p>
             <p><span class="attr-text">emptyText</span>：源树形数据。String类型，默认值为“暂无数据”</p>
+            <p><span class="attr-text">imgMaxSize</span>：图片可上传的文件大小。String类型，默认值为2048</p>
+            <p><span class="attr-text">imgFormat</span>：图片可上传的文件格式。Array类型，默认值为['image/jpg', 'image/jpeg', 'image/png']</p>
         </div>
         <div class="m-desc">
             <p>事件：</p>

@@ -9,26 +9,26 @@ import { SetDefaultPic } from 'utils'
 export default {
 	data() {
 		return{
-            // 可接受的图片上传格式
-            format: ['image/jpg', 'image/jpeg', 'image/png'],
-            // 上传状态，上传成功完成为finished
-            uploadStatus: '',
-            // 上传状态，上传成功完成为finished
-            uploadStatus: '',
-            // 是否显示进度条
-            showProgress: false,
-            // 上传加载
-            loading: false,
-            // 是否显示弹窗
-            showModal: false,
-            // 显示遮罩
-            showMask: false,
-            // 上传进度
-            percentage: 0,
-            // 显示图片的地址
-            showImgUrl: '',
-            // 是否显示上传按钮
-            showUploadBtn: true
+          // 图片上传分时
+          format: ['image/jpg', 'image/jpeg', 'image/png'],
+          // 上传状态，上传成功完成为finished
+          uploadStatus: '',
+          // 上传状态，上传成功完成为finished
+          uploadStatus: '',
+          // 是否显示进度条
+          showProgress: false,
+          // 上传加载
+          loading: false,
+          // 是否显示弹窗
+          showModal: false,
+          // 显示遮罩
+          showMask: false,
+          // 上传进度
+          percentage: 0,
+          // 显示图片的地址
+          showImgUrl: '',
+          // 是否显示上传按钮
+          showUploadBtn: true
         }
     },
     created(){},
