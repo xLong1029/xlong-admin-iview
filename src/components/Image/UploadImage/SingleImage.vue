@@ -5,13 +5,13 @@
             <div class="upload-img-wrap"><img class="upload-image" :src="getImageUrl" alt="图片加载失败" @error="notFoundPic"/></div>
             <!-- 遮罩 -->
             <div v-if="preview" class="upload-mask">
-                <Icon v-if="preview" type="eye" @click.native="viewImage" style="margin-right:15px;"></Icon>
-                <Icon type="edit" @click.native="uploadClick"></Icon>
+                <Icon v-if="preview" type="md-eye" class="g-mr10" @click.native="viewImage"></Icon>
+                <Icon type="md-create" @click.native="uploadClick"></Icon>
             </div>
         </div>
         <!-- 上传按钮 -->
         <div v-show="showUploadBtn" class="upload-btn" @click="uploadClick">
-            <Icon type="camera" size="20"></Icon>
+            <Icon type="md-camera" size="20"></Icon>
             <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
         </div>
         <!-- 上传进度条  -->

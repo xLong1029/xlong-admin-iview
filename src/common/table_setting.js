@@ -1,4 +1,4 @@
-import Common from 'common/common.js'
+import { SetDefaultPic } from 'utils'
 
 export default {
     // 通用设置
@@ -84,7 +84,7 @@ export default {
         },
         on: {
             error: (event) => {
-                Common.SetDefaultPic(event, 2);
+                SetDefaultPic(event, 2);
             }
         }
     }),

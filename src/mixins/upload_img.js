@@ -4,32 +4,31 @@
  * 日期 : 2017-9-7
  * 版本 : version 1.0
  */
-import Common from 'common/common.js'
-import axios from 'axios'
+import { SetDefaultPic } from 'utils'
 
 export default {
 	data() {
 		return{
-            // 可接受的图片上传格式
-            format: ['image/jpg', 'image/jpeg', 'image/png'],
-            // 上传状态，上传成功完成为finished
-            uploadStatus: '',
-            // 上传状态，上传成功完成为finished
-            uploadStatus: '',
-            // 是否显示进度条
-            showProgress: false,
-            // 上传加载
-            loading: false,
-            // 是否显示弹窗
-            showModal: false,
-            // 显示遮罩
-            showMask: false,
-            // 上传进度
-            percentage: 0,
-            // 显示图片的地址
-            showImgUrl: '',
-            // 是否显示上传按钮
-            showUploadBtn: true
+          // 图片上传分时
+          format: ['image/jpg', 'image/jpeg', 'image/png'],
+          // 上传状态，上传成功完成为finished
+          uploadStatus: '',
+          // 上传状态，上传成功完成为finished
+          uploadStatus: '',
+          // 是否显示进度条
+          showProgress: false,
+          // 上传加载
+          loading: false,
+          // 是否显示弹窗
+          showModal: false,
+          // 显示遮罩
+          showMask: false,
+          // 上传进度
+          percentage: 0,
+          // 显示图片的地址
+          showImgUrl: '',
+          // 是否显示上传按钮
+          showUploadBtn: true
         }
     },
     created(){},
@@ -50,19 +49,19 @@ export default {
                 if(this.percentage == 90) clearInterval(progress);
                 this.percentage += 10;
             },100);
-            
+
             return new Promise((resolve, reject) => {
-                file.save().then((res) => {                    
+                file.save().then(res => {
                     // 停止加载和隐藏进度
                     this.progressHide();
                     this.percentage = 100;
                     clearInterval(progress);
-    
-                    this.showUploadBtn = false;                    
+
+                    this.showUploadBtn = false;
                     this.$Notice.success({ title: '图片上传成功!' });
 
                     resolve(res);
-                }, (err) =>  {
+                }, err =>  {
                     this.errorTip(progress);
                     reject(err);
                 });
@@ -77,7 +76,7 @@ export default {
                 // 将文件大小字节转成kb
                 let fileSize = Math.floor(fileList[0].size / 1024);
 
-                let maxSize = this.fileSize;                
+                let maxSize = this.fileSize;
                 let overHint = maxSize + 'kb';
                 // 控制文件大小
                 if(fileSize > maxSize){
@@ -108,12 +107,12 @@ export default {
         },
         // 无法显示图片
         notFoundPic(event){
-            Common.SetDefaultPic(event, 1);
+            SetDefaultPic(event, 1);
         },
         // 错误提示
         errorTip(progress){
             // 停止加载和隐藏进度条
-            this.progressHide();                 
+            this.progressHide();
             clearInterval(progress);
             this.$Notice.error({ title: '图片上传失败，请重试！' });
         }

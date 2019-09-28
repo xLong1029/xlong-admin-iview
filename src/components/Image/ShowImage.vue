@@ -4,7 +4,7 @@
             <div class="img-show"><img :src="item" @error="notFoundPic" /></div>
             <!-- 可预览遮罩 -->
             <div class="img-mask">
-                <Icon type="eye" @click.native="viewImage(item)"></Icon>
+                <Icon type="md-eye" @click.native="viewImage(item)"></Icon>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -17,6 +17,7 @@
 </template>
 <script>
     import Common from 'common/common.js'
+    import { SetDefaultPic } from 'utils'
 
     export default {
         name: 'showImg',
@@ -44,7 +45,7 @@
             },
             // 无法显示图片
             notFoundPic(event) {
-                Common.SetDefaultPic(event, 2);
+                SetDefaultPic(event, 2);
             }
         }
     }
@@ -98,7 +99,7 @@
             top: 50%;
             margin-top: -13px;
             margin-left: -13px;
-            font-size: 26px;
+            font-size: 24px;
         }
     }
 

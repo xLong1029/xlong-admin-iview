@@ -9,28 +9,28 @@
             @on-blur="hideDropDownList"
             @on-keyup.up="changeUp"
             @on-keydown.down="changeDown"
-            @on-enter="selectDropDownItem(optionList[selectIndex].label, selectIndex)"                 
-        ></Input>
+            @on-enter="selectDropDownItem(optionList[selectIndex].label, selectIndex)"
+         />
         <!-- 下拉列表 -->
         <div ref="dropDownList" :class="['query-select-dropdown', showList ? '' : 'hidden']">
             <ul v-show="notFound" class="query-select-not-found">无匹配数据</ul>
             <ul v-show="loading" class="query-select-loading">加载中</ul>
             <!-- 选项列表 -->
             <ul v-show="getList" @mouseleave="leaveList" @mouseenter ="enterList">
-                <li                        
+                <li
                     v-for="(item, index) in optionList"
                     :class="['query-select-item', selectIndex === index ? 'query-select-item-selected' : '']"
-                    :key="index"                   
+                    :key="index"
                     @click="selectDropDownItem(item.label, index)"
                 >{{ item.label }}</li>
-            </ul>                    
+            </ul>
         </div>
     </div>
 </template>
 <script>
     // Json数据
     import JsonData from 'mock/data.json'
-        
+
     export default {
         name: 'fuzzyQuery',
         // 获取父级传值
@@ -72,7 +72,7 @@
         watch: {
             model(val) {
                 this.value = val;
-            } 
+            }
         },
         created() {
             this.value = this.model;
@@ -154,7 +154,7 @@
                 let text = event.target._value;
                 console.log('get check word:' + text);
                 // 搜索词为空
-                if (text == '') {                    
+                if (text == '') {
                     this.optionList = [];
                     this.notFound = true;
                 }
@@ -191,7 +191,7 @@
                 this.startInput = false;
             },
             // 隐藏下拉框
-            hideDropDownList(){                
+            hideDropDownList(){
                 if(this.notFound) this.state = -404;
                 // 匹配不到或者未选择
                 if(this.state == -404 || !this.getSelect){

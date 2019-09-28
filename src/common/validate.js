@@ -5,6 +5,7 @@
  * 版本 : version 2.0
  */
 import Common from './common.js'
+import { CompareDate } from 'utils'
 
 export default {
     // 验证密码
@@ -15,7 +16,7 @@ export default {
             if(required) return callback(new Error('密码不能为空'));
             else return callback();
         }
-        else{           
+        else{
             if(!Common.regPassword.test(password)) return callback(new Error('密码格式为6-12位，字母、数字和下划线的组合'));
             else return callback();
         }
@@ -26,7 +27,7 @@ export default {
         if(pwdCheck == ''){
             // 若必填
             if(required) return callback(new Error('确认密码不能为空'));
-            else {                
+            else {
                 if(password != '') return callback(new Error('确认密码不能为空'));
                 else return callback();
             }
@@ -48,7 +49,7 @@ export default {
         }
         else{
             let nowDate = new Date();
-            const compare = Common.CompareDate(birhtDate, nowDate);
+            const compare = CompareDate(birhtDate, nowDate);
             if (!compare) return callback(new Error('出生日期不能大于当前日期'));
             else return callback();
         }
@@ -73,7 +74,7 @@ export default {
             }
             else return callback();
         }
-        else return callback();       
+        else return callback();
     },
     // 验证验证码
     ValidCode: (code, callback, required) => {
@@ -81,9 +82,9 @@ export default {
             if(!code){
                 return callback(new Error('验证码不能为空'));
             }
-            else return callback(); 
+            else return callback();
         }
-        else return callback();       
+        else return callback();
     },
     // 验证用户名
     ValidUserName: (userName, callback, required) => {
@@ -94,9 +95,9 @@ export default {
             else if (!Common.regEmail.test(userName) && !Common.regEmail.Mobile.test(userName)) {
                 return callback(new Error('用户名格式不正确'));
             }
-            else return callback(); 
+            else return callback();
         }
-        else return callback();       
+        else return callback();
     },
     // 验证日期范围选择
     ValidRangeDate: (startDate, endDate, callback, required) => {
@@ -106,22 +107,22 @@ export default {
         else{
             if(startDate){
                 let nowDate = new Date();
-                const compare = Common.CompareDate(startDate, nowDate);
-                
+                const compare = CompareDate(startDate, nowDate);
+
                 if (!compare) return callback(new Error('开始日期不能大于当前日期'));
                 else{
                     if(endDate){
-                        const compare = Common.CompareDate(startDate, endDate);
+                        const compare = CompareDate(startDate, endDate);
                         if (!compare) return callback(new Error('结束日期不能小于开始日期'));
-                        else return callback(); 
+                        else return callback();
                     }
-                    else return callback(); 
+                    else return callback();
                 }
             }
             else{
                 if(endDate) return callback(new Error('请选择开始日期'));
                 else return callback();
             }
-        } 
+        }
     }
 }

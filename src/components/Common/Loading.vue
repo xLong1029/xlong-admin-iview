@@ -1,7 +1,7 @@
 <template>
   <div id="loading" class="page-load">
     <Spin>
-      <Icon type="load-c" size=18 class="spin-icon-load"></Icon>
+      <Icon type="ios-loading" size=18 class="spin-icon-load"></Icon>
       <div>玩命加载中...</div>
     </Spin>
   </div>
@@ -20,11 +20,12 @@
   .page-load {
     margin:200px 0;
   }
-  
+
   .spin-icon-load {
     animation: ani-demo-spin 1s linear infinite;
+    margin-bottom: 10px;
   }
-  
+
   @keyframes ani-demo-spin {
     from {
       transform: rotate(0deg);

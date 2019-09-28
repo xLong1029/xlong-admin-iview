@@ -22,7 +22,14 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
     富文本编辑器改用Tinymce；<br/>
     图片裁剪组件，裁剪后改用实时预览方式；<br/>
     Bmob改用依赖包引入方式；<br/>
-    文件存储使用Bmob存储，已解决跨域问题 ( 温馨提示：于2019-7-19发现这个接口返回的url地址有出错了， 提示"invisible domain"，但上传功能是完好的，只是无法显示图片)
+    文件存储使用Bmob存储，已解决跨域问题
+
+3. V3.0版本
+
+    更新iView至3.x版本，并通过vue-cli3.0重构项目；<br/>
+    移除:jQuery插件，侧边栏组件改用原生JS方法重写；<br/>
+    Bmob已添加自定义域名，解决上传文件提示"invisible domain"的问题；<br/>
+    添加:404页面、路由访问权限和“可编辑表格”和“树形筛选”组件<br/>
 
 ## 项目说明
 
@@ -42,40 +49,48 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 
 ![Image text](static/images/screen-1.gif)
 
-* 个人资料\修改密码
+* 个人资料
 
 ![Image text](static/images/screen-2.gif)
 
-* 图片上传功能
+* 树形筛选
 
 ![Image text](static/images/screen-3.gif)
 
-* 图片裁剪功能
-
-![Image text](static/images/screen-7.gif)
-
-* 自定义侧边栏功能
+* 可编辑表格
 
 ![Image text](static/images/screen-4.gif)
 
-* 账户管理功能
+* 图片上传
 
 ![Image text](static/images/screen-5.gif)
 
-* 版块管理功能
+* 账户管理功能
 
 ![Image text](static/images/screen-6.gif)
+
+* 版块管理功能
+
+![Image text](static/images/screen-7.gif)
 
 ## 目录结构
 
 ```
 │  .babelrc
+│  .browserslistrc // 浏览器可访问配置
 │  .editorconfig
 │  .postcssrc.js
 │  .gitignore
-│  index.html // 首页入口文件
+│  jest.config
 │  package.json
+│  babel.config.js // babel配置
+│  postcss.config.js // CSS转换配置
+│  vue.config.js // 配置文件
 │  README.md
+│
+├─pubilc
+│   favicon.ico // 图标
+│   index.html // 首页入口文件
 │
 ├─src
 │  │  main.js // 项目入口js
@@ -91,22 +106,23 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 │  │    data.json // 部分模拟数据
 │  │
 │  ├─components // 功能组件
-│  │  |
+│  │  │
 │  │  ├─Common // 通用组件
 │  │  ├─Image // 图片相关组件
 │  │  ├─Input // 信息输入相关组件
 │  │  ├─Sidebar // 侧边栏相关组件
+│  │  ├─Tree // 树形相关组件
 │  │  └─Table // 表格相关组件
 │  │
-│  ├─pages // 页面组件
-│  │  │   Main.vue // 主框架
+│  ├─views // 视图
 │  │  │
-│  │  ├─Components // 组件展示相关页面
+│  │  ├─Layout // 布局视图
+│  │  ├─Home // 主页
+│  │  ├─Components // 组件展示相关
 │  │  ├─Error // 错误页面
-│  │  ├─Examplese // 操作示例相关页面
-│  │  ├─Home // 管理后台主页
-│  │  ├─Login // 登录相关页面
-│  │  └─Profile // 个人信息相关页面
+│  │  ├─Examples // 操作示例相关
+│  │  ├─Passport // 通行验证，登录注册等
+│  │  └─Profile // 个人信息相关
 │  │
 │  ├─mixins // 混合模块
 │  │    city_select.js // 城市联级选择
@@ -117,29 +133,30 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 │  │    upload_img.js // 上传图片
 │  │
 │  ├─common // 通用js模块
-│  │    common.js // 通用工具
-│  │    important.js // 封装一些重要函数
+│  │    common.js // 封装一些公共常量
 │  │    table_setting.js // 封装一些iView表格按钮渲染
 │  │    validate.js // 封装一些iView表单验证方法
 │  │
-│  ├─bmob
-│  │    bmob-server.js // 封装Bmob请求函数
+│  ├─utils // 通用工具函数
+│  │    index.js
 │  │
-│  └─router
-│       index.js // 路由配置
+│  ├─bmob  // 封装Bmob请求函数
+│  │    bmob-server.js
+│  │
+│  └─router  // 路由配置
+│       index.js
+│       routers.js
 │
 ├─static // 静态资源
 │
-├─config // 配置目录，包括端口号
-│
-└─build // 项目构建(webpack)相关代码
+└─btests // 单元测试文件
 ```
 
 ## 本地运行
 1. 安装前台依赖
 > npm install
 2. 运行前台项目
-> npm run dev
+> npm run serve
 3. 访问地址：http://localhost:6060
 
 ## 项目打包

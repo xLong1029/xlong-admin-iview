@@ -5,14 +5,14 @@
             <div class="upload-img-wrap"><img class="upload-image" :src="getImageUrl" alt="图片加载失败" @error="notFoundPic"/></div>
             <!-- 遮罩 -->
             <div class="upload-mask">
-                <Icon v-if="preview" type="eye" @click.native="viewImage" style="margin-right:15px;"></Icon>
-                <Icon type="edit" @click.native="uploadClick"></Icon>
+                <Icon v-if="preview" type="md-eye" class="g-mr10" @click.native="viewImage"></Icon>
+                <Icon type="md-create" @click.native="uploadClick"></Icon>
             </div>
         </div>
         <div class="clearfix"></div>
         <!-- 上传按钮 -->
         <div v-show="showUploadBtn" class="upload-btn" @click="uploadClick">
-            <Icon type="camera" size="20"></Icon>
+            <Icon type="md-camera" size="20"></Icon>
             <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile"/>
         </div>
         <div class="clearfix"></div>
@@ -61,9 +61,9 @@
             <div class="clearfix"></div>
             <!-- 操作区域 -->
             <div class="img-button-area">
-                <Button type="primary" @click="changeScale(1)"><Icon type="plus"></Icon></Button>
-                <Button type="primary" @click="changeScale(-1)"><Icon type="minus"></Icon></Button>
-                <Button type="primary" @click="rotateRight"><Icon type="refresh"></Icon></Button>
+                <Button type="primary" @click="changeScale(1)"><Icon type="md-add"></Icon></Button>
+                <Button type="primary" @click="changeScale(-1)"><Icon type="md-remove"></Icon></Button>
+                <Button type="primary" @click="rotateRight"><Icon type="md-refresh"></Icon></Button>
                 <!-- <Button type="primary" @click="previewImg('blob')">预览</Button> -->
             </div>
             <!-- 图片格式提示 -->
@@ -79,7 +79,7 @@
             </div>
             <!-- 底部按钮 -->
             <div slot="footer">
-                <Button type="ghost" @click="hideCropModel">取消</Button>
+                <Button type="default" @click="hideCropModel">取消</Button>
                 <Button type="primary" @click="comfirCropper">确认裁剪</Button>
             </div>
         </Modal>
@@ -269,7 +269,9 @@
                         this.option.img = data;
 
                         // 设置高度显示图片裁剪区域
-                        $('.img-cropper-area').height('500px');
+                        let cropperArea = document.querySelector('.img-cropper-area');
+                        cropperArea.style.height = '500px';
+                        // $('.img-cropper-area').height('500px');
                     }
                     // 转化为base64
                     // reader.readAsDataURL(file);
