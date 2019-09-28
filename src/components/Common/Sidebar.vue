@@ -373,7 +373,10 @@
     -ms-transition: transform 0.2s ease-in-out;
     -moz-transition: transform 0.2s ease-in-out;
   }
+}
 
+.xl-submenu-title,
+.xl-menu-title{
   &__icon {
     margin-right: 8px;
   }
@@ -426,6 +429,13 @@
   .xl-menu-title{
     text-align: center;
     padding: 14px 20px;
+  }
+
+  .xl-submenu-title,
+  .xl-menu-title{
+    &__icon {
+      margin-right: 0;
+    }
   }
 
   .xl-submenu-title{
