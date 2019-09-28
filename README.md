@@ -26,7 +26,7 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 
 3. V3.0版本
 
-    更新iView至3.x版本，并通过vue-cli3.0重构项目<br/>
+    更新iView至3.x版本，并通过vue-cli3.0重构项目；<br/>
     移除:jQuery插件，侧边栏组件改用原生JS方法重写；<br/>
     Bmob已添加自定义域名，解决上传文件提示"invisible domain"的问题；<br/>
     添加:404页面、路由访问权限和“可编辑表格”和“树形筛选”组件<br/>
