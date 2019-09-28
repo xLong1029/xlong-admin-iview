@@ -49,47 +49,7 @@ export default {
     // 源树形数据
     originData: {
       type: Array,
-      default: () => {
-        return [
-          {
-            title: "parent 1",
-            value: 1,
-            expand: true,
-            children: [
-              {
-                title: "parent 1-1",
-                value: 2,
-                expand: true,
-                children: [
-                  {
-                    title: "leaf 1-1-1",
-                    value: 3
-                  },
-                  {
-                    title: "leaf 1-1-2",
-                    value: 4
-                  }
-                ]
-              },
-              {
-                title: "parent 1-2",
-                value: 5,
-                expand: true,
-                children: [
-                  {
-                    title: "leaf 1-2-1",
-                    value: 6
-                  },
-                  {
-                    title: "leaf 1-2-2",
-                    value: 7
-                  }
-                ]
-              }
-            ]
-          }
-        ];
-      }
+      default: () => []
     },
     // 筛选树形列表名称
     filterTitle: {

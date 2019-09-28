@@ -80,6 +80,16 @@ export default [
             },
             component: () => import('views/Components/Tree')
           },
+          // 表格演示页面
+          {
+            path: '/Components/Table',
+            name: 'Table',
+            meta: {
+              title: '表格组件',
+              sidebarName: 'Table'
+            },
+            component: () => import('views/Components/Table')
+          },
           // 侧边栏演示页面
           {
             path: '/Components/Sidebar',

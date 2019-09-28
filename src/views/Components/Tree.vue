@@ -17,7 +17,7 @@
             <p>属性：</p>
             <p><span class="attr-text">height</span>：列表高度。Number类型，默认值为210</p>
             <p><span class="attr-text">originTitle</span>：源树形列表名称。String类型，默认值为"源列表"</p>
-            <p><span class="attr-text">originData</span>：源树形数据。Array类型，同iView中Tree数据格式，空数组</p>
+            <p><span class="attr-text">originData</span>：源树形数据。Array类型，同iView中Tree数据格式，默认值为空数组</p>
             <p><span class="attr-text">filterTitle</span>：筛选树形列表名称。String类型，默认值为"勾选列表"</p>
         </div>
         <div class="m-desc">
@@ -26,6 +26,9 @@
             <p><span class="attr-text">on-change</span>：点击树节点时触发，返回源树形已选中的节点数组、当前项</p>
             <p><span class="attr-text">on-toggle-expand</span>：展开和收起子列表时触发, 返回当前节点数据</p>
         </div>
+      </div>
+      <div class="m-test-part">
+          <p class="g-mb10">事件测试请看控制台输出信息</p>
       </div>
     </div>
   </div>
@@ -123,6 +126,7 @@ export default {
       console.log('展开或收起的当前项：');
       console.log(item);
     },
+
   }
 };
 </script>
