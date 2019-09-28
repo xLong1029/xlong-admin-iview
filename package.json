@@ -12,7 +12,6 @@
   "dependencies": {
     "hydrogen-js-sdk": "^1.7.0",
     "iview": "^3.4.2",
-    "jquery": "^3.2.1",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "style-loader": "^0.18.2",
