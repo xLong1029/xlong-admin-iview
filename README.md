@@ -145,7 +145,7 @@ xlong-admin-vue 是一套基于 Vue + Webpack +Bmob 开发的单页面客户端�
 │  │
 │  └─router  // 路由配置
 │       index.js
-│       routers.js
+│       routes.js
 │
 ├─static // 静态资源
 │
