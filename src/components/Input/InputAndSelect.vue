@@ -14,10 +14,10 @@
         <div ref="dropDownList" :class="['input-select-down', showList ? '' : 'hidden']">
             <!-- 选项列表 -->
             <ul @mouseleave="leaveList" @mouseenter ="enterList">
-                <li                        
+                <li
                     v-for="(item, index) in optionList"
                     :class="['input-select-item', selectIndex === index ? 'input-select-item-selected' : '']"
-                    :key="index"                   
+                    :key="index"
                     @click="selectDropDownItem(item, index)"
                 >
                 {{ item.label }}
@@ -42,6 +42,11 @@
                 type: String,
                 default: 'down'
             },
+        },
+        watch: {
+          model(val){
+            this.value = val;
+          }
         },
         data () {
             return {
@@ -100,7 +105,7 @@
 
                 // 检测输入数据是否与选项相等
                 this.checkValue();
-                
+
                 if(this.showList){
                     this.showList=false;
                     inputAndSelect.setAttribute('class', 'f-input-and-select');
@@ -132,7 +137,7 @@
                 // 更新输入框存储的值
                 this.$emit('update:model', this.value);
                 this.$emit('on-change', this.value);
-                
+
             },
             // 检测输入数据是否与选项相等
             checkValue(){

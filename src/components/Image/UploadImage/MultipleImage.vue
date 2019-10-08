@@ -85,6 +85,11 @@ export default {
       default: 5
     }
   },
+  watch: {
+    imgList(val) {
+      this.getImageUrlArr = val;
+    }
+  },
   data() {
     return {
       // 获取图片显示路径
@@ -124,7 +129,7 @@ export default {
       this.uploadToBomb(thisFile)
         .then(res => {
           this.getImageUrlArr.push(res[0].url);
-          
+
           this.$emit("update:imgList", this.getImageUrlArr);
           this.$emit("get-img-list", this.getImageUrlArr);
         })
