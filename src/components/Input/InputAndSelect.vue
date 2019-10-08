@@ -46,7 +46,7 @@
         data () {
             return {
                 // 选择值
-                value: '',
+                value: this.model,
                 // 当前选项索引
                 // -404：表示无匹配数据
                 selectIndex: -404,
@@ -57,14 +57,6 @@
                 // 选项列表
                 optionList: [],
             }
-        },
-        watch: {
-            model(val) {
-                this.value = val;
-            } 
-        },
-        created() {
-            this.value = this.model;
         },
         created(){
             // 获取json数据
@@ -84,9 +76,7 @@
             },
             // 选择下拉选项
             selectDropDownItem(item, index){
-                // 获取选项值
-                // this.value = item.label;
-                // 更新输入框存储的值
+                this.$emit('update:model', item.label);
                 this.$emit('on-change', item.label);
                 // 当前选项索引
                 this.selectIndex = index;
@@ -140,6 +130,7 @@
                 if(!this.checkValue()) this.showList = false;
                 this.$refs.inputAndSelect.setAttribute('class', 'f-input-and-select');
                 // 更新输入框存储的值
+                this.$emit('update:model', this.value);
                 this.$emit('on-change', this.value);
                 
             },

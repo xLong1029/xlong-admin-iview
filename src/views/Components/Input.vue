@@ -4,7 +4,7 @@
         <h2 class="m-title">模糊查询</h2>
         <div class="m-content">
             <div class="m-compo-part">
-                <FuzzyQuery :model="fuzzyQuery.value" @on-change='getFuzzyValue'></FuzzyQuery>
+                <FuzzyQuery :model="fuzzyQuery.value" @on-change='getFuzzyValue' />
                 <div class="m-desc">
                     <p>属性：</p>
                     <P><span class="attr-text">model</span>：传入值，String类型，默认值为""</P>
@@ -25,7 +25,7 @@
         <h2 class="m-title">可输入下拉框</h2>
         <div class="m-content">
             <div class="m-compo-part">
-                <InputAndSelect :model="inputAndSelect.value" :direction="inputAndSelect.direction" @on-change='getInputSelectVal'></InputAndSelect>
+                <InputAndSelect :model="inputAndSelect.value" :direction="inputAndSelect.direction" @on-change='getInputSelectVal' />
                 <div class="m-desc">
                     <p>属性：</p>
                     <P><span class="attr-text">model</span>：传入值，String类型，默认值为""</P>

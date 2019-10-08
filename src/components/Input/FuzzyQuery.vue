@@ -44,7 +44,7 @@
         data () {
             return {
                 // 输入值
-                value: '',
+                value: this.model,
                 // 是否开始输入
                 startInput: false,
                 // 是否加载
@@ -68,14 +68,6 @@
                 // 搜索显示的列表条数
                 optMaxSize: 10,
             }
-        },
-        watch: {
-            model(val) {
-                this.value = val;
-            }
-        },
-        created() {
-            this.value = this.model;
         },
         methods: {
             // 模糊查询
@@ -120,6 +112,7 @@
                 if(this.startInput){
                     // 更新输入框的值
                     // this.$store.commit('SET_COMPANY_NAME', text);  // 原来是用store存值的，现在不用了
+                    this.$emit('update:model', text);
                     this.$emit('on-change', text);
 
                     this.state = -1;
@@ -142,6 +135,7 @@
                 this.selectIndex = index;
                 // 更新输入框的值
                 // this.$store.commit('SET_COMPANY_NAME', text);  // 原来是用store存值的，现在不用了
+                this.$emit('update:model', text);
                 this.$emit('on-change', text);
 
                 // 隐藏下拉框

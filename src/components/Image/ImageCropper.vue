@@ -168,22 +168,16 @@
                 // 裁剪图片url
                 cropImgUrl: '',
                 // 获取图片显示路径
-                getImageUrl: ''
+                getImageUrl: this.src
             }
         },
         watch: {
 			src(val) {
-                if(val){
-                    this.showUploadBtn = false;
-                    this.getImageUrl = this.src;
-                }
+                this.showUploadBtn = val ? false : true;
 			}
         },
         created() {
-            if(this.src){
-                this.showUploadBtn = false;
-                this.getImageUrl = this.src;
-            }
+            this.showUploadBtn = this.src ? false : true;
         },
         methods: {
             // 上传按钮点击事件
@@ -211,7 +205,8 @@
                     var thisFile = Bmob.File(fileList[0].name, data);
                     this.uploadToBomb(thisFile).then(res => {
                         this.getImageUrl = res[0].url;
-                        // 传给父组件url
+                        
+                        this.$emit('update:src', this.getImageUrl);
                         this.$emit('get-img-url', this.getImageUrl);
                         this.hideCropModel();
                     }).catch(err => {
