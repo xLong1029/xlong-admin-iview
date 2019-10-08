@@ -41,6 +41,11 @@
                 default: ''
             },
         },
+        watch: {
+          model(val){
+            this.value = val;
+          }
+        },
         data () {
             return {
                 // 输入值
