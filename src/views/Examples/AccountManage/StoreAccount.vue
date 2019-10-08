@@ -33,7 +33,7 @@
                         </Form-item>
                         <Form-item label="头像：" style="margin-bottom:16px;">
                             <!-- 组件-图片上传-单图片显示 -->
-                            <SingleImage :src="infoForm.face" :preview="true" size-hint="100*100px" @get-img-url="setFace"></SingleImage>
+                            <SingleImage :src.sync="infoForm.face" :preview="true" size-hint="100*100px" />
                         </Form-item>
                         <Form-item label="出生日期：" prop="birthdate">
                             <Date-picker v-model="infoForm.birthdate" type="date" placeholder="请选择时间" style="width:100%"></Date-picker>
@@ -341,11 +341,6 @@
                 if(value != '')
                     value = new Date(value).toLocaleDateString();
                 return value;
-            },
-            // 获取并设置头像
-            setFace(url){
-                console.log(url);
-                this.infoForm.face = url;
             },
             // 获取企业名称改变值
             getCompanyName(value){

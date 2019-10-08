@@ -5,7 +5,7 @@
         <div class="m-content">
             <Row class="m-sidebar-cont">
                 <Col span="4">
-                    <Sidebar :active-name="activeName" :menu-list="menuList"></Sidebar>
+                    <Sidebar :active-name="activeName" :menu-list="menuList" />
                 </Col>
                 <Col span="20">
                     <router-view></router-view>

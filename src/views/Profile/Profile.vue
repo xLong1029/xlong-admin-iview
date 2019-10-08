@@ -14,7 +14,7 @@
             </Form-item>
             <Form-item label="头像：">
                 <!-- 组件-图片上传-单图片显示 -->
-                <ImageCropper :src="infoForm.userFace" :preview="true" :fixed="true" :fixedNumber="[1,1]" @get-img-url="setFace"></ImageCropper>
+                <ImageCropper :src.sync="infoForm.userFace" :preview="true" :fixed="true" :fixedNumber="[1,1]"></ImageCropper>
             </Form-item>
             <Form-item label="性别：" prop="gender">
                 <Radio-group v-model="infoForm.gender">
@@ -115,11 +115,6 @@
                     else this.$Message.error('无该用户数据!');
                 })
                 .catch(err => console.log(err));
-            },
-            // 设置头像
-            setFace(url){
-                console.log(url);
-                this.infoForm.userFace = url;
             }
         }
 	}

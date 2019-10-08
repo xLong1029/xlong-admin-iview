@@ -70,26 +70,16 @@
         data () {
             return {
                 // 获取图片显示路径
-                getImageUrl: ''
+                getImageUrl: this.src
             }
         },
         watch: {
 			src(val) {
-                if(val){
-                    this.showUploadBtn = false;
-                    this.getImageUrl = val;
-                }
-                else{
-                    this.showUploadBtn = true;
-                    this.getImageUrl = '';
-                }
+                this.showUploadBtn = val ? false : true;
 			}
         },
         created() {
-            if(this.src){
-                this.showUploadBtn = false;
-                this.getImageUrl = this.src;
-            }
+            this.showUploadBtn = this.src ? false : true;
         },
         methods: {
             // 上传文件
@@ -99,7 +89,8 @@
                 var thisFile = Bmob.File(file.name, file);
                 this.uploadToBomb(thisFile).then(res => {
                     this.getImageUrl = res[0].url;
-                    // 传给父组件url
+
+                    this.$emit('update:src', this.getImageUrl);
                     this.$emit('get-img-url', this.getImageUrl);
                 }).catch(err => console.log(err));
             },

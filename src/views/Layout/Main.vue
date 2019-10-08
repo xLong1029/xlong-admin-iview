@@ -2,7 +2,7 @@
   <div :class="['g-layout', sidebarSpan < 3 ? 'layout-mini' : '']">
     <div class="layout-left">
       <!-- 侧边栏 -->
-      <Sidebar :menu-list="sidebarMenu" :span-width="3" :accordion="true"></Sidebar>
+      <Sidebar :menu-list="sidebarMenu" :span-width="3" :accordion="true" />
     </div>
     <div class="layout-right">
       <!-- 顶部菜单 -->

@@ -4,7 +4,7 @@
         <h2 class="m-title">单图片上传</h2>
         <div class="m-content">
             <div class="m-compo-part">
-                <SingleImage :src="sUploadAttr.src" :preview="sUploadAttr.preview" :size-hint="sUploadAttr.sizeHint" :file-size="sUploadAttr.fileSize"></SingleImage>
+                <SingleImage :src.sync="sUploadAttr.src" :preview="sUploadAttr.preview" :size-hint="sUploadAttr.sizeHint" :file-size="sUploadAttr.fileSize" />
                 <div class="m-desc">
                     <p>属性：</p>
                     <p><span class="attr-text">src</span>：显示的图片路径。String类型，默认值为""，不显示</p>
@@ -47,7 +47,7 @@
         <h2 class="m-title">多图片上传</h2>
         <div class="m-content">
             <div class="m-compo-part">
-                <MultipleImage :img-list="mUploadAttr.imgList" :preview="mUploadAttr.preview" :size-hint="mUploadAttr.sizeHint" :file-size="mUploadAttr.fileSize" :max-num="mUploadAttr.maxNum" @get-img-list="setImgList"></MultipleImage>
+                <MultipleImage :img-list.sync="mUploadAttr.imgList" :preview="mUploadAttr.preview" :size-hint="mUploadAttr.sizeHint" :file-size="mUploadAttr.fileSize" :max-num="mUploadAttr.maxNum" />
                 <div class="m-desc">
                     <p>属性：</p>
                     <p><span class="attr-text">preview</span>：是否可预览。Boolean类型，默认值为false，不可预览</p>
@@ -91,7 +91,7 @@
         <div class="m-content">
             <div class="m-compo-part">
                 <ImageCropper
-                    :src="imgCropAttr.src"
+                    :src.sync="imgCropAttr.src"
                     :preview="imgCropAttr.preview"
                     :size-hint="imgCropAttr.sizeHint"
                     :file-size="imgCropAttr.fileSize"
@@ -99,7 +99,7 @@
                     :auto-crop-height="imgCropAttr.autoCropHeight"
                     :fixed="imgCropAttr.fixed"
                     :fixed-number="imgCropAttr.fixedNumber"
-                ></ImageCropper>
+                />
                 <div class="m-desc">
                     <p>属性：</p>
                     <p><span class="attr-text">src</span>：显示的图片路径。String类型，默认值为""，不显示</p>
@@ -161,7 +161,7 @@
         <h2 class="m-title">图片展示（可多图展示）</h2>
         <div class="m-content">
             <div class="m-compo-part">
-                <ShowImage v-if="imgUrlArr.length" :image-url-arr="imgUrlArr"></ShowImage>
+                <ShowImage v-if="imgUrlArr.length" :image-url-arr="imgUrlArr" />
                 <div v-else>暂无图片，请在测试功能中添加链接查看效果</div>
                 <div class="m-desc">
                     <p>属性：</p>
@@ -361,10 +361,6 @@
                         break;
                     default: console.log('清空type传值出错');
                 }
-            },
-            // 获取多图片上传路径
-            setImgList(value){
-                this.mUploadAttr.imgList = value;
             }
         }
     }
