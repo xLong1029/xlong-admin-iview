@@ -42,7 +42,7 @@
                     </Form-item>
                     <Form-item label="封面图片：">
                         <!-- 组件-图片上传-单图片显示 -->
-                        <SingleImage :src="paramsForm.img" @get-img-url="setCover"></SingleImage>
+                        <SingleImage :src.sync="paramsForm.img" @get-img-url="setCover" />
                     </Form-item>
                     <Form-item label="跳转链接：">
                         <Input v-model="paramsForm.url" />
@@ -255,10 +255,6 @@
                     }
                     else this.$Message.error('提交失败！填写有误');
                 })
-            },
-            // 设置封面图片
-            setCover(url){
-                this.paramsForm.img = url;
             },
             // 获取选中行数据
             getSelectRowData(list){
