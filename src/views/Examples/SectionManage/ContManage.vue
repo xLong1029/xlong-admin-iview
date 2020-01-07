@@ -42,7 +42,7 @@
                     </Form-item>
                     <Form-item label="封面图片：">
                         <!-- 组件-图片上传-单图片显示 -->
-                        <SingleImage :src.sync="paramsForm.img" @get-img-url="setCover" />
+                        <SingleImage :src.sync="paramsForm.img" />
                     </Form-item>
                     <Form-item label="跳转链接：">
                         <Input v-model="paramsForm.url" />

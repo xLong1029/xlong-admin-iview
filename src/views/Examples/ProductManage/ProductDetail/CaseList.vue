@@ -62,7 +62,7 @@
           </Form-item>
           <Form-item label="案例图片：" prop="img">
             <!-- 组件-图片上传-单图片显示 -->
-            <SingleImage :src.sync="paramsForm.img" :preview="true" @get-img-url="setCaseImg" />
+            <SingleImage :src.sync="paramsForm.img" :preview="true" />
           </Form-item>
           <Form-item label="品牌名称：" prop="brand">
             <Input v-model="paramsForm.brand" placeholder="请输入案例品牌名称" />
