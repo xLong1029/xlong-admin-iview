@@ -9,7 +9,7 @@ Vue.use(Router);
 
 const router = new Router({
 	routes,
-	// mode: 'history'
+	mode: 'history'
 })
 
 // 不重定向白名单
