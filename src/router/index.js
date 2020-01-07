@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routes'
 import store from '@/store'
+import { Message } from 'iview'
 // 获取cookie
 import { GetCookie } from 'utils'
 
@@ -39,7 +40,7 @@ router.beforeEach((to, from, next) => {
 				else next();
 
 			}).catch(err => {
-				alert('用户验证信息已失效，请重新登录');
+				Message.error('用户信息已失效，请重新登录')
 				next({ name: 'Login' });
 			});
 		}

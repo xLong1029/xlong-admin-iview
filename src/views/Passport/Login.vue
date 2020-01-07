@@ -117,7 +117,7 @@ export default {
                 this.$router.push({ name: "Main" });
               } else this.$Message.error("登录失败!用户名或密码不正确！");
             })
-			.catch(err => this.$message.error(err.error))
+			.catch(err => this.$Message.error(err.error))
 			.finally(() => (this.loading = false));
         } else this.$Message.error("登录失败!填写有误！");
       });
