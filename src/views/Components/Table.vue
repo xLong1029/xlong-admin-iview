@@ -128,22 +128,19 @@ export default {
         {
           id: 1,
           title: "测试数据1",
-          img:
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1569575452517&di=4dbf36b63f341f6bfd4ea29a29b6d53f&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F21%2F20180621181323_krhlv.jpeg",
+          img: "http://xlongadmin.xlong.club/2020/01/07/0c2363a540108eff805ea057ccafc0f8.jpg",
           url: "https://www.baidu.com/"
         },
         {
           id: 2,
           title: "测试数据2",
-          img:
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1569575452512&di=e6bb6024b84b573b45ec39d551104c14&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201808%2F19%2F20180819095853_kdjyb.jpeg",
+          img: "http://xlongadmin.xlong.club/2020/01/07/38cd18614033cd2080439c17fabf9379.jpg",
           url: "https://www.baidu.com/"
         },
         {
           id: 3,
           title: "测试数据3",
-          img:
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1569575452510&di=6a46287ab7d6c951db2074ae7c05574a&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201708%2F05%2F20170805231958_fNFak.jpeg",
+          img: "http://xlongadmin.xlong.club/2020/01/07/8cfb88554033556b804bb363569c4d5f.jpg",
           url: "https://www.baidu.com/"
         }
       ]
