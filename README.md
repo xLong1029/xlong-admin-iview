@@ -1,4 +1,4 @@
-# xlong-admin-vue
+# xlong-admin-iview
 
 ## 介绍
 
@@ -8,7 +8,7 @@ xlong-admin-iview 是一套基于 Vue + iView +Bmob 开发的单页面客户端�
 
 ## 项目展示
 
-> DEMO地址：https://xlong1029.github.io/xlong-admin-vue/#/Login
+> DEMO地址：https://xlong1029.github.io/xlong-admin-iview/#/Login
 
 ## 项目迭代
 
