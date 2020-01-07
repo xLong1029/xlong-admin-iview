@@ -23,14 +23,10 @@
       </Form-item>
       <Form-item>
         <Checkbox v-model="remeberPwd">记住密码</Checkbox>
-        <!-- <router-link to="/SendVerifyCode" class="fr">忘记密码</router-link> -->
       </Form-item>
       <Form-item>
         <Button type="primary" long @click="submit('loginForm')" :loading="loading">登录</Button>
       </Form-item>
-      <!-- <Form-item>
-	            <Button type="primary" long @click="">注册</Button>
-      </Form-item>-->
       <div style="text-align:center">普通用户登录账号: 18888888888 密码: 666666</div>
       <div style="text-align:center">管理员登录账号: 13543501039 密码: 123456</div>
       <div style="text-align:center">超级管理员登录账号: 18376686974 密码: 123456</div>
@@ -121,7 +117,8 @@ export default {
                 this.$router.push({ name: "Main" });
               } else this.$Message.error("登录失败!用户名或密码不正确！");
             })
-            .catch(err => this.$Message.error("登录失败!用户名或密码不正确！"));
+			.catch(err => this.$message.error(err.error))
+			.finally(() => (this.loading = false));
         } else this.$Message.error("登录失败!填写有误！");
       });
     }
