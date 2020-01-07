@@ -41,7 +41,6 @@ module.exports = {
                 'components': resolve('src/components'),
                 'views': resolve('src/views'),
                 'bmob': resolve( 'src/bmob'),
-                'qullEditor': resolve( 'src/qullEditor'),
                 'utils': resolve( 'src/utils'),
             }
         },
