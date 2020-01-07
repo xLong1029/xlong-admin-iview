@@ -15,20 +15,20 @@ const permission = {
 	// 异步操作
 	actions: {
 		// 动态生成侧边栏菜单
-		SetSidebarMenu ({ commit }, role) {
+		SetSidebarMenu({ commit }, role) {
 			// 为了防止routerMap跟着改变，使用数组深克隆
 			let mainRouterMap = CopyArr(routerMap.find(v => v.name === 'Main'));
-      // console.log(1111, routerMap);
+
 			// 筛选出有权限的路由
 			let accessedRouters = mainRouterMap.children.filter(v => {
 				// 超级管理员拥有所有权限，无需筛选
-				if(role === 'admin') return true;
-				if(hasPermission(role, v)) {
+				if (role === 'admin') return true;
+				if (hasPermission(role, v)) {
 					const children = v.children;
-					if(children && children.length){
+					if (children && children.length) {
 						// 三级路由
 						v.children = children.filter(child => {
-							if(hasPermission(role, child)) return child;
+							if (hasPermission(role, child)) return child;
 							return false;
 						});
 					}
@@ -39,9 +39,9 @@ const permission = {
 
 			// 过滤掉隐藏的路由保存成侧边栏菜单
 			let sidebarMenu = accessedRouters.filter(route => {
-				if(!route.hidden){
+				if (!route.hidden) {
 					const children = route.children;
-					if(children && children.length){
+					if (children && children.length) {
 						route.children = children.filter(child => {
 							return !child.hidden;
 						});
@@ -49,7 +49,7 @@ const permission = {
 					return route;
 				}
 				return false;
-      });
+			});
 
 			commit('SET_SIDERBAR_MENU', sidebarMenu);
 		}
