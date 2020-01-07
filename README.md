@@ -1,6 +1,6 @@
-# xlong-test-admin-vue
+# xlong-admin-iview
 
-> DEMO地址：https://xlong1029.github.io/xlong-test-admin-vue/#/Login
+> DEMO地址：https://xlong1029.github.io/xlong-admin-iview/#/Login
 
 ## 项目说明
 该项目为单页应用测试项目，请勿商用。
