@@ -1,8 +1,8 @@
 /*
  * 功能 : 封装bmob的增删改查数据方法。
  * 作者 : 罗永梅（381612175@qq.com）
- * 日期 : 2019-7-24
- * 版本 : version 2.1
+ * 日期 : 2020-01-09
+ * 版本 : version 2.2
  */
 import Common from 'common/common.js'
 import { ObjOmit } from 'utils'
@@ -29,7 +29,7 @@ export default {
                         page: pageNo,
                         size: pageSize,
                         count: res,
-                        pages: Math.ceil(res.length / pageSize)
+                        // pages: Math.ceil(res.length / pageSize)
                     };
 
                     // 对createdAt字段降序排列
