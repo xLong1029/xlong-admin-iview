@@ -86,13 +86,13 @@ export default {
     }
   },
   mounted() {
-    const loginBg = document.getElementById("login");
-    // 设置背景颜色高度
-    loginBg.style.height = document.body.scrollHeight + "px";
-    // 监听窗口变化
-    window.onresize = () => {
-      loginBg.style.height = document.body.scrollHeight + "px";
-    };
+    // const loginBg = document.getElementById("login");
+    // // 设置背景颜色高度
+    // loginBg.style.height = document.body.scrollHeight + "px";
+    // // 监听窗口变化
+    // window.onresize = () => {
+    //   loginBg.style.height = document.body.scrollHeight + "px";
+    // };
   },
   methods: {
     // 提交表单
@@ -131,7 +131,7 @@ export default {
   width: 100%;
   height: 100%;
   height: 100vh;
-  min-height: 900px;
+  // min-height: 900px;
   background-color: #4d5256;
 }
 
