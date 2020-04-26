@@ -163,7 +163,7 @@
               this.imgUrl = this.data[index].img;
             },
             // 上传按钮点击事件
-            uploadClick(index, add){
+            uploadClick(index){
                 // 触发上传按钮点击事件
                 this.$refs.imgFile.click();
                 this.rowIndex = index;
