@@ -6,7 +6,7 @@
         <img class="upload-image" :src="getImageUrl" alt="图片加载失败" @error="notFoundPic" />
       </div>
       <!-- 遮罩 -->
-      <div v-if="preview" class="upload-mask">
+      <div class="upload-mask">
         <Icon v-if="preview" type="md-eye" class="g-mr10" @click.native="viewImage"></Icon>
         <Icon type="md-create" @click.native="uploadClick"></Icon>
       </div>
