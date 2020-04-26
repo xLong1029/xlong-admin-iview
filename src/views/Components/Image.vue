@@ -328,7 +328,12 @@
                         this.imgCropAttr.autoCropHeight = Number(this.imgCropAttr.setAutoCropHeight) == 0 ? 100 : Number(this.imgCropAttr.setAutoCropHeight);
                         this.imgCropAttr.fixed = this.imgCropAttr.setFixed == 'true' ? true : false;
                         // 中文：换成英文: ，再将字符串转成数组
-                        this.imgCropAttr.fixedNumber = StrToArr(this.imgCropAttr.setFixedNumber.replace(/：/g, ":"), ':');
+                        if(this.imgCropAttr.setFixedNumber.length >= 3){
+                            this.imgCropAttr.fixedNumber = StrToArr(this.imgCropAttr.setFixedNumber.replace(/：/g, ":"), ':');
+                        }
+                        else{
+                            this.imgCropAttr.fixedNumber = [4, 3];
+                        }
                         break;
                     default: console.log('清空type传值出错');
                 }
