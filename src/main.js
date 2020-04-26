@@ -5,13 +5,11 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-// iView框架
-import iView from 'iview'
-// 定制iView主题样式
-// 这里有个坑，会出现各种css-loader,style-loader和less-loader的报错
-// 解决方法是安装最新的vue-cli和loader以来，webpack就不需要配置了，因为vue-cli会帮你配置安装的loader
+// ViewUI框架
+import ViewUI from 'view-design';
+// 定制ViewUI主题样式
 import './theme/index.less'
-Vue.use(iView)
+Vue.use(ViewUI)
 
 // 轮播图
 import VueAwesomeSwiper from 'vue-awesome-swiper'

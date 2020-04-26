@@ -2,7 +2,7 @@
     <div class="g-content">
         <!--  加载判断 -->
         <Loading v-if="pageLoading"></Loading>
-        <Form v-else ref="infoForm" :model="infoForm" :rules="validate" :label-width="120">
+        <Form v-else ref="infoForm" :model="infoForm" :rules="validate" :label-width="125">
             <!-- 个人信息 -->
             <h2 class="m-title">个人信息</h2>
             <div class="m-content">

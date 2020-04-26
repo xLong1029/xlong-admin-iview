@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routes'
 import store from '@/store'
-import { Message } from 'iview'
+import { Message } from 'view-design'
 // 获取cookie
 import { GetCookie } from 'utils'
 

@@ -15,22 +15,29 @@ xlong-admin-iview 是一套基于 Vue + iView +Bmob 开发的单页面客户端�
 
 1. V1.0版本
 
-    文件存储使用七牛云（由于测试域名被收回的原因，上传功能保留，但无法获取上传成功后的URL）；<br/>
+    文件存储使用七牛云（由于测试域名被收回的原因，上传功能保留，但无法获取上传成功后的URL）；  
     富文本编辑器使用 Vue-quill-editor
 
 2. V2.0版本
 
-    富文本编辑器改用Tinymce；<br/>
-    图片裁剪组件，裁剪后改用实时预览方式；<br/>
-    Bmob改用依赖包引入方式；<br/>
+    富文本编辑器改用Tinymce；  
+    图片裁剪组件，裁剪后改用实时预览方式；  
+    Bmob改用依赖包引入方式；  
     文件存储使用Bmob存储，已解决跨域问题
 
 3. V3.0版本
 
-    更新iView至3.x版本，并通过vue-cli3.0重构项目；<br/>
-    移除:jQuery插件，侧边栏组件改用原生JS方法重写；<br/>
-    Bmob已添加自定义域名，解决上传文件提示"invisible domain"的问题；<br/>
-    添加:404页面、路由访问权限和“可编辑表格”和“树形筛选”组件<br/>
+    更新iView至3.x版本，并通过vue-cli3.0重构项目；  
+    移除:jQuery插件，“侧边栏”组件改用原生JS方法重写；  
+    Bmob已添加自定义域名，解决上传文件提示"invisible domain"的问题；  
+    添加:404页面、路由访问权限和“可编辑表格”和“树形筛选”组件  
+
+3. V4.0版本
+
+    更新iView至4.x版本(即ViewUI)，并通过vue-cli4.0重构项目；  
+    优化"侧边栏"组件，轻减代码，修复部分BUG；  
+    优化“图片上传”组件；  
+    更新“可编辑表格”组件样式  
 
 ## 项目说明
 
@@ -39,11 +46,11 @@ xlong-admin-iview 是一套基于 Vue + iView +Bmob 开发的单页面客户端�
 - **后端**：Bmob
 
 #### 2. 项目用到技术、框架与插件
-[Vue.js](https://github.com/vuejs)<br/>
-[webpack](https://github.com/webpack)<br/>
-[iView](https://github.com/iview/iview)<br/>
-[Tinymce](https://github.com/tinymce/tinymce)<br/>
-[vue-awesome-swiper](https://github.com/surmon-china/vue-awesome-swiper)<br/>
+[Vue.js](https://github.com/vuejs)  
+[webpack](https://github.com/webpack)  
+[iView](https://github.com/iview/iview)  
+[Tinymce](https://github.com/tinymce/tinymce)  
+[vue-awesome-swiper](https://github.com/surmon-china/vue-awesome-swiper)  
 
 ## 部分项目运行截图
 * 登录界面
@@ -77,15 +84,10 @@ xlong-admin-iview 是一套基于 Vue + iView +Bmob 开发的单页面客户端�
 ## 目录结构
 
 ```
-│  .babelrc
 │  .browserslistrc // 浏览器可访问配置
-│  .editorconfig
-│  .postcssrc.js
 │  .gitignore
-│  jest.config
 │  package.json
 │  babel.config.js // babel配置
-│  postcss.config.js // CSS转换配置
 │  vue.config.js // 配置文件
 │  README.md
 │

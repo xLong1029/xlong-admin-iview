@@ -218,11 +218,9 @@
             },
             // 保存数据
             saveThis(row){
-                this.editId = row.id;
-                this.paramsForm.parentId = this.parentId;
-                this.paramsForm.title = row.title;
-                this.paramsForm.img = row.img;
-                this.paramsForm.url = row.url;
+                const { id, title, imgUrl, url } = row;
+                this.editId = id;
+                this.paramsForm = { parentId: this.parentId, title, img: imgUrl, url};
                 // 编辑数据
                 this.editData();
             },

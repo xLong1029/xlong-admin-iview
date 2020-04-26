@@ -28,16 +28,15 @@
         style="width:340px;"
       ></Progress>
     </template>
-    <br />
     <!-- 图片格式提示 -->
-    <span class="hint">
+    <div v-if="showHint" class="hint">
       * 图片格式要求：jpg、jpeg、png，
       <span v-if="sizeHint">建议尺寸： {{ sizeHint }}，</span>
       文件大小为
       <span v-if="fileSize < 1024">{{ fileSize }}kb</span>
       <span v-else>{{ Math.floor(fileSize/1024) }}M</span>
       以内。
-    </span>
+    </div>
     <!-- 裁剪图片弹窗 -->
     <Modal
       :title="cropImgModel.title"
@@ -134,6 +133,11 @@ export default {
     preview: {
       type: Boolean,
       default: false
+    },
+    // 是否显示格式提示
+    showHint: {
+      type: Boolean,
+      default: true
     },
     // 上传按钮尺寸提示文本
     sizeHint: {
