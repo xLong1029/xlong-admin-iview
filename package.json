@@ -1,6 +1,8 @@
 {
-  "name": "test",
-  "version": "0.1.0",
+  "name": "xlong-admin-iview",
+  "version": "3.0.0",
+  "description": "a management system for study only",
+  "author": "xLong <381612175@qq.com>",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

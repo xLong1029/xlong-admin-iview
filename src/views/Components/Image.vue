@@ -4,11 +4,12 @@
         <h2 class="m-title">单图片上传</h2>
         <div class="m-content">
             <div class="m-compo-part">
-                <SingleImage :src.sync="sUploadAttr.src" :preview="sUploadAttr.preview" :size-hint="sUploadAttr.sizeHint" :file-size="sUploadAttr.fileSize" />
+                <SingleImage :src.sync="sUploadAttr.src" :preview="sUploadAttr.preview" :show-hint="sUploadAttr.showHint" :size-hint="sUploadAttr.sizeHint" :file-size="sUploadAttr.fileSize" />
                 <div class="m-desc">
                     <p>属性：</p>
                     <p><span class="attr-text">src</span>：显示的图片路径。String类型，默认值为""，不显示</p>
                     <p><span class="attr-text">preview</span>：是否可预览。Boolean类型，默认值为false，不可预览</p>
+                    <p><span class="attr-text">showHint</span>：是否显示格式提示。Boolean类型，默认值为true，显示提示</p>
                     <p><span class="attr-text">sizeHint</span>：是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
                     <p><span class="attr-text">fileSize</span>：设置最大图片文件大小，单位kb。Number类型，默认值为150</p>
                 </div>
@@ -23,6 +24,12 @@
                 <Form ref="sUploadAttr" :model="sUploadAttr" :rules="uploadValid" :label-width="75" style="width:400px;">
                     <Form-item label="preview：" prop="setPreview">
                         <RadioGroup v-model="sUploadAttr.setPreview">
+                            <Radio label="true">true</Radio>
+                            <Radio label="false">false</Radio>
+                        </RadioGroup>
+                    </Form-item>
+                    <Form-item label="showHint：" prop="setShowHint">
+                        <RadioGroup v-model="sUploadAttr.setShowHint">
                             <Radio label="true">true</Radio>
                             <Radio label="false">false</Radio>
                         </RadioGroup>
@@ -47,10 +54,11 @@
         <h2 class="m-title">多图片上传</h2>
         <div class="m-content">
             <div class="m-compo-part">
-                <MultipleImage :img-list.sync="mUploadAttr.imgList" :preview="mUploadAttr.preview" :size-hint="mUploadAttr.sizeHint" :file-size="mUploadAttr.fileSize" :max-num="mUploadAttr.maxNum" />
+                <MultipleImage :img-list.sync="mUploadAttr.imgList" :preview="mUploadAttr.preview" :show-hint="mUploadAttr.showHint" :size-hint="mUploadAttr.sizeHint" :file-size="mUploadAttr.fileSize" :max-num="mUploadAttr.maxNum" />
                 <div class="m-desc">
                     <p>属性：</p>
                     <p><span class="attr-text">preview</span>：是否可预览。Boolean类型，默认值为false，不可预览</p>
+                    <p><span class="attr-text">showHint</span>：是否显示格式提示。Boolean类型，默认值为true，显示提示</p>
                     <p><span class="attr-text">sizeHint</span>：是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
                     <p><span class="attr-text">fileSize</span>：设置最大图片文件大小，单位kb。Number类型，默认值为150</p>
                     <p><span class="attr-text">maxNum</span>：设置最大上传个数。Number类型，默认值为5</p>
@@ -66,6 +74,12 @@
                 <Form ref="mUploadAttr" :model="mUploadAttr" :rules="uploadValid" :label-width="75" style="width:400px;">
                     <Form-item label="preview：" prop="setPreview">
                         <RadioGroup v-model="mUploadAttr.setPreview">
+                            <Radio label="true">true</Radio>
+                            <Radio label="false">false</Radio>
+                        </RadioGroup>
+                    </Form-item>
+                    <Form-item label="showHint：" prop="setShowHint">
+                        <RadioGroup v-model="mUploadAttr.setShowHint">
                             <Radio label="true">true</Radio>
                             <Radio label="false">false</Radio>
                         </RadioGroup>
@@ -93,6 +107,7 @@
                 <ImageCropper
                     :src.sync="imgCropAttr.src"
                     :preview="imgCropAttr.preview"
+                    :show-hint="imgCropAttr.showHint"
                     :size-hint="imgCropAttr.sizeHint"
                     :file-size="imgCropAttr.fileSize"
                     :auto-crop-width="imgCropAttr.autoCropWidth"
@@ -104,6 +119,7 @@
                     <p>属性：</p>
                     <p><span class="attr-text">src</span>：显示的图片路径。String类型，默认值为""，不显示</p>
                     <p><span class="attr-text">preview</span>：是否可预览。Boolean类型，默认值为false，不可预览</p>
+                    <p><span class="attr-text">showHint</span>：是否显示格式提示。Boolean类型，默认值为true，显示提示</p>
                     <p><span class="attr-text">sizeHint</span>：是否显示图片尺寸建议。String类型，默认不显示。设置其他值：size-hint="100*100px"</p>
                     <p><span class="attr-text">fileSize</span>：设置最大图片文件大小，单位kb。Number类型，默认值为150</p>
                     <p><span class="attr-text">autoCropWidth</span>：设置裁剪宽度，单位px。Number类型，默认值为100</p>
@@ -122,6 +138,12 @@
                 <Form ref="imgCropAttr" :model="imgCropAttr" :rules="uploadValid" :label-width="110" style="width:400px;">
                     <Form-item label="preview：" prop="setPreview">
                         <RadioGroup v-model="imgCropAttr.setPreview">
+                            <Radio label="true">true</Radio>
+                            <Radio label="false">false</Radio>
+                        </RadioGroup>
+                    </Form-item>
+                    <Form-item label="showHint：" prop="setShowHint">
+                        <RadioGroup v-model="imgCropAttr.setShowHint">
                             <Radio label="true">true</Radio>
                             <Radio label="false">false</Radio>
                         </RadioGroup>
@@ -212,6 +234,8 @@
                     setSrc: '',
                     preview: false,
                     setPreview: 'false',
+                    showHint: true,
+                    setShowHint: 'true',
                     sizeHint: '',
                     setSizeHint: '',
                     fileSize: 150,
@@ -231,6 +255,8 @@
                     setSrc: '',
                     preview: false,
                     setPreview: 'false',
+                    showHint: true,
+                    setShowHint: 'true',
                     sizeHint: '',
                     setSizeHint: '',
                     fileSize: 150,
@@ -244,6 +270,8 @@
                     imgList: [],
                     preview: false,
                     setPreview: 'false',
+                    showHint: true,
+                    setShowHint: 'true',
                     sizeHint: '',
                     setSizeHint: '',
                     fileSize: 150,
@@ -310,11 +338,13 @@
                     case 1:
                         this.sUploadAttr.src = this.sUploadAttr.setSrc;
                         this.sUploadAttr.preview = this.sUploadAttr.setPreview == 'true' ? true : false;
+                        this.sUploadAttr.showHint = this.sUploadAttr.setShowHint == 'true' ? true : false;
                         this.sUploadAttr.sizeHint = this.sUploadAttr.setSizeHint;
                         this.sUploadAttr.fileSize = Number(this.sUploadAttr.setFileSize) == 0 ? 150 : Number(this.sUploadAttr.setFileSize);
                         break;
                     case 2:
                         this.mUploadAttr.preview = this.mUploadAttr.setPreview == 'true' ? true : false;
+                        this.mUploadAttr.showHint = this.mUploadAttr.setShowHint == 'true' ? true : false;
                         this.mUploadAttr.sizeHint = this.mUploadAttr.setSizeHint;
                         this.mUploadAttr.fileSize = Number(this.mUploadAttr.setFileSize) == 0 ? 150 : Number(this.mUploadAttr.setFileSize);
                         this.mUploadAttr.maxNum = Number(this.mUploadAttr.setMaxNum) == 0 ? 5 : Number(this.mUploadAttr.setMaxNum);
@@ -322,6 +352,7 @@
                     case 3:
                         this.imgCropAttr.src = this.imgCropAttr.setSrc;
                         this.imgCropAttr.preview = this.imgCropAttr.setPreview == 'true' ? true : false;
+                        this.imgCropAttr.showHint = this.imgCropAttr.setShowHint == 'true' ? true : false;
                         this.imgCropAttr.sizeHint = this.imgCropAttr.setSizeHint;
                         this.imgCropAttr.fileSize = Number(this.imgCropAttr.setFileSize) == 0 ? 150 : Number(this.imgCropAttr.setFileSize);
                         this.imgCropAttr.autoCropWidth = Number(this.imgCropAttr.setAutoCropWidth) == 0 ? 100 : Number(this.imgCropAttr.setAutoCropWidth);

@@ -26,14 +26,13 @@
         style="width:340px;"
       ></Progress>
     </template>
-    <br />
     <!-- 图片格式提示 -->
-    <span class="hint">
+    <div v-if="showHint" class="hint">
       * 图片格式要求：jpg、jpeg、png，文件大小为
       <span v-if="fileSize < 1024">{{ fileSize }}kb</span>
       <span v-else>{{ Math.floor(fileSize/1024) }}M</span>
       以内。
-    </span>
+    </div>
     <div class="clearfix"></div>
     <!-- 查看图片 -->
     <Modal title="查看图片" class="m-view-img" v-model="showModal" width="600">
@@ -64,6 +63,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // 是否显示格式提示
+    showHint: {
+      type: Boolean,
+      default: true
+    },
     // 上传按钮尺寸提示文本
     sizeHint: {
       type: String,
@@ -73,6 +77,11 @@ export default {
     fileSize: {
       type: Number,
       default: 150
+    },
+    // 组件索引值
+    index: {
+      type: Number,
+      default: -1
     }
   },
   watch: {

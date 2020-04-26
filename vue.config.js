@@ -36,4 +36,8 @@ module.exports = {
     },
     // 生产环境是否生成 sourceMap 文件，将此设置为false不输出map文件可以加速生产构建
     productionSourceMap: false,
+    devServer: {
+        // 端口
+        port: 6060
+    }
 }
