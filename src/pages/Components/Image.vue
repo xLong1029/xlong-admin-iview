@@ -197,8 +197,8 @@
                 imgCropAttr:{
                     src: '',
                     setSrc: '',
-                    preview: true,
-                    setPreview: 'true',
+                    preview: false,
+                    setPreview: 'false',
                     sizeHint: '',
                     setSizeHint: '',
                     fileSize: 150,
@@ -216,8 +216,8 @@
                 sUploadAttr:{
                     src: '',
                     setSrc: '',
-                    preview: true,
-                    setPreview: 'true',
+                    preview: false,
+                    setPreview: 'false',
                     sizeHint: '',
                     setSizeHint: '',
                     fileSize: 150,
@@ -229,8 +229,8 @@
                 /* 多图片上传 */
                 mUploadAttr: {
                     imgList: [],
-                    preview: true,
-                    setPreview: 'true',
+                    preview: false,
+                    setPreview: 'false',
                     sizeHint: '',
                     setSizeHint: '',
                     fileSize: 150,
