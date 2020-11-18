@@ -7,10 +7,10 @@
                 <span>{{ infoForm.username }}</span>
             </Form-item>
             <Form-item label="用户昵称：" prop="nickName">
-                <Input v-model="infoForm.nickName" placeholder="请输入您的真实姓名" style="width:220px" />
+                <Input v-model="infoForm.nickName" placeholder="请输入昵称" style="width:220px" />
             </Form-item>
             <Form-item label="真实姓名：">
-                <Input v-model="infoForm.realName" placeholder="请输入您的真实姓名" style="width:220px" />
+                <Input v-model="infoForm.realName" placeholder="请输入真实姓名" style="width:220px" />
             </Form-item>
             <Form-item label="头像：">
                 <!-- 组件-图片上传-单图片显示 -->
