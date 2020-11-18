@@ -337,6 +337,7 @@
 			position: relative;
 			margin-bottom:40px;
 			width: 100%;
+			list-style: none;
 		}
 
 		.msg-left{
