@@ -164,7 +164,7 @@ xlong-admin-iview 是一套基于 Vue + iView +Bmob 开发的单页面客户端�
 > npm install
 2. 运行前台项目
 > npm run serve
-3. 访问地址：http://localhost:3030
+3. 访问地址：http://localhost:6060
 
 ## 项目打包
 (请将vue.config.js中publicPath改成你的项目)
