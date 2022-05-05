@@ -1,9 +1,9 @@
 /*
- * 功能 : 封装数据交互api接口(数据使用的是bmob云数据，请求方法使用bmob云规定方法)。
+ * 功能 : 封装数据交互api接口(mock.js请求)。
  * 用处 : 产品操作相关api
  * 作者 : 罗永梅（381612175@qq.com）
- * 日期 : 2019-4-29
- * 版本 : version 2.0
+ * 日期 : 2022-05-05
+ * 版本 : version 3.0
  */
 import BmobServer from 'bmob/bmob-server.js'
 

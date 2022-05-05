@@ -13,7 +13,7 @@
         <router-view></router-view>
       </transition>
       <!-- 项目版权 -->
-      <div class="copyright">2019-2022 &copy; XLONG JIALIDUN</div>
+      <div class="copyright">2022-2032 &copy; XLONG JIALIDUN</div>
     </div>
   </div>
 </template>

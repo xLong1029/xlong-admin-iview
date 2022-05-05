@@ -15,17 +15,11 @@ Vue.use(ViewUI)
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper)
 
-// 引用Bomb
-import Bmob from "hydrogen-js-sdk";
-// Bmob封装方法
-import BmobServer from './bmob/bmob-server'
-// 挂载到全局使用
-Vue.prototype.Bmob = Bmob
+import { setupMockServer } from './mock/mock-server.js';
+
+setupMockServer();
 
 Vue.config.productionTip = false
-
-// 初始化BmobSDK
-BmobServer.Init();
 
 new Vue({
 	el: '#app',
