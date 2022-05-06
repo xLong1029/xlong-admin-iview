@@ -38,6 +38,6 @@ module.exports = {
     productionSourceMap: false,
     devServer: {
         // 端口
-        port: 6060
+        port: process.env.PORT || 6060
     }
 }

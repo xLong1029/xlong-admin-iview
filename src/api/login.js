@@ -6,6 +6,8 @@
  * 版本 : version 3.0
  */
 
+import request from "utils/request";
+
 export default {
     /**
      * 登录
@@ -13,20 +15,11 @@ export default {
      * @param {*} data 参数
      */
      Login: (data) => {
+         console.log(data);
         return request({
             url: '/api/user/login',
             method: 'post',
             data
         })
-    },
-    // 获取用户信息
-    // token: 用户token参数
-    // GetUserInfo: (token) => {
-    //     let query = BmobServer.GetQuery('_User');
-    //     query.equalTo('token', '==', token);
-
-    //     return new Promise((resolve, reject) => {
-    //         query.find().then(res => resolve({ code: 200, data: res[0] })).catch(err => reject(err));
-	// 	});
-    // }
+    }
 }

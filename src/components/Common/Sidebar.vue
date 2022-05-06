@@ -1,14 +1,18 @@
 <template>
   <ul
     class="m-xl-menu-list"
-    :class="{'sidebar-hide-text': sidebarSpan < spanWidth && spanWidth > 0 }"
+    :class="{ 'sidebar-hide-text': sidebarSpan < spanWidth && spanWidth > 0 }"
   >
     <li
       ref="menuItem"
       v-for="(menu, i) in menuList"
       class="xl-menu-item"
       :key="i"
-      :class="{'xl-submenu': menu.children, 'xl-menu-active': activeName == menu.name, 'xl-submenu-expand' :!accordion}"
+      :class="{
+        'xl-submenu': menu.children,
+        'xl-menu-active': activeName == menu.name,
+        'xl-submenu-expand': !accordion,
+      }"
     >
       <!-- 一级菜单列表-含二级菜单 -->
       <template v-if="menu.children">
@@ -20,7 +24,9 @@
               :type="menu.meta.icon"
               :size="iconSize"
             ></Icon>
-            <span class="xl-submenu-title__text sidebar-text">{{ menu.meta.title }}</span>
+            <span class="xl-submenu-title__text sidebar-text">{{
+              menu.meta.title
+            }}</span>
             <Icon class="xl-submenu-title__arrow" type="ios-arrow-down"></Icon>
           </div>
         </div>
@@ -33,7 +39,9 @@
             :key="index"
           >
             <div class="xl-submenu-title" @click="selectSubmenu(i, index)">
-              <router-link :to="{ name: item.name }">{{ item.meta.title }}</router-link>
+              <router-link :to="{ name: item.name }">{{
+                item.meta.title
+              }}</router-link>
             </div>
           </li>
         </ul>
@@ -42,7 +50,7 @@
       <div
         v-else
         class="xl-menu-title"
-        :class="{'title-menu': menu.meta.isTitle }"
+        :class="{ 'title-menu': menu.meta.isTitle }"
         @click="selectMenu(i)"
       >
         <router-link :to="{ name: menu.name }">
@@ -60,7 +68,9 @@
             :type="menu.meta.icon"
             :size="iconSize"
           ></Icon>
-          <span class="xl-menu-title__text sidebar-text">{{ menu.meta.title }}</span>
+          <span class="xl-menu-title__text sidebar-text">{{
+            menu.meta.title
+          }}</span>
         </router-link>
       </div>
     </li>
@@ -75,7 +85,7 @@ import {
   RemoveClass,
   ToggleClass,
   SlideUp,
-  SlideDown
+  SlideDown,
 } from "utils";
 // Vuex
 import { mapGetters } from "vuex";
@@ -89,30 +99,30 @@ export default {
       return this.sidebarSpan === this.spanWidth && this.spanWidth > 0
         ? 14
         : 20;
-    }
+    },
   },
   // 获取父级传值
   props: {
     // 侧边栏跨距大小，-1表示无跨距，正值表示跨距大小
     spanWidth: {
       type: Number,
-      default: -1
+      default: -1,
     },
     // 是否开启手风琴模式，开启后至多展开一个子菜单
     accordion: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 第一次加载激活的一级菜单对应路由name
     activeName: {
       type: String,
-      default: ""
+      default: "",
     },
     // 菜单列表
     menuList: {
       type: Array,
       // 警告提示数组/对象默认值应当以一个函数返回 Object/Array must use a factory function to return the default value.
-      default: function() {
+      default: function () {
         return [
           {
             // menu-item对应的路由name
@@ -123,7 +133,7 @@ export default {
               // menu-title显示文本
               title: "一级菜单",
               // 是否为标题菜单，标题菜单则不显示Icon
-              isTitle: false
+              isTitle: false,
             },
             // submenu列表
             children: [
@@ -132,14 +142,14 @@ export default {
                 name: "Home",
                 meta: {
                   // submenu-title显示文本
-                  title: "二级菜单"
-                }
-              }
-            ]
-          }
+                  title: "二级菜单",
+                },
+              },
+            ],
+          },
         ];
-      }
-    }
+      },
+    },
   },
   data() {
     return {
@@ -147,8 +157,8 @@ export default {
       active: {
         name: "",
         mIndex: 0,
-        subIndex: 0
-      }
+        subIndex: 0,
+      },
     };
   },
   mounted() {
@@ -238,14 +248,14 @@ export default {
           let activeMenuItem = this.$refs.menuItem[this.active.mIndex];
 
           let siblings = SiblingsNode(menuItem);
-          siblings.forEach(e => {
-            if(activeMenuItem === e){
-              let activeMenuSubmenuList = activeMenuItem.querySelector(".m-xl-submenu-list");
-              if(activeMenuSubmenuList){
+          siblings.forEach((e) => {
+            if (activeMenuItem === e) {
+              let activeMenuSubmenuList =
+                activeMenuItem.querySelector(".m-xl-submenu-list");
+              if (activeMenuSubmenuList) {
                 this.inActiveMenu(activeMenuItem);
               }
-            }
-            else{
+            } else {
               this.inActiveMenu(e);
             }
           });
@@ -285,7 +295,7 @@ export default {
       AddClass(menuItem, "xl-menu-active");
 
       let siblings = SiblingsNode(menuItem);
-      siblings.forEach(e => {
+      siblings.forEach((e) => {
         this.inActiveMenu(e);
       });
 
@@ -321,17 +331,17 @@ export default {
     // 取消二级菜单的激活状态
     inActiveSubmenu(submenuItems) {
       if (!submenuItems || !submenuItems.length) return;
-      submenuItems.forEach(e => {
+      submenuItems.forEach((e) => {
         RemoveClass(e, "xl-submenu-active");
       });
-    }
+    },
   },
   watch: {
     $route(to, from) {
       // 对路由变化作出响应...
       this.setSideBar();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -472,6 +482,14 @@ export default {
   .xl-menu-title {
     text-align: center;
     padding: 14px 20px;
+  }
+
+  .xl-menu-title {
+    > a,
+    div {
+      padding: 0;
+      display: block;
+    }
   }
 
   .xl-submenu-title,

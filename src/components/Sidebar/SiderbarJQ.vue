@@ -324,7 +324,7 @@
     text-align: center;
 
     a{
-      padding: 14px 0;
+      // padding: 14px 0;
       font-size: 12px;
     }
   }

@@ -1,6 +1,11 @@
 <template>
   <div id="login" class="m-login">
-    <Form ref="loginForm" :model="loginForm" :rules="validate" class="login-form">
+    <Form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="validate"
+      class="login-form"
+    >
       <h3 class="form-title">
         <img :src="logo" />
       </h3>
@@ -25,19 +30,32 @@
         <Checkbox v-model="remeberPwd">记住密码</Checkbox>
       </Form-item>
       <Form-item>
-        <Button type="primary" long @click="submit('loginForm')" :loading="loading">登录</Button>
+        <Button
+          type="primary"
+          long
+          @click="submit('loginForm')"
+          :loading="loading"
+          >登录</Button
+        >
       </Form-item>
-      <div style="text-align:center">普通用户登录账号: 18888888888 密码: 666666</div>
-      <div style="text-align:center">管理员登录账号: 13543501039 密码: 123456</div>
-      <div style="text-align:center">超级管理员登录账号: 18376686974 密码: 123456</div>
+      <div style="text-align: center">
+        普通用户登录账号: 18888888888 密码: 666666
+      </div>
+      <div style="text-align: center">
+        管理员登录账号: 13543501039 密码: 123456
+      </div>
+      <div style="text-align: center">
+        超级管理员登录账号: 18376686974 密码: 123456
+      </div>
     </Form>
   </div>
 </template>
 
 <script>
-import { SetCookie, SetLocalS, DelLocalS, GetLocalS, Encrypt, Decrypt } from "utils";
+import { SetLocalS, DelLocalS, GetLocalS, Encrypt, Decrypt } from "utils";
+import { setToken } from "utils/auth.js";
 // Api方法
-import Api from "api/login.js";
+import Api from "api/user.js";
 
 export default {
   data() {
@@ -51,19 +69,19 @@ export default {
         // 用户名
         username: "",
         // 密码
-        password: ""
+        password: "",
       },
       // 记住密码
       remeberPwd: false,
       // 验证规则
       validate: {
         username: [
-          { required: true, message: "用户名不能为空", trigger: "blur" }
+          { required: true, message: "用户名不能为空", trigger: "blur" },
         ],
         password: [
-          { required: true, message: "登录密码不能为空", trigger: "blur" }
-        ]
-      }
+          { required: true, message: "登录密码不能为空", trigger: "blur" },
+        ],
+      },
     };
   },
   watch: {
@@ -74,7 +92,7 @@ export default {
           DelLocalS("password");
         }
       }
-    }
+    },
   },
   created() {
     // 判断本地存储用户名是否存在
@@ -97,33 +115,34 @@ export default {
   methods: {
     // 提交表单
     submit(form) {
-      this.$refs[form].validate(valid => {
+      this.$refs[form].validate((valid) => {
         if (valid) {
           Api.Login(this.loginForm)
-            .then(res => {
+            .then((res) => {
               console.log(res);
-              if (res.code == 200) {
-                const result = res.data;
+              const { code, data } = res;
+              if (code == 200) {
                 // token存cookie
-                SetCookie("xl_admin_t", result.token);
-                this.$store.commit("SET_USER_TOKEN", result.token);
+                setToken(data.token);
+                this.$store.commit("SET_USER_TOKEN", data.token);
                 // 判断是否记住密码
                 if (this.remeberPwd) {
                   // 本地存储用户名和密码
-                  SetLocalS("username", this.loginForm.username);
-                  SetLocalS("password", Encrypt(this.loginForm.password));
+                  const { username, password } = this.loginForm;
+                  SetLocalS("username", username);
+                  SetLocalS("password", Encrypt(password));
                 }
                 this.$Message.success("登录成功!");
                 // 跳转到后台主页
                 this.$router.push({ name: "Main" });
               } else this.$Message.error("登录失败!用户名或密码不正确！");
             })
-			.catch(err => this.$Message.error(err.error))
-			.finally(() => (this.loading = false));
+            .catch((err) => console.log(err))
+            .finally(() => (this.loading = false));
         } else this.$Message.error("登录失败!填写有误！");
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>

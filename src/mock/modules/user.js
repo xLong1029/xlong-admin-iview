@@ -4,19 +4,19 @@ import { handleMock, handleResponse } from "./../mock-handle.js";
 const users = [{
     username: 18376686974,
     password: 123456,
-    token: '0aks73hhd8xjsu394',
+    token: 'admin-token',
     userId: "ozdUQQQe"
 },
 {
     username: 17777075292,
     password: 123456,
-    token: 'a7f441154089e22b80f17c338e5d2a4e',
+    token: 'editor-token',
     userId: "aDKHTTTk"
 },
 {
     username: 18888888888,
     password: 666666,
-    token: '0osi7u3hfydg28xus7',
+    token: 'user-token',
     userId: "LKdsAAAF"
 }]
 
@@ -52,10 +52,8 @@ export default [
     {
         url: "/api/user/login",
         method: "post",
-        response: config => handleMock(config, ({ config }) => {
-
-            console.log(config.body);
-            
+        response: config => handleMock(config, ({ config }) => {   
+            console.log(config);         
             const {
                 username,
                 password

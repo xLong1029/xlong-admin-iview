@@ -1,4 +1,5 @@
 import axios from "axios";
+// import { getToken } from "utils/auth.js";
 
 export function handelRequestError(error) {
     switch (error.response.status) {
@@ -30,6 +31,7 @@ export function handelRequestError(error) {
 
 export function configSetting(config) {
     // config.headers["authorization"] = "bearer " + getToken();
+    // console.log(config);
     return config;
 }
 

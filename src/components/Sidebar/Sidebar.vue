@@ -430,7 +430,7 @@
     }
 
     a{
-      padding: 14px 10px;
+      // padding: 14px 10px;
       font-size: 12px;
     }
   }

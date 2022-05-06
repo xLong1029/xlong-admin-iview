@@ -1,16 +1,4 @@
-/**
- * 处理token
- * 
- * @param {*} config 请求配置
- * @returns 
- */
-export const handleToken = (config) => {
-    const {
-        authorization
-    } = config.headers
-
-    return authorization.replace("bearer ", "");
-}
+import { getToken } from "./../utils/auth.js";
 
 /**
  * 处理响应
@@ -57,16 +45,12 @@ export const handleResponse = (code, message = null, data = null) => {
  */
 export const handleMock = (config, handleData) => {
     try {
-        const token = handleToken(config);
+        const token = getToken();        
 
         const { url } = config;
 
         if (!token && url.indexOf("/api/user/login") < 0) {
-            return {
-                code: 401,
-                message: '未授权',
-                data: null,
-            }
+            return handleResponse(401);
         }
 
         return handleData({ config, token });

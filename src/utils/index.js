@@ -1,8 +1,8 @@
 /*
  * 功能 : 封装一些主要工具方法
  * 作者 : 罗永梅（381612175@qq.com）
- * 日期 : 2019-9-25
- * 版本 : version 3.0
+ * 日期 : 2022-05-06
+ * 版本 : version 4.0
  */
 
 /**
@@ -353,6 +353,28 @@ export function SetDefaultPic (event, type) {
   event.currentTarget.onerror = null;
 }
 
+/**
+ * 参数转对象格式
+ *
+ * @param {string} url
+ * @returns {Object}
+ */
+ export function param2Obj(url) {
+  const search = url.split('?')[1]
+  if (!search) {
+    return {}
+  }
+  return JSON.parse(
+    '{"' +
+      decodeURIComponent(search)
+        .replace(/"/g, '\\"')
+        .replace(/&/g, '","')
+        .replace(/=/g, '":"')
+        .replace(/\+/g, ' ') +
+      '"}'
+  )
+}
+
 // 删除数组指定某个元素
 Array.prototype.remove = function (val) {
   var index = this.indexOf(val);
@@ -360,3 +382,4 @@ Array.prototype.remove = function (val) {
     this.splice(index, 1);
   }
 };
+

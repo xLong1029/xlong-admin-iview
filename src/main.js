@@ -15,13 +15,13 @@ Vue.use(ViewUI)
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper)
 
-import { setupMockServer } from './mock/mock-server.js';
-
-setupMockServer();
+// 启动Mock
+import { setupMock } from "./mock/mock-server";
+setupMock();
 
 Vue.config.productionTip = false
 
-new Vue({
+const app =new Vue({
 	el: '#app',
 	router,
 	store,
