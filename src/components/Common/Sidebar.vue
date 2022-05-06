@@ -482,9 +482,7 @@ export default {
   .xl-menu-title {
     text-align: center;
     padding: 14px 20px;
-  }
 
-  .xl-menu-title {
     > a,
     div {
       padding: 0;
