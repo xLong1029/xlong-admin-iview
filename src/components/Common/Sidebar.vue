@@ -472,6 +472,12 @@ export default {
   .xl-menu-title {
     text-align: center;
     padding: 14px 20px;
+
+     > a,
+    div {
+      padding: 0;
+      display: block;
+    }
   }
 
   .xl-submenu-title,
