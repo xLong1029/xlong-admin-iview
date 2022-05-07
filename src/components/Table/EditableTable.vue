@@ -43,7 +43,6 @@
               <SingleImage
                 :src="item[th.key]"
                 :index="index"
-                upload-dir="img/banner/"
                 :preview="true"
                 :show-hint="false"
                 :file-size="imgMaxSize"
@@ -175,7 +174,7 @@ export default {
     },
     // 设置图片
     setImg(url, index) {
-      this.data[index].imgUrl = url;
+      this.data[index].img = url;
     },
     // 按钮操作
     buttonOperate(button, index) {
