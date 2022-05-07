@@ -79,7 +79,7 @@
     // 组件
     import Loading from '@/components/Common/Loading'
     // Api方法
-    import Api from '@/api/product_list.js'
+    import Api from '@/api/product-manage.js'
     // 表格设置
     import tableSetting from 'common/table-setting.js'
     // 表格查询

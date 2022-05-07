@@ -27,7 +27,7 @@
     //导入富文本组件
 	import Tinymce from 'components/Common/Tinymce'
     // Api方法
-    import Api from 'api/product_list.js'
+    import Api from 'api/product-manage.js'
 
     export default {
         components: { Loading, Tinymce },

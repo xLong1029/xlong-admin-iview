@@ -85,7 +85,7 @@ import SingleImage from "components/Image/UploadImage/SingleImage";
 import Common from "common/common.js";
 import { FormatDate, SetDefaultPic } from "utils";
 // Api方法
-import Api from "api/product_list.js";
+import Api from "api/product-manage.js";
 // 轮播图样式
 import "swiper/dist/css/swiper.css";
 

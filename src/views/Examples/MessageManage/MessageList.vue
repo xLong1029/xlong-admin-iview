@@ -150,7 +150,7 @@
 // 通用JS
 import { SetDefaultPic } from "utils";
 // Api
-import Api from "api/consult";
+import Api from "api/message-manage";
 // 页码设置
 import { Page } from "mixins";
 

@@ -1,4 +1,4 @@
-import { handleMock, handleResponse } from "./../mock-handle.js";
+import { handleMock, handleResponse } from "../mock-handle.js";
 import Mock from "mockjs";
 import { avatars } from "./list.js";
 const Random = Mock.Random;

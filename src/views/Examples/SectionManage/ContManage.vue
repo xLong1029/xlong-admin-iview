@@ -66,7 +66,7 @@
     import Common from 'common/common.js'
     import { GetUrlQuery, SetDefaultPic } from 'utils'
     // Api方法
-    import Api from '@/api/section_list.js'
+    import Api from '@/api/section-manage.js'
     // 表格查询
     import { TableQuery } from 'mixins'
     // 表格操作
