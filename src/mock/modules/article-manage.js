@@ -132,8 +132,6 @@ article.list.forEach((e) => {
   e.content = content;
 });
 
-console.log(article.list);
-
 export default [
   {
     url: "/api/article/list",
@@ -144,9 +142,8 @@ export default [
 
         const page = parseInt(pageNo);
         const size = parseInt(pageSize);
+        
         let list = JSON.parse(JSON.stringify(article.list));
-
-        console.log(333, list);
 
         // 筛选
         const filters = JSON.parse(params);
@@ -171,7 +168,6 @@ export default [
 
         // 深克隆
         const filterList = JSON.parse(JSON.stringify(list));
-        console.log(2222, filterList);
 
         list = list.slice((page - 1) * size, page * size);
 

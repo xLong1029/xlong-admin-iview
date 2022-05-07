@@ -41,20 +41,6 @@ export default {
     });
   },
   /**
-   * 删除账户
-   *
-   * @param {*} ids 需要删除的对象的Id
-   */
-  DeleteArtc: (ids) => {
-    return request({
-      url: `/api/article/delete`,
-      method: "post",
-      data: {
-        ids,
-      },
-    });
-  },
-  /**
    * 新增文章
    *
    * @param {*} data 新增的参数对象
@@ -76,6 +62,20 @@ export default {
       url: `/api/article/edit`,
       method: "post",
       data,
+    });
+  },
+  /**
+   * 删除账户
+   *
+   * @param {*} ids 需要删除的对象的Id
+   */
+   DeleteArtc: (ids) => {
+    return request({
+      url: `/api/article/delete`,
+      method: "post",
+      data: {
+        ids,
+      },
     });
   },
 };

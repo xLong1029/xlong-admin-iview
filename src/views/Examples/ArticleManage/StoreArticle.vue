@@ -3,6 +3,9 @@
     <!--  加载判断 -->
     <Loading v-if="pageLoading"></Loading>
     <div v-else>
+      <Alert closable class="g-mb15"
+        >温馨提醒：Mock数据，请勿刷新页面，刷新后当前数据则不存在啦，会提示“找不到该文章”</Alert
+      >
       <Form
         ref="infoForm"
         :model="infoForm"
