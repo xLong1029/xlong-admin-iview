@@ -159,8 +159,6 @@ import PublicApi from "api/public.js";
 import { CitySelect } from "mixins";
 // 邮箱自动填充
 import { EmailComplete } from "mixins";
-// Json数据
-import JsonData from "mock/data.json";
 
 export default {
   components: { Loading, CompanyName, SingleImage },

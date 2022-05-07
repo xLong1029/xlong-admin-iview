@@ -4,7 +4,7 @@
     <h2 class="m-title">模糊查询</h2>
     <div class="m-content">
       <div class="m-compo-part">
-        <FuzzyQuery :model="fuzzyQuery.value" @on-change="getFuzzyValue" />
+        <FuzzyQuery :model="fuzzyQuery.value" @on-change="getFuzzyValue" :list="companyList" />
         <div class="m-desc">
           <p>属性：</p>
           <P

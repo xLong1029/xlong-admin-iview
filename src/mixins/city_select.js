@@ -4,7 +4,6 @@
  * 日期 : 2017-10-25
  * 版本 : version 2.0
  */
-// Json数据
 import Api from "@/api/public.js";
 
 export default {
