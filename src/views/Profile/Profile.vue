@@ -106,10 +106,11 @@ export default {
         if (valid) {
           Api.EditProfile(this.infoForm, this.infoForm.objectId)
             .then((res) => {
-              if (res.code == 200) {
+              const { code, message } = res;
+              if (code == 200) {
                 this.getProfile();
                 this.$Message.success("资料修改成功！");
-              } else this.$Message.error("资料修改失败！");
+              } else this.$Message.warning(message);
             })
             .catch((err) => console.log(err));
         } else this.$Message.error("提交失败！填写有误");
@@ -137,7 +138,7 @@ export default {
               role: this.infoForm.role,
               id: this.infoForm.objectId,
             });
-          } else this.$Message.error(message);
+          } else this.$Message.warning(message);
         })
         .catch((err) => console.log(err));
     },
