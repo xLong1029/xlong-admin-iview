@@ -13,6 +13,7 @@
     "axios": "^0.24.0",
     "babel-polyfill": "^6.26.0",
     "core-js": "^3.6.4",
+    "crypto-js": "^4.1.1",
     "hydrogen-js-sdk": "^1.7.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",

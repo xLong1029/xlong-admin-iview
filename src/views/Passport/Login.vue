@@ -42,7 +42,7 @@
         普通用户登录账号: 18888888888 密码: 666666
       </div>
       <div style="text-align: center">
-        管理员登录账号: 13543501039 密码: 123456
+        管理员登录账号: 17777075292 密码: 123456
       </div>
       <div style="text-align: center">
         超级管理员登录账号: 18376686974 密码: 123456
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { SetLocalS, DelLocalS, GetLocalS, Encrypt, Decrypt } from "utils";
+import { SetLocalS, DelLocalS, GetLocalS, AESEncrypt, AESDecrypt } from "utils";
 import { setToken } from "utils/auth.js";
 // Api方法
 import Api from "api/user.js";
@@ -99,7 +99,7 @@ export default {
     if (GetLocalS("username")) {
       // 获取本地存储的用户名和密码
       this.loginForm.username = GetLocalS("username");
-      this.loginForm.password = Decrypt(GetLocalS("password"));
+      this.loginForm.password = AESDecrypt(GetLocalS("password"));
       this.remeberPwd = true;
     }
   },
@@ -130,7 +130,7 @@ export default {
                   // 本地存储用户名和密码
                   const { username, password } = this.loginForm;
                   SetLocalS("username", username);
-                  SetLocalS("password", Encrypt(password));
+                  SetLocalS("password", AESEncrypt(password));
                 }
                 this.$Message.success("登录成功!");
                 // 跳转到后台主页
