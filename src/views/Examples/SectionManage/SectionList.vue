@@ -109,7 +109,7 @@
             },
             // 编辑操作接口
             apiEdit(){
-                return () => Api.EditSection(this.paramsForm, this.editId);
+                return () => Api.EditSection(this.paramsForm);
             },
             // 删除操作接口
             apiDelete(){
@@ -124,11 +124,10 @@
                 showModal: false,
                 // 参数表单
                 paramsForm: {
+                    id: 0,
                     title: '',
                     type: 1
                 },
-                // 需要编辑的对象id
-                editId: '',
                 // 操作类型:1是新增, 2是编辑
                 operateType: 0,
                 // 验证规则
@@ -235,11 +234,10 @@
             },
             // 打开弹窗
             openModel(params){
-              console.log(typeof(params.type));
                 this.showModal = true;
                 this.paramsForm.title = params.title;
                 this.paramsForm.type = params.type;
-                this.editId = params.id;
+                this.paramsForm.id = params.id;
             },
             // 弹窗操作
             operation(name, type){
@@ -250,10 +248,7 @@
                         // 操作
                         if(type == 1) this.addData();
                         else if(type == 2) this.editData();
-                        // 延迟关闭
-                        setTimeout(() => {
-                            this.closeModal(name);
-                        }, 500);
+                        this.closeModal(name);
                     }
                     else this.$Message.error('提交失败！填写有误');
                 })

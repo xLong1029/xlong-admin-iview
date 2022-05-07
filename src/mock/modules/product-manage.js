@@ -1,10 +1,8 @@
 import { handleMock, handleResponse } from "../mock-handle.js";
-import { articleTags } from "./list.js";
-import { CompareDate } from "utils";
 import Mock from "mockjs";
 const Random = Mock.Random;
 
-const articles = [
+const sections = [
   {
     title: "vue3.0项目搭建详解",
     content: `<p>&nbsp; &nbsp; 介绍在搭建vue3.0之前，我们首先来收悉一下vue3.0相比vue2.0做了那些改进，增加了那些特性。</p>
@@ -105,7 +103,7 @@ const articles = [
   },
 ];
 
-let article = Mock.mock({
+let product = Mock.mock({
   // 2-25 个元素的数组
   "list|2-5": [
     {
@@ -118,25 +116,18 @@ let article = Mock.mock({
   ],
 });
 
-article.list.forEach((e) => {
+product.list.forEach((e) => {
   e.id = Random.guid();
-  e.tags = Random.pick(
-    articleTags.map((e) => e.name),
-    1,
-    2
-  );
 
   const { title, content } =
-    articles[Math.floor(Math.random() * articles.length)];
+    sections[Math.floor(Math.random() * sections.length)];
   e.title = title;
   e.content = content;
 });
 
-console.log(article.list);
-
 export default [
   {
-    url: "/api/article/list",
+    url: "/api/product/list",
     method: "get",
     response: (config) =>
       handleMock(config, () => {
@@ -144,34 +135,18 @@ export default [
 
         const page = parseInt(pageNo);
         const size = parseInt(pageSize);
-        let list = JSON.parse(JSON.stringify(article.list));
-
-        console.log(333, list);
+        let list = JSON.parse(JSON.stringify(product.list));
 
         // 筛选
         const filters = JSON.parse(params);
         for (let i in filters) {
           if (filters[i]) {
-            switch (i) {
-              case "sTime":
-                list = list.filter((e) =>
-                  CompareDate(filters[i], e.createdTime)
-                );
-                break;
-              case "eTime":
-                list = list.filter((e) =>
-                  CompareDate(e.createdTime, filters[i])
-                );
-                break;
-              default:
-                list = list.filter((e) => e[i] == filters[i]);
-            }
+            list = list.filter((e) => e[i] == filters[i]);
           }
         }
 
         // 深克隆
         const filterList = JSON.parse(JSON.stringify(list));
-        console.log(2222, filterList);
 
         list = list.slice((page - 1) * size, page * size);
 
@@ -186,56 +161,56 @@ export default [
       }),
   },
   {
-    url: "/api/article/detail",
+    url: "/api/product/detail",
     method: "get",
     response: (config) =>
       handleMock(config, () => {
         const { id } = config.query;
-        const getArticle = article.list.find((e) => e.id == id);
+        const getproduct = product.list.find((e) => e.id == id);
 
-        return getArticle
-          ? handleResponse(200, "success", getArticle)
+        return getproduct
+          ? handleResponse(200, "success", getproduct)
           : handleResponse(404, "找不该文章");
       }),
   },
   {
-    url: "/api/article/add",
+    url: "/api/product/add",
     method: "post",
     response: (config) =>
       handleMock(config, () => {
         let data = { ...config.body };
 
-        data.sid = article.list[article.list.length - 1].sid + 1;
+        data.sid = product.list[product.list.length - 1].sid + 1;
         data.id = Random.guid();
         data.createdTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
 
-        article.list.unshift(data);
+        product.list.unshift(data);
         return handleResponse(200, "success", data.id);
       }),
   },
   {
-    url: "/api/article/delete",
+    url: "/api/product/delete",
     method: "post",
     response: (config) =>
       handleMock(config, () => {
         const { ids } = config.body;
-        article.list = article.list.filter((e) => !ids.includes(e.id));
+        product.list = product.list.filter((e) => !ids.includes(e.id));
 
         return handleResponse(200, "success");
       }),
   },
   {
-    url: "/api/article/edit",
+    url: "/api/product/edit",
     method: "post",
     response: (config) =>
       handleMock(config, () => {
         console.log(config);
         const data = { ...config.body };
 
-        const index = article.list.findIndex((e) => e.id == data.id);
+        const index = product.list.findIndex((e) => e.id == data.id);
         if (index >= 0) {
-          article.list[index] = { ...config.body };
-          article.list[index].updateTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
+          product.list[index] = { ...config.body };
+          product.list[index].updateTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
           return handleResponse(200, "success");
         } else {
           return handleResponse(404, "找不该文章");

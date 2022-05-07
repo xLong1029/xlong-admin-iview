@@ -9,7 +9,7 @@ import request from "utils/request.js";
 
 export default {
   /**
-   * 获取所有账户列表
+   * 获取文章列表
    *
    * @param {*} params 查询参数对象
    * @param {*} pageNo 当前页码

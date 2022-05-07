@@ -134,7 +134,7 @@
                         key: 'tags',
                         align: 'center',
                         render: (h, params) => {
-                            return h('span', {}, params.row.tags.toString());
+                            return h('span', {}, params.row.tags?.toString());
                         }
                     },
                     {
