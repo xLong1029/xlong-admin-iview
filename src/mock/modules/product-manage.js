@@ -171,7 +171,7 @@ export default [
 
         return getproduct
           ? handleResponse(200, "success", getproduct)
-          : handleResponse(404, "找不该文章");
+          : handleResponse(404, "找不该产品");
       }),
   },
   {
@@ -214,7 +214,7 @@ export default [
           product.list[index].updateTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
           return handleResponse(200, "success");
         } else {
-          return handleResponse(404, "找不该文章");
+          return handleResponse(404, "找不该产品");
         }
       }),
   },

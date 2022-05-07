@@ -233,7 +233,7 @@ export default {
         // 确定
         onOk: () => {
           let lastIndex = this.caseList.length - 1;
-          Api.DelCase(this.productId, this.caseIndex)
+          Api.DeleteCase(this.productId, this.caseIndex)
             .then(res => {
               if (res.code == 200) {
                 // 如果删除的是最后一个案例

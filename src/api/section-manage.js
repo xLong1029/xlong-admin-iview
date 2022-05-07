@@ -29,7 +29,7 @@ export default {
     /**
      * 新增版块
      *
-     * @param {*} ids 新增的参数对象
+     * @param {*} data 新增的参数对象
      */
     AddSection: (data) => {
         return request({
