@@ -50,7 +50,7 @@ export default {
     // 可选列表
     list: {
       type: Array,
-      default: [],
+      default: () => [],
     },
   },
   watch: {

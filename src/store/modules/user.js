@@ -3,14 +3,14 @@ import { getToken, removeToken } from "utils/auth.js";
 
 // 设置账户信息
 function setAccount(_commit, info) {
-  const { avatar, nickName, roles, userId } = info;
+  const { avatar, nickName, roles, id } = info;
   let face = avatar ? avatar : null;
 
   _commit("SET_USER", {
     face,
     nickName,
     role: roles,
-    id: userId,
+    id: id,
   });
 }
 

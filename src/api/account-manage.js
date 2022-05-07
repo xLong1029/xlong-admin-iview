@@ -86,10 +86,13 @@ export default {
   EnableAcc: (state, ids) => {
     console.log(state, ids);
     return request({
-      url: `/api/account/enable?state=${state}`,
+      url: `/api/account/enable`,
       method: "post",
       data: {
         ids,
+      },
+      params: {
+        state,
       },
     });
   },

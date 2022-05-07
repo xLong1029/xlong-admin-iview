@@ -4,7 +4,7 @@
     <div class="m-query-form">
       <Form ref="queryForm" :model="queryForm" :rules="validate">
         <Form-item class="query-item">
-          <Input v-model="queryForm.userId" placeholder="用户编号" />
+          <Input v-model="queryForm.id" placeholder="用户编号" />
         </Form-item>
         <Form-item prop="mobile" class="query-item">
           <Input v-model="queryForm.mobile" placeholder="手机号码" />
@@ -249,7 +249,7 @@ export default {
         },
         {
           title: "用户编号",
-          key: "userId",
+          key: "id",
           align: "center",
         },
         {
@@ -368,12 +368,6 @@ export default {
 
       // 获取用户列表
       this.getTableList();
-    },
-    setListData(list){
-      this.listData = list.map(e => {
-        e.id = e.userId;
-        return e;
-      });
     }
   },
 };

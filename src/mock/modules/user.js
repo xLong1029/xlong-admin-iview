@@ -5,23 +5,23 @@ const users = [{
     username: 18376686974,
     password: 123456,
     token: 'admin-token',
-    userId: "ozdUQQQe"
+    id: "ozdUQQQe"
 },
 {
     username: 17777075292,
     password: 123456,
     token: 'editor-token',
-    userId: "aDKHTTTk"
+    id: "aDKHTTTk"
 },
 {
     username: 18888888888,
     password: 666666,
     token: 'user-token',
-    userId: "LKdsAAAF"
+    id: "LKdsAAAF"
 }]
 
 const infos = [{
-    userId: "ozdUQQQe",
+    id: "ozdUQQQe",
     avatar: "https://img1.baidu.com/it/u=2383052339,2925526515&fm=26&fmt=auto",
     gender: "女",
     username: 18376686974,
@@ -30,7 +30,7 @@ const infos = [{
     roles: 'admin',
 },
 {
-    userId: "aDKHTTTk",
+    id: "aDKHTTTk",
     avatar: "https://img0.baidu.com/it/u=977697838,3935105105&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
     gender: "男",
     username: 17777075292,
@@ -39,7 +39,7 @@ const infos = [{
     roles: 'manage',
 },
 {
-    userId: "LKdsAAAF",
+    id: "LKdsAAAF",
     avatar: "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
     gender: "男",
     username: 18888888888,
@@ -61,8 +61,8 @@ export default [
             const user = users.find(e => (e.username == username && e.password == password));
 
             if(user){
-                const { token, userId } = user;
-                const info = infos.find(e => e.userId === userId);
+                const { token, id } = user;
+                const info = infos.find(e => e.id === id);
                 return handleResponse(200, "success", { ...info, token });
             }
             else{
@@ -77,7 +77,7 @@ export default [
             const user = users.find(e => (e.token == token));
 
             if(user){
-                const info = infos.find(e => e.userId === user.userId);
+                const info = infos.find(e => e.id === user.id);
                 return handleResponse(200, "success", info)
             }
             else{
@@ -91,7 +91,7 @@ export default [
         response: config => handleMock(config, ({ token }) => {
             const user = users.find(e => (e.token == token));
             if (user) {
-                const index = infos.findIndex(e => e.userId === user.userId);
+                const index = infos.findIndex(e => e.id === user.id);
                 for(let i in config.body){
                     infos[index][i] = config.body[i];
                 }

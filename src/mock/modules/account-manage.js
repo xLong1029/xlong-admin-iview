@@ -81,7 +81,7 @@ let account = Mock.mock({
 
 account.list.forEach((e) => {
   // 随机guid
-  e.userId = Random.guid();
+  e.id = Random.guid();
   // 随机身份证
   e.idCard = Random.id();
   // 随机人名
@@ -165,7 +165,7 @@ export default [
     response: (config) =>
       handleMock(config, () => {
         const { id } = config.query;
-        const user = account.list.find((e) => e.userId == id);
+        const user = account.list.find((e) => e.id == id);
 
         return user ? handleResponse(200, "success", user) : handleResponse(404, "找不该用户");
       }),
@@ -190,11 +190,11 @@ export default [
         }
 
         data.sid = account.list[account.list.length - 1].sid + 1;
-        data.userId = Random.guid();
+        data.id = Random.guid();
         data.createdTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
 
         account.list.unshift(data);
-        return handleResponse(200, "success", data.userId);
+        return handleResponse(200, "success", data.id);
       }),
   },
   {
@@ -203,7 +203,7 @@ export default [
     response: (config) =>
       handleMock(config, () => {
         const { ids } = config.body;
-        account.list = account.list.filter((e) => !ids.includes(e.userId));
+        account.list = account.list.filter((e) => !ids.includes(e.id));
 
         return handleResponse(200, "success");
       }),
@@ -218,7 +218,7 @@ export default [
         const user = account.list.find(
           (e) =>
             (e.mobile == data.mobile || e.email == data.email) &&
-            e.userId != data.userId
+            e.id != data.id
         );
 
         if (user) {
@@ -230,7 +230,7 @@ export default [
           }
         }
 
-        const index = account.list.findIndex((e) => e.userId == data.userId);
+        const index = account.list.findIndex((e) => e.id == data.id);
 
         if (index >= 0) {
           account.list[index] = { ...config.body };
@@ -249,7 +249,7 @@ export default [
         const { state } = config.query;
 
         account.list.forEach((e) => {
-          if (ids.includes(e.userId)) {
+          if (ids.includes(e.id)) {
             e.enabledState = state;
           }
         });

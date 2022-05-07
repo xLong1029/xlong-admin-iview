@@ -59,7 +59,7 @@
     // 验证方法
     import Validate from 'common/validate.js'
     // Api方法
-    import Api from '@/api/article_list.js'
+    import Api from '@/api/article-manage.js'
     // 表格设置
     import tableSetting from 'common/table-setting.js'
     // 表格查询

@@ -18,7 +18,7 @@
         <Row>
           <Col span="12">
             <Form-item v-if="pageType == 'edit'" label="用户编号：">
-              <span>{{ userId }}</span>
+              <span>{{ id }}</span>
             </Form-item>
             <Form-item label="真实姓名：" prop="realname">
               <Input v-model="infoForm.realname" placeholder="请输入真实姓名" />
@@ -75,13 +75,12 @@
               <!-- 组件-匹配企业名称 -->
               <CompanyName
                 :model="infoForm.companyName"
+                :list="companyList"
                 @on-change="getCompanyName"
               ></CompanyName>
             </Form-item>
             <Form-item label="专业领域：" prop="profession">
-              <CheckboxGroup
-                v-model="infoForm.profession"
-              >
+              <CheckboxGroup v-model="infoForm.profession">
                 <Checkbox
                   v-for="(item, index) in professionList"
                   :key="index"
@@ -175,14 +174,14 @@ export default {
       professionList: [],
       // 城市联动选择值
       provinceValue: [],
-      // 专业领域选择值
-      //   professionValue: [],
+      // 企业名称
+      companyList: [],
       // 是否禁用工作时间组件
       disabledWT: false,
       // 工作时间占位符提示
       workTimePH: "请选择时间",
       // 用户编号
-      userId: "",
+      id: "",
       // 表单信息
       infoForm: {
         // 真实姓名
@@ -296,7 +295,7 @@ export default {
       // 判断是否是编辑页
       if (id) {
         // 获取用户编号
-        this.userId = id;
+        this.id = id;
         this.$store.commit("SET_BREADCRUMB", [
           { name: "首页", path: "/Home" },
           { name: "账户列表", path: "/Examples/AccountManage/List" },
@@ -336,6 +335,18 @@ export default {
           }
         })
         .catch((err) => console.log(err));
+
+      // 获取“企业名称”列表
+      PublicApi.GetCompanyNames()
+        .then((res) => {
+          const { code, data, message } = res;
+          if (code === 200) {
+            this.companyList = data;
+          } else {
+            this.$Message.warning(message);
+          }
+        })
+        .catch((err) => console.log(err));
     },
     // 提交表单
     submit(form) {
@@ -368,7 +379,7 @@ export default {
               .catch((err) => this.$Message.warning(err.message));
           } else {
             // 修改账户信息
-            Api.EditAccount(this.infoForm, this.userId)
+            Api.EditAccount(this.infoForm, this.id)
               .then((res) => {
                 // 取消页面加载
                 this.pageLoading = false;
@@ -388,7 +399,7 @@ export default {
     getDetail() {
       this.pageLoading = true;
 
-      Api.GetAccInfo(this.userId)
+      Api.GetAccInfo(this.id)
         .then((res) => {
           this.pageLoading = false;
 

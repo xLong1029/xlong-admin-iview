@@ -36,7 +36,7 @@
     // 通用JS
     import { GetUrlQuery } from 'utils'
     // Api方法
-    import Api from 'api/article_list.js'
+    import Api from 'api/article-manage.js'
     // Json数据
     import JsonData from 'mock/data.json'
     export default {

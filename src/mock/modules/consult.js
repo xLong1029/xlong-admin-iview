@@ -33,7 +33,7 @@ let consult = Mock.mock({
 
 consult.list.forEach(e => {
     // 随机guid
-    e.userId = Random.guid();
+    e.id = Random.guid();
     // 随机人名
     e.userName = Random.cname();
 });

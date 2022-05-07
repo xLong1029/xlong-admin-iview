@@ -24,7 +24,7 @@
                 alt="图片加载失败"
                 @error="notFoundPic"
               />
-              <span>{{ item.userName }}（{{ item.userId }}）</span>
+              <span>{{ item.userName }}（{{ item.id }}）</span>
             </td>
             <td class="item-content">{{ item.content }}</td>
             <td width="120">{{ item.time }}</td>
@@ -64,7 +64,7 @@
           <div class="modal-chat">
             <!-- 窗口标题 -->
             <h2 class="chat-title">
-              {{ chatModal.userName }} ({{ chatModal.userId }})
+              {{ chatModal.userName }} ({{ chatModal.id }})
               <Icon
                 class="fr"
                 type="android-close"
@@ -167,7 +167,7 @@ export default {
         // 是否显示对话框
         visible: false,
         // 用户编号
-        userId: "",
+        id: "",
         // 用户名
         userName: "",
       },
@@ -180,7 +180,7 @@ export default {
       // 聊天用户信息
       chatModal: {
         // 用户编号
-        userId: "",
+        id: "",
         // 用户名
         userName: "",
         // 用户头像
@@ -208,7 +208,7 @@ export default {
           // 用户名
           userName: "",
           // 用户编号
-          userId: "",
+          id: "",
           // 咨询内容
           content: "",
           // 日期时间
@@ -251,7 +251,7 @@ export default {
       // 更改为聊天状态
       this.showChat = true;
       // 设置用户ID
-      this.chatModal.userId = this.consultList[index].userId;
+      this.chatModal.id = this.consultList[index].id;
       // 设置用户名
       this.chatModal.userName = this.consultList[index].userName;
       // 设置用户头像
