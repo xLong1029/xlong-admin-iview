@@ -259,6 +259,7 @@ export default {
         },
         {
           title: "性别",
+          width: "100",
           key: "gender",
           align: "center",
         },
@@ -274,6 +275,7 @@ export default {
         },
         {
           title: "职位",
+          width: "100",
           key: "job",
           align: "center",
         },
@@ -289,6 +291,7 @@ export default {
         },
         {
           title: "状态",
+          width: "100",
           key: "enabledState",
           align: "center",
           render: (h, params) => {

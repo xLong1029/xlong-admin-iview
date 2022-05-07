@@ -1,5 +1,6 @@
 import { handleMock, handleResponse } from "./../mock-handle.js";
 import { professionList, jobList, companyNames, cityList } from "./list.js";
+import { CompareDate } from "utils";
 import Mock from "mockjs";
 const Random = Mock.Random;
 
@@ -38,8 +39,8 @@ const phonePrefixs = new Array(
   "177"
 );
 const workExperience = new Array(
-  "",
-  '[{"date":"2001.3.1-至今","unitAndPost":"华蓝集团","witness":"小凳子"}]',
+  null,
+  [{ date: "2001.3.1-至今", unitAndPost: "华蓝集团", witness: "小凳子" }],
   [
     {
       date: "2019.1.1-至今",
@@ -122,11 +123,19 @@ export default [
 
         // 筛选
         const filters = JSON.parse(params);
-        for(let i in filters){
-            if(filters[i]){
-                console.log(i, filters[i]);
-                list = list.filter(e => e[i] == filters[i]);
+        for (let i in filters) {
+          if (filters[i]) {
+            switch (i) {
+              case "sTime":
+                list = list.filter((e) => CompareDate(filters[i],e.createdTime));
+                break;
+              case "eTime":
+                list = list.filter((e) => CompareDate(e.createdTime,filters[i]));
+                break;
+              default:
+                list = list.filter((e) => e[i] == filters[i]);
             }
+          }
         }
 
         // 深克隆

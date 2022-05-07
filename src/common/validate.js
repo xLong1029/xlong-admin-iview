@@ -120,8 +120,7 @@ export default {
                 }
             }
             else{
-                if(endDate) return callback(new Error('请选择开始日期'));
-                else return callback();
+                return callback();
             }
         }
     }
