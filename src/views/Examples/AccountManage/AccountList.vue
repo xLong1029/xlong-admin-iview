@@ -146,18 +146,18 @@
 
 <script>
 // 组件
-import Loading from "@/components/Common/Loading";
+import Loading from "components/Common/Loading";
 // 通用JS
 import Common from "common/common.js";
 // 验证方法
 import Validate from "common/validate.js";
 // Api方法
-import Api from "@/api/account-list.js";
-import PublicApi from "@/api/public.js";
+import Api from "api/account-manage.js";
+import PublicApi from "api/public.js";
 // 邮箱自动填充
 import { EmailComplete } from "mixins";
 // 表格设置
-import tableSetting from "common/table_setting.js";
+import tableSetting from "common/table-setting.js";
 // 表格查询
 import { TableQuery } from "mixins";
 // 表格操作

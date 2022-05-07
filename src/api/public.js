@@ -44,4 +44,13 @@ export default {
       method: "get",
     });
   },
+  /**
+   * 获取专业领域列表
+   */
+  GetProfessionList: () => {
+    return request({
+      url: "/api/list/profession",
+      method: "get",
+    });
+  },
 };

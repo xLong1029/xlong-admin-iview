@@ -81,7 +81,7 @@
     // Api方法
     import Api from '@/api/product_list.js'
     // 表格设置
-    import tableSetting from 'common/table_setting.js'
+    import tableSetting from 'common/table-setting.js'
     // 表格查询
     import { TableQuery } from 'mixins'
     // 表格操作

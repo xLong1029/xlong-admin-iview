@@ -27,6 +27,20 @@ export default {
     });
   },
   /**
+   * 获取账户信息
+   *
+   * @param {*} id 查询的objectId
+   */
+  GetAccInfo: (id) => {
+    return request({
+      url: `/api/account/info`,
+      method: "get",
+      params: {
+        id,
+      },
+    });
+  },
+  /**
    * 新增账户
    *
    * @param {*} data 新增的参数对象
@@ -70,7 +84,7 @@ export default {
    * @param {*} ids 需要更新的对象的Id
    */
   EnableAcc: (state, ids) => {
-      console.log(state, ids);
+    console.log(state, ids);
     return request({
       url: `/api/account/enable?state=${state}`,
       method: "post",
@@ -78,5 +92,5 @@ export default {
         ids,
       },
     });
-  }
+  },
 };

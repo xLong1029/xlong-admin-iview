@@ -14961,15 +14961,15 @@ export const avatars = [
   "https://img1.baidu.com/it/u=2383052339,2925526515&fm=26&fmt=auto",
   "https://img0.baidu.com/it/u=977697838,3935105105&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
   "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
-  "https://avatars1.githubusercontent.com/acmeid?v=3&s=30",
-  "https://avatars0.githubusercontent.com/MarvinWilliam?v=3&s=30",
-  "https://avatars1.githubusercontent.com/lovesmilesha?v=3&s=30",
-  "https://avatars1.githubusercontent.com/airclear?v=4&s=30",
-  "https://avatars0.githubusercontent.com/maxid?v=3&s=30",
-  "https://avatars2.githubusercontent.com/jiayeZhu?v=3&s=30",
-  "https://avatars1.githubusercontent.com/byends?v=3&s=30",
-  "https://avatars0.githubusercontent.com/seekwe?v=3&s=30",
-  "https://avatars1.githubusercontent.com/u/5109966?v=4&s=30"
+  "https://img0.baidu.com/it/u=1519847170,1145536098&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+  "https://img1.baidu.com/it/u=284598427,3453401726&fm=253&fmt=auto&app=138&f=JPG?w=501&h=500",
+  "https://img1.baidu.com/it/u=537589116,2159225688&fm=253&fmt=auto&app=138&f=JPEG?w=360&h=360",
+  "https://img1.baidu.com/it/u=1047817807,648960205&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+  "https://img2.baidu.com/it/u=723218057,1373778259&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400",
+  "https://img1.baidu.com/it/u=4097746964,1192305186&fm=253&fmt=auto&app=138&f=JPEG?w=360&h=360",
+  "https://img2.baidu.com/it/u=3391243472,2077858391&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+  "https://img0.baidu.com/it/u=1040843630,4036288707&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400",
+  "https://img2.baidu.com/it/u=3684583854,4246651056&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400"
 ]
 
 export default [

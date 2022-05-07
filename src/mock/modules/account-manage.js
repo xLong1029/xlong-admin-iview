@@ -1,5 +1,5 @@
 import { handleMock, handleResponse } from "./../mock-handle.js";
-import { professionList, jobList, companyNames, cityList } from "./list.js";
+import { professionList, jobList, companyNames, cityList,avatars } from "./list.js";
 import { CompareDate } from "utils";
 import Mock from "mockjs";
 const Random = Mock.Random;
@@ -62,17 +62,19 @@ let account = Mock.mock({
       email: "@email",
       "job|1": jobList.map((e) => e.name),
       "companyName|1": companyNames.map((e) => e.name),
+      "avatar|1": avatars,
+      "enabledState|1": [1, -1],
       birthdate: null,
       // 一个 yyyy-MM-dd hh:mm:ss 的随机时间
       createdTime: '@date("yyyy-MM-dd hh:mm:ss")',
-      workTime: '@date("yyyy-MM-dd")',
-      "enabledState|1": [1, -1],
+      workTime: '@date("yyyy-MM-dd")',      
       remark: "@paragraph()",
       address: null,
       domain: null,
       city: "柳州市",
       area: null,
       province: "广西壮族自治区",
+      
     },
   ],
 });
@@ -163,10 +165,9 @@ export default [
     response: (config) =>
       handleMock(config, () => {
         const { id } = config.query;
-
         const user = account.list.find((e) => e.userId == id);
 
-        return handleResponse(200, "success", user);
+        return user ? handleResponse(200, "success", user) : handleResponse(404, "找不该用户");
       }),
   },
   {
@@ -235,7 +236,7 @@ export default [
           account.list[index] = { ...config.body };
           return handleResponse(200, "success");
         } else {
-          return handleResponse(404, "找不到用户信息");
+          return handleResponse(404, "找不该用户");
         }
       }),
   },
