@@ -81,7 +81,7 @@ export default [
                 return handleResponse(200, "success", info)
             }
             else{
-                return handleResponse(404, "找不到用户信息")
+                return handleResponse(404, "找不到该用户")
             }
         })
     },
@@ -89,20 +89,16 @@ export default [
         url: "/api/user/info/edit",
         method: "post",
         response: config => handleMock(config, ({ token }) => {
-            const {
-                nickName,
-                realName
-            } = config.body
-
             const user = users.find(e => (e.token == token));
             if (user) {
                 const index = infos.findIndex(e => e.userId === user.userId);
-                infos[index].nickName = nickName;
-                infos[index].realName = realName;
+                for(let i in config.body){
+                    infos[index][i] = config.body[i];
+                }
                 return handleResponse(200, "success", infos[index]);
             }
             else {
-                return handleResponse(404, "信息保存失败");
+                return handleResponse(404, "找不到该用户");
             }
         })
     },

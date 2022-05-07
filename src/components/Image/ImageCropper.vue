@@ -21,7 +21,7 @@
         <Icon type="md-create" @click.native="uploadClick"></Icon>
       </div>
     </div>
-    <div class="clearfix"></div>
+    <!-- <div class="clearfix"></div> -->
     <!-- 上传按钮 -->
     <div v-show="showUploadBtn" class="upload-btn" @click="uploadClick">
       <Icon type="md-camera" size="20"></Icon>
