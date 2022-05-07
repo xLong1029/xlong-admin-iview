@@ -5,7 +5,6 @@
  * 日期 : 2022-05-05
  * 版本 : version 3.0
  */
-// import BmobServer from 'bmob/bmob-server.js'
 import request from "utils/request.js";
 
 export default {

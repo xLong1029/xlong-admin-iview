@@ -3,11 +3,21 @@
     <!-- 图片显示 -->
     <div v-if="getImageUrl != ''" class="upload-show">
       <div class="upload-img-wrap">
-        <img class="upload-image" :src="getImageUrl" alt="图片加载失败" @error="notFoundPic" />
+        <img
+          class="upload-image"
+          :src="getImageUrl"
+          alt="图片加载失败"
+          @error="notFoundPic"
+        />
       </div>
       <!-- 遮罩 -->
       <div class="upload-mask">
-        <Icon v-if="preview" type="md-eye" class="g-mr10" @click.native="viewImage"></Icon>
+        <Icon
+          v-if="preview"
+          type="md-eye"
+          class="g-mr10"
+          @click.native="viewImage"
+        ></Icon>
         <Icon type="md-create" @click.native="uploadClick"></Icon>
       </div>
     </div>
@@ -15,7 +25,13 @@
     <!-- 上传按钮 -->
     <div v-show="showUploadBtn" class="upload-btn" @click="uploadClick">
       <Icon type="md-camera" size="20"></Icon>
-      <input ref="imgFile" type="file" :accept="format" hidden @change="selectFile" />
+      <input
+        ref="imgFile"
+        type="file"
+        :accept="format"
+        hidden
+        @change="selectFile"
+      />
     </div>
     <div class="clearfix"></div>
     <!-- 上传进度条  -->
@@ -25,7 +41,7 @@
         :percent="percentage"
         hide-info
         :stroke-width="3"
-        style="width:340px;"
+        style="width: 340px"
       ></Progress>
     </template>
     <!-- 图片格式提示 -->
@@ -34,7 +50,7 @@
       <span v-if="sizeHint">建议尺寸： {{ sizeHint }}，</span>
       文件大小为
       <span v-if="fileSize < 1024">{{ fileSize }}kb</span>
-      <span v-else>{{ Math.floor(fileSize/1024) }}M</span>
+      <span v-else>{{ Math.floor(fileSize / 1024) }}M</span>
       以内。
     </div>
     <!-- 裁剪图片弹窗 -->
@@ -86,13 +102,13 @@
         <!-- <Button type="primary" @click="previewImg('blob')">预览</Button> -->
       </div>
       <!-- 图片格式提示 -->
-      <div style="margin-top:10px">
+      <div style="margin-top: 10px">
         <span class="hint">
           * 图片格式要求：jpg、jpeg、png，
           <span v-if="sizeHint">建议尺寸： {{ sizeHint }}，</span>
           文件大小为
           <span v-if="fileSize < 1024">{{ fileSize }}kb</span>
-          <span v-else>{{ Math.floor(fileSize/1024) }}M</span>
+          <span v-else>{{ Math.floor(fileSize / 1024) }}M</span>
           以内。
         </span>
       </div>
@@ -127,61 +143,61 @@ export default {
     // 图片Url
     src: {
       type: String,
-      default: ""
+      default: "",
     },
     // 是否可预览
     preview: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 是否显示格式提示
     showHint: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 上传按钮尺寸提示文本
     sizeHint: {
       type: String,
-      default: "100*100px"
+      default: "100*100px",
     },
     // 图片文件大小限制，单位KB
     fileSize: {
       type: Number,
-      default: 150
+      default: 150,
     },
     // 固定裁剪宽度
     autoCropWidth: {
       type: Number,
-      default: 100
+      default: 100,
     },
     // 固定裁剪高度
     autoCropHeight: {
       type: Number,
-      default: 100
+      default: 100,
     },
     // 是否限制高宽比例
     fixed: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 高宽比例值
     fixedNumber: {
       type: Array,
-      default: () => [4, 3]
-    }
+      default: () => [4, 3],
+    },
   },
   watch: {
     src(val) {
       this.showUploadBtn = val ? false : true;
       this.getImageUrl = val;
-    }
+    },
   },
   data() {
     return {
       // 裁剪图片弹窗
       cropImgModel: {
         title: "裁剪图片",
-        show: false
+        show: false,
       },
       // 图片配置，参数地址：https://github.com/xyxiao001/vue-cropper
       option: {
@@ -189,7 +205,7 @@ export default {
         size: 1,
         outputType: "jpg",
         canScale: false,
-        autoCrop: true
+        autoCrop: true,
       },
       // 实时图片预览
       previews: {},
@@ -200,7 +216,7 @@ export default {
       // 获取图片显示路径
       getImageUrl: this.src,
       // 显示上传按钮
-      showUploadBtn: this.src ? false : true
+      showUploadBtn: this.src ? false : true,
     };
   },
   methods: {
@@ -219,25 +235,22 @@ export default {
         this.percentage += 10;
       }, 100);
 
-      const fileList = this.$refs.imgFile.files;
-
       // 上传裁剪图片
-      this.$refs.cropper.getCropBlob(data => {
-        data.lastModifiedDate = new Date();
+      this.$refs.cropper.getCropBlob((file) => {
+        file.lastModifiedDate = new Date();
 
-        var thisFile = Bmob.File(fileList[0].name, data);
-        this.uploadToBomb(thisFile)
-          .then(res => {
-            this.getImageUrl = res[0].url;
+        this.uploadFileDemo(file)
+          .then((res) => {
+            const {
+              data: { url },
+            } = res;
 
-            this.$emit("update:src", this.getImageUrl);
-            this.$emit("get-img-url", this.getImageUrl);
+            this.$emit("update:src", url);
+            this.$emit("get-img-url", url);
+
             this.hideCropModel();
           })
-          .catch(err => {
-            console.log(err);
-            this.hideCropModel();
-          });
+          .catch((err) => console.log(err));
       });
     },
     // 取消上传
@@ -264,7 +277,7 @@ export default {
           if (maxSize > 1024) overHint = Math.floor(maxSize / 1024) + "M";
           this.$Notice.warning({
             title: "超出文件大小限制",
-            desc: "文件 " + fileName + " 太大，不能超过 " + overHint
+            desc: "文件 " + fileName + " 太大，不能超过 " + overHint,
           });
           this.progressHide();
           return false;
@@ -276,7 +289,7 @@ export default {
         let file = fileList[0];
         // FileReader API ：获取图片的base64 代码 并预览
         let reader = new FileReader();
-        reader.onload = e => {
+        reader.onload = (e) => {
           let data;
           if (typeof e.target.result === "object") {
             // 把Array Buffer转化为blob 如果是base64不需要
@@ -315,18 +328,18 @@ export default {
         height: data.h + "px",
         overflow: "hidden",
         margin: "0 auto",
-        zoom: 0.6
+        zoom: 0.6,
       };
     },
     // 图片预览
     previewImg(type) {
       // 本页打开
       if (type === "blob") {
-        this.$refs.cropper.getCropBlob(data => {
+        this.$refs.cropper.getCropBlob((data) => {
           this.cropImgUrl = window.URL.createObjectURL(data);
         });
       } else {
-        this.$refs.cropper.getCropData(data => {
+        this.$refs.cropper.getCropData((data) => {
           this.cropImgUrl = data;
         });
       }
@@ -345,8 +358,8 @@ export default {
       //         test.location.href = data;
       //     })
       // }
-    }
-  }
+    },
+  },
 };
 </script>
 

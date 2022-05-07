@@ -52,8 +52,7 @@ export default [
     {
         url: "/api/user/login",
         method: "post",
-        response: config => handleMock(config, ({ config }) => {   
-            console.log(config);         
+        response: config => handleMock(config, ({ config }) => {
             const {
                 username,
                 password

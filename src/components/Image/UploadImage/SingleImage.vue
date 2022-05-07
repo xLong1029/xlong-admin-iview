@@ -101,15 +101,12 @@ export default {
   methods: {
     // 上传文件
     uploadFile(file) {
-      this.progressShow();
-
-      var thisFile = Bmob.File(file.name, file);
-      this.uploadToBomb(thisFile)
+      this.uploadFileDemo(file)
         .then(res => {
-          this.getImageUrl = res[0].url;
+          const { data: { url } } = res;
 
-          this.$emit("update:src", this.getImageUrl);
-          this.$emit("get-img-url", this.getImageUrl);
+          this.$emit("update:src", url);
+          this.$emit("get-img-url", url);
         })
         .catch(err => console.log(err));
     }
