@@ -96,7 +96,7 @@
     // 验证方法
     import Validate from 'common/validate.js'
     // Api方法
-    import Api from 'api/account_list.js'
+    import Api from 'api/account-list.js'
     // 城市联动选择
     import { CitySelect } from 'mixins'
     // 邮箱自动填充

@@ -14957,6 +14957,21 @@ export const articleTags = [
   }
 ]
 
+export const avatars = [
+  "https://img1.baidu.com/it/u=2383052339,2925526515&fm=26&fmt=auto",
+  "https://img0.baidu.com/it/u=977697838,3935105105&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+  "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+  "https://avatars1.githubusercontent.com/acmeid?v=3&s=30",
+  "https://avatars0.githubusercontent.com/MarvinWilliam?v=3&s=30",
+  "https://avatars1.githubusercontent.com/lovesmilesha?v=3&s=30",
+  "https://avatars1.githubusercontent.com/airclear?v=4&s=30",
+  "https://avatars0.githubusercontent.com/maxid?v=3&s=30",
+  "https://avatars2.githubusercontent.com/jiayeZhu?v=3&s=30",
+  "https://avatars1.githubusercontent.com/byends?v=3&s=30",
+  "https://avatars0.githubusercontent.com/seekwe?v=3&s=30",
+  "https://avatars1.githubusercontent.com/u/5109966?v=4&s=30"
+]
+
 export default [
   {
     url: "/api/list/job",

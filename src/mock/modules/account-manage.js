@@ -1,155 +1,229 @@
 import { handleMock, handleResponse } from "./../mock-handle.js";
-import { professionList, jobList } from "./list.js";
+import { professionList, jobList, companyNames, cityList } from "./list.js";
 import Mock from "mockjs";
 const Random = Mock.Random;
 
-const phonePrefixs = new Array("139", "138", "137", "136", "135", "134", "159", "158", "157", "150", "151", "152", "188", "187", "182", "183", "184", "178", "130", "131", "132", "156", "155", "186", "185", "176", "133", "153", "189", "180", "181", "177");
+const phonePrefixs = new Array(
+  "139",
+  "138",
+  "137",
+  "136",
+  "135",
+  "134",
+  "159",
+  "158",
+  "157",
+  "150",
+  "151",
+  "152",
+  "188",
+  "187",
+  "182",
+  "183",
+  "184",
+  "178",
+  "130",
+  "131",
+  "132",
+  "156",
+  "155",
+  "186",
+  "185",
+  "176",
+  "133",
+  "153",
+  "189",
+  "180",
+  "181",
+  "177"
+);
+const workExperience = new Array(
+  "",
+  '[{"date":"2001.3.1-至今","unitAndPost":"华蓝集团","witness":"小凳子"}]',
+  [
+    {
+      date: "2019.1.1-至今",
+      unitAndPost: "自然资源信息中心",
+      witness: "小六子",
+    },
+  ]
+);
 
 let account = Mock.mock({
-    // 10-20 个元素的数组
-    'list|10-20': [{
-        // 自增数，起始值为 1，每次增 1
-        'sid|+1': 1,
-        // 取数组当中的一个值
-        "gender|1": ["男", "女"],
-        // 随机email
-        'email': '@email',
-        'job|1': jobList.map(e => e.name),
-        // 一个 yyyy-MM-dd hh:mm:ss 的随机时间
-        'createdTime': '@date("yyyy-MM-dd hh:mm:ss")',
-        'enabledState|1': [1, -1],
-    }],
-})
+  // 10-20 个元素的数组
+  "list|10-20": [
+    {
+      // 自增数，起始值为 1，每次增 1
+      "sid|+1": 1,
+      // 取数组当中的一个值
+      "gender|1": ["男", "女"],
+      // 随机email
+      email: "@email",
+      "job|1": jobList.map((e) => e.name),
+      "companyName|1": companyNames.map((e) => e.name),
+      birthdate: null,
+      // 一个 yyyy-MM-dd hh:mm:ss 的随机时间
+      createdTime: '@date("yyyy-MM-dd hh:mm:ss")',
+      workTime: '@date("yyyy-MM-dd")',
+      "enabledState|1": [1, -1],
+      remark: "@paragraph()",
+      address: null,
+      domain: null,
+      city: "柳州市",
+      area: null,
+      province: "广西壮族自治区",
+    },
+  ],
+});
 
-account.list.forEach(e => {
-    // 随机guid
-    e.userId = Random.guid();
-    // 随机身份证
-    // e.idCard = Random.id();
-    // 随机人名
-    e.realname = Random.cname();
-    // 随机取2-4个不重复的值
-    e.profession = Random.pick(professionList.map(e => e.name), 2, 4);
-    // 随机手机号
-    e.mobile = phonePrefixs[Math.floor(Math.random() * phonePrefixs.length)] + Mock.mock(/\d{8}/);
+account.list.forEach((e) => {
+  // 随机guid
+  e.userId = Random.guid();
+  // 随机身份证
+  e.idCard = Random.id();
+  // 随机人名
+  e.realname = Random.cname();
+  // 随机取2-4个不重复的值
+  e.profession = Random.pick(
+    professionList.map((e) => e.name),
+    2,
+    4
+  );
+  // 随机手机号
+  e.mobile =
+    phonePrefixs[Math.floor(Math.random() * phonePrefixs.length)] +
+    Mock.mock(/\d{8}/);
+  // 工作经验
+  e.workExperience =
+    workExperience[Math.floor(Math.random() * workExperience.length)];
+  // 是否毕业
+  e.isGraduate = false;
+
+  const province = cityList[Math.floor(Math.random() * cityList.length)];
+  e.province = province.name;
+  const city =
+    province.childs[Math.floor(Math.random() * province.childs.length)];
+  e.city = city?.name;
+  const area = city?.childs[Math.floor(Math.random() * city.childs.length)];
+  e.area = area?.name;
 });
 
 export default [
-    {
-        url: "/api/account/list",
-        method: "get",
-        response: (config) =>
-            handleMock(config, () => {
-                const {
-                    params,
-                    pageNo,
-                    pageSize
-                } = config.query;
+  {
+    url: "/api/account/list",
+    method: "get",
+    response: (config) =>
+      handleMock(config, () => {
+        const { params, pageNo, pageSize } = config.query;
 
-                const { keyword, enabledState } = JSON.parse(params);
+        const page = parseInt(pageNo);
+        const size = parseInt(pageSize);
+        let list = JSON.parse(JSON.stringify(account.list));
 
-                const page = parseInt(pageNo);
-                const size = parseInt(pageSize);
-                let list = JSON.parse(JSON.stringify(account.list));
+        // 筛选
+        const filters = JSON.parse(params);
+        for(let i in filters){
+            if(filters[i]){
+                console.log(i, filters[i]);
+                list = list.filter(e => e[i] == filters[i]);
+            }
+        }
 
-                if (keyword) {
-                    list = list.filter(e => (e.userId == keyword || e.realname == keyword || e.mobile == keyword || e.email == keyword))
-                }
-                if (enabledState) {
-                    list = list.filter(e => e.enabledState == enabledState);
-                }
+        // 深克隆
+        const filterList = JSON.parse(JSON.stringify(list));
 
-                const filterList = JSON.parse(JSON.stringify(list))
+        list = list.slice((page - 1) * size, page * size);
 
-                list = list.slice((page - 1) * size, page * size)
+        return handleResponse(200, "success", {
+          list,
+          page: {
+            count: filterList.length,
+            page,
+            size,
+          },
+        });
+      }),
+  },
+  {
+    url: "/api/account/info",
+    method: "get",
+    response: (config) =>
+      handleMock(config, () => {
+        const { id } = config.query;
 
-                return handleResponse(200, "success", {
-                    list,
-                    page: {
-                        count: filterList.length,
-                        page,
-                        size,
-                    }
-                });
-            }),
-    },
-    {
-        url: "/api/account/info",
-        method: "get",
-        response: (config) =>
-            handleMock(config, () => {
-                const {
-                    id
-                } = config.query;
+        const user = account.list.find((e) => e.userId == id);
 
-                const user = account.list.find(e => e.userId == id);
+        return handleResponse(200, "success", user);
+      }),
+  },
+  {
+    url: "/api/account/add",
+    method: "post",
+    response: (config) =>
+      handleMock(config, () => {
+        let data = { ...config.body };
 
-                return handleResponse(200, "success", user);
-            }),
-    },
-    {
-        url: "/api/account/add",
-        method: "post",
-        response: (config) =>
-            handleMock(config, () => {
-                let data = {...config.body};
+        const user = account.list.find(
+          (e) => e.mobile == data.mobile || e.email == data.email
+        );
+        if (user) {
+          if (user.mobile == data.mobile) {
+            return handleResponse(400, "手机号码已存在");
+          }
+          if (user.email == data.email) {
+            return handleResponse(400, "电子邮箱");
+          }
+        }
 
-                const user = account.list.find(e => (e.mobile == data.mobile || e.email == data.email));
-                if(user){
-                    if(user.mobile == data.mobile){
-                        return handleResponse(400, "手机号码已存在");
-                    }
-                    if(user.email == data.email){
-                        return handleResponse(400, "电子邮箱");
-                    }
-                }
+        data.sid = account.list[account.list.length - 1].sid + 1;
+        data.userId = Random.guid();
+        data.createdTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
 
-                data.sid = account.list[account.list.length - 1].sid + 1;
-                data.userId = Random.guid();
-                data.createdTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
+        account.list.unshift(data);
+        return handleResponse(200, "success", data.userId);
+      }),
+  },
+  {
+    url: "/api/account/delete",
+    method: "post",
+    response: (config) =>
+      handleMock(config, () => {
+        const { ids } = config.body;
+        account.list = account.list.filter((e) => !ids.includes(e.userId));
 
-                account.list.unshift(data);
-                return handleResponse(200, "success", data.userId);
-            }),
-    },
-    {
-        url: "/api/account/delete",
-        method: "post",
-        response: (config) =>
-            handleMock(config, () => {
-                const { ids } = config.body;
-                account.list = account.list.filter(e => !ids.includes(e.userId))
+        return handleResponse(200, "success");
+      }),
+  },
+  {
+    url: "/api/account/edit",
+    method: "post",
+    response: (config) =>
+      handleMock(config, () => {
+        const data = { ...config.body };
 
-                return handleResponse(200, "success");
-            }),
-    },
-    {
-        url: "/api/account/edit",
-        method: "post",
-        response: (config) =>
-            handleMock(config, () => {
-                const data = {...config.body};
-                
-                const user = account.list.find(e => ((e.mobile == data.mobile || e.email == data.email) && e.userId != data.userId));
+        const user = account.list.find(
+          (e) =>
+            (e.mobile == data.mobile || e.email == data.email) &&
+            e.userId != data.userId
+        );
 
-                if(user){
-                    if(user.mobile == data.mobile){
-                        return handleResponse(400, "手机号码已存在，请修改");
-                    }
-                    if(user.email == data.email){
-                        return handleResponse(400, "电子邮箱，请修改");
-                    }
-                }
+        if (user) {
+          if (user.mobile == data.mobile) {
+            return handleResponse(400, "手机号码已存在，请修改");
+          }
+          if (user.email == data.email) {
+            return handleResponse(400, "电子邮箱，请修改");
+          }
+        }
 
-                const index = account.list.findIndex(e => (e.userId == data.userId));
+        const index = account.list.findIndex((e) => e.userId == data.userId);
 
-                if(index >= 0){
-                    account.list[index] = {...config.body};
-                    return handleResponse(200, "success");
-                }
-                else{
-                    return handleResponse(404, "找不到用户信息");
-                }
-            }),
-    }
+        if (index >= 0) {
+          account.list[index] = { ...config.body };
+          return handleResponse(200, "success");
+        } else {
+          return handleResponse(404, "找不到用户信息");
+        }
+      }),
+  },
 ];

@@ -4,7 +4,7 @@
     <div class="m-query-form">
       <Form ref="queryForm" :model="queryForm" :rules="validate">
         <Form-item class="query-item">
-          <Input v-model="queryForm.id" placeholder="用户编号" />
+          <Input v-model="queryForm.userId" placeholder="用户编号" />
         </Form-item>
         <Form-item prop="mobile" class="query-item">
           <Input v-model="queryForm.mobile" placeholder="手机号码" />
@@ -152,7 +152,7 @@ import Common from "common/common.js";
 // 验证方法
 import Validate from "common/validate.js";
 // Api方法
-import Api from "@/api/account_list.js";
+import Api from "@/api/account-list.js";
 import PublicApi from "@/api/public.js";
 // 邮箱自动填充
 import { EmailComplete } from "mixins";
@@ -249,7 +249,7 @@ export default {
         },
         {
           title: "用户编号",
-          key: "id",
+          key: "userId",
           align: "center",
         },
         {
@@ -284,7 +284,7 @@ export default {
         },
         {
           title: "创建时间",
-          key: "createTime",
+          key: "createdTime",
           align: "center",
         },
         {
@@ -365,24 +365,6 @@ export default {
 
       // 获取用户列表
       this.getTableList();
-    },
-    // 设置列表数据
-    setListData(result) {
-      if (result.length > 0) {
-        this.listData = result.map((item) => {
-          return {
-            id: item.objectId,
-            realname: item.realname,
-            gender: item.gender,
-            mobile: item.mobile,
-            email: item.email,
-            job: item.job,
-            province: item.province,
-            createTime: item.createdAt,
-            enabledState: item.enabledState,
-          };
-        });
-      } else this.listData = [];
     },
   },
 };

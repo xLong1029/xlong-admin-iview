@@ -1,21 +1,7 @@
 import { handleMock, handleResponse } from "./../mock-handle.js";
 import Mock from "mockjs";
+import { avatars } from "./list.js";
 const Random = Mock.Random;
-
-const avatars = [
-    "https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar",
-    "https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar",
-    "https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar",
-    "https://avatars1.githubusercontent.com/acmeid?v=3&s=30",
-    "https://avatars0.githubusercontent.com/MarvinWilliam?v=3&s=30",
-    "https://avatars1.githubusercontent.com/lovesmilesha?v=3&s=30",
-    "https://avatars1.githubusercontent.com/airclear?v=4&s=30",
-    "https://avatars0.githubusercontent.com/maxid?v=3&s=30",
-    "https://avatars2.githubusercontent.com/jiayeZhu?v=3&s=30",
-    "https://avatars1.githubusercontent.com/byends?v=3&s=30",
-    "https://avatars0.githubusercontent.com/seekwe?v=3&s=30",
-    "https://avatars1.githubusercontent.com/u/5109966?v=4&s=30"
-  ]
 
 const contents = [
     "为啥一定要 nuxt.js 呢，隐藏 modal 的 footer 有个属性",
