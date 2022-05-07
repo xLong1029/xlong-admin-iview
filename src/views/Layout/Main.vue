@@ -81,7 +81,6 @@ export default {
 .g-content {
   height: calc(~"100vh - 135px"); // 旧版less的运算方式和calc发送了冲突，需要改写法
   border-radius: 4px;
-  padding: 15px;
 }
 
 .g-main {
@@ -89,6 +88,7 @@ export default {
   background: #fff;
   overflow-y: auto;
   margin: 15px;
+  padding: 15px;
   margin-bottom: 0;
 }
 

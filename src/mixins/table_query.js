@@ -77,7 +77,6 @@ export default {
     },
     // 获取表格列表
     getTableList(query) {
-      this.listData = [];
       this.pageLoading = true;
       // 是否查询状态
       this.isQuery = query ? true : false;
@@ -100,7 +99,6 @@ export default {
       this.apiGetList()
         .then((res) => {
           this.pageLoading = false;
-          console.log(res);
 
           const {
             code,
@@ -109,12 +107,15 @@ export default {
           } = res;
           if (code == 200) {
             // 设置数据
-            this.listData = list;
+            this.setListData(list);
             // 设置页码
             this.setPage(page);
           } else this.$Message.warning(message);
         })
         .catch((err) => console.log(err));
+    },
+    setListData(list) {
+      this.listData = list || [];
     },
   },
 };

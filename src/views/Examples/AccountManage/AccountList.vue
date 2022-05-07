@@ -180,11 +180,11 @@ export default {
     },
     // 启用操作接口
     apiEnable() {
-      return () => Api.EnableAcc({ enabledState: 1 }, this.selectList);
+      return () => Api.EnableAcc(1, this.selectList);
     },
     // 禁用操作接口
     apiDisable() {
-      return () => Api.EnableAcc({ enabledState: -1 }, this.selectList);
+      return () => Api.EnableAcc(-1, this.selectList);
     },
   },
   data() {
@@ -369,6 +369,12 @@ export default {
       // 获取用户列表
       this.getTableList();
     },
+    setListData(list){
+      this.listData = list.map(e => {
+        e.id = e.userId;
+        return e;
+      });
+    }
   },
 };
 </script>

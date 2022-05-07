@@ -127,10 +127,14 @@ export default [
           if (filters[i]) {
             switch (i) {
               case "sTime":
-                list = list.filter((e) => CompareDate(filters[i],e.createdTime));
+                list = list.filter((e) =>
+                  CompareDate(filters[i], e.createdTime)
+                );
                 break;
               case "eTime":
-                list = list.filter((e) => CompareDate(e.createdTime,filters[i]));
+                list = list.filter((e) =>
+                  CompareDate(e.createdTime, filters[i])
+                );
                 break;
               default:
                 list = list.filter((e) => e[i] == filters[i]);
@@ -233,6 +237,23 @@ export default [
         } else {
           return handleResponse(404, "找不到用户信息");
         }
+      }),
+  },
+  {
+    url: "/api/account/enable",
+    method: "post",
+    response: (config) =>
+      handleMock(config, () => {
+        const { ids } = config.body;
+        const { state } = config.query;
+
+        account.list.forEach((e) => {
+          if (ids.includes(e.userId)) {
+            e.enabledState = state;
+          }
+        });
+
+        return handleResponse(200, "success");
       }),
   },
 ];
