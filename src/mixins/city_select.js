@@ -5,7 +5,7 @@
  * 版本 : version 2.0
  */
 // Json数据
-import JsonCity from 'mock/city.json'
+import Api from "@/api/public.js";
 
 export default {
 	data() {
@@ -31,27 +31,35 @@ export default {
         },
         // 获取本地城市列表
         getCityList(){
-            this.cityList = JsonCity.map(province => {
-                let p = {
-                    value: province.name,
-                    label: province.name
-                };
-                p.children = province.childs.map(city => {
-                    let c = {
-                        value: city.name,
-                        label: city.name
+            Api.GetCityList()
+            .then((res) => {
+              const { code, data, message } = res;
+              if (code === 200) {
+                this.cityList = data.map(province => {
+                    let p = {
+                        value: province.name,
+                        label: province.name
                     };
-                    c.children = city.childs.map(area => {
-                        return {
-                            value: area.name,
-                            label: area.name
+                    p.children = province.childs.map(city => {
+                        let c = {
+                            value: city.name,
+                            label: city.name
                         };
+                        c.children = city.childs.map(area => {
+                            return {
+                                value: area.name,
+                                label: area.name
+                            };
+                        })
+                        return c;
                     })
-                    return c;
-                })
-                return p;
-            });
-            //console.log(this.cityList);
+                    return p;
+                });
+              } else {
+                this.$Message.warning(message);
+              }
+            })
+            .catch((err) => console.log(err));
         }
 	}
 }

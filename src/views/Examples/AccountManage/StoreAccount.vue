@@ -102,7 +102,6 @@
     // 邮箱自动填充
     import { EmailComplete } from 'mixins'
     // Json数据
-    import JsonCity from 'mock/city.json'
     import JsonData from 'mock/data.json'
 
     export default {
