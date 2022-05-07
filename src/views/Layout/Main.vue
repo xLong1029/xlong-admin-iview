@@ -9,9 +9,11 @@
       <MenuTop></MenuTop>
       <LocatePath></LocatePath>
       <!-- 页面视图 -->
-      <transition name="fade" mode="out-in">
+      <div class="g-main">
+        <transition name="fade" mode="out-in">
         <router-view></router-view>
       </transition>
+      </div>
       <!-- 项目版权 -->
       <div class="copyright">2022-2032 &copy; XLONG JIALIDUN</div>
     </div>
@@ -28,15 +30,14 @@ import { mapGetters } from "vuex";
 export default {
   components: { MenuTop, Sidebar, LocatePath },
   computed: {
-    ...mapGetters(['sidebarSpan', 'sidebarMenu', 'breadcrumb' ])
+    ...mapGetters(["sidebarSpan", "sidebarMenu", "breadcrumb"]),
   },
   data() {
-    return {
-    };
-  }
+    return {};
+  },
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .g-layout {
   position: relative;
   min-width: 1000px;
@@ -55,7 +56,7 @@ export default {
   -o-transition: width 0.2s ease-in-out; /* Opera */
 }
 .layout-right {
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
   padding-left: 200px;
   transition: padding-left 0.2s ease-in-out;
@@ -78,28 +79,26 @@ export default {
 }
 
 .g-content {
-  margin: 15px 15px 0;
-  background: #fff;
+  height: calc(~"100vh - 135px"); // 旧版less的运算方式和calc发送了冲突，需要改写法
   border-radius: 4px;
   padding: 15px;
-  padding-bottom: 55px;
-  position: relative;
 }
 
-.content-main {
-  padding: 10px;
+.g-main {
+  height: calc(~"100vh - 135px"); // 旧版less的运算方式和calc发送了冲突，需要改写法
+  background: #fff;
+  overflow-y: auto;
+  margin: 15px;
+  margin-bottom: 0;
 }
 
 .copyright {
-  position: absolute;
   width: 100%;
   bottom: 0;
-  text-indent: 200px;
-  margin-left: -200px;
   text-align: center;
   height: 40px;
   line-height: 40px;
   color: #9ea7b4;
-  background: #eee;
+  background: #f5f5f5;
 }
 </style>

@@ -116,4 +116,8 @@
     .m-content{
         padding: 0 20px 20px 20px;
     }
+
+    .g-content{
+        padding: 15px;
+    }
 </style>

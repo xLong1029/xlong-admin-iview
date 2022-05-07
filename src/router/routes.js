@@ -94,7 +94,7 @@ export default [
           {
             path: '/Components/Sidebar',
             name: 'Sidebar',
-            component: () => import('views/Components/Sidebar/Sidebar'),
+            component: () => import('views/Components/Sidebar/index'),
             redirect: '/Components/Sidebar/PageA',
             meta: {
               title: '侧边栏',
