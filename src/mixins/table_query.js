@@ -40,13 +40,13 @@ export default {
     // },
     // 获取查询开始日期
     getStartDate(date) {
-      console.log("get start date:" + date);
-      this.queryForm.sTime = date;
+      const sTime = date + " 00:00:00";
+      console.log("get start date:" + sTime);
     },
     // 获取查询结束日期
     getEndDate(date) {
-      console.log("get end date:" + date);
-      this.queryForm.eTime = date;
+      const eTime = date + " 23:59:59";
+      console.log("get end date:" + eTime);
     },
     // 查询
     // form:表单对象， getValid:是否需要验证表单
@@ -109,7 +109,7 @@ export default {
           } = res;
           if (code == 200) {
             // 设置数据
-			this.listData = list;
+            this.listData = list;
             // 设置页码
             this.setPage(page);
           } else this.$Message.warning(message);
