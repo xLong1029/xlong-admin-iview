@@ -41,12 +41,12 @@ export default {
 		// 获取查询开始日期
 		getStartDate(date) {
 			console.log('get start date:' + date);
-			this.queryForm.sTime = date;
+			// this.queryForm.sTime = date;
 		},
 		// 获取查询结束日期
 		getEndDate(date) {
 			console.log('get end date:' + date);
-			this.queryForm.eTime = date;
+			// this.queryForm.eTime = date;
 		},
 		// 查询
 		// form:表单对象， getValid:是否需要验证表单

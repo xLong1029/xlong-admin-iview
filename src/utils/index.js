@@ -282,16 +282,11 @@ export function StrToArr(string, s) {
  * @param {*} dateTwo 第二个日期
  */
 export function CompareDate (dateOne, dateTwo) {
-  // 字符串
-  if(typeof(dateOne) == 'string' && typeof(dateTwo) == 'string'){
-      return ((new Date(dateOne.replace(/-/g,"\/"))) <= (new Date(dateTwo.replace(/-/g,"\/"))));
-  }
-  // DATE对象
-  else if(typeof(dateOne) == 'object' && typeof(dateTwo) == 'object') return (dateOne <= dateTwo);
-  else {
-      console.log('日期比较格式不统一');
-      return false;
-  }
+  // console.log(dateOne, typeof(dateOne), dateTwo, console.log(typeof(dateTwo)))
+  const CompareDateOne = typeof(dateOne) == 'string' ? new Date(dateOne.replace(/-/g,"\/")) : dateOne;
+  const CompareDateTwo = typeof(dateTwo) == 'string' ? new Date(dateTwo.replace(/-/g,"\/")) : dateTwo;
+
+  return CompareDateOne <= CompareDateTwo;
 }
 /**
  * 日期设置--用于iView的DatePicker的daterange类型数据配置，和Vue版本冲突，Vue2.4版本以上不可用
