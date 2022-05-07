@@ -26,19 +26,19 @@ export default {
       method: "get",
     });
   },
-   /**
+  /**
    * 获取职位列表
    */
-    GetJobList: () => {
-      return request({
-        url: "/api/list/job",
-        method: "get",
-      });
-    },
+  GetJobList: () => {
+    return request({
+      url: "/api/list/job",
+      method: "get",
+    });
+  },
   /**
    * 获取省市列表
    */
-   GetCityList: () => {
+  GetCityList: () => {
     return request({
       url: "/api/list/city",
       method: "get",
@@ -50,6 +50,15 @@ export default {
   GetProfessionList: () => {
     return request({
       url: "/api/list/profession",
+      method: "get",
+    });
+  },
+  /**
+   * 获取文章标签列表
+   */
+  GetTagList: () => {
+    return request({
+      url: "/api/list/articleTags",
       method: "get",
     });
   },

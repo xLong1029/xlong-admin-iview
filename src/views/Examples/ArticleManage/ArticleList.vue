@@ -171,24 +171,6 @@
             ]);
             // 获取板块列表
             this.getTableList();
-        },
-        methods: {
-            // 设置列表数据
-            setListData(result){
-                if(result.length > 0){
-                    this.listData = result.map(item => {
-                        return {
-                            id: item.objectId,
-                            title: item.title,
-                            dataFrom: item.dataFrom,
-                            tags: item.tags,
-                            createdTime: item.createdAt,
-                            updateTime: item.updatedAt
-                        }
-                    });
-                }
-                else this.listData = [];
-            }
         }
     }
 </script>

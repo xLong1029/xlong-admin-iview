@@ -234,6 +234,7 @@ export default [
 
         if (index >= 0) {
           account.list[index] = { ...config.body };
+          account.list[index].updateTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
           return handleResponse(200, "success");
         } else {
           return handleResponse(404, "找不该用户");

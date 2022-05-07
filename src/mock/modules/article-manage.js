@@ -186,10 +186,10 @@ export default [
     response: (config) =>
       handleMock(config, () => {
         const { id } = config.query;
-        const user = article.list.find((e) => e.id == id);
+        const getArticle = article.list.find((e) => e.id == id);
 
-        return user
-          ? handleResponse(200, "success", user)
+        return getArticle
+          ? handleResponse(200, "success", getArticle)
           : handleResponse(404, "找不该文章");
       }),
   },
@@ -199,18 +199,6 @@ export default [
     response: (config) =>
       handleMock(config, () => {
         let data = { ...config.body };
-
-        const user = article.list.find(
-          (e) => e.mobile == data.mobile || e.email == data.email
-        );
-        if (user) {
-          if (user.mobile == data.mobile) {
-            return handleResponse(400, "手机号码已存在");
-          }
-          if (user.email == data.email) {
-            return handleResponse(400, "电子邮箱");
-          }
-        }
 
         data.sid = article.list[article.list.length - 1].sid + 1;
         data.id = Random.guid();
@@ -242,6 +230,7 @@ export default [
         const index = article.list.findIndex((e) => e.id == data.id);
         if (index >= 0) {
           article.list[index] = { ...config.body };
+          article.list[index].updateTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
           return handleResponse(200, "success");
         } else {
           return handleResponse(404, "找不该文章");

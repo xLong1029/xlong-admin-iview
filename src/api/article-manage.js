@@ -55,6 +55,18 @@ export default {
     });
   },
   /**
+   * 新增文章
+   *
+   * @param {*} data 新增的参数对象
+   */
+   AddArticle: (data) => {
+    return request({
+      url: `/api/article/add`,
+      method: "post",
+      data,
+    });
+  },
+  /**
    * 编辑文章
    *
    * @param {*} data 修改的参数对象
@@ -66,32 +78,4 @@ export default {
       data,
     });
   },
-  // // 删除文章
-  // // ids：需要删除的对象的objectId
-  // DeleteArtc: (ids) => {
-  //     return new Promise((resolve, reject) => {
-  //         BmobServer.DelMore('Article', ids).then(res => resolve(res)).catch(err => reject(err))
-  //     });
-  // },
-  // // 获取文章详情
-  // // id：查询的objectId
-  // GetArtcDetail: (id) => {
-  //     return new Promise((resolve, reject) => {
-  //         BmobServer.GetOne('Article', id).then(res => resolve(res)).catch(err => reject(err))
-  //     });
-  // },
-  // // 新增文章
-  // // params: 新增的参数对象
-  // AddArticle: (params) => {
-  //     return new Promise((resolve, reject) => {
-  //         BmobServer.AddOne('Article', params).then(res => resolve(res)).catch(err => reject(err))
-  //     });
-  // },
-  // // 编辑文章
-  // // params: 修改的参数对象, id：查询的objectId
-  // EditArticle: (params, id) => {
-  //     return new Promise((resolve, reject) => {
-  //         BmobServer.EditOne('Article', id, params).then(res => resolve(res)).catch(err => reject(err))
-  //     });
-  // }
 };
