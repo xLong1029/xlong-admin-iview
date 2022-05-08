@@ -2,12 +2,11 @@
 
 ## 介绍
 
-xlong-admin-iview 是一套基于 Vue + iView +Bmob 开发的单页面客户端渲染管理后台系统示例。  
+xlong-admin-iview 是一套基于 Vue + iView + Mock 开发的单页面客户端渲染管理后台系统示例。  
 
-温馨提示：  
-1. 因我的Bmob用的是开发版套餐（2022 年 5 月 5 日起，Bomb已对开发版应用创建时间超过 12 个月的停止免费服务），所有查询只有全匹配查询，无模糊查询，请根据自行需求进行修改。
-2. 部署到github的站点是https的，上传到Bmob的图片地址是http，在线上项目浏览器会报Mixed Content错误并且无法显示图片，本地运行项目无此问题，建议使用本地运行查看效果。
-3. 如果要测试删除功能，请自行添加再删除，请保留我原有的测试数据
+温馨提示：  
+1. 原来使用Bmob开发的版本用的是开发版套餐（2022 年 5 月 5 日起，Bomb已对开发版应用创建时间超过 12 个月的停止免费服务），因为穷不想充值，所以不打算继续维护了。  
+2. Bmob版传送门：[develop-vite-bmob](https://github.com/xLong1029/xlong-admin-iview/tree/develop-bmob)
 
 *该项目仅作学习参考，请勿商用
 
@@ -41,20 +40,21 @@ xlong-admin-iview 是一套基于 Vue + iView +Bmob 开发的单页面客户端�
     更新iView至4.x版本(即ViewUI)，并通过vue-cli4.0重构项目；  
     优化"侧边栏"组件，轻减代码，修复部分BUG；  
     优化“图片上传”组件；  
-    更新“可编辑表格”组件样式  
+    更新“可编辑表格”组件样式
+    
+3. V4.1版本
 
-## 项目说明
+    使用Mock模拟请求；  
+    修改界面布局，固定头部，仅内容区域滚动；
+    修复部分BUG；
 
-#### 1. 前后端分离开发模式
-- **前端**：Vue + Webpack+ iView
-- **后端**：Bmob
-
-#### 2. 项目用到技术、框架与插件
+## 项目用到技术、框架与插件
 [Vue.js](https://github.com/vuejs)  
 [webpack](https://github.com/webpack)  
 [iView](https://github.com/iview/iview)  
 [Tinymce](https://github.com/tinymce/tinymce)  
 [vue-awesome-swiper](https://github.com/surmon-china/vue-awesome-swiper)  
+[Mock](https://github.com/nuysoft/Mock) 
 
 ## 部分项目运行截图
 * 登录界面

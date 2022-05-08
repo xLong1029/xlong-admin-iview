@@ -106,7 +106,7 @@
 // 组件
 import Loading from "components/Common/Loading";
 import SingleImage from "components/Image/UploadImage/SingleImage";
-// 通用JS
+// 工具
 import { FormatDate, SetDefaultPic, DeepClone } from "utils";
 // Api方法
 import Api from "api/product-manage.js";
