@@ -31,7 +31,6 @@ export function handelRequestError(error) {
 
 export function configSetting(config) {
     // config.headers["authorization"] = "bearer " + getToken();
-    // console.log(config);
     return config;
 }
 

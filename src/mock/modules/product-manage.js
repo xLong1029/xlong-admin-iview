@@ -127,7 +127,6 @@ export default [
     method: "post",
     response: (config) =>
       handleMock(config, () => {
-        console.log(config);
         const data = { ...config.body };
 
         const index = product.list.findIndex((e) => e.id == data.id);
@@ -164,8 +163,6 @@ export default [
       handleMock(config, () => {
         let data = { ...config.body };
 
-        console.log(data);
-
         data.sid = cases.list[cases.list.length - 1].sid + 1;
         data.id = Random.guid();
         data.createTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
@@ -180,7 +177,6 @@ export default [
     response: (config) =>
       handleMock(config, () => {
         const { ids } = config.body;
-        console.log(ids);
         cases.list = cases.list.filter((e) => !ids.includes(e.id));
 
         return handleResponse(200, "success");

@@ -225,7 +225,6 @@ export default [
     method: "post",
     response: (config) =>
       handleMock(config, () => {
-        console.log(config);
         const data = { ...config.body };
 
         const index = article.list.findIndex((e) => e.id == data.id);

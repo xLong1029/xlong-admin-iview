@@ -167,7 +167,6 @@ export default {
     },
     // 获取选中行数据
     getSelectRowData(list, row){
-      console.log(list, row);
       row.isCheck ? this.$Message.success(`编号为${row.id}的已选中！`) : this.$Message.success(`编号为${row.id}的已取消选中！`);
     },
     // 获取全选列表

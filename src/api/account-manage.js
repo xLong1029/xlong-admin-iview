@@ -84,7 +84,6 @@ export default {
    * @param {*} ids 需要更新的对象的Id
    */
   EnableAcc: (state, ids) => {
-    console.log(state, ids);
     return request({
       url: `/api/account/enable`,
       method: "post",

@@ -119,7 +119,6 @@ export default {
         if (valid) {
           Api.Login(this.loginForm)
             .then((res) => {
-              console.log(res);
               const { code, data } = res;
               if (code == 200) {
                 // token存cookie

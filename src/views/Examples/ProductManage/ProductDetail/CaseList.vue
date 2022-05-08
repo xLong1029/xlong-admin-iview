@@ -193,7 +193,6 @@ export default {
         .then((res) => {
           const { code, data, message } = res;
           if (code == 200) {
-            console.log(data);
             this.caseList = data || [];
             // 获取第一个案例内容
             this.showThisCase(this.caseIndex);
@@ -307,7 +306,6 @@ export default {
     },
     // 或获取上传图片
     getImgUrl(url) {
-      console.log(url);
       this.paramsForm.img = url;
     },
   },

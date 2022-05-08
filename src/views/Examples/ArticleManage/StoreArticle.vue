@@ -178,7 +178,6 @@ export default {
            const { code, data, message } = res;
           if (code == 200) {
             this.infoForm = data;
-            console.log(data);
           } else this.$Message.warning(message);
         })
         .catch((err) => console.log(err));

@@ -434,7 +434,6 @@ export default {
     // 获取企业名称改变值
     getCompanyName(value) {
       this.infoForm.companyName = value;
-      console.log(value);
     },
   },
 };
