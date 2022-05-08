@@ -90,6 +90,9 @@ xlong-admin-iview 是一套基于 Vue + iView + Mock 开发的单页面客户端
 
 ```
 │  .browserslistrc // 浏览器可访问配置
+│  .env.development
+│  .env.production
+│  .env.staging
 │  .gitignore
 │  package.json
 │  babel.config.js // babel配置
