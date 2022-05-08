@@ -44,9 +44,10 @@ xlong-admin-iview 是一套基于 Vue + iView + Mock 开发的单页面客户端
     
 3. V4.1版本
 
-    使用Mock模拟请求；  
+    因为穷，改用Mock模拟请求；
+    新增环境配置；
     修改界面布局，固定头部，仅内容区域滚动；
-    修复部分BUG；
+    修复了一堆BUG
 
 ## 项目用到技术、框架与插件
 [Vue.js](https://github.com/vuejs)  
@@ -165,8 +166,9 @@ xlong-admin-iview 是一套基于 Vue + iView + Mock 开发的单页面客户端
 3. 访问地址：http://localhost:6060
 
 ## 项目打包
-(请将vue.config.js中publicPath改成你的项目)
-> npm run build
+(请将vue.config.js中publicPath改成你的项目，以下打包命令根据环境配置选用)
+> npm run build:prod
+> npm run build:stage
 
 ## 作者联系方式
 
