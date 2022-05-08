@@ -1,5 +1,5 @@
 import routerMap from '@/router/routes.js';
-import { CopyArr } from 'utils';
+import { DeepClone } from 'utils';
 
 // 判断用户身份是否有权限访问该路由
 function hasPermission(role, route) {
@@ -17,7 +17,7 @@ const permission = {
 		// 动态生成侧边栏菜单
 		SetSidebarMenu({ commit }, role) {
 			// 为了防止routerMap跟着改变，使用数组深克隆
-			let mainRouterMap = CopyArr(routerMap.find(v => v.name === 'Main'));
+			let mainRouterMap = DeepClone(routerMap.find(v => v.name === 'Main'));
 
 			// 筛选出有权限的路由
 			let accessedRouters = mainRouterMap.children.filter(v => {

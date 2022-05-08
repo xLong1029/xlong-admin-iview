@@ -1,6 +1,6 @@
 import { handleMock, handleResponse } from "./../mock-handle.js";
 import { professionList, jobList, companyNames, cityList,avatars } from "./list.js";
-import { CompareDate } from "utils";
+import { CompareDate, DeepClone } from "utils";
 import Mock from "mockjs";
 const Random = Mock.Random;
 
@@ -122,7 +122,7 @@ export default [
         const page = parseInt(pageNo);
         const size = parseInt(pageSize);
         
-        let list = JSON.parse(JSON.stringify(account.list));
+        let list = DeepClone(account.list);
 
         // 筛选
         const filters = JSON.parse(params);

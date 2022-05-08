@@ -79,6 +79,7 @@ export default {
 }
 
 .g-content {
+  position: relative;
   height: calc(~"100vh - 135px"); // 旧版less的运算方式和calc发送了冲突，需要改写法
   border-radius: 4px;
 }

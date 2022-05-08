@@ -55,7 +55,6 @@
             }
         },
         created() {
-            // 获取产品详情
             this.getDetail();
         },
         methods: {
@@ -64,14 +63,14 @@
                 this.pageLoading = true;
                 Api.GetProdInfo(this.productId)
                 .then(res => {
-                    // 取消页面加载
                     this.pageLoading = false;
-                    const result = res.data;
-                    if(res.code == 200){
+
+                    const { code, data, message } =res;
+                    if(code == 200){
                         // 设置数据
-                        this.infoForm = result;
+                        this.infoForm = data;
                     }
-                    else this.$Message.warning(res.msg);
+                    else this.$Message.warning(message);
                 })
                 .catch(err => console.log(err))
             },
@@ -83,15 +82,16 @@
                         this.pageLoading = true;
 
                         // 修改产品信息
-                        Api.EditProduct(this.infoForm, this.productId)
+                        Api.EditProduct(this.infoForm)
                         .then(res => {
-                            // 取消页面加载
                             this.pageLoading = false;
-                            if(res.code == 200){
+
+                            const { code, message } = res;
+                            if(code == 200){
                                 this.$Message.success('信息修改成功!');
                                 this.getDetail();
                             }
-                            else this.$Message.warning(res.msg);
+                            else this.$Message.warning(message);
                         })
                         .catch(err => console.log(err))
                     }

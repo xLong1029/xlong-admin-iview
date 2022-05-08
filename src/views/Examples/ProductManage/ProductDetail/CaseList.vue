@@ -9,7 +9,7 @@
           <!-- 轮播图列表 -->
           <swiper-slide v-for="(item, index) in caseList" :key="index">
             <div
-              :class="caseIndex === index ? 'swiper-active': 'swiper-div'"
+              :class="caseIndex === index ? 'swiper-active' : 'swiper-div'"
               @click="showThisCase(index)"
             >
               <img :src="item.img" @error="notFoundPic" />
@@ -39,6 +39,10 @@
           <span class="item-info">{{ caseInfo.brand }}</span>
         </div>
         <div class="case-cont-item">
+          <span class="item-label">创建时间：</span>
+          <span class="item-info">{{ caseInfo.createTime }}</span>
+        </div>
+        <div class="case-cont-item">
           <span class="item-label">更新时间：</span>
           <span class="item-info">{{ caseInfo.updateTime }}</span>
         </div>
@@ -51,27 +55,48 @@
       </div>
     </div>
     <!-- 新增窗口-->
-    <Modal v-model="showModal" width="500" @on-cancel="closeModal('paramsForm')">
+    <Modal
+      v-model="showModal"
+      width="500"
+      @on-cancel="closeModal('paramsForm')"
+    >
       <p slot="header">
-        <span v-text="paramsForm.title == '' ? '新增版块' : '编辑版块'"></span>
+        <span v-text="paramsForm.title == '' ? '新增案例' : '编辑案例'"></span>
       </p>
       <div>
-        <Form ref="paramsForm" :model="paramsForm" :rules="validate" :label-width="100">
+        <Form
+          ref="paramsForm"
+          :model="paramsForm"
+          :rules="validate"
+          :label-width="100"
+        >
           <Form-item label="案例标题：" prop="title">
             <Input v-model="paramsForm.title" placeholder="请输入案例标题" />
           </Form-item>
           <Form-item label="案例图片：" prop="img">
             <!-- 组件-图片上传-单图片显示 -->
-            <SingleImage :src.sync="paramsForm.img" :preview="true" />
+            <SingleImage
+              :src.sync="paramsForm.img"
+              :preview="true"
+              @get-img-url="getImgUrl"
+            />
           </Form-item>
           <Form-item label="品牌名称：" prop="brand">
-            <Input v-model="paramsForm.brand" placeholder="请输入案例品牌名称" />
+            <Input
+              v-model="paramsForm.brand"
+              placeholder="请输入案例品牌名称"
+            />
           </Form-item>
         </Form>
       </div>
       <div slot="footer">
         <Button size="large" @click="closeModal('paramsForm')">取消</Button>
-        <Button type="primary" size="large" @click="operation('paramsForm', operateType)">确定</Button>
+        <Button
+          type="primary"
+          size="large"
+          @click="operation('paramsForm', operateType)"
+          >确定</Button
+        >
       </div>
     </Modal>
   </div>
@@ -82,8 +107,7 @@
 import Loading from "components/Common/Loading";
 import SingleImage from "components/Image/UploadImage/SingleImage";
 // 通用JS
-import Common from "common/common.js";
-import { FormatDate, SetDefaultPic } from "utils";
+import { FormatDate, SetDefaultPic, DeepClone } from "utils";
 // Api方法
 import Api from "api/product-manage.js";
 // 轮播图样式
@@ -96,14 +120,14 @@ export default {
     // 设置默认值
     productId: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   computed: {
     // 获取当前swiper实例对象
     swiper() {
       return this.$refs.caseList.swiper;
-    }
+    },
   },
   data() {
     return {
@@ -116,7 +140,7 @@ export default {
         nextButton: ".swiper-button-next",
         slidesPerView: 5,
         spaceBetween: 30,
-        freeMode: true
+        freeMode: true,
       },
       // 当前显示的案例索引
       caseIndex: 0,
@@ -131,26 +155,24 @@ export default {
         img: "",
         title: "",
         brand: "",
-        updateTime: ""
+        updateTime: "",
       },
       // 参数表单
       paramsForm: {
         img: "",
         title: "",
         brand: "",
-        updateTime: ""
       },
       // 验证规则
       validate: {
         title: [
-          { required: true, message: "案例名称不能为空", trigger: "blur" }
-        ]
-      }
+          { required: true, message: "案例标题不能为空", trigger: "blur" },
+        ],
+      },
     };
   },
   created() {
-    // 获取案例列表
-    this.getCaseList(this.productId);
+    this.getCaseList();
   },
   mounted() {
     // 输出swiper实例对象
@@ -165,30 +187,25 @@ export default {
     swiperNext() {
       this.swiper.slideNext();
     },
-    // 通过产品ID获取案例
-    getCaseList(id) {
+    // 获取案例列表
+    getCaseList() {
       Api.GetCaseList(this.productId)
-        .then(res => {
-          if (res.code == 200) {
-            const result = res.data;
-            // 设置案例列表
-            if (res.data == undefined) this.caseList = [];
-            else {
-              this.caseList = res.data;
-              // 获取第一个案例内容
-              this.showThisCase(this.caseIndex);
-            }
-          } else console.log(res);
+        .then((res) => {
+          const { code, data, message } = res;
+          if (code == 200) {
+            console.log(data);
+            this.caseList = data || [];
+            // 获取第一个案例内容
+            this.showThisCase(this.caseIndex);
+          } else this.$Message.success(message);
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     },
     // 显示案例内容
     showThisCase(index) {
+      if (!this.caseList || !this.caseList.length) return false;
       this.caseIndex = index;
-      this.caseInfo.title = this.caseList[index].title;
-      this.caseInfo.brand = this.caseList[index].brand;
-      this.caseInfo.updateTime = this.caseList[index].updateTime;
-      this.caseInfo.img = this.caseList[this.caseIndex].img;
+      this.caseInfo = DeepClone(this.caseList[this.caseIndex]);
     },
     // 关闭弹窗
     closeModal(name) {
@@ -203,9 +220,7 @@ export default {
     // 编辑案例
     editCase() {
       this.operateType = 2;
-      this.paramsForm.title = this.caseList[this.caseIndex].title;
-      this.paramsForm.brand = this.caseList[this.caseIndex].brand;
-      this.paramsForm.img = this.caseList[this.caseIndex].img;
+      this.paramsForm = DeepClone(this.caseList[this.caseIndex]);
       this.openModel();
     },
     // 新增案例
@@ -227,15 +242,16 @@ export default {
         // 确认按钮文本
         okText: "确认",
         // 渲染内容
-        render: h => {
+        render: (h) => {
           return h("p", {}, "是否确认删除？");
         },
         // 确定
         onOk: () => {
           let lastIndex = this.caseList.length - 1;
-          Api.DeleteCase(this.productId, this.caseIndex)
-            .then(res => {
-              if (res.code == 200) {
+          Api.DeleteCase([this.caseList[this.caseIndex].id])
+            .then((res) => {
+              const { code, message } = res;
+              if (code == 200) {
                 // 如果删除的是最后一个案例
                 if (this.caseIndex == lastIndex) {
                   this.caseIndex--;
@@ -243,42 +259,44 @@ export default {
                 this.$Message.success("删除成功!");
                 // 重新获取案例列表
                 this.getCaseList(this.productId);
-              } else console.log(res);
+              } else this.$Message.success(message);
             })
-            .catch(err => console.log(err));
-        }
+            .catch((err) => console.log(err));
+        },
       });
     },
     // 弹窗操作
     operation(name, type) {
       // 表单验证
-      this.$refs[name].validate(valid => {
+      this.$refs[name].validate((valid) => {
         if (valid) {
           // 获取当前时间,格式化
           this.paramsForm.updateTime = FormatDate(new Date());
           // 操作
           if (type == 1) {
-            Api.AddCase(this.paramsForm, this.productId)
-              .then(res => {
-                if (res.code == 200) {
+            Api.AddCase({ ...this.paramsForm, productId: this.productId })
+              .then((res) => {
+                const { code, message } = res;
+                if (code == 200) {
                   this.closeModal(name);
                   this.$Message.success("新增成功!");
                   // 重新获取案例列表
                   this.getCaseList(this.productId);
-                } else console.log(res);
+                } else this.$Message.success(message);
               })
-              .catch(err => console.log(err));
+              .catch((err) => console.log(err));
           } else if (type == 2) {
-            Api.EditCase(this.paramsForm, this.productId, this.caseIndex)
-              .then(res => {
-                if (res.code == 200) {
+            Api.EditCase({ ...this.paramsForm, productId: this.productId })
+              .then((res) => {
+                const { code, message } = res;
+                if (code == 200) {
                   this.closeModal(name);
                   this.$Message.success("编辑成功!");
                   // 重新获取案例列表
                   this.getCaseList(this.productId);
-                } else console.log(res);
+                } else this.$Message.success(message);
               })
-              .catch(err => console.log(err));
+              .catch((err) => console.log(err));
           }
         } else this.$Message.error("提交失败！填写有误");
       });
@@ -286,8 +304,13 @@ export default {
     // 无法显示图片
     notFoundPic(event) {
       SetDefaultPic(event, 2);
-    }
-  }
+    },
+    // 或获取上传图片
+    getImgUrl(url) {
+      console.log(url);
+      this.paramsForm.img = url;
+    },
+  },
 };
 </script>
 

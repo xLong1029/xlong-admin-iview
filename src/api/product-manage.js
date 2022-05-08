@@ -81,14 +81,14 @@ export default {
     /**
      * 获取案例列表
      *
-     * @param {*} id 对象的Id
+     * @param {*} productId 父级产品id
      */
-    GetCaseList: (id) => {
+    GetCaseList: (productId) => {
         return request({
             url: `/api/case/list`,
             method: "get",
             params: {
-                id
+                productId
             },
         });
     },
@@ -123,26 +123,11 @@ export default {
    */
     DeleteCase: (ids) => {
         return request({
-            url: `/api/article/delete`,
+            url: `/api/case/delete`,
             method: "post",
             data: {
                 ids,
             },
         });
     },
-    // // 删除案例
-    // // id：查询的objectId, index: 案例数组对应索引
-    // DelCase: (id, index) => {
-    //     let query = BmobServer.GetQuery('Product');
-    //     return new Promise((resolve, reject) => {
-    //         query.get(id).then(res => {
-    //             let caseList = res.caseList ? res.caseList : [];
-    //             // 删除当前对象
-    //             caseList.splice(index, 1);
-
-    //             res.set('caseList',caseList);
-    //             res.save().then(() => resolve({ code: 200, msg: '操作成功！' })).catch(err => reject(err))
-    //         }).catch(() => resolve({ code: 404, msg: '对象不存在！' }))
-    //     });
-    // }
 }

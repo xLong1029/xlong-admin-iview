@@ -1,5 +1,5 @@
 import { handleMock, handleResponse } from "../mock-handle.js";
-import { convertToChinaNum } from "utils";
+import { ConvertToChinaNum, DeepClone } from "utils";
 import Mock from "mockjs";
 const Random = Mock.Random;
 
@@ -16,7 +16,7 @@ let section = Mock.mock({
 
 section.list.forEach((e, index) => {
   e.id = Random.guid();
-  e.title = `测试板块${convertToChinaNum(index + 1)}`;
+  e.title = `测试板块${ConvertToChinaNum(index + 1)}`;
 });
 
 let content = Mock.mock({
@@ -32,11 +32,11 @@ let content = Mock.mock({
 content.list.forEach((e, index) => {
   e.id = Random.guid();
   e.url = Random.url("http");
-  e.img = Random.image('125x125', Random.color(), '#FFF', 'jpg', `Test-${index+1}`)
+  e.img = Random.image('125x125', Random.color(), '#FFF', 'jpg', `Test-${index + 1}`)
 
   const parent = section.list[Math.floor(Math.random() * section.list.length)];
   e.sectionId = parent.id;
-  e.title = `测试内容${convertToChinaNum(index + 1)}`;
+  e.title = `测试内容${ConvertToChinaNum(index + 1)}`;
 })
 
 export default [
@@ -50,7 +50,7 @@ export default [
         const page = parseInt(pageNo);
         const size = parseInt(pageSize);
 
-        let list = JSON.parse(JSON.stringify(section.list));
+        let list = DeepClone(section.list);
 
         // 筛选
         const filters = JSON.parse(params);
@@ -147,24 +147,27 @@ export default [
         const page = parseInt(pageNo);
         const size = parseInt(pageSize);
 
-        let list = JSON.parse(JSON.stringify(content.list));
-        if(sectionId){
+        let list = DeepClone(content.list);
+        if (sectionId) {
           list = list.filter((e) => e.sectionId == sectionId);
+
+          // 深克隆
+          const filterList = JSON.parse(JSON.stringify(list));
+
+          list = list.slice((page - 1) * size, page * size);
+
+          return handleResponse(200, "success", {
+            list,
+            page: {
+              count: filterList.length,
+              page,
+              size,
+            },
+          });
         }
-
-        // 深克隆
-        const filterList = JSON.parse(JSON.stringify(list));
-
-        list = list.slice((page - 1) * size, page * size);
-
-        return handleResponse(200, "success", {
-          list,
-          page: {
-            count: filterList.length,
-            page,
-            size,
-          },
-        });
+        else {
+          return handleResponse(500, "缺少板块id");
+        }
       }),
   },
   {

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { CopyArr } from "utils";
+import { DeepClone } from "utils";
 
 export default {
   name: "filterTree",
@@ -71,7 +71,7 @@ export default {
     getFilterData(list, item) {
       if (this.originData.length) {
         // 数组深克隆，不改变源树形
-        this.filterData = this.filterCheckData(CopyArr(this.originData));
+        this.filterData = this.filterCheckData(DeepClone(this.originData));
         // console.log(this.filterData);
         this.$emit("on-change", this.filterData, item);
       }

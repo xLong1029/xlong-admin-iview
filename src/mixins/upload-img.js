@@ -39,6 +39,8 @@ export default {
     },
     // 上传按钮点击事件
     uploadClick() {
+      // 解决change事件因为有值导致第二次不触发问题
+      this.$refs.imgFile.value = "";
       // 触发上传按钮点击事件
       this.$refs.imgFile.click();
     },
@@ -112,6 +114,7 @@ export default {
 
       // 获取上传文件列表
       const fileList = this.$refs.imgFile.files;
+
       if (fileList.length > 0) {
         let fileName = fileList[0].name;
         // 将文件大小字节转成kb

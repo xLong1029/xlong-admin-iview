@@ -245,12 +245,12 @@ export function SlideDown(node, height, duration) {
 }
 
 /**
- * 数组深克隆
+ * 深克隆
  *
- * @param {*} arr 操作数组
+ * @param {*} obj 操作对象
  */
-export function CopyArr(arr) {
-  let copy = JSON.stringify(arr);
+export function DeepClone(obj) {
+  let copy = JSON.stringify(obj);
   return JSON.parse(copy);
 }
 
@@ -375,7 +375,7 @@ export function param2Obj(url) {
  * @param {string} url
  * @returns {Object}
  */
-export function convertToChinaNum(num) {
+export function ConvertToChinaNum(num) {
   var arr1 = new Array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九');
   var arr2 = new Array('', '十', '百', '千', '万', '十', '百', '千', '亿', '十', '百', '千', '万', '十', '百', '千', '亿');
 
