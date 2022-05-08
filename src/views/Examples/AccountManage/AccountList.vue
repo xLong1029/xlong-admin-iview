@@ -286,7 +286,7 @@ export default {
         },
         {
           title: "创建时间",
-          key: "createdTime",
+          key: "createTime",
           align: "center",
         },
         {

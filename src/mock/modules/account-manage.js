@@ -66,7 +66,7 @@ let account = Mock.mock({
       "enabledState|1": [1, -1],
       birthdate: null,
       // 一个 yyyy-MM-dd hh:mm:ss 的随机时间
-      createdTime: '@date("yyyy-MM-dd hh:mm:ss")',
+      createTime: '@date("yyyy-MM-dd hh:mm:ss")',
       workTime: '@date("yyyy-MM-dd")',      
       remark: "@paragraph()",
       address: null,
@@ -131,12 +131,12 @@ export default [
             switch (i) {
               case "sTime":
                 list = list.filter((e) =>
-                  CompareDate(filters[i], e.createdTime)
+                  CompareDate(filters[i], e.createTime)
                 );
                 break;
               case "eTime":
                 list = list.filter((e) =>
-                  CompareDate(e.createdTime, filters[i])
+                  CompareDate(e.createTime, filters[i])
                 );
                 break;
               default:
@@ -192,7 +192,7 @@ export default [
 
         data.sid = account.list[account.list.length - 1].sid + 1;
         data.id = Random.guid();
-        data.createdTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
+        data.createTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
 
         account.list.unshift(data);
         return handleResponse(200, "success", data.id);

@@ -8,7 +8,7 @@ let section = Mock.mock({
     {
       "sid|+1": 1,
       "type|1": [1, 2],
-      createdTime: '@date("yyyy-MM-dd hh:mm:ss")',
+      createTime: '@date("yyyy-MM-dd hh:mm:ss")',
       updateTime: null,
     },
   ],
@@ -23,7 +23,7 @@ let content = Mock.mock({
   "list|10-20": [
     {
       "sid|+1": 1,
-      createdTime: '@date("yyyy-MM-dd hh:mm:ss")',
+      createTime: '@date("yyyy-MM-dd hh:mm:ss")',
       updateTime: null,
     },
   ],
@@ -103,7 +103,7 @@ export default [
 
         data.sid = section.list[section.list.length - 1].sid + 1;
         data.id = Random.guid();
-        data.createdTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
+        data.createTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
 
         section.list.unshift(data);
         return handleResponse(200, "success", data.id);
@@ -176,7 +176,7 @@ export default [
 
         data.sid = content.list[content.list.length - 1].sid + 1;
         data.id = Random.guid();
-        data.createdTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
+        data.createTime = Mock.mock('@now("yyyy-MM-dd hh:mm:ss")');
 
         content.list.unshift(data);
         return handleResponse(200, "success", data.id);

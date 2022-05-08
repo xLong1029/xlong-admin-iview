@@ -26,7 +26,7 @@
         <!--  加载判断 -->
         <Loading v-if="pageLoading"></Loading>
         <div v-else>
-            <!-- 板块列表 -->
+            <!-- 文章列表 -->
             <Table
                 class="m-table-list"
                 border
@@ -139,7 +139,7 @@
                     },
                     {
                         title: '创建时间',
-                        key: 'createdTime',
+                        key: 'createTime',
                         align: 'center'
                     },
                     {

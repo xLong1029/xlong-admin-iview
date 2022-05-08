@@ -31,7 +31,7 @@
         <!--  加载判断 -->
         <Loading v-if="pageLoading"></Loading>
         <div v-else>
-            <!-- 板块列表 -->
+            <!-- 产品列表 -->
             <Table
                 class="m-table-list"
                 border
@@ -58,7 +58,7 @@
         <!-- 新增窗口-->
         <Modal v-model="showModal" width="500" @on-cancel="closeModal('paramsForm')">
             <p slot="header">
-                <span v-text="paramsForm.title == '' ? '新增版块' : '编辑版块'"></span>
+                <span v-text="paramsForm.title == '' ? '新增产品' : '编辑产品'"></span>
             </p>
             <div>
                 <Form ref="paramsForm" :model="paramsForm" :rules="validate" :label-width="100">
@@ -103,7 +103,7 @@
             },
             // 编辑操作接口
             apiEdit(){
-                return () => Api.EditProduct(this.paramsForm, this.editId);
+                return () => Api.EditProduct(this.paramsForm);
             },
             // 删除操作接口
             apiDelete(){
@@ -118,11 +118,10 @@
                 showModal: false,
                 // 参数表单
                 paramsForm: {
+                    id: '',
                     productName: '',
                     dataFrom: 1,
                 },
-                // 需要编辑的对象id
-                editId: '',
                 // 操作类型:1是新增, 2是编辑
                 operateType: 0,
                 // 验证规则
@@ -227,7 +226,7 @@
                 this.showModal = true;
                 this.paramsForm.productName = params.productName;
                 this.paramsForm.dataFrom = params.dataFrom;
-                this.editId = params.id;
+                this.paramsForm.id = params.id;
             },
             // 新增产品
             add(name){
@@ -236,10 +235,7 @@
                     if(valid){
                         // 操作
                         this.addData();
-                        // 延迟关闭
-                        setTimeout(() => {
-                            this.closeModal(name);
-                        }, 500);
+                        this.closeModal(name);
                     }
                     else this.$Message.error('提交失败！填写有误');
                 })

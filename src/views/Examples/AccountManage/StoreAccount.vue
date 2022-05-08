@@ -44,7 +44,7 @@
           </Col>
           <Col span="12">
             <Form-item v-if="pageType == 'edit'" label="创建时间：">
-              <span>{{ infoForm.createdTime }}</span>
+              <span>{{ infoForm.createTime }}</span>
             </Form-item>
             <Form-item label="头像：" style="margin-bottom: 16px">
               <!-- 组件-图片上传-单图片显示 -->
