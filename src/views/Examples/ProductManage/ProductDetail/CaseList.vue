@@ -53,7 +53,7 @@
     <!-- 新增窗口-->
     <Modal v-model="showModal" width="500" @on-cancel="closeModal('paramsForm')">
       <p slot="header">
-        <span v-text="paramsForm.title == '' ? '新增版块' : '编辑版块'"></span>
+        <span v-text="paramsForm.title == '' ? '新增案例' : '编辑案例'"></span>
       </p>
       <div>
         <Form ref="paramsForm" :model="paramsForm" :rules="validate" :label-width="100">
@@ -143,7 +143,7 @@ export default {
       // 验证规则
       validate: {
         title: [
-          { required: true, message: "案例名称不能为空", trigger: "blur" }
+          { required: true, message: "案例标题不能为空", trigger: "blur" }
         ]
       }
     };
