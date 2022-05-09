@@ -169,8 +169,10 @@ xlong-admin-iview 是一套基于 Vue + iView + Mock 开发的单页面客户端
 3. 访问地址：http://localhost:6060
 
 ## 项目打包
-(请将vue.config.js中publicPath改成你的项目，以下打包命令根据环境配置选用)
+按需求选择打包命令(请将vue.config.js中publicPath改成你的项目)：
+
 > npm run build:prod
+
 > npm run build:stage
 
 ## 作者联系方式
