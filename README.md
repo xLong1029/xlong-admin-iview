@@ -13,10 +13,9 @@ xlong-admin-iview 是一套基于 Vue + iView + Mock 开发的单页面客户端
 ## 迭代说明
 
 1. 因为穷，移除Bomb，改用Mock模拟请求
-2. 新增：环境配置
-3. 修改：Main界面布局，固定头部，仅内容区域滚动  
-4. 修改：很多地方文字显示有误
-5. 修复BUG：图片上传第二次change事件未触发
+2. 新增：环境配置和request请求拦截
+3. 修改：Main界面布局，固定头部，仅内容区域滚动；很多地方文字显示有误
+4. 修复BUG：图片上传第二次change事件未触发
 
 ## 项目用到技术、框架与插件
 [Vue.js](https://github.com/vuejs)  
