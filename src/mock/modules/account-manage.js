@@ -39,7 +39,7 @@ const phonePrefixs = new Array(
   "177"
 );
 const workExperience = new Array(
-  null,
+  [],
   [{ date: "2001.3.1-至今", unitAndPost: "华蓝集团", witness: "小凳子" }],
   [
     {
