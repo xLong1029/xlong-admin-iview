@@ -31,7 +31,7 @@
         <!--  加载判断 -->
         <Loading v-if="pageLoading"></Loading>
         <div v-else>
-            <!-- 板块列表 -->
+            <!-- 产品列表 -->
             <Table
                 class="m-table-list"
                 border
@@ -58,7 +58,7 @@
         <!-- 新增窗口-->
         <Modal v-model="showModal" width="500" @on-cancel="closeModal('paramsForm')">
             <p slot="header">
-                <span v-text="paramsForm.title == '' ? '新增版块' : '编辑版块'"></span>
+                <span v-text="paramsForm.title == '' ? '新增产品' : '编辑产品'"></span>
             </p>
             <div>
                 <Form ref="paramsForm" :model="paramsForm" :rules="validate" :label-width="100">

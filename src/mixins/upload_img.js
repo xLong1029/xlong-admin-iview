@@ -39,6 +39,8 @@ export default {
         },
         // 上传按钮点击事件
         uploadClick(){
+            // 解决change事件因为有值导致第二次不触发问题
+            this.$refs.imgFile.value = "";
             // 触发上传按钮点击事件
             this.$refs.imgFile.click();
         },
