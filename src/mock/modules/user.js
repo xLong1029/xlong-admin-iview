@@ -69,7 +69,7 @@ export default [
             const info = infos.find((e) => e.id === id);
             return handleResponse(200, "success", { ...info, token });
           } else {
-            return handleResponse(404, "密码错误，请重新输入");
+            return handleResponse(400, "密码错误，请重新输入");
           }
         } else {
           return handleResponse(404, "该用户不存在");
