@@ -64,7 +64,7 @@ export default [
         const user = users.find((e) => e.username == username);
 
         if (user) {
-          if (user.password === password) {
+          if (user.password == password) {
             const { token, id } = user;
             const info = infos.find((e) => e.id === id);
             return handleResponse(200, "success", { ...info, token });
