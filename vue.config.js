@@ -29,7 +29,6 @@ module.exports = {
                 'common': resolve('src/common'),
                 'components': resolve('src/components'),
                 'views': resolve('src/views'),
-                'bmob': resolve( 'src/bmob'),
                 'utils': resolve( 'src/utils'),
             }
           }
