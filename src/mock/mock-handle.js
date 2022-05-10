@@ -13,8 +13,10 @@ export const handleResponse = (code, message = null, data = null) => {
         switch (code) {
             case 200:
                 message = "请求成功";
+                break;
             case 400:
                 message = '请求无效';
+                break;
             case 401:
                 message = '用户未授权';
                 break;
@@ -26,6 +28,7 @@ export const handleResponse = (code, message = null, data = null) => {
                 break;
             case 500:
                 message = "程序内部错误";
+                break;
         }
     }
 
