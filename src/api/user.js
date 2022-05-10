@@ -60,8 +60,7 @@ export default {
   Logout: () => {
     return request({
       url: "/api/user/logout",
-      method: "post",
-      data,
+      method: "post"
     });
   },
 };
