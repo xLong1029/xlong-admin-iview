@@ -1,10 +1,11 @@
 /*
  * 模块 : 图片上传相关配置
  * 作者 : 罗永梅（381612175@qq.com）
- * 日期 : 2022-05-07
+ * 日期 : 2022-05-10
  * 版本 : version 2.0
  */
 import { SetDefaultPic } from "utils";
+import { Random } from "mockjs";
 
 export default {
   data() {
@@ -44,34 +45,6 @@ export default {
       // 触发上传按钮点击事件
       this.$refs.imgFile.click();
     },
-    // 上传至Bomb
-    uploadToBomb(file) {
-      // 设置定时器累增进度条百分比
-      let progress = setInterval(() => {
-        if (this.percentage == 90) clearInterval(progress);
-        this.percentage += 10;
-      }, 100);
-
-      return new Promise((resolve, reject) => {
-        file.save().then(
-          (res) => {
-            // 停止加载和隐藏进度
-            this.progressHide();
-            this.percentage = 100;
-            clearInterval(progress);
-
-            this.showUploadBtn = false;
-            this.$Notice.success({ title: "图片上传成功!" });
-
-            resolve(res);
-          },
-          (err) => {
-            this.errorTip(progress);
-            reject(err);
-          }
-        );
-      });
-    },
     // 上传文件（模拟）
     uploadFileDemo(file) {
       this.progressShow();
@@ -94,10 +67,10 @@ export default {
               const data = {
                 name,
                 size,
-                size,
                 type,
                 urlType: "base64",
                 url,
+                uid:Random.guid()
               };
               const res = { code: 200, data, mesaage: "上传成功" };
 
