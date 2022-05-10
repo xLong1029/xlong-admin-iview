@@ -6,7 +6,7 @@ xlong-admin-iview 是一套基于 Vue + iView + Mock 开发的单页面客户端
 
 温馨提示：  
 1. 原来使用Bmob开发的版本用的是开发版套餐（2022 年 5 月 5 日起，Bomb已对开发版应用创建时间超过 12 个月的停止免费服务），因为穷不想充值，所以不打算继续维护了。  
-2. Bmob版传送门：[develop-vite-bmob](https://github.com/xLong1029/xlong-admin-iview/tree/develop-bmob)
+2. Bmob版传送门：[develop-bmob](https://github.com/xLong1029/xlong-admin-iview/tree/develop-bmob)
 
 *该项目仅作学习参考，请勿商用
 
