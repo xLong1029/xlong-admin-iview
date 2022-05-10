@@ -1,10 +1,11 @@
 /*
  * 模块 : 图片上传相关配置
  * 作者 : 罗永梅（381612175@qq.com）
- * 日期 : 2022-05-07
+ * 日期 : 2022-05-10
  * 版本 : version 2.0
  */
 import { SetDefaultPic } from "utils";
+import { Random } from "mockjs";
 
 export default {
   data() {
@@ -66,10 +67,10 @@ export default {
               const data = {
                 name,
                 size,
-                size,
                 type,
                 urlType: "base64",
                 url,
+                uid:Random.guid()
               };
               const res = { code: 200, data, mesaage: "上传成功" };
 
