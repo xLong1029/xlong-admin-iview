@@ -55,7 +55,7 @@ xlong-admin-iview 是一套基于 Vue + iView + Mock 开发的单页面客户端
 [iView](https://github.com/iview/iview)  
 [Tinymce](https://github.com/tinymce/tinymce)  
 [vue-awesome-swiper](https://github.com/surmon-china/vue-awesome-swiper)  
-[Mock](https://github.com/nuysoft/Mock) 
+[Mock](http://mockjs.com) 
 
 ## 部分项目运行截图
 * 登录界面
